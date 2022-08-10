@@ -57,18 +57,18 @@ class MiniGameQuizActivity : AppCompatActivity() {
     }
 
     private fun choose(answer : Int) {
-        val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed({
-            if (quiz.answer == answer) {
-                Log.d("Quiz", "choose: correct")
-                openResultDialog(true)
-            } else {
-                openResultDialog(false)
+        if (quiz.answer == answer) {
+            Log.d("Quiz", "choose: correct")
+            openResultDialog(true)
+        } else {
+            binding.quizOption1Cl.isClickable = false
+            binding.quizOption2Cl.isClickable = false
+            binding.quizOption3Cl.isClickable = false
+            binding.quizOption4Cl.isClickable = false
 
-                binding.quizOption1Cl.isClickable = false
-                binding.quizOption2Cl.isClickable = false
-                binding.quizOption3Cl.isClickable = false
-                binding.quizOption4Cl.isClickable = false
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                openResultDialog(false)
 
                 binding.quizOption1Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
                 binding.quizOption2Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
@@ -76,8 +76,8 @@ class MiniGameQuizActivity : AppCompatActivity() {
                 binding.quizOption4Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
 
                 startTimer(15)
-            }
-        }, 500)
+            }, 100)
+        }
     }
 
     private fun openResultDialog(result : Boolean) {
