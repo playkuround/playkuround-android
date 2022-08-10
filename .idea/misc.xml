@@ -31,6 +31,11 @@
         <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/fragment_home.xml" value="0.4986413043478261" />
         <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/fragment_mypage.xml" value="0.4986413043478261" />
         <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/fragment_ranking.xml" value="0.4986413043478261" />
+        <entry key="app/src/main/res/layout/activity_minigame_quiz.xml" value="0.2740036231884058" />
+        <entry key="app/src/main/res/layout/activity_ranking_info.xml" value="0.2740036231884058" />
+        <entry key="app/src/main/res/layout/dialog_place_rank.xml" value="0.2740036231884058" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2740036231884058" />
+        <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.2740036231884058" />
       </map>
     </option>
   </component>
