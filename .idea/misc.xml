@@ -34,12 +34,14 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/mini_thin_stick.xml" value="0.187" />
+        <entry key="app/src/main/res/drawable/moon_first.xml" value="0.173" />
         <entry key="app/src/main/res/drawable/quiz_index.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/quiz_option.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/quiz_option_disabled.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/timer_button.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/timer_restart_button.xml" value="0.2225" />
         <entry key="app/src/main/res/drawable/timer_stop_button.xml" value="0.2225" />
+        <entry key="app/src/main/res/layout/activity_minigame_moon.xml" value="0.17336578369140626" />
         <entry key="app/src/main/res/layout/activity_minigame_quiz.xml" value="0.2740036231884058" />
         <entry key="app/src/main/res/layout/activity_minigame_timer.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_ranking_info.xml" value="0.2740036231884058" />

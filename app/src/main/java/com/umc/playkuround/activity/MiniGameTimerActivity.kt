@@ -42,7 +42,7 @@ class MiniGameTimerActivity : AppCompatActivity() {
     }
 
     private fun check(){
-        if (time>=0) {
+        if (time>=990 && time<=1010) {
             Toast.makeText(this, "맞춤", Toast.LENGTH_SHORT).show()
             openResultDialog(true)}
 
@@ -68,8 +68,8 @@ class MiniGameTimerActivity : AppCompatActivity() {
 
                     // UI조작을 위한 메서드
                     runOnUiThread {
-                        binding.timerSec.text = "$sec:"    // TextView 세팅
-                        binding.timerMilli.text = "$milli"    // Textview 세팅
+                        binding.timerSec.text = String.format("%02d:", sec)   // TextView 세팅
+                        binding.timerMilli.text = String.format("%02d", milli)    // Textview 세팅
                     }
                 }
             }

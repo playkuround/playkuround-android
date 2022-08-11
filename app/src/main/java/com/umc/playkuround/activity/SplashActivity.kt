@@ -14,7 +14,7 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val intent = Intent(this, MiniGameTimerActivity::class.java)
+        val intent = Intent(this, MiniGameMoonActivity::class.java)
         startActivity(intent)
     }
 
