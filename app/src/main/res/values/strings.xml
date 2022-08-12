@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">playkuround</string>
+    <string name="app_name">플레이쿠라운드</string>
+    <string name="ku_explore">건대 탐험</string>
+    <string name="ku_quiz">건국 퀴즈</string>
 </resources>
