@@ -1,6 +1,5 @@
 package com.umc.playkuround.activity
 
-import android.opengl.Visibility
 import android.os.*
 import android.util.Log
 import android.view.View
@@ -121,16 +120,11 @@ class MiniGameQuizActivity : AppCompatActivity() {
         val timerHandler = TimerHandler()
 
         class TimerThread : Runnable {
-            private var sec : Int = 0
-
-            constructor(sec : Int) {
-                this.sec = sec
-            }
 
             override fun run() {
                 var time = sec * 1000
                 while(time >= 0) {
-                    var msg = Message()
+                    val msg = Message()
                     msg.arg1 = time
                     timerHandler.sendMessage(msg)
 
@@ -144,7 +138,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
             }
         }
 
-        val timerThread = Thread(TimerThread(sec))
+        val timerThread = Thread(TimerThread())
         timerThread.start()
     }
 
