@@ -4,27 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/rdrni/AndroidStudioProjects/app/src/main/res/layout/activity_main.xml" value="0.2826086956521739" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_attendance.xml" value="0.4986413043478261" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_email_certify.xml" value="0.4986413043478261" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_login.xml" value="0.4986413043478261" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_major_choice.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_map.xml" value="0.4986413043478261" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_minigame_moon.xml" value="0.4170940170940171" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_minigame_quiz.xml" value="0.4986413043478261" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_minigame_timer.xml" value="0.41623931623931626" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_nickname.xml" value="0.4986413043478261" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_policy_agree.xml" value="0.4986413043478261" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_ranking_info.xml" value="0.4986413043478261" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_splash.xml" value="0.4986413043478261" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/dialog_badge_info.xml" value="0.3760245901639344" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/dialog_get_badge.xml" value="0.41623931623931626" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/dialog_place_info.xml" value="0.41623931623931626" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/dialog_place_rank.xml" value="0.4986413043478261" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/fragment_badge.xml" value="0.41623931623931626" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/fragment_home.xml" value="0.4986413043478261" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/fragment_mypage.xml" value="0.4986413043478261" />
-        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/fragment_ranking.xml" value="0.4986413043478261" />
+        <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/layout/activity_main.xml" value="0.2826086956521739" />
       </map>
     </option>
   </component>
