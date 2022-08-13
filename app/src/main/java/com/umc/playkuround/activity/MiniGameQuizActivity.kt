@@ -1,7 +1,9 @@
 package com.umc.playkuround.activity
 
-import android.os.Bundle
+import android.opengl.Visibility
+import android.os.*
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.umc.playkuround.R
@@ -14,7 +16,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
     private class Quiz (
         var question : String,
         var options : Array<String>,
-        var answer : Int
+        var answer : Int,
     )
 
     private lateinit var quiz : Quiz
@@ -57,17 +59,93 @@ class MiniGameQuizActivity : AppCompatActivity() {
     private fun choose(answer : Int) {
         if (quiz.answer == answer) {
             Log.d("Quiz", "choose: correct")
+            openResultDialog(true)
         } else {
             binding.quizOption1Cl.isClickable = false
             binding.quizOption2Cl.isClickable = false
             binding.quizOption3Cl.isClickable = false
             binding.quizOption4Cl.isClickable = false
 
-            binding.quizOption1Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
-            binding.quizOption2Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
-            binding.quizOption3Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
-            binding.quizOption4Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                openResultDialog(false)
+
+                binding.quizOption1Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
+                binding.quizOption2Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
+                binding.quizOption3Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
+                binding.quizOption4Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
+
+                startTimer(15)
+            }, 100)
         }
+    }
+
+    private fun openResultDialog(result : Boolean) {
+        if(result) {
+
+        } else {
+
+        }
+    }
+
+    private fun startTimer(sec : Int) {
+        binding.quizTimerTv.visibility = View.VISIBLE
+
+        class TimerHandler : Handler(Looper.getMainLooper()) {
+            override fun handleMessage(msg: Message) {
+                if(msg.arg1 < 0) {
+                    postDelayed({
+                        binding.quizTimerTv.visibility = View.INVISIBLE
+
+                        binding.quizOption1Cl.isClickable = true
+                        binding.quizOption2Cl.isClickable = true
+                        binding.quizOption3Cl.isClickable = true
+                        binding.quizOption4Cl.isClickable = true
+
+                        binding.quizOption1Cl.background = ContextCompat.getDrawable(applicationContext, R.drawable.quiz_option)
+                        binding.quizOption2Cl.background = ContextCompat.getDrawable(applicationContext, R.drawable.quiz_option)
+                        binding.quizOption3Cl.background = ContextCompat.getDrawable(applicationContext, R.drawable.quiz_option)
+                        binding.quizOption4Cl.background = ContextCompat.getDrawable(applicationContext, R.drawable.quiz_option)
+                    }, 500)
+                    return
+                }
+
+                val s : Int = msg.arg1 / 1000
+                val ms : Int = (msg.arg1 % 1000) / 10
+
+                val result : String = String.format("%02d:%02d", s, ms)
+                binding.quizTimerTv.text = result
+            }
+        }
+
+        val timerHandler = TimerHandler()
+
+        class TimerThread : Runnable {
+            private var sec : Int = 0
+
+            constructor(sec : Int) {
+                this.sec = sec
+            }
+
+            override fun run() {
+                var time = sec * 1000
+                while(time >= 0) {
+                    var msg = Message()
+                    msg.arg1 = time
+                    timerHandler.sendMessage(msg)
+
+                    Thread.sleep(10)
+                    time -= 10
+                }
+
+                val msg = Message()
+                msg.arg1 = -1
+                timerHandler.sendMessage(msg)
+            }
+        }
+
+        val timerThread = Thread(TimerThread(sec))
+        timerThread.start()
     }
 
 }
