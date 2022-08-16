@@ -5,4 +5,13 @@
     <string name="ku_timer">10초 맞추기</string>
     <string name="ku_moon">달 깨기</string>
     <string name="login">로그인</string>
+    <string name="greeting">안녕하세요!</string>
+    <string name="certify_email">건국대학교 이메일을 인증해주세요.</string>
+    <string name="konkuk_address">\@konkuk.ac.kr</string>
+    <string name="request_code">인증코드 요청</string>
+    <string name="go_to_konkuk_email">건국대학교 이메일 바로가기</string>
+    <string name="certify_code">인증코드</string>
+    <string name="certify">인증하기</string>
+    <string name="resend_code">인증코드 재전송하기</string>
+    <string name="warn_not_equal">입력하신 인증코드가 일치하지 않습니다.</string>
 </resources>
