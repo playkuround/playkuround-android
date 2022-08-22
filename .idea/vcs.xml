@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/../RenjuClock" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../UMC Android study/Android_C" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/RenjuClock" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/UMC Android study/Android_C" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/renjuNote" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../renjuNote" vcs="Git" />
   </component>
 </project>
