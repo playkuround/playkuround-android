@@ -3,8 +3,8 @@ package com.umc.playkuround.data
 import com.google.gson.annotations.SerializedName
 
 data class RegisterUserResponse(
-    @SerializedName(value = "isSuccess") val isSuccess : Boolean,
-    @SerializedName(value = "response") val response : Response,
+    @SerializedName(value = "isSuccess") var isSuccess : Boolean?,
+    @SerializedName(value = "response") var response : Response?
 )
 
 data class Response(
