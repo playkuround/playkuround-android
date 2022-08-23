@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.umc.playkuround.PlayKuApplication.Companion.pref
+import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.data.User
 import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityLoginBinding
@@ -30,20 +32,22 @@ class LoginActivity : AppCompatActivity() {
     private fun testing() {
         binding.loginLogoIv.setOnClickListener {
             val userService = UserService()
-            val user = User("test13@test.com", "test13", "컴퓨터공학부", null)
+            val temp = User("test17@test.com", "test17", "컴퓨터공학부", null)
             userService.setOnResponseListener(object : UserService.OnResponseListener() {
                 override fun <T> getResponseBody(body : T, isSuccess : Boolean, err : String) {
                     if(isSuccess) {
                         if(body is UserTokenResponse)
-                            user.userTokenResponse = body
-                        Log.d("retrofit", "getResponseBody: " + user.userTokenResponse?.response?.accessToken)
+                            temp.userTokenResponse = body
+                        user = temp.copy()
+                        user.save(pref)
+                        Log.d("userInfo", "onCreate: $user")
                     } else {
                         Log.d("retrofit", "getResponseBody: $err")
                         Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                     }
                 }
             })
-            userService.register(user)
+            userService.register(temp)
         }
     }
 

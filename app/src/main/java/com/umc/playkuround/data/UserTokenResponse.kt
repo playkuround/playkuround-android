@@ -8,9 +8,9 @@ data class UserTokenResponse(
 )
 
 data class Response(
-    @SerializedName(value = "grantType") val grantType : String,
-    @SerializedName(value = "accessToken") val accessToken : String,
-    @SerializedName(value = "accessTokenExpiredAt") val accessTokenExpiredAt : String,
-    @SerializedName(value = "refreshToken") val refreshToken : String,
-    @SerializedName(value = "refreshTokenExpiredAt") val refreshTokenExpiredAt : String
+    @SerializedName(value = "grantType") var grantType : String,
+    @SerializedName(value = "accessToken") var accessToken : String,
+    @SerializedName(value = "accessTokenExpiredAt") var accessTokenExpiredAt : String,
+    @SerializedName(value = "refreshToken") var refreshToken : String,
+    @SerializedName(value = "refreshTokenExpiredAt") var refreshTokenExpiredAt : String
 )
