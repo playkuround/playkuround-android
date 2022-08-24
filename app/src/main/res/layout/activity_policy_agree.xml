@@ -1,6 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_max="450dp"
+        app:layout_constraintHeight_max="900dp">
+
+        <TextView
+            android:id="@+id/agree_greeting_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/police_agree"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="32dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="91dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/agree_greeting_tv"
+            app:layout_constraintTop_toBottomOf="@+id/agree_greeting_tv"
+            android:text="@string/intro_agree"
+            android:fontFamily="@font/pretendard_medium"
+            android:textSize="19dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/agree_intro_tv"/>
+
+
+        <CheckBox
+            android:id="@+id/agree_sum_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="약관 전체 동의"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="@id/agree_intro_tv"
+            app:layout_constraintTop_toBottomOf="@id/agree_intro_tv"
+            android:layout_marginTop="70dp" />
+
+
+        <View
+            android:id="@+id/agree_dev_hr"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/light_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/agree_sum_cb"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"/>
+
+
+        //버튼1번
+
+        <CheckBox
+            android:id="@+id/agree_01_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이용약관 동의"
+            android:fontFamily="@font/pretendard_medium"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="@id/agree_sum_cb"
+            app:layout_constraintTop_toBottomOf="@id/agree_dev_hr"
+            android:layout_marginTop="10dp"/>
+
+        <ImageButton
+            android:id="@+id/agree_01_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_next"
+            android:background="@drawable/img_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/agree_01_cb"
+            app:layout_constraintBottom_toBottomOf="@id/agree_01_cb"
+            android:layout_marginEnd="18dp"
+            android:clickable="true"/>
+
+        //버튼2번
+
+        <CheckBox
+            android:id="@+id/agree_02_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개인정보 수집 및 이용 동의"
+            android:fontFamily="@font/pretendard_medium"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="@id/agree_sum_cb"
+            app:layout_constraintTop_toBottomOf="@id/agree_01_cb"/>
+
+        <ImageButton
+            android:id="@+id/agree_02_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_next"
+            android:background="@drawable/img_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/agree_02_cb"
+            app:layout_constraintBottom_toBottomOf="@id/agree_02_cb"
+            android:layout_marginEnd="18dp"
+            android:clickable="true"/>
+
+        //버튼3번
+
+        <CheckBox
+            android:id="@+id/agree_03_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="위치기반 서비스 이용약관 동의"
+            android:fontFamily="@font/pretendard_medium"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="@id/agree_sum_cb"
+            app:layout_constraintTop_toBottomOf="@id/agree_02_cb"/>
+
+        <ImageButton
+            android:id="@+id/agree_03_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_next"
+            android:background="@drawable/img_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/agree_03_cb"
+            app:layout_constraintBottom_toBottomOf="@id/agree_03_cb"
+            android:layout_marginEnd="18dp"
+            android:clickable="true"/>
+
+        //최종버튼
+
+        <Button
+            android:id="@+id/agree_next_btn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="343:50"
+            android:background="@drawable/button_green"
+            android:text="다음"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="15dp"
+            android:textColor="@color/button_green"
+            android:enabled="false"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="33dp"/>
+
+
+
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
