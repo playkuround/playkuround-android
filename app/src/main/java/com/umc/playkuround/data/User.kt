@@ -1,6 +1,7 @@
 package com.umc.playkuround.data
 
 import com.google.gson.annotations.SerializedName
+import com.umc.playkuround.PlayKuApplication
 import com.umc.playkuround.service.PreferenceUtil
 
 data class User(
@@ -44,5 +45,13 @@ data class User(
 
         val response = Response(grantType, accessToken, accessTokenExpiredAt, refreshToken, refreshTokenExpiredAt)
         this.userTokenResponse = UserTokenResponse(true, response)
+    }
+
+    fun getAccessToken() : String {
+        return (this.userTokenResponse!!.response!!.grantType + " " + this.userTokenResponse!!.response!!.accessToken)
+    }
+
+    fun getRefreshToken() : String {
+        return (this.userTokenResponse!!.response!!.grantType + " " + this.userTokenResponse!!.response!!.refreshToken)
     }
 }
