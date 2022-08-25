@@ -1,5 +1,6 @@
 package com.umc.playkuround.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -21,15 +22,23 @@ class MajorChoiceActivity : AppCompatActivity() {
         binding = ActivityMajorChoiceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.agreeNextBtn.setOnClickListener{
+            val intent = Intent(this, NicknameActivity::class.java)
+            startActivity(intent)
+        }
+
 
 
         binding.majorScSpinner.adapter = ArrayAdapter.createFromResource(this,R.array.magjor_array,android.R.layout.simple_spinner_item)
 
-        binding.majorScSpinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+        binding.majorScSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                binding.agreeNextBtn.isEnabled = true
+
                 when (position) {
                     0 -> {
                         binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.major,android.R.layout.simple_spinner_item)
+                        binding.agreeNextBtn.isEnabled = false
                     }
 
                     1 -> {
@@ -45,7 +54,7 @@ class MajorChoiceActivity : AppCompatActivity() {
                     }
 
                     4 -> {
-                            binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_engineering,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_engineering,android.R.layout.simple_spinner_item)
                     }
 
                     5 -> {
@@ -76,6 +85,17 @@ class MajorChoiceActivity : AppCompatActivity() {
                         binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_socialsciences,android.R.layout.simple_spinner_item)
                     }
 
+                    12 -> {
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_design,android.R.layout.simple_spinner_item)
+                    }
+
+                    13 -> {
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_education,android.R.layout.simple_spinner_item)
+                    }
+
+                    14 -> {
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_sanghuh,android.R.layout.simple_spinner_item)
+                    }
 
 
                 }
@@ -83,11 +103,11 @@ class MajorChoiceActivity : AppCompatActivity() {
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+                Toast.makeText(this@MajorChoiceActivity, "대학과 학과를 선택해 주세요", Toast.LENGTH_SHORT).show()
             }
 
 
-        })
+        }
 
 
 

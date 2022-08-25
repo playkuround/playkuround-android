@@ -24,17 +24,24 @@ class NicknameActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        
 
 
-        var filterAlphaNumSpace = InputFilter { source, start, end, dest, dstart, dend ->
 
-            val ps = Pattern.compile("^[ㄱ-ㅣ가-힣a-zA-Z]+$")
-            if (!ps.matcher(source).matches()) {
-                ""
-            } else source
-        }
 
-        binding.edittext.filters = arrayOf(filterAlphaNumSpace)
+
+//        var lengthFilter = InputFilter.LengthFilter(8)
+//
+//        var filterAlphaNumSpace = InputFilter { source, start, end, dest, dstart, dend ->
+//
+//            val ps = Pattern.compile("^[ㄱ-ㅣ가-힣a-zA-Z]+$")
+//            if (!ps.matcher(source).matches()) {
+//                ""
+//            } else source
+//        }
+//
+//        binding.edittext.filters = arrayOf(filterAlphaNumSpace,lengthFilter)
+
 
 
     }
