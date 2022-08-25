@@ -1,11 +1,18 @@
 package com.umc.playkuround.activity
 
+import android.R
+import android.app.appsearch.AppSearchSchema
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.InputFilter
+import android.view.View
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.databinding.ActivityNicknameBinding
 import java.util.regex.Pattern
+
 
 class NicknameActivity : AppCompatActivity() {
 
@@ -27,7 +34,7 @@ class NicknameActivity : AppCompatActivity() {
             } else source
         }
 
-        binding.nicknameGetEt.filters = arrayOf(filterAlphaNumSpace)
+        binding.edittext.filters = arrayOf(filterAlphaNumSpace)
 
 
     }

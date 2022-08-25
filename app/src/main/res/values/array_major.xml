@@ -17,6 +17,12 @@
       <item>상허교양대학</item>
   </string-array>
 
+    <string-array name="major">
+        <item> </item>
+    </string-array>
+
+
+
     <string-array name="spinner_liberal">
         <item>국어국문학과</item>
         <item>영어영문학과</item>
