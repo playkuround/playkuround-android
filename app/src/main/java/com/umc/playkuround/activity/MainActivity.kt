@@ -34,19 +34,19 @@ class MainActivity : AppCompatActivity() {
     private fun navigationSelected(item: MenuItem): Boolean {
         val checked = item.setChecked(true)
         when (checked.itemId) {
-            R.id.home_fragment-> {
+            R.id.home_fragment_nav-> {
                 binding.pager.currentItem = 0
                 return true
             }
-            R.id.badge_fragment -> {
+            R.id.badge_fragment_nav -> {
                 binding.pager.currentItem = 1
                 return true
             }
-            R.id.ranking_fragment -> {
+            R.id.ranking_fragment_nav -> {
                 binding.pager.currentItem = 2
                 return true
             }
-            R.id.mypage_fragment -> {
+            R.id.mypage_fragment_nav -> {
                 binding.pager.currentItem = 3
                 return true
             }
@@ -73,10 +73,10 @@ class MainActivity : AppCompatActivity() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
             binding.bottomNavigationView.selectedItemId = when (position) {
-                0 -> R.id.home_fragment
-                1 -> R.id.badge_fragment
-                2 -> R.id.ranking_fragment
-                3 -> R.id.mypage_fragment
+                0 -> R.id.home_fragment_nav
+                1 -> R.id.badge_fragment_nav
+                2 -> R.id.ranking_fragment_nav
+                3 -> R.id.mypage_fragment_nav
                 else -> error("no such position: $position")
             }
         }

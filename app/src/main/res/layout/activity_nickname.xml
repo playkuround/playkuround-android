@@ -53,7 +53,6 @@
 
 
 
-
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -68,12 +67,43 @@
                 android:textAlignment="textStart"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:id="@+id/edittext"
+                android:id="@+id/nickname_et"
                 android:hint="@string/nickname_input"
                 android:textColor="@color/black"
                 android:maxLength="8"/>
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/nickname_er_rule_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/nickname_get_cl"
+            app:layout_constraintTop_toBottomOf="@id/nickname_get_cl"
+            android:text="사용할 수 없는 닉네임입니다."
+            android:fontFamily="@font/pretendard_medium"
+            android:textSize="12dp"
+            android:textColor="@color/red"
+            android:textAlignment="gravity"
+            android:gravity="left"
+            android:layout_marginTop="3dp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/nickname_er_overlab_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/nickname_get_cl"
+            app:layout_constraintTop_toBottomOf="@id/nickname_get_cl"
+            android:text="중복되는 닉네임입니다."
+            android:fontFamily="@font/pretendard_medium"
+            android:textSize="12dp"
+            android:textColor="@color/red"
+            android:textAlignment="gravity"
+            android:gravity="left"
+            android:layout_marginTop="3dp"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/nickname_sub_tv"
@@ -84,7 +114,7 @@
             android:text="@string/nickname_sub"
             android:fontFamily="@font/pretendard_medium"
             android:textSize="12dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:textColor="@color/light_gray"
             android:textAlignment="gravity"
             android:gravity="left"/>

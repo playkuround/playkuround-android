@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val intent = Intent(this, MajorChoiceActivity::class.java)
+        val intent = Intent(this, NicknameActivity::class.java)
         startActivity(intent)
     }
 
