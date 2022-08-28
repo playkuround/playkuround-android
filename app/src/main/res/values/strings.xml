@@ -25,4 +25,7 @@
     <string name="resend_code">인증코드 재전송하기</string>
     <string name="warn_not_equal">입력하신 인증코드가 일치하지 않습니다.</string>
 
+    <string name="check_attendance">출석 체크</string>
+    <string name="latest_30">최근 30일</string>
+    <string name="attendance">출석하기</string>
 </resources>
