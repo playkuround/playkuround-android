@@ -44,6 +44,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.179" />
         <entry key="app/src/main/res/drawable/menu_select.xml" value="0.1575" />
         <entry key="app/src/main/res/drawable/menu_select_color.xml" value="0.1575" />
+        <entry key="app/src/main/res/drawable/spinner_theme.xml" value="0.1415" />
         <entry key="app/src/main/res/font/font.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/layout/activity_attendance.xml" value="0.11752786220871327" />
         <entry key="app/src/main/res/layout/activity_email_certify.xml" value="0.17617753623188406" />

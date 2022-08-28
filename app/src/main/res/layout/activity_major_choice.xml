@@ -58,7 +58,9 @@
             android:layout_marginTop="15dp"
             android:spinnerMode="dropdown"
             app:layout_constraintStart_toStartOf="@id/major_sc_tv"
-            app:layout_constraintTop_toBottomOf="@id/major_sc_tv" />
+            app:layout_constraintTop_toBottomOf="@id/major_sc_tv"
+            android:background="@drawable/spinner_theme"
+            android:textAlignment="textStart"/>
 
         <TextView
             android:id="@+id/major_dp_tv"
@@ -79,7 +81,9 @@
             android:layout_marginTop="15dp"
             android:spinnerMode="dropdown"
             app:layout_constraintStart_toStartOf="@id/major_dp_tv"
-            app:layout_constraintTop_toBottomOf="@id/major_dp_tv" />
+            app:layout_constraintTop_toBottomOf="@id/major_dp_tv"
+            android:background="@drawable/spinner_theme"
+            android:textAlignment="textStart"/>
 
         <Button
             android:id="@+id/agree_next_btn"

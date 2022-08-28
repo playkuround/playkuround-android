@@ -25,6 +25,10 @@ class MajorChoiceActivity : AppCompatActivity() {
         binding.agreeNextBtn.setOnClickListener{
             val intent = Intent(this, NicknameActivity::class.java)
             startActivity(intent)
+
+
+
+
         }
 
 
