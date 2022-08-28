@@ -28,12 +28,14 @@ class NicknameActivity : AppCompatActivity() {
 
         }
 
-//        binding.nicknameEndBtn.setOnClickListener{
-//            supportFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.home_cl,HomeFragment())
-//                .commit()
-//        }
+
+        binding.nicknameEndBtn.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+        }
+
 
 
     }
