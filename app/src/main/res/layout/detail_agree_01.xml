@@ -24,7 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="115dp"
-            android:layout_marginStart="16dp"/>
+            android:layout_marginStart="18dp"/>
 
         <ImageView
             android:id="@+id/agree_01_x_bt"
@@ -34,7 +34,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="65dp"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginEnd="18dp" />
 
         <ScrollView
             android:layout_width="0dp"
