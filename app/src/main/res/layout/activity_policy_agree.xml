@@ -42,12 +42,14 @@
             android:id="@+id/agree_sum_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="약관 전체 동의"
+            android:text="  약관 전체 동의"
             android:fontFamily="@font/pretendard_semi_bold"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="@id/agree_intro_tv"
             app:layout_constraintTop_toBottomOf="@id/agree_intro_tv"
-            android:layout_marginTop="70dp" />
+            android:layout_marginTop="70dp"
+            android:button="@drawable/custom_checkbox"
+            android:background="@color/transparent"/>
 
 
         <View
@@ -69,12 +71,14 @@
             android:id="@+id/agree_01_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="이용약관 동의"
+            android:text="  이용약관 동의"
             android:fontFamily="@font/pretendard_medium"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="@id/agree_sum_cb"
             app:layout_constraintTop_toBottomOf="@id/agree_dev_hr"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:button="@drawable/custom_checkbox"
+            android:background="@color/transparent"/>
 
         <ImageButton
             android:id="@+id/agree_01_btn"
@@ -94,11 +98,13 @@
             android:id="@+id/agree_02_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="개인정보 수집 및 이용 동의"
+            android:text="  개인정보 수집 및 이용 동의"
             android:fontFamily="@font/pretendard_medium"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="@id/agree_sum_cb"
-            app:layout_constraintTop_toBottomOf="@id/agree_01_cb"/>
+            app:layout_constraintTop_toBottomOf="@id/agree_01_cb"
+            android:button="@drawable/custom_checkbox"
+            android:background="@color/transparent"/>
 
         <ImageButton
             android:id="@+id/agree_02_btn"
@@ -118,11 +124,13 @@
             android:id="@+id/agree_03_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="위치기반 서비스 이용약관 동의"
+            android:text="  위치기반 서비스 이용약관 동의"
             android:fontFamily="@font/pretendard_medium"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="@id/agree_sum_cb"
-            app:layout_constraintTop_toBottomOf="@id/agree_02_cb"/>
+            app:layout_constraintTop_toBottomOf="@id/agree_02_cb"
+            android:button="@drawable/custom_checkbox"
+            android:background="@color/transparent"/>
 
         <ImageButton
             android:id="@+id/agree_03_btn"
