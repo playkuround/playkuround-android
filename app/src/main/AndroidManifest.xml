@@ -43,6 +43,7 @@
         <activity android:name=".activity.MiniGameTimerActivity"/>
         <activity android:name=".activity.RankingInfoActivity"/>
         <activity android:name=".activity.MajorChoiceActivity"/>
+        <activity android:name=".activity.DetailAgree01Activity"/>
 
     </application>
 

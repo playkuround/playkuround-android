@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityPolicyAgreeBinding
-import com.umc.playkuround.databinding.Agree01Binding
 
 class PolicyAgreeActivity : AppCompatActivity() {
 
@@ -38,10 +37,11 @@ class PolicyAgreeActivity : AppCompatActivity() {
         }
 
         //자세히 보기 xml
-//        binding.agree01Btn.setOnClickListener {
-//            val intent = Intent(this, Agree01Binding::class.java)
-//            startActivity(intent)
-//        }
+        binding.agree01Btn.setOnClickListener {
+            val intent = Intent(this, DetailAgree01Activity::class.java)
+            startActivity(intent)
+        }
+
 //        binding.agree02Btn.setOnClickListener {
 //            val intent = Intent(this, Agree01Binding::class.java)
 //            startActivity(intent)
