@@ -4,7 +4,13 @@
     package="com.umc.playkuround"
     android:installLocation="preferExternal">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- usesCleartextTraffic allow http communication -->
+    
     <application
+        android:name=".PlayKuApplication"
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
