@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/home_cl"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_max="450dp"
+        app:layout_constraintHeight_max="900dp">
+
+        <TextView
+            android:id="@+id/home_sub_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_sub_title"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="28dp"
+            android:textAlignment="gravity"
+            android:gravity="left"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="83dp"
+            android:layout_marginStart="30dp"/>
+
+        <TextView
+            android:id="@+id/home_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_title"
+            android:fontFamily="@font/pretendard_bold"
+            android:textSize="28dp"
+            android:textAlignment="gravity"
+            android:gravity="left"
+            app:layout_constraintTop_toBottomOf="@id/home_sub_title_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="30dp"/>
+
+            <ImageView
+                android:id="@+id/home_check_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="229dp"
+                android:src="@drawable/home_check"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/home_title_tv"
+                android:layout_marginTop="24dp"
+                android:scaleType="fitXY"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="85dp"
+                android:src="@drawable/home_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/home_check_bg"
+                android:scaleType="fitXY"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

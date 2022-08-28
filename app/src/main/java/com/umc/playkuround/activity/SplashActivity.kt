@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.databinding.ActivitySplashBinding
+import com.umc.playkuround.fragment.HomeFragment
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -17,6 +18,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val intent = Intent(this, LoginActivity::class.java)
+
         startActivity(intent)
         finish()
     }
