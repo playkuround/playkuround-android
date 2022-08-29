@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="@string/home_sub_title"
             android:fontFamily="@font/pretendard_semi_bold"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textAlignment="gravity"
             android:gravity="left"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,36 +36,136 @@
             android:layout_height="wrap_content"
             android:text="@string/home_title"
             android:fontFamily="@font/pretendard_bold"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:textAlignment="gravity"
             android:gravity="left"
             app:layout_constraintTop_toBottomOf="@id/home_sub_title_tv"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="30dp"/>
 
-            <ImageView
-                android:id="@+id/home_check_bg"
-                android:layout_width="wrap_content"
-                android:layout_height="229dp"
-                android:src="@drawable/home_check"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_title_tv"
-                android:layout_marginTop="24dp"
-                android:scaleType="fitXY"
-                android:paddingStart="30dp"
-                android:paddingEnd="30dp"/>
+<!--        출석체크부분-->
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="85dp"
-                android:src="@drawable/home_black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/home_check_bg"
-                android:scaleType="fitXY"
-                android:paddingStart="30dp"
-                android:paddingEnd="30dp" />
+        <ImageView
+            android:id="@+id/home_check_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="343:229"
+            android:src="@drawable/home_check"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_title_tv"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"/>
+
+        <ImageView
+            android:id="@+id/home_check_black_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="343:85"
+            android:src="@drawable/home_black"
+            app:layout_constraintStart_toStartOf="@id/home_check_bg"
+            app:layout_constraintEnd_toEndOf="@id/home_check_bg"
+            app:layout_constraintBottom_toBottomOf="@id/home_check_bg" />
+
+        <TextView
+            android:id="@+id/home_check_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_check"
+            android:textSize="19dp"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/home_check_black_bg"
+            app:layout_constraintTop_toTopOf="@id/home_check_black_bg"
+            android:layout_marginTop="19dp"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:id="@+id/home_check_title_sub_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_sub_check"
+            android:textSize="13dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/home_check_title_tv"
+            app:layout_constraintTop_toBottomOf="@id/home_check_title_tv"
+            android:layout_marginTop="5dp" />
+
+        <ImageView
+            android:id="@+id/home_check_next_bt"
+            android:layout_width="35dp"
+            android:layout_height="10dp"
+            android:src="@drawable/home_next"
+            app:layout_constraintTop_toTopOf="@id/home_check_black_bg"
+            app:layout_constraintBottom_toBottomOf="@id/home_check_black_bg"
+            app:layout_constraintEnd_toEndOf="@id/home_check_black_bg"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"/>
+
+        <!--건대 탐험-->
+
+        <ImageView
+            android:id="@+id/home_adventure_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="343:229"
+            android:src="@drawable/home_adventure"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_check_bg"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"/>
+
+        <ImageView
+            android:id="@+id/home_adventure_black_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="343:85"
+            android:src="@drawable/home_black"
+            app:layout_constraintStart_toStartOf="@id/home_adventure_bg"
+            app:layout_constraintEnd_toEndOf="@id/home_adventure_bg"
+            app:layout_constraintBottom_toBottomOf="@id/home_adventure_bg" />
+
+        <TextView
+            android:id="@+id/home_adventuer_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_adventure"
+            android:textSize="19dp"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/home_adventure_black_bg"
+            app:layout_constraintTop_toTopOf="@id/home_adventure_black_bg"
+            android:layout_marginTop="19dp"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:id="@+id/home_adventuer_sub_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_sub_adventure"
+            android:textSize="13dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/home_adventuer_title_tv"
+            app:layout_constraintTop_toBottomOf="@id/home_adventuer_title_tv"
+            android:layout_marginTop="5dp" />
+
+        <ImageView
+            android:id="@+id/home_aventure_next_bt"
+            android:layout_width="35dp"
+            android:layout_height="10dp"
+            android:src="@drawable/home_next"
+            app:layout_constraintTop_toTopOf="@id/home_adventure_black_bg"
+            app:layout_constraintBottom_toBottomOf="@id/home_adventure_black_bg"
+            app:layout_constraintEnd_toEndOf="@id/home_adventure_black_bg"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"/>
+
+
 
 
 

@@ -1,5 +1,6 @@
 package com.umc.playkuround.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -7,6 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.umc.playkuround.R
+import com.umc.playkuround.activity.AttendanceActivity
+import com.umc.playkuround.activity.MainActivity
+import com.umc.playkuround.activity.MajorChoiceActivity
+import com.umc.playkuround.activity.MapActivity
 import com.umc.playkuround.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -20,8 +25,23 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        binding.homeCheckNextBt.setOnClickListener {
+            val intent = Intent(context, AttendanceActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.homeAventureNextBt.setOnClickListener {
+            val intent = Intent(context, MapActivity::class.java)
+            startActivity(intent)
+        }
+
         return binding.root
+
+
+
     }
+
+
 
 
 
