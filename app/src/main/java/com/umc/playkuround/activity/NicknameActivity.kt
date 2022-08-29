@@ -59,8 +59,6 @@ class NicknameActivity : AppCompatActivity() {
             binding.nicknameGetCl.background = ContextCompat.getDrawable(this, R.drawable.edit_text_wrong)
             binding.nicknameErRuleTv.visibility = View.VISIBLE
             binding.nicknameEndBtn.isEnabled = false
-
-
         }
     }
 

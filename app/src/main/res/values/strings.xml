@@ -33,5 +33,8 @@
     <string name="agree_sub_01">플레이쿠라운드 서비스 이용약관</string>
     <string name="rank_info">출석 체크 : 1점\n\n탐험 1개 완료 : 5점\n\n추가 탐험(모든 탐험 완료 후) : 1점</string>
 
+    <string name="check_attendance">출석 체크</string>
+    <string name="latest_30">최근 30일</string>
+    <string name="attendance">출석하기</string>
 
 </resources>
