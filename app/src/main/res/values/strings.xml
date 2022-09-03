@@ -37,4 +37,9 @@
     <string name="latest_30">최근 30일</string>
     <string name="attendance">출석하기</string>
 
+    <string name="ranking">랭킹</string>
+    <string name="ranking_index">순위</string>
+    <string name="ranking_nickname">닉네임</string>
+    <string name="ranking_score">점수</string>
+    <string name="ranking_me">나</string>
 </resources>
