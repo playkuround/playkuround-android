@@ -25,12 +25,12 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        binding.homeCheckNextBt.setOnClickListener {
+        binding.homeCheckBlackBg.setOnClickListener {
             val intent = Intent(context, AttendanceActivity::class.java)
             startActivity(intent)
         }
 
-        binding.homeAventureNextBt.setOnClickListener {
+        binding.homeAdventureBlackBg.setOnClickListener {
             val intent = Intent(context, MapActivity::class.java)
             startActivity(intent)
         }
