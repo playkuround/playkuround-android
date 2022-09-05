@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -35,24 +36,21 @@
                 android:layout_marginTop="65dp"
                 android:layout_marginStart="18dp"/>
 
-            <LinearLayout
-                android:id="@+id/badge_attendance_ll"
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="@id/badge_attendance_tv"
-                app:layout_constraintTop_toBottomOf="@id/badge_attendance_tv"
-                android:layout_marginEnd="18dp"
-                android:layout_marginTop="20dp">
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/badge_attendance_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:listitem="@layout/list_item_badge_attendance"
+                    android:layout_gravity="center"
+                    app:layout_constraintTop_toBottomOf="@id/badge_attendance_tv"
+                    app:layout_constraintStart_toStartOf="@id/badge_attendance_tv"
+                    app:layout_constraintEnd_toEndOf="parent">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-            </LinearLayout>
 
 
 <!--        <TextView-->
