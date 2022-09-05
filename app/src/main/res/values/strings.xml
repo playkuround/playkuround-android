@@ -42,4 +42,8 @@
     <string name="ranking_nickname">닉네임</string>
     <string name="ranking_score">점수</string>
     <string name="ranking_me">나</string>
+
+    <string name="badge_attendance">출석뱃지</string>
+    <string name="badge_adventure">탐험뱃지</string>
+
 </resources>
