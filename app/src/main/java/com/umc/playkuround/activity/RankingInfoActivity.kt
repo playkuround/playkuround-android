@@ -15,8 +15,7 @@ class RankingInfoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.rankingXBt.setOnClickListener {
-            val intent = Intent(this, PolicyAgreeActivity::class.java)
-            startActivity(intent)
+            this.finish()
         }
     }
 
