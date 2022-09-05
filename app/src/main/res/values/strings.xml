@@ -45,5 +45,7 @@
 
     <string name="badge_attendance">출석뱃지</string>
     <string name="badge_adventure">탐험뱃지</string>
+    
+    <string name="quiz_again_text">15초 후에 다시 시도해주세요.</string>
 
 </resources>
