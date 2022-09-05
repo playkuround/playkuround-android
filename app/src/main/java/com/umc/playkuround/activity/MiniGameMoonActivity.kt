@@ -26,5 +26,9 @@ class MiniGameMoonActivity : AppCompatActivity() {
 
             }
         }
+
+        binding.timerBackBtn.setOnClickListener {
+            this.finish()
+        }
     }
 }

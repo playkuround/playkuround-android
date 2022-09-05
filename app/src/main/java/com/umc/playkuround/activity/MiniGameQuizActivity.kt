@@ -25,6 +25,10 @@ class MiniGameQuizActivity : AppCompatActivity() {
         binding = ActivityMinigameQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.quizBackBtn.setOnClickListener {
+            this.finish()
+        }
+
         quiz = getQuiz()
         initQuizView()
     }
