@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="340dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/badge_dialog_bg">
+
+    <ImageView
+        android:layout_width="94dp"
+        android:layout_height="94dp"
+        android:src="@drawable/badge_locked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
+        android:id="@+id/dialog_badge_iv"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_badge_iv"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/pretendard_semi_bold"
+        android:text="닐 암스트롱"
+        android:textSize="25dp"
+        android:id="@+id/dialog_badge_title_tv"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_badge_title_tv"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="건국대학교 안에 모든 문을 정복하셨군요!"
+        android:textSize="16dp"
+        android:textAlignment="textStart"
+        android:id="@+id/dialog_badge_description_tv"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
