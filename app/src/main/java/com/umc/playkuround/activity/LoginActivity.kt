@@ -1,17 +1,19 @@
 package com.umc.playkuround.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.PlayKuApplication.Companion.pref
 import com.umc.playkuround.PlayKuApplication.Companion.user
-import com.umc.playkuround.data.DuplicateResponse
+import com.umc.playkuround.R
 import com.umc.playkuround.data.RefreshTokenResponse
-import com.umc.playkuround.data.User
-import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityLoginBinding
+import com.umc.playkuround.dialog.BadgeInfoDialog
 import com.umc.playkuround.service.UserService
 
 class LoginActivity : AppCompatActivity() {
@@ -28,7 +30,23 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        testing()
+        binding.loginLogoIv.setOnClickListener {
+            onSlideUpDialog()
+        }
+
+        //testing()
+    }
+
+    private fun onSlideUpDialog() {
+        var contentView: View = (getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
+            R.layout.dialog_badge_info, null)
+        val slideupPopup = BadgeInfoDialog.Builder(this)
+            .setContentView(contentView)
+            .create()
+        slideupPopup.show()
+        slideupPopup.backgroundView?.setOnClickListener {
+            slideupPopup.dismissAnim()
+        }
     }
 
     private fun testing() {
