@@ -40,4 +40,20 @@
     <string name="badge_attendance">출석뱃지</string>
     <string name="badge_adventure">탐험뱃지</string>
 
+    <string name="mypage_setting">설정</string>
+    <string name="mypage_service">이용 안내</string>
+    <string name="mypage_arram_setting">알람 설정</string>
+    <string name="mypage_darkmode">다크 모드</string>
+    <string name="mypage_see_advertisement">광고보고 개발자 응원하기</string>
+    <string name="mypage_instar">플레이쿠라운드 인스타그램</string>
+    <string name="mypage_secession">탈퇴하기</string>
+    <string name="mypage_app_version">앱 버전</string>
+    <string name="mypage_notice">공지사항</string>
+    <string name="mypage_privacy">개인정보 처리 방침</string>
+    <string name="mypage_terms_of_service">이용약관</string>
+    <string name="mypage_feedback">피드백 보내기</string>
+
+
+
+
 </resources>
