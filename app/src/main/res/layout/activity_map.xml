@@ -24,8 +24,8 @@
             android:id="@+id/timer_tab_bar">
 
             <ImageButton
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="13dp"
+                android:layout_height="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:background="?attr/selectableItemBackground"

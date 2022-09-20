@@ -25,6 +25,10 @@ class MiniGameQuizActivity : AppCompatActivity() {
         binding = ActivityMinigameQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.quizBackBtn.setOnClickListener {
+            this.finish()
+        }
+
         quiz = getQuiz()
         initQuizView()
     }
@@ -89,12 +93,14 @@ class MiniGameQuizActivity : AppCompatActivity() {
 
     private fun startTimer(sec : Int) {
         binding.quizTimerTv.visibility = View.VISIBLE
+        binding.quizTryAgainTv.visibility = View.VISIBLE
 
         class TimerHandler : Handler(Looper.getMainLooper()) {
             override fun handleMessage(msg: Message) {
                 if(msg.arg1 < 0) {
                     postDelayed({
                         binding.quizTimerTv.visibility = View.INVISIBLE
+                        binding.quizTryAgainTv.visibility = View.INVISIBLE
 
                         binding.quizOption1Cl.isClickable = true
                         binding.quizOption2Cl.isClickable = true
@@ -112,7 +118,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
                 val s : Int = msg.arg1 / 1000
                 val ms : Int = (msg.arg1 % 1000) / 10
 
-                val result : String = String.format("%02d:%02d", s, ms)
+                val result : String = String.format("%02d.%02d", s, ms)
                 binding.quizTimerTv.text = result
             }
         }

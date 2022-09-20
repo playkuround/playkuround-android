@@ -35,7 +35,9 @@ class MiniGameTimerActivity : AppCompatActivity() {
         binding.timerRestartBt.setOnClickListener {
             reset()
         }
-
+        binding.timerBackBtn.setOnClickListener {
+            this.finish()
+        }
     }
 
     private fun check() {

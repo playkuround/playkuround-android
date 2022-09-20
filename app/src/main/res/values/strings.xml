@@ -53,7 +53,15 @@
     <string name="mypage_terms_of_service">이용약관</string>
     <string name="mypage_feedback">피드백 보내기</string>
 
+    <string name="ranking">랭킹</string>
+    <string name="ranking_index">순위</string>
+    <string name="ranking_nickname">닉네임</string>
+    <string name="ranking_score">점수</string>
+    <string name="ranking_me">나</string>
 
-
+    <string name="badge_attendance">출석뱃지</string>
+    <string name="badge_adventure">탐험뱃지</string>
+    
+    <string name="quiz_again_text">15초 후에 다시 시도해주세요.</string>
 
 </resources>
