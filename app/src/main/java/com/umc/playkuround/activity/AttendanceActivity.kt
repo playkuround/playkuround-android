@@ -22,7 +22,7 @@ class AttendanceActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityAttendanceBinding
 
-    private var width = 0
+    private var width = 0 // attendance container width
 
     lateinit var today : String
     lateinit var todayTv : TextView
@@ -76,26 +76,11 @@ class AttendanceActivity : AppCompatActivity() {
     }
 
     private fun screenWidth() : Int {
-        if(this.width != 0)
-            return this.width
-        val wm = applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val windowMetrics = wm.currentWindowMetrics
-            val insets = windowMetrics.windowInsets
-                .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
-            windowMetrics.bounds.width() - insets.left - insets.right
-        } else {
-            val displayMetrics = DisplayMetrics()
-            wm.defaultDisplay.getMetrics(displayMetrics)
-            displayMetrics.widthPixels
-        }
+        return resources.displayMetrics.widthPixels
     }
 
     private fun toPX(dp : Int) : Int {
-        val displayMetrics = DisplayMetrics()
-        this.windowManager.defaultDisplay.getMetrics(displayMetrics)
-        val density = displayMetrics.density.toInt()
-        return dp * density
+        return (dp * resources.displayMetrics.density).toInt()
     }
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
