@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/badge_dialog_bg">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_max="450dp"
+        app:layout_constraintHeight_max="900dp">
+
+
+        <ImageView
+            android:id="@+id/dialog_get_badge_x_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/agree_x"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="65dp"
+            android:layout_marginEnd="18dp" />
+
+        <TextView
+            android:id="@+id/dialog_get_badge_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_get_badge_rank"
+            android:textSize="29dp"
+            android:fontFamily="@font/pretendard_semi_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="115dp"
+            android:layout_marginStart="18dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
