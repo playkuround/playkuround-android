@@ -62,7 +62,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/major_sc_tv"
             android:background="@drawable/spinner_theme"
-            android:textAlignment="textStart"/>
+            android:textAlignment="textStart"
+            android:overlapAnchor="false"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/major_dp_tv"
@@ -86,7 +88,8 @@
             app:layout_constraintStart_toStartOf="@id/major_dp_tv"
             app:layout_constraintTop_toBottomOf="@id/major_dp_tv"
             android:background="@drawable/spinner_theme"
-            android:textAlignment="textStart"/>
+            android:textAlignment="textStart"
+            android:overlapAnchor="false"/>
 
         <Button
             android:id="@+id/agree_next_btn"
