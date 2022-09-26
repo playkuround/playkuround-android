@@ -127,3 +127,18 @@ class MajorChoiceActivity : AppCompatActivity() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
