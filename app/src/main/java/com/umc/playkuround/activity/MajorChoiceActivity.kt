@@ -1,12 +1,10 @@
 package com.umc.playkuround.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityMajorChoiceBinding
@@ -26,18 +24,15 @@ class MajorChoiceActivity : AppCompatActivity() {
             val intent = Intent(this, NicknameActivity::class.java)
             startActivity(intent)
 
-
-
-
         }
 
+        binding.majorScSpinner.adapter = ArrayAdapter.createFromResource(this,R.array.magjor_array,android.R.layout.simple_spinner_dropdown_item)
 
-
-        binding.majorScSpinner.adapter = ArrayAdapter.createFromResource(this,R.array.magjor_array,android.R.layout.simple_spinner_item)
 
         binding.majorScSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 binding.agreeNextBtn.isEnabled = true
+
 
                 when (position) {
                     0 -> {
@@ -122,6 +117,22 @@ class MajorChoiceActivity : AppCompatActivity() {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
