@@ -49,7 +49,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
     private fun startGameActivity(idx : Int) {
         binding.mapClickBtn.setOnClickListener {
-            val intent : Intent = when (idx) {
+            /*val intent : Intent = when (idx) {
                 0 -> {
                     Intent(this, MiniGameQuizActivity::class.java)
                 }
@@ -62,7 +62,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                 else -> {
                     Intent(this, MiniGameTimerActivity::class.java)
                 }
-            }
+            }*/
+            val intent = Intent(this, DialogPlaceRankActivity::class.java)
             startActivity(intent)
         }
     }

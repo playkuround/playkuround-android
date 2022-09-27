@@ -206,7 +206,6 @@ android:background="@drawable/badge_dialog_bg">
             android:layout_weight="1">
 
             <TextView
-                android:id="@id/dialog_get_badge_tabbar2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
@@ -284,9 +283,6 @@ android:background="@drawable/badge_dialog_bg">
             android:id="@+id/ranking_my_score_tv"/>
 
     </LinearLayout>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
