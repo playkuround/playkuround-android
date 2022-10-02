@@ -9,27 +9,29 @@ import android.graphics.drawable.BitmapDrawable
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.location.LocationRequest
 import android.os.Bundle
+import android.os.Looper
 import android.telephony.CarrierConfigManager
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.location.*
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
+import com.google.android.gms.tasks.Task
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityMapBinding
 import kotlin.random.Random
 
 
-class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener, LocationListener {
+class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     lateinit var binding : ActivityMapBinding
     private lateinit var map : GoogleMap
+    private lateinit var locationCallback : LocationCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +42,20 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             finish()
         }
 
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(p0: LocationResult) {
+                val nowLocation = LatLng(p0.lastLocation!!.latitude, p0.lastLocation!!.longitude)
+                Log.d("gps", "onLocationChanged: ${p0.lastLocation!!.latitude} , ${p0.lastLocation!!.longitude}")
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation, 18f))
+            }
+        }
+
         startGameActivity(getGames())
 
         val mapFragment = supportFragmentManager
-            .findFragmentById(com.umc.playkuround.R.id.map_map_fragment) as SupportMapFragment?
+            .findFragmentById(R.id.map_map_fragment) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
+        MapsInitializer.initialize(this)
     }
 
     private fun startGameActivity(idx : Int) {
@@ -128,59 +139,33 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
     override fun onResume() {
         Log.d("gps", "onResume: start resume")
-        val locationManager : LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val client = FusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+            ) != PackageManager.PERMISSION_GRANTED
         ) {
-            Log.d("gps", "onResume: start gps")
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 10f, this)
+            client.requestLocationUpdates(createLocationRequest(), locationCallback, Looper.getMainLooper())
         }
         super.onResume()
     }
 
-    /*private fun getNowLocation() : Pair<Double, Double> {
-        val locationManager : LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-        var location : Location? = if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 10f, this)
-            locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        } else {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), 0
-            )
-            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 10f, this)
-            locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+    private fun createLocationRequest() : com.google.android.gms.location.LocationRequest {
+        val locationRequest = com.google.android.gms.location.LocationRequest.create().apply {
+            interval = 0
+            fastestInterval = 0
+            priority = Priority.PRIORITY_HIGH_ACCURACY
         }
 
-        return if(location != null) {
-            val lat = location.latitude
-            val lng = location.longitude
-            Pair(lat, lng)
-        } else
-            Pair(37.5399272, 127.0730058)
-    }*/
+        return locationRequest
+    }
 
     override fun onMarkerClick(p0: Marker): Boolean {
         p0.showInfoWindow()
         return true
-    }
-
-    override fun onLocationChanged(p0: Location) {
-        val nowLocation = LatLng(p0.latitude, p0.longitude)
-        Log.d("gps", "onLocationChanged: ${p0.latitude} , ${p0.longitude}")
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation, 18f))
     }
 
 }
