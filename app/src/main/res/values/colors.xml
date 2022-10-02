@@ -16,4 +16,5 @@
     <color name="edit_text_gray">#F5F5F5</color>
     <color name="red">#EA333F</color>
     <color name="horize_gray">#D9D9D9</color>
+    <color name="black_50">#80000000</color>
 </resources>

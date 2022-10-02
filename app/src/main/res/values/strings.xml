@@ -64,4 +64,7 @@
     <string name="dialog_get_badge_visit">가장 많이 방문한 사람은</string>
     <string name="dialog_place_info_conquest">정복!</string>
 
+    <string name="quiz_correct_dialog">정답입니다!</string>
+    <string name="quiz_wrong_dialog">오답입니다.\n다시 시도해보세요!</string>
+
 </resources>
