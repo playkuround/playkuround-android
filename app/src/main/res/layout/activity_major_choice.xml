@@ -94,7 +94,9 @@
             app:layout_constraintTop_toBottomOf="@id/major_dp_tv"
             android:background="@drawable/spinner_theme"
             android:textAlignment="textStart"
-            android:overlapAnchor="false" />
+            android:overlapAnchor="false"
+            android:popupBackground="@drawable/background_dropdown_spinner"
+            android:dropDownVerticalOffset="30dp"/>
 
         <Button
             android:id="@+id/agree_next_btn"

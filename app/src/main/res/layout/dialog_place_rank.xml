@@ -247,6 +247,220 @@ android:background="@drawable/badge_dialog_bg">
         android:background="@color/lighter_gray"/>
 
     <LinearLayout
+        android:id="@+id/dialog_get_badge_my_bar2"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        app:layout_constraintTop_toBottomOf="@id/dialog_get_badge_my_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="1"
+                android:fontFamily="@font/pretendard_semi_bold"
+                android:textSize="16dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/dialog_get_badge_rank_name2_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="건덕이"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/dialog_get_rank_score2_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="841"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_get_badge_tabbar2"
+        app:layout_constraintEnd_toEndOf="@id/dialog_get_badge_tabbar2"
+        app:layout_constraintTop_toBottomOf="@id/dialog_get_badge_my_bar2"
+        android:background="@color/lighter_gray"/>
+
+    <LinearLayout
+        android:id="@+id/dialog_get_badge_my_bar3"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        app:layout_constraintTop_toBottomOf="@id/dialog_get_badge_my_bar2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="1"
+                android:fontFamily="@font/pretendard_semi_bold"
+                android:textSize="16dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/dialog_get_badge_rank_name3_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="건덕이"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/dialog_get_rank_score3_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="841"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_get_badge_tabbar2"
+        app:layout_constraintEnd_toEndOf="@id/dialog_get_badge_tabbar2"
+        app:layout_constraintTop_toBottomOf="@id/dialog_get_badge_my_bar3"
+        android:background="@color/lighter_gray"/>
+
+    <LinearLayout
+        android:id="@+id/dialog_get_badge_my_bar4"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        app:layout_constraintTop_toBottomOf="@id/dialog_get_badge_my_bar3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="1"
+                android:fontFamily="@font/pretendard_semi_bold"
+                android:textSize="16dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/dialog_get_badge_rank_name4_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="건덕이"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/dialog_get_rank_score4_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="841"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_get_badge_tabbar2"
+        app:layout_constraintEnd_toEndOf="@id/dialog_get_badge_tabbar2"
+        app:layout_constraintTop_toBottomOf="@id/dialog_get_badge_my_bar4"
+        android:background="@color/lighter_gray"/>
+
+    <LinearLayout
+        android:id="@+id/dialog_get_badge_my_bar5"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        app:layout_constraintTop_toBottomOf="@id/dialog_get_badge_my_bar4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="1"
+                android:fontFamily="@font/pretendard_semi_bold"
+                android:textSize="16dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/dialog_get_badge_rank_name5_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="건덕이"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/dialog_get_rank_score5_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="841"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
         android:id="@+id/dialog_get_rank_score_my_bar"
         android:layout_width="match_parent"
         android:layout_height="36dp"
@@ -283,6 +497,14 @@ android:background="@drawable/badge_dialog_bg">
             android:id="@+id/ranking_my_score_tv"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_get_badge_tabbar2"
+        app:layout_constraintEnd_toEndOf="@id/dialog_get_badge_tabbar2"
+        app:layout_constraintTop_toBottomOf="@id/dialog_get_badge_my_bar5"
+        android:background="@color/lighter_gray"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

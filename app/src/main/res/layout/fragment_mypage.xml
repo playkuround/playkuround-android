@@ -99,15 +99,6 @@
                     android:textAlignment="gravity"
                     android:gravity="left"/>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="@color/horize_gray"
-                    app:layout_constraintStart_toStartOf="@id/mypage_information_cl"
-                    app:layout_constraintEnd_toEndOf="@id/mypage_information_cl"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_arram_setting_tv"
-                    app:layout_constraintBottom_toTopOf="@id/mypage_darkmode_tv"/>
-
                 <TextView
                     android:id="@+id/mypage_darkmode_tv"
                     android:layout_width="0dp"
@@ -123,14 +114,7 @@
                     android:textAlignment="gravity"
                     android:gravity="left"/>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="@color/horize_gray"
-                    app:layout_constraintStart_toStartOf="@id/mypage_information_cl"
-                    app:layout_constraintEnd_toEndOf="@id/mypage_information_cl"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_darkmode_tv"
-                    app:layout_constraintBottom_toTopOf="@id/mypage_see_advertisement_tv"/>
+
 
                 <TextView
                     android:id="@+id/mypage_see_advertisement_tv"
@@ -147,14 +131,7 @@
                     android:textAlignment="gravity"
                     android:gravity="left"/>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="@color/horize_gray"
-                    app:layout_constraintStart_toStartOf="@id/mypage_information_cl"
-                    app:layout_constraintEnd_toEndOf="@id/mypage_information_cl"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_see_advertisement_tv"
-                    app:layout_constraintBottom_toTopOf="@id/mypage_instar_tv"/>
+
 
                 <TextView
                     android:id="@+id/mypage_instar_tv"
@@ -171,14 +148,7 @@
                     android:textAlignment="gravity"
                     android:gravity="left"/>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="@color/horize_gray"
-                    app:layout_constraintStart_toStartOf="@id/mypage_information_cl"
-                    app:layout_constraintEnd_toEndOf="@id/mypage_information_cl"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_instar_tv"
-                    app:layout_constraintBottom_toTopOf="@id/mypage_secession_tv"/>
+
 
                 <TextView
                     android:id="@+id/mypage_secession_tv"
@@ -222,14 +192,7 @@
                     android:textAlignment="gravity"
                     android:gravity="left"/>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="@color/horize_gray"
-                    app:layout_constraintStart_toStartOf="@id/mypage_information_cl"
-                    app:layout_constraintEnd_toEndOf="@id/mypage_information_cl"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_app_version_tv"
-                    app:layout_constraintBottom_toTopOf="@id/mypage_notice_tv"/>
+
 
                 <TextView
                     android:id="@+id/mypage_notice_tv"
@@ -246,14 +209,7 @@
                     android:textAlignment="gravity"
                     android:gravity="left"/>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="@color/horize_gray"
-                    app:layout_constraintStart_toStartOf="@id/mypage_information_cl"
-                    app:layout_constraintEnd_toEndOf="@id/mypage_information_cl"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_notice_tv"
-                    app:layout_constraintBottom_toTopOf="@id/mypage_privacy_tv"/>
+
 
                 <TextView
                     android:id="@+id/mypage_privacy_tv"
@@ -270,14 +226,7 @@
                     android:textAlignment="gravity"
                     android:gravity="left"/>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="@color/horize_gray"
-                    app:layout_constraintStart_toStartOf="@id/mypage_information_cl"
-                    app:layout_constraintEnd_toEndOf="@id/mypage_information_cl"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_privacy_tv"
-                    app:layout_constraintBottom_toTopOf="@id/mypage_terms_of_service_tv"/>
+
 
                 <TextView
                     android:id="@+id/mypage_terms_of_service_tv"
@@ -294,14 +243,7 @@
                     android:textAlignment="gravity"
                     android:gravity="left" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="@color/horize_gray"
-                    app:layout_constraintStart_toStartOf="@id/mypage_information_cl"
-                    app:layout_constraintEnd_toEndOf="@id/mypage_information_cl"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_terms_of_service_tv"
-                    app:layout_constraintBottom_toTopOf="@id/mypage_feedback_tv"/>
+
 
                 <TextView
                     android:id="@+id/mypage_app_version_number_tv"

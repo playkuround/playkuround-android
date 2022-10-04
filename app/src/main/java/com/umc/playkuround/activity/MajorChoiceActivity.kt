@@ -26,7 +26,8 @@ class MajorChoiceActivity : AppCompatActivity() {
 
         }
 
-        binding.majorScSpinner.adapter = ArrayAdapter.createFromResource(this,R.array.magjor_array,android.R.layout.simple_spinner_dropdown_item)
+        binding.majorScSpinner.adapter = ArrayAdapter.createFromResource(this,R.array.magjor_array,R.layout.spinner_text)
+
 
 
         binding.majorScSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -34,66 +35,67 @@ class MajorChoiceActivity : AppCompatActivity() {
                 binding.agreeNextBtn.isEnabled = true
 
 
+
                 when (position) {
                     0 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.major,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.major,R.layout.spinner_text)
                         binding.agreeNextBtn.isEnabled = false
                     }
 
                     1 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_liberal,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_liberal,R.layout.spinner_text)
                     }
 
                     2 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_sciences,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_sciences,R.layout.spinner_text)
                     }
 
                     3 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_architrcture,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_architrcture,R.layout.spinner_text)
                     }
 
                     4 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_engineering,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_engineering,R.layout.spinner_text)
                     }
 
                     5 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_socialsciences,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_socialsciences,R.layout.spinner_text)
                     }
 
                     6 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_business,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_business,R.layout.spinner_text)
                     }
 
                     7 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_realestate,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_realestate,R.layout.spinner_text)
                     }
 
                     8 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_kit,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_kit,R.layout.spinner_text)
                     }
 
                     9 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_life,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_life,R.layout.spinner_text)
                     }
 
                     10 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_veterinary,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_veterinary,R.layout.spinner_text)
                     }
 
                     11 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_socialsciences,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_socialsciences,R.layout.spinner_text)
                     }
 
                     12 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_design,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_design,R.layout.spinner_text)
                     }
 
                     13 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_education,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_education,R.layout.spinner_text)
                     }
 
                     14 -> {
-                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_sanghuh,android.R.layout.simple_spinner_item)
+                        binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.spinner_sanghuh,R.layout.spinner_text)
                     }
 
 
