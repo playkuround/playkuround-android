@@ -1,5 +1,7 @@
 package com.umc.playkuround.activity
 
+import android.app.Dialog
+import android.graphics.drawable.ColorDrawable
 import android.os.*
 import android.util.Log
 import android.view.View
@@ -77,18 +79,28 @@ class MiniGameQuizActivity : AppCompatActivity() {
                 binding.quizOption2Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
                 binding.quizOption3Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
                 binding.quizOption4Cl.background = ContextCompat.getDrawable(this, R.drawable.quiz_option_disabled)
-
-                startTimer(15)
             }, 100)
         }
     }
 
     private fun openResultDialog(result : Boolean) {
-        if(result) {
-
+        val dialog = Dialog(this)
+        var root : View = if(result) {
+            dialog.setContentView(R.layout.dialog_quiz_correct)
+            dialog.findViewById(R.id.dialog_correct_root)
         } else {
-
+            dialog.setContentView(R.layout.dialog_quiz_wrong)
+            dialog.findViewById(R.id.dialog_wrong_root)
         }
+        root.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.setOnDismissListener {
+            if(!result)
+                startTimer(15)
+        }
+        dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog.show()
     }
 
     private fun startTimer(sec : Int) {
