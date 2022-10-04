@@ -31,7 +31,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.loginLogoIv.setOnClickListener {
-            onSlideUpDialog()
+            //onSlideUpDialog()
+            val intent = Intent(this, MiniGameQuizActivity::class.java)
+            startActivity(intent)
         }
 
         //testing()
