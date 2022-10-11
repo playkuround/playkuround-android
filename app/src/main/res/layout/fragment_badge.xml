@@ -34,7 +34,7 @@
                 android:fontFamily="@font/pretendard_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="65dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginStart="18dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
