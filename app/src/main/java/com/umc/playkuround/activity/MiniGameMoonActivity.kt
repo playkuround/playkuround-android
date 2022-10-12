@@ -25,6 +25,10 @@ class MiniGameMoonActivity : AppCompatActivity() {
                 Toast.makeText(this, "맞춤", Toast.LENGTH_SHORT).show()
                 binding.moonClickIv.isEnabled = false
                 binding.moonClickIv.setImageResource(R.drawable.moon_four)
+                binding.moonClickIv.getLayoutParams().height = 800
+                binding.moonClickIv.getLayoutParams().width = 1000
+                binding.moonClickIv.requestLayout()
+
             }
             else if (count == 80) {
                 binding.moonClickIv.setImageResource(R.drawable.moon_two)
