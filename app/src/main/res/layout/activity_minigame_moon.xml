@@ -106,11 +106,12 @@
         android:layout_marginTop="50dp"/>
 
 
-    <Button
+    <ImageView
         android:id="@+id/moon_click_iv"
         android:layout_width="225dp"
         android:layout_height="225dp"
-        android:background="@drawable/moon_first"
+        android:clickable="true"
+        android:src="@drawable/moon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/moon_count_tv"

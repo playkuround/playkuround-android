@@ -41,13 +41,12 @@
                     android:id="@+id/badge_attendance_rv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     tools:listitem="@layout/list_item_badge_attendance"
                     android:layout_gravity="center"
                     app:layout_constraintTop_toBottomOf="@id/badge_attendance_tv"
-                    app:layout_constraintStart_toStartOf="@id/badge_attendance_tv"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
                 </androidx.recyclerview.widget.RecyclerView>

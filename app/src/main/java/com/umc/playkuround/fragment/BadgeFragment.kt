@@ -26,19 +26,19 @@ class BadgeFragment : Fragment() {
         val myLayoutManager = GridLayoutManager(context, 3)
         binding.badgeAttendanceRv.layoutManager = myLayoutManager
 
-        binding.badgeAttendanceRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-                outRect.bottom = 30
-                outRect.left = 30
-                outRect.top = 30
-                outRect.right = 30
-            }
-        })
+//        binding.badgeAttendanceRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
+//            override fun getItemOffsets(
+//                outRect: Rect,
+//                view: View,
+//                parent: RecyclerView,
+//                state: RecyclerView.State
+//            ) {
+//                outRect.bottom = 32
+//                outRect.left = 32
+//                outRect.top = 32
+//                outRect.right = 10
+//            }
+//        })
 
         return binding.root
     }
