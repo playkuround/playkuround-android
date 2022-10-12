@@ -6,7 +6,6 @@
     android:textAlignment="gravity"
     android:gravity="left"
     android:padding="9dp"
-    android:background="@drawable/spinner_click_event"
     android:textColor="@color/black"
     android:fontFamily="@font/pretendard_medium"
     xmlns:android="http://schemas.android.com/apk/res/android" />
