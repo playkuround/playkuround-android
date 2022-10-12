@@ -79,7 +79,7 @@
         <entry key="app/src/main/res/layout/dialog_get_badge.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_quiz_correct.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_quiz_wrong.xml" value="0.24114583333333334" />
-        <entry key="app/src/main/res/layout/fragment_badge.xml" value="0.15475158691406252" />
+        <entry key="app/src/main/res/layout/fragment_badge.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.24606018066406252" />
         <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.18237915039062502" />
         <entry key="app/src/main/res/layout/fragment_ranking.xml" value="0.3098958333333333" />

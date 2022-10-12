@@ -68,6 +68,7 @@
             android:popupBackground="@drawable/background_dropdown_spinner"
             android:dropDownVerticalOffset="25dp"
             android:dropDownHeight="10dp"
+
             android:dropDownSelector="@color/green_main" />
 
 

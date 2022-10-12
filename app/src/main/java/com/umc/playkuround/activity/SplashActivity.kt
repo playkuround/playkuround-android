@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.databinding.ActivityPolicyAgreeBinding
 import com.umc.playkuround.databinding.ActivitySplashBinding
+import com.umc.playkuround.fragment.BadgeFragment
 import com.umc.playkuround.fragment.HomeFragment
 
 @SuppressLint("CustomSplashScreen")
@@ -13,12 +14,13 @@ class SplashActivity : AppCompatActivity() {
 
     lateinit var binding : ActivitySplashBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val intent = Intent(this, MajorChoiceActivity::class.java)
+        val intent = Intent(this, MiniGameMoonActivity::class.java)
         startActivity(intent)
         finish()
     }
