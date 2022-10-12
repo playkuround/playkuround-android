@@ -1,13 +1,14 @@
 package com.umc.playkuround.activity
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityMajorChoiceBinding
+import java.lang.reflect.Field
 
 
 class MajorChoiceActivity : AppCompatActivity() {
@@ -27,6 +28,7 @@ class MajorChoiceActivity : AppCompatActivity() {
         }
 
         binding.majorScSpinner.adapter = ArrayAdapter.createFromResource(this,R.array.magjor_array,R.layout.spinner_text)
+
 
 
 
