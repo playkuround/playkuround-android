@@ -29,7 +29,6 @@ class NicknameActivity : AppCompatActivity() {
 
         binding.nicknameEt.doAfterTextChanged {
             binding.nicknameEndBtn.isEnabled = !it.isNullOrBlank()
-            duplicate()
             nickname()
 
 
@@ -42,27 +41,38 @@ class NicknameActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-
-
     }
+
 
     private fun nickname() {
-            val text = binding.nicknameEt.text.toString()
-            val regex = "^[ㄱ-ㅣ가-힣a-zA-Z]+\$".toRegex()
-            isMatch(text, regex)
-
-    }
-
-    private fun duplicate() {
         val userService = UserService()
         val nickname = binding.nicknameEt.text.toString()
+        val text = binding.nicknameEt.text.toString()
+        val regex = "^[ㄱ-ㅣ가-힣a-zA-Z]+\$".toRegex()
 
         userService.setOnResponseListener(object : UserService.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if(isSuccess) {
                     if(body is DuplicateResponse) {
-                        Log.d("retrofit", "getResponseBody: " + body.response)
+                        if (body.response == true ) {
+                            binding.nicknameGetCl.background = ContextCompat.getDrawable(this@NicknameActivity, R.drawable.edit_text_wrong)
+                            binding.nicknameErOverlabTv.visibility = View.VISIBLE
+                             binding.nicknameEndBtn.isEnabled = false }
+
+                        else if (body.response == false && text.matches(regex) && binding.nicknameEt.length() in 2..8 ) {
+                            binding.nicknameGetCl.background = ContextCompat.getDrawable(this@NicknameActivity, R.drawable.edit_text)
+                            binding.nicknameEndBtn.isEnabled = true
+                            binding.nicknameErOverlabTv.visibility = View.INVISIBLE
+                            binding.nicknameErRuleTv.visibility = View.INVISIBLE
+                        }
+                        else {
+                            binding.nicknameGetCl.background = ContextCompat.getDrawable(this@NicknameActivity, R.drawable.edit_text_wrong)
+                            binding.nicknameEndBtn.isEnabled = false
+                            binding.nicknameErRuleTv.visibility = View.VISIBLE
+                            binding.nicknameErOverlabTv.visibility = View.INVISIBLE
+                        }
+
+                            Log.d("retrofit", "getResponseBody: " + body.response)
                          }
 
                 } else {
@@ -72,27 +82,6 @@ class NicknameActivity : AppCompatActivity() {
         }).isDuplicate(nickname)
     }
 
-    fun isMatch(text: String, regex: Regex) {
-
-
-        if (text.matches(regex) && binding.nicknameEt.length() in 2..8 ) {
-            //여기서 닉네임 중복 판단하고 아래로 가게 해주면 될듯?
-            binding.nicknameGetCl.background = ContextCompat.getDrawable(this, R.drawable.edit_text)
-            binding.nicknameEndBtn.isEnabled = true
-            binding.nicknameErRuleTv.visibility = View.INVISIBLE
-        }
-//        else if (body.response == true ) {
-//            binding.nicknameGetCl.background = ContextCompat.getDrawable(this@NicknameActivity, R.drawable.edit_text_wrong)
-//            binding.nicknameErOverlabTv.visibility = View.VISIBLE
-//            binding.nicknameEndBtn.isEnabled = false
-//        }
-
-        else {
-            binding.nicknameGetCl.background = ContextCompat.getDrawable(this, R.drawable.edit_text_wrong)
-            binding.nicknameErRuleTv.visibility = View.VISIBLE
-            binding.nicknameEndBtn.isEnabled = false
-        }
-    }
 
 
 }
