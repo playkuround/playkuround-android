@@ -16,8 +16,8 @@ data class Response(
 )
 
 data class DuplicateResponse(
-    @SerializedName(value = "isSuccess") var isSuccess : Boolean?,
-    @SerializedName(value = "response") var response : Boolean?
+    @SerializedName(value = "isSuccess") var isSuccess : Boolean,
+    @SerializedName(value = "response") var response : Boolean
 )
 
 data class LogoutResponse(
@@ -32,5 +32,20 @@ data class RefreshTokenResponse(
 data class RefreshResponse(
     @SerializedName(value = "grantType") var grantType : String,
     @SerializedName(value = "accessToken") var accessToken : String,
-    @SerializedName(value = "accessTokenExpireTime") var accessTokenExpireTime : String,
+    @SerializedName(value = "accessTokenExpireTime") var accessTokenExpireTime : String
+)
+
+data class EmailResponse(
+    @SerializedName(value = "isSuccess") var isSuccess: Boolean,
+    @SerializedName(value = "response") var response : EmailResponseData?
+)
+
+data class EmailResponseData(
+    @SerializedName(value = "expireAt") var expireAt : String,
+    @SerializedName(value = "sendingCount") var sendingCount : Int
+)
+
+data class EmailCertifyResponse(
+    @SerializedName(value = "isSuccess") var isSuccess : Boolean,
+    @SerializedName(value = "response") var response : Boolean
 )

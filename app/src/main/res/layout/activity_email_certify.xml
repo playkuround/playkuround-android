@@ -137,9 +137,21 @@
                 android:textColorHint="@color/light_gray"
                 android:textAlignment="textStart"
                 android:maxLines="1"
-                android:maxLength="4"
-                android:inputType="number"
+                android:maxLength="6"
                 android:id="@+id/email_input_code_et"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="05:00"
+                android:fontFamily="@font/pretendard_semi_bold"
+                android:textSize="15dp"
+                android:textColor="@color/light_gray"
+                android:layout_marginEnd="18dp"
+                android:id="@+id/email_certify_timer"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -180,11 +192,11 @@
             app:layout_constraintStart_toStartOf="@id/email_certify_btn"
             app:layout_constraintTop_toBottomOf="@id/email_certify_btn"
             android:layout_marginTop="10dp"
-            android:text="@string/resend_code"
+            android:text="오늘 인증 요청 횟수가 4회 남았습니다."
             android:fontFamily="@font/pretendard_medium"
-            android:textColor="@color/green_main"
-            android:textSize="13dp"
-            android:id="@+id/email_resend_tv"
+            android:textColor="@color/light_gray"
+            android:textSize="9dp"
+            android:id="@+id/email_request_count_tv"
             android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

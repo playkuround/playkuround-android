@@ -21,4 +21,10 @@ interface UserRetrofitInterface {
     @POST("/api/auth/tokens")
     fun reissuanceToken(@Header("Authorization") token : String) : Call<RefreshTokenResponse>
 
+    @POST("/api/auth/emails")
+    fun sendEmail(@Body target : String) : Call<EmailResponse>
+
+    @GET("/api/auth/emails")
+    fun certifyCode(@Query("email") email : String, @Query("code") code : String) : Call<EmailCertifyResponse>
+
 }

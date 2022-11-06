@@ -40,7 +40,7 @@ class EmailCertifyActivity : AppCompatActivity() {
             binding.emailGotoKonkukEmailTv.visibility = View.VISIBLE
             binding.emailInputCodeCl.visibility = View.VISIBLE
             binding.emailCertifyBtn.visibility = View.VISIBLE
-            binding.emailResendTv.visibility = View.VISIBLE
+            binding.emailRequestCountTv.visibility = View.VISIBLE
 
             binding.emailRequestCodeBtn.isEnabled = false
         }
@@ -65,11 +65,6 @@ class EmailCertifyActivity : AppCompatActivity() {
                 binding.emailWarnNotEqualTv.visibility = View.VISIBLE
                 binding.emailInputCodeCl.background = ContextCompat.getDrawable(this, R.drawable.edit_text_wrong)
             }
-        }
-
-        // 재전송 클릭
-        binding.emailResendTv.setOnClickListener {
-            code = requestCode()
         }
     }
 
