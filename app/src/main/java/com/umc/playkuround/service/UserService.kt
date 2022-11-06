@@ -154,4 +154,50 @@ class UserService {
             }
         })
     }
+
+    fun sendEmail(email : String) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.sendEmail(email).enqueue(object : Callback<EmailResponse> {
+            override fun onResponse(call: Call<EmailResponse>, response: Response<EmailResponse>) {
+                when(response.code()) {
+                    200 -> { // success
+                        val resp : EmailResponse = response.body()!!
+                        onResponseListener.getResponseBody(resp, true, "")
+                    }
+                    400, 429 -> { // bad request, too many request
+                        val err = JSONObject(response.errorBody()?.string()).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<EmailResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail register $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다.")
+            }
+        })
+    }
+
+    fun certifyCode(email : String, code : String) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.certifyCode(email, code).enqueue(object : Callback<EmailCertifyResponse> {
+            override fun onResponse(
+                call: Call<EmailCertifyResponse>,
+                response: Response<EmailCertifyResponse>
+            ) {
+                val resp : EmailCertifyResponse = response.body()!!
+                onResponseListener.getResponseBody(resp, true, "")
+            }
+
+            override fun onFailure(call: Call<EmailCertifyResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail register $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다.")
+            }
+        })
+    }
+
 }
