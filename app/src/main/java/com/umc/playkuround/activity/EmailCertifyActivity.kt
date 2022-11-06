@@ -1,5 +1,6 @@
 package com.umc.playkuround.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,16 +9,20 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.widget.doAfterTextChanged
 import com.umc.playkuround.R
+import com.umc.playkuround.data.EmailCertifyResponse
+import com.umc.playkuround.data.EmailResponse
 import com.umc.playkuround.databinding.ActivityEmailCertifyBinding
+import com.umc.playkuround.service.UserService
+import kotlin.concurrent.timer
 
 class EmailCertifyActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityEmailCertifyBinding
 
-    private lateinit var code : String
+    private var email : String = ""
+    private var certifyCode : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +40,12 @@ class EmailCertifyActivity : AppCompatActivity() {
 
         // 인증요청 버튼 클릭
         binding.emailRequestCodeBtn.setOnClickListener {
-            code = requestCode()
+            email = binding.emailGetEmailEt.text.toString()
+            requestCode(email)
 
             binding.emailGotoKonkukEmailTv.visibility = View.VISIBLE
             binding.emailInputCodeCl.visibility = View.VISIBLE
             binding.emailCertifyBtn.visibility = View.VISIBLE
-            binding.emailRequestCountTv.visibility = View.VISIBLE
 
             binding.emailRequestCodeBtn.isEnabled = false
         }
@@ -59,12 +64,8 @@ class EmailCertifyActivity : AppCompatActivity() {
 
         // 인증하기 버튼 클릭
         binding.emailCertifyBtn.setOnClickListener {
-            if(binding.emailInputCodeEt.text.toString() == code)
-                certifyEmail()
-            else {
-                binding.emailWarnNotEqualTv.visibility = View.VISIBLE
-                binding.emailInputCodeCl.background = ContextCompat.getDrawable(this, R.drawable.edit_text_wrong)
-            }
+            certifyCode = binding.emailInputCodeEt.text.toString()
+            isCodeCorrect(email, certifyCode)
         }
     }
 
@@ -73,10 +74,59 @@ class EmailCertifyActivity : AppCompatActivity() {
         startActivity(intentURL)
     }
 
-    private fun requestCode() : String {
+    private fun requestCode(email : String) {
         // send email to server
+        val userService = UserService()
+        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+            @SuppressLint("SetTextI18n")
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    if(body is EmailResponse) {
+                        binding.emailRequestCountTv.visibility = View.VISIBLE
+                        binding.emailRequestCountTv.text = "오늘 인증 요청 횟수가 " + body.response!!.sendingCount + "회 남았습니다."
+                        startTimer(body.response!!.expireAt)
+                    }
+                }
+            }
+        }).sendEmail(email)
+
         Toast.makeText(this, "요청이 완료되었습니다.", Toast.LENGTH_SHORT).show()
-        return "0000"
+    }
+
+    private fun isCodeCorrect(email : String, code : String) : Boolean {
+        val userService = UserService()
+        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    if(body is EmailCertifyResponse) {
+                        if(body.response) // if code is correct
+                            certifyEmail()
+                        else {
+                            binding.emailWarnNotEqualTv.visibility = View.VISIBLE
+                            binding.emailInputCodeCl.background = ContextCompat.getDrawable(applicationContext, R.drawable.edit_text_wrong)
+
+                            binding.emailRequestCodeBtn.text = resources.getText(R.string.request_code_again)
+                            binding.emailRequestCodeBtn.isEnabled = true
+                        }
+                    }
+                }
+            }
+        }).certifyCode(email, code)
+        return true
+    }
+
+    private fun startTimer(expiredAt : String) {
+        var time = 0
+        timer(period = 10) {
+            if(time < 0)
+                this.cancel()
+            time--
+            val min = time / 100 / 60
+            val sec = (time / 100) % 60
+            runOnUiThread {
+                binding.emailCertifyTimer.text = String.format("%02d:%02d", min, sec)
+            }
+        }
     }
 
     private fun certifyEmail() {
