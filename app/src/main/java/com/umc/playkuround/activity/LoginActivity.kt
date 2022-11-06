@@ -12,6 +12,7 @@ import com.umc.playkuround.PlayKuApplication.Companion.pref
 import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.data.RefreshTokenResponse
+import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityLoginBinding
 import com.umc.playkuround.dialog.BadgeInfoDialog
 import com.umc.playkuround.service.UserService
@@ -86,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
             }).isDuplicate(nickname)
         }*/
 
-        /*binding.loginLogoIv.setOnClickListener {
+        binding.loginLoginBtn.setOnClickListener {
             val userService = UserService()
             val token = user.getAccessToken()
             userService.setOnResponseListener(object : UserService.OnResponseListener() {
@@ -94,14 +95,14 @@ class LoginActivity : AppCompatActivity() {
                     if(isSuccess) {
                         if(body is UserTokenResponse)
                             user.userTokenResponse = body
-                        user.save(pref)
+                        user.load(pref)
                         Log.d("userInfo", "onCreate: $user")
                     } else {
                         Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                     }
                 }
             }).login(token)
-        }*/
+        }
 
         /*binding.loginLogoIv.setOnClickListener {
             val userService = UserService()
