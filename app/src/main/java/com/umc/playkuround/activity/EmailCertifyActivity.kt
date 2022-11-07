@@ -42,7 +42,7 @@ class EmailCertifyActivity : AppCompatActivity() {
 
         // 인증요청 버튼 클릭
         binding.emailRequestCodeBtn.setOnClickListener {
-            email = binding.emailGetEmailEt.text.toString()
+            email = binding.emailGetEmailEt.text.toString() + "@konkuk.ac.kr"
             requestCode(email)
 
             binding.emailGotoKonkukEmailTv.visibility = View.VISIBLE
@@ -123,6 +123,7 @@ class EmailCertifyActivity : AppCompatActivity() {
         val expiredTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(expiredAt).time
         val now = Date(System.currentTimeMillis()).time
         var time : Long = (expiredTime - now) / 10
+        Log.d("timer", "startTimer: $time, $expiredAt, $expiredTime, $now")
 
         timer(period = 10) {
             if(time < 0)
