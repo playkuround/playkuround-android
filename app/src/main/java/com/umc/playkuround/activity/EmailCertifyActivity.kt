@@ -15,6 +15,8 @@ import com.umc.playkuround.data.EmailCertifyResponse
 import com.umc.playkuround.data.EmailResponse
 import com.umc.playkuround.databinding.ActivityEmailCertifyBinding
 import com.umc.playkuround.service.UserService
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.concurrent.timer
 
 class EmailCertifyActivity : AppCompatActivity() {
@@ -86,6 +88,8 @@ class EmailCertifyActivity : AppCompatActivity() {
                         binding.emailRequestCountTv.text = "오늘 인증 요청 횟수가 " + body.response!!.sendingCount + "회 남았습니다."
                         startTimer(body.response!!.expireAt)
                     }
+                } else {
+                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                 }
             }
         }).sendEmail(email)
@@ -116,7 +120,10 @@ class EmailCertifyActivity : AppCompatActivity() {
     }
 
     private fun startTimer(expiredAt : String) {
-        var time = 0
+        val expiredTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(expiredAt).time
+        val now = Date(System.currentTimeMillis()).time
+        var time : Long = (expiredTime - now) / 10
+
         timer(period = 10) {
             if(time < 0)
                 this.cancel()
