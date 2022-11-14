@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
+import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.data.EmailCertifyResponse
 import com.umc.playkuround.data.EmailResponse
@@ -192,6 +193,7 @@ class EmailCertifyActivity : AppCompatActivity() {
         * 이메일이 가입된 이메일일 경우 홈 액티비티로 이동
         * 아닐 경우 이용약관 액티비티로 이동
         */
+        user.email = email
         val intent = Intent(this, PolicyAgreeActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
