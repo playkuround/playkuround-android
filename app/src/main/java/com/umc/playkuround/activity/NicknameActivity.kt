@@ -90,13 +90,12 @@ class NicknameActivity : AppCompatActivity() {
     private fun savename() {
         binding.nicknameEndBtn.setOnClickListener {
             val userService = UserService()
-            val temp = User("test21@test.com", "test21", "컴퓨터공학부", null)
+            user.nickname = binding.nicknameEt.text.toString()
             userService.setOnResponseListener(object : UserService.OnResponseListener() {
                 override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                     if (isSuccess) {
                         if (body is UserTokenResponse)
-                            temp.userTokenResponse = body
-                        user = temp.copy()
+                            user.userTokenResponse = body.copy()
                         user.save(pref)
                         Log.d("userInfo", "onCreate: $user")
                     } else {
@@ -104,7 +103,7 @@ class NicknameActivity : AppCompatActivity() {
                         Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                     }
                 }
-            }).register(temp)
+            }).register(user)
         }
     }
 
