@@ -15,7 +15,7 @@ import android.view.animation.DecelerateInterpolator
 import androidx.cardview.widget.CardView
 import com.umc.playkuround.R
 
-open class BadgeInfoDialog(context: Context, builder: Builder) : Dialog(
+open class SlideUpDialog(context: Context, builder: Builder) : Dialog(
     context,
     android.R.style.Theme_DeviceDefault_NoActionBar_TranslucentDecor
 ) {
@@ -91,8 +91,8 @@ open class BadgeInfoDialog(context: Context, builder: Builder) : Dialog(
             contentView = view
             return this
         }
-        open fun create(): BadgeInfoDialog {
-            return BadgeInfoDialog(context, this);
+        open fun create(): SlideUpDialog {
+            return SlideUpDialog(context, this);
         }
     }
 

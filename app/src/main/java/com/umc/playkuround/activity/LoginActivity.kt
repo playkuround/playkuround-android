@@ -14,7 +14,7 @@ import com.umc.playkuround.R
 import com.umc.playkuround.data.RefreshTokenResponse
 import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityLoginBinding
-import com.umc.playkuround.dialog.BadgeInfoDialog
+import com.umc.playkuround.dialog.SlideUpDialog
 import com.umc.playkuround.service.UserService
 
 class LoginActivity : AppCompatActivity() {
@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
     private fun onSlideUpDialog() {
         var contentView: View = (getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
             R.layout.dialog_badge_info, null)
-        val slideupPopup = BadgeInfoDialog.Builder(this)
+        val slideupPopup = SlideUpDialog.Builder(this)
             .setContentView(contentView)
             .create()
         slideupPopup.show()
