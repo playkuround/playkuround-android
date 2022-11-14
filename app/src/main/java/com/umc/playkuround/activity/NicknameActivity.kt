@@ -34,15 +34,9 @@ class NicknameActivity : AppCompatActivity() {
         binding.nicknameEt.doAfterTextChanged {
             binding.nicknameEndBtn.isEnabled = !it.isNullOrBlank()
             nickname()
-
-
         }
 
         binding.nicknameEndBtn.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(intent)
             savename()
         }
 
@@ -97,6 +91,13 @@ class NicknameActivity : AppCompatActivity() {
                         if (body is UserTokenResponse)
                             user.userTokenResponse = body.copy()
                         user.save(pref)
+
+                        val intent = Intent(applicationContext, MainActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        startActivity(intent)
+                        finish()
+
                         Log.d("userInfo", "onCreate: $user")
                     } else {
                         Log.d("retrofit", "getResponseBody: $err")

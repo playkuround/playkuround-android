@@ -189,6 +189,7 @@ class EmailCertifyActivity : AppCompatActivity() {
 
     private fun certifyEmail() {
         Log.d("TAG", "init: certifyEmail")
+        certifyTimer?.cancel()
         /*
         * 이메일이 가입된 이메일일 경우 홈 액티비티로 이동
         * 아닐 경우 이용약관 액티비티로 이동
