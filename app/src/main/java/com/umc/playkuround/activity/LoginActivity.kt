@@ -117,26 +117,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }).logout(token)
         }*/
-
-        binding.loginLogoIv.setOnClickListener {
-            val userService = UserService()
-            val token = user.getRefreshToken()
-            userService.setOnResponseListener(object : UserService.OnResponseListener() {
-                override fun <T> getResponseBody(body : T, isSuccess : Boolean, err : String) {
-                    if(isSuccess) {
-                        if(body is RefreshTokenResponse) {
-                            user.userTokenResponse!!.response!!.accessToken = body.response!!.accessToken
-                            user.userTokenResponse!!.response!!.accessTokenExpiredAt = body.response!!.accessTokenExpireTime
-                        }
-                        user.save(pref)
-                        Log.d("userInfo", "onCreate(reissuance): $user")
-                    } else {
-                        Log.d("retrofit", "getResponseBody: $err")
-                        Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }).reissuanceToken(token)
-        }
     }
 
 }

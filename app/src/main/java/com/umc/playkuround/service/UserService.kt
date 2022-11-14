@@ -87,7 +87,7 @@ class UserService {
                         onResponseListener.getResponseBody(resp, true, "")
                     }
                     401 -> { // failed
-                        val err = JSONObject(response.errorBody()?.string()).getJSONObject("errorResponse").get("message").toString()
+                        val err = JSONObject(response.errorBody()?.string()).getJSONObject("errorResponse").get("code").toString()
                         onResponseListener.getResponseBody(null, false, err)
                     }
                 }
@@ -98,7 +98,6 @@ class UserService {
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
-
         })
     }
 
@@ -141,7 +140,7 @@ class UserService {
                         onResponseListener.getResponseBody(resp, true, "")
                     }
                     401 -> { // failed
-                        val err = JSONObject(response.errorBody()?.string()).getJSONObject("errorResponse").get("message").toString()
+                        val err = JSONObject(response.errorBody()?.string()).getJSONObject("errorResponse").get("code").toString()
                         onResponseListener.getResponseBody(null, false, err)
                     }
                 }
