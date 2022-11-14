@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val intent = Intent(this, LoginActivity::class.java)
+        val intent = Intent(this, MajorChoiceActivity::class.java)
         startActivity(intent)
         finish()
     }
