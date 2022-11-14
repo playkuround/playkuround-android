@@ -47,7 +47,7 @@ class UserService {
             override fun onFailure(call: Call<UserTokenResponse>, t: Throwable) {
                 Log.e("retrofit", "onResponse: fail register $call")
                 t.printStackTrace()
-                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다.")
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
         })
     }
@@ -67,7 +67,7 @@ class UserService {
             override fun onFailure(call: Call<DuplicateResponse>, t: Throwable) {
                 Log.e("retrofit", "onResponse: fail register $call")
                 t.printStackTrace()
-                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다.")
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
         })
     }
@@ -96,7 +96,7 @@ class UserService {
             override fun onFailure(call: Call<UserTokenResponse>, t: Throwable) {
                 Log.e("retrofit", "onResponse: fail register $call")
                 t.printStackTrace()
-                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다.")
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
 
         })
@@ -121,7 +121,7 @@ class UserService {
             override fun onFailure(call: Call<LogoutResponse>, t: Throwable) {
                 Log.e("retrofit", "onResponse: fail register $call")
                 t.printStackTrace()
-                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다.")
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
         })
     }
@@ -150,7 +150,7 @@ class UserService {
             override fun onFailure(call: Call<RefreshTokenResponse>, t: Throwable) {
                 Log.e("retrofit", "onResponse: fail register $call")
                 t.printStackTrace()
-                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다.")
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
         })
     }
@@ -175,7 +175,7 @@ class UserService {
             override fun onFailure(call: Call<EmailResponse>, t: Throwable) {
                 Log.e("retrofit", "onResponse: fail register $call")
                 t.printStackTrace()
-                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다.")
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
         })
     }
@@ -188,14 +188,18 @@ class UserService {
                 call: Call<EmailCertifyResponse>,
                 response: Response<EmailCertifyResponse>
             ) {
-                val resp : EmailCertifyResponse = response.body()!!
-                onResponseListener.getResponseBody(resp, true, "")
+                if(response.body() == null) {
+                    onResponseListener.getResponseBody(null, false, "서버의 응답이 올바르지 않습니다.")
+                } else {
+                    val resp: EmailCertifyResponse = response.body()!!
+                    onResponseListener.getResponseBody(resp, true, "")
+                }
             }
 
             override fun onFailure(call: Call<EmailCertifyResponse>, t: Throwable) {
                 Log.e("retrofit", "onResponse: fail register $call")
                 t.printStackTrace()
-                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다.")
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
         })
     }
