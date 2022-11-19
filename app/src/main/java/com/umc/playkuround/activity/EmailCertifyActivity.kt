@@ -18,6 +18,7 @@ import com.umc.playkuround.R
 import com.umc.playkuround.data.EmailCertifyResponse
 import com.umc.playkuround.data.EmailResponse
 import com.umc.playkuround.databinding.ActivityEmailCertifyBinding
+import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.SlideUpDialog
 import com.umc.playkuround.service.UserService
 import java.text.SimpleDateFormat
@@ -89,10 +90,13 @@ class EmailCertifyActivity : AppCompatActivity() {
 
     private fun requestCode(email : String) {
         // send email to server
+        val loading = LoadingDialog(this)
+        loading.show()
         val userService = UserService()
         userService.setOnResponseListener(object : UserService.OnResponseListener() {
             @SuppressLint("SetTextI18n")
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                loading.dismiss()
                 binding.emailRequestCodeBtn.text = resources.getText(R.string.request_code_again)
                 binding.emailRequestCodeBtn.isEnabled = true
 
@@ -120,9 +124,12 @@ class EmailCertifyActivity : AppCompatActivity() {
 
     private fun isCodeCorrect(email : String, code : String) : Boolean {
         Log.d("certify code", "isCodeCorrect: email : $email, code : $code")
+        val loading = LoadingDialog(this)
+        loading.show()
         val userService = UserService()
         userService.setOnResponseListener(object : UserService.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                loading.dismiss()
                 if(isSuccess) {
                     if(body is EmailCertifyResponse) {
                         if(body.response) // if code is correct

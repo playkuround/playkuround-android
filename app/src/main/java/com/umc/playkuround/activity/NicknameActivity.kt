@@ -17,6 +17,7 @@ import com.umc.playkuround.data.DuplicateResponse
 import com.umc.playkuround.data.User
 import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityNicknameBinding
+import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.fragment.HomeFragment
 import com.umc.playkuround.service.UserService
 import kotlin.Result.Companion.success
@@ -82,30 +83,31 @@ class NicknameActivity : AppCompatActivity() {
     }
 
     private fun savename() {
-        binding.nicknameEndBtn.setOnClickListener {
-            val userService = UserService()
-            user.nickname = binding.nicknameEt.text.toString()
-            userService.setOnResponseListener(object : UserService.OnResponseListener() {
-                override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                    if (isSuccess) {
-                        if (body is UserTokenResponse)
-                            user.userTokenResponse = body.copy()
-                        user.save(pref)
+        val loading = LoadingDialog(this)
+        loading.show()
+        val userService = UserService()
+        user.nickname = binding.nicknameEt.text.toString()
+        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                loading.dismiss()
+                if (isSuccess) {
+                    if (body is UserTokenResponse)
+                        user.userTokenResponse = body.copy()
+                    user.save(pref)
 
-                        val intent = Intent(applicationContext, MainActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        startActivity(intent)
-                        finish()
+                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                    finish()
 
-                        Log.d("userInfo", "onCreate: $user")
-                    } else {
-                        Log.d("retrofit", "getResponseBody: $err")
-                        Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                    }
+                    Log.d("userInfo", "onCreate: $user")
+                } else {
+                    Log.d("retrofit", "getResponseBody: $err")
+                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                 }
-            }).register(user)
-        }
+            }
+        }).register(user)
     }
 
 }
