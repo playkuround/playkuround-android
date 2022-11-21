@@ -118,8 +118,6 @@ class EmailCertifyActivity : AppCompatActivity() {
                 }
             }
         }).sendEmail(email)
-
-        Toast.makeText(this, "요청이 완료되었습니다.", Toast.LENGTH_SHORT).show()
     }
 
     private fun isCodeCorrect(email : String, code : String) : Boolean {

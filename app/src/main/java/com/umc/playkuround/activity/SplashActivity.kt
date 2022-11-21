@@ -62,6 +62,10 @@ class SplashActivity : AppCompatActivity() {
                 } else {
                     if(err == "A004") { // 유효하지 않은 토큰
                         reissuanceToken()
+                    } else if(err == "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.") {
+                        loading.dismiss()
+                        Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                        finish()
                     } else {
                         loading.dismiss()
                         Log.d("login failed", "getResponseBody: $err")
