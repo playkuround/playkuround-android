@@ -12,6 +12,7 @@ import com.umc.playkuround.data.RefreshTokenResponse
 import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityPolicyAgreeBinding
 import com.umc.playkuround.databinding.ActivitySplashBinding
+import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.fragment.BadgeFragment
 import com.umc.playkuround.fragment.HomeFragment
 import com.umc.playkuround.service.UserService
@@ -20,6 +21,7 @@ import com.umc.playkuround.service.UserService
 class SplashActivity : AppCompatActivity() {
 
     lateinit var binding : ActivitySplashBinding
+    lateinit private var loading : LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,8 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         } else {
+            loading = LoadingDialog(this)
+            loading.show()
             login()
         }
     }
@@ -51,13 +55,19 @@ class SplashActivity : AppCompatActivity() {
                         user.userTokenResponse = body.copy()
                         user.save(pref)
 
+                        loading.dismiss()
                         val intent = Intent(applicationContext, MainActivity::class.java)
                         startActivity(intent)
                     }
                 } else {
                     if(err == "A004") { // 유효하지 않은 토큰
                         reissuanceToken()
+                    } else if(err == "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.") {
+                        loading.dismiss()
+                        Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                        finish()
                     } else {
+                        loading.dismiss()
                         Log.d("login failed", "getResponseBody: $err")
                         Toast.makeText(applicationContext, "로그인에 실패하였습니다!\n다시 로그인하여 주세요.", Toast.LENGTH_SHORT).show()
 
