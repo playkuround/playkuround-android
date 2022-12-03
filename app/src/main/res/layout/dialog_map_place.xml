@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="340dp"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+        android:id="@+id/map_place_iv"
+        android:layout_width="124dp"
+        android:layout_height="124dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="28dp"
+        android:src="@color/light_gray"/>
+
+    <TextView
+        android:id="@+id/map_place_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="입학정보관"
+        android:fontFamily="@font/pretendard_semi_bold"
+        android:textSize="22dp"
+        app:layout_constraintStart_toEndOf="@id/map_place_iv"
+        app:layout_constraintTop_toTopOf="@id/map_place_iv"
+        android:layout_marginStart="20dp" />
+
+    <Button
+        android:id="@+id/map_place_rank_bt"
+        android:layout_width="172dp"
+        android:layout_height="36dp"
+        app:layout_constraintStart_toStartOf="@id/map_place_title_tv"
+        app:layout_constraintTop_toBottomOf="@id/map_place_title_tv"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_round_green"
+        android:text="@string/map_place_rank_dialog"
+        android:textSize="16dp"
+        android:textColor="@color/map_button"
+        android:fontFamily="@font/pretendard_medium"/>
+
+    <Button
+        android:id="@+id/map_place_info_bt"
+        android:layout_width="172dp"
+        android:layout_height="36dp"
+        app:layout_constraintStart_toStartOf="@id/map_place_title_tv"
+        app:layout_constraintTop_toBottomOf="@id/map_place_rank_bt"
+        app:layout_constraintBottom_toBottomOf="@id/map_place_iv"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_round_green"
+        android:text="@string/map_place_info_dialog"
+        android:textSize="16dp"
+        android:textColor="@color/map_button"
+        android:fontFamily="@font/pretendard_medium"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
