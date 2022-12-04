@@ -38,7 +38,8 @@
         android:text="@string/map_place_rank_dialog"
         android:textSize="16dp"
         android:textColor="@color/map_button"
-        android:fontFamily="@font/pretendard_medium"/>
+        android:fontFamily="@font/pretendard_medium"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/map_place_info_bt"
@@ -52,6 +53,7 @@
         android:text="@string/map_place_info_dialog"
         android:textSize="16dp"
         android:textColor="@color/map_button"
-        android:fontFamily="@font/pretendard_medium"/>
+        android:fontFamily="@font/pretendard_medium"
+        style="?android:attr/borderlessButtonStyle"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
