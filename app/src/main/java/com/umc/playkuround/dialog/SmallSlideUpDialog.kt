@@ -15,7 +15,7 @@ import android.view.animation.DecelerateInterpolator
 import androidx.cardview.widget.CardView
 import com.umc.playkuround.R
 
-open class smallSlideUpDialog(context: Context, builder: Builder) : Dialog(
+open class SmallSlideUpDialog(context: Context, builder: Builder) : Dialog(
     context,
     android.R.style.Theme_DeviceDefault_NoActionBar_TranslucentDecor
 ) {
@@ -91,8 +91,8 @@ open class smallSlideUpDialog(context: Context, builder: Builder) : Dialog(
             contentView = view
             return this
         }
-        open fun create(): smallSlideUpDialog {
-            return smallSlideUpDialog(context, this);
+        open fun create(): SmallSlideUpDialog {
+            return SmallSlideUpDialog(context, this);
         }
     }
 
