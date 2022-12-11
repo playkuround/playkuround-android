@@ -4,12 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.service.controls.ControlsProviderService.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.playkuround.R
 import com.umc.playkuround.activity.DialogPlaceInfoActivity
@@ -35,11 +39,19 @@ class BadgeFragment : Fragment() {
         val atLayoutManager = GridLayoutManager(context, 3)
         binding.badgeAttendanceRv.layoutManager = atLayoutManager
 
+        val adapter = ListAdapterGrid()
+
+        adapter.setItemClickListener(object : ListAdapterGrid.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                Log.d(TAG, "원하는 글씨들")
+
+            }
+        })
+
         binding.badgeAttendanceTv.setOnClickListener {
             placeinfoDialog()
         }
 
-   
 
 
 
@@ -60,6 +72,10 @@ class BadgeFragment : Fragment() {
         binding.badgeAdventureRv.adapter = AdListAdapterGrid()
         val adLayoutManager = GridLayoutManager(context, 3)
         binding.badgeAdventureRv.layoutManager = adLayoutManager
+
+
+
+
 
         binding.badgeAdventureRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun getItemOffsets(
