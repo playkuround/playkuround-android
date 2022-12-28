@@ -35,16 +35,15 @@ class BadgeFragment : Fragment() {
     ): View? {
         binding = FragmentBadgeBinding.inflate(inflater, container, false)
 
-        binding.badgeAttendanceRv.adapter = ListAdapterGrid()
+        val adapter = ListAdapterGrid()
+        binding.badgeAttendanceRv.adapter = adapter
+
         val atLayoutManager = GridLayoutManager(context, 3)
         binding.badgeAttendanceRv.layoutManager = atLayoutManager
 
-        val adapter = ListAdapterGrid()
-
         adapter.setItemClickListener(object : ListAdapterGrid.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                Log.d(TAG, "원하는 글씨들")
-
+                badgeinfoDialog()
             }
         })
 
