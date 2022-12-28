@@ -16,7 +16,8 @@ class ListAdapterGrid(): RecyclerView.Adapter<ListAdapterGrid.ViewHolder>() {
 
     }
 
-    class GridAdapter(val layout: View): RecyclerView.ViewHolder(layout)
+//    class GridAdapter(val layout: View): RecyclerView.ViewHolder(layout)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ListItemBadgeAttendanceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,6 +27,24 @@ class ListAdapterGrid(): RecyclerView.Adapter<ListAdapterGrid.ViewHolder>() {
     override fun getItemCount() = 5
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
+
         holder.bind()
+
+    }
+    // (2) 리스너 인터페이스
+    interface OnItemClickListener {
+
+
+        fun onClick(v: View, position: Int)
+    }
+    private lateinit var itemClickListener : OnItemClickListener
+
+    fun setItemClickListener(itemClickListener: OnItemClickListener) {
+        this.itemClickListener = itemClickListener
     }
 }
+

@@ -67,4 +67,7 @@
     <string name="quiz_correct_dialog">정답입니다!</string>
     <string name="quiz_wrong_dialog">오답입니다.\n다시 시도해보세요!</string>
 
+    <string name="map_place_rank_dialog">방문자 랭킹</string>
+    <string name="map_place_info_dialog">건물 설명</string>
+
 </resources>

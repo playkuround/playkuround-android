@@ -36,7 +36,7 @@ class SplashActivity : AppCompatActivity() {
         user.load(pref)
         Log.d("user info", "checkLoginInfo: email : ${user.email}, name : ${user.nickname}, major : ${user.major}")
         if(user.major == "null") {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } else {
             loading = LoadingDialog(this)
@@ -55,7 +55,6 @@ class SplashActivity : AppCompatActivity() {
                         user.userTokenResponse = body.copy()
                         user.save(pref)
 
-                        loading.dismiss()
                         val intent = Intent(applicationContext, MainActivity::class.java)
                         startActivity(intent)
                     }
@@ -63,11 +62,9 @@ class SplashActivity : AppCompatActivity() {
                     if(err == "A004") { // 유효하지 않은 토큰
                         reissuanceToken()
                     } else if(err == "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.") {
-                        loading.dismiss()
                         Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                         finish()
                     } else {
-                        loading.dismiss()
                         Log.d("login failed", "getResponseBody: $err")
                         Toast.makeText(applicationContext, "로그인에 실패하였습니다!\n다시 로그인하여 주세요.", Toast.LENGTH_SHORT).show()
 
@@ -99,6 +96,11 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }).reissuanceToken(token)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(loading != null && loading.isShowing) loading.dismiss()
     }
 
 }
