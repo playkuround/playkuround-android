@@ -8,14 +8,13 @@
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#B3000000"
-        />
+        android:background="#B3000000" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="192dp"
         android:id="@+id/content_container"
-        app:cardCornerRadius="40dp"
+        app:cardCornerRadius="13dp"
         app:cardElevation="0dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"

@@ -36,7 +36,7 @@ class SplashActivity : AppCompatActivity() {
         user.load(pref)
         Log.d("user info", "checkLoginInfo: email : ${user.email}, name : ${user.nickname}, major : ${user.major}")
         if(user.major == "null") {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } else {
             loading = LoadingDialog(this)
