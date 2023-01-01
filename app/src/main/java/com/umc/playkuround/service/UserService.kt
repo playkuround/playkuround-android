@@ -1,12 +1,12 @@
 package com.umc.playkuround.service
 
 import android.util.Log
-import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.data.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.nio.charset.StandardCharsets
 
 class UserService {
 
@@ -65,7 +65,7 @@ class UserService {
             }
 
             override fun onFailure(call: Call<DuplicateResponse>, t: Throwable) {
-                Log.e("retrofit", "onResponse: fail register $call")
+                Log.e("retrofit", "onResponse: fail isDuplicate $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
@@ -88,13 +88,14 @@ class UserService {
                     }
                     401 -> { // failed
                         val err = JSONObject(response.errorBody()?.string()).getJSONObject("errorResponse").get("code").toString()
+                        //Log.d("login_test", "onResponse: " + response.errorBody()!!.string())
                         onResponseListener.getResponseBody(null, false, err)
                     }
                 }
             }
 
             override fun onFailure(call: Call<UserTokenResponse>, t: Throwable) {
-                Log.e("retrofit", "onResponse: fail register $call")
+                Log.e("retrofit", "onResponse: fail login $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
@@ -118,7 +119,7 @@ class UserService {
             }
 
             override fun onFailure(call: Call<LogoutResponse>, t: Throwable) {
-                Log.e("retrofit", "onResponse: fail register $call")
+                Log.e("retrofit", "onResponse: fail logout $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
@@ -147,7 +148,7 @@ class UserService {
             }
 
             override fun onFailure(call: Call<RefreshTokenResponse>, t: Throwable) {
-                Log.e("retrofit", "onResponse: fail register $call")
+                Log.e("retrofit", "onResponse: fail reissuanceToken $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
@@ -172,7 +173,7 @@ class UserService {
             }
 
             override fun onFailure(call: Call<EmailResponse>, t: Throwable) {
-                Log.e("retrofit", "onResponse: fail register $call")
+                Log.e("retrofit", "onResponse: fail sendEmail $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
@@ -196,13 +197,75 @@ class UserService {
             }
 
             override fun onFailure(call: Call<EmailCertifyResponse>, t: Throwable) {
-                Log.e("retrofit", "onResponse: fail register $call")
+                Log.e("retrofit", "onResponse: fail certifyCode $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
         })
     }
 
+    fun attendanceToday(token : String , location : Location) {
+        Log.d("attendanceToday", "attendanceToday: start")
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
 
+        userService.attendanceToday(token, location).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when(response.code()) {
+                    200 -> { // success
+                        Log.d("attendanceToday", "onResponse: " + response.body().toString())
+                        onResponseListener.getResponseBody(response.body()!!, true, "")
+                    }
+                    401 -> { // failed
+                        //Log.d("attendanceToday", "onResponse: " + response.errorBody()!!.string())
+//                        val bst = response.errorBody()!!.byteString().toByteArray()
+//                        val str = String(bst, StandardCharsets.UTF_8)
+//                        Log.d("test", "onResponse: $str")
+//                        val jobj = JSONObject(str)
+//                        val errRes = jobj.getJSONObject("errorResponse")
+//                        val err = errRes.get("message").toString()
+//                        //val err = "response : " + response.errorBody()!!.string()
+                        onResponseListener.getResponseBody(null, false, "건국대학교 내에 위치하고 있지 않습니다.")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail attendanceToday $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun getAttendanceDates(token : String) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.getAttendanceDates(token).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                if(response.body() == null) {
+                    onResponseListener.getResponseBody(null, false, "서버의 응답이 올바르지 않습니다.")
+                } else {
+                    val resp = JSONObject(response.body()!!.response.toString()).getJSONArray("attendances")
+                    val dates = ArrayList<String>()
+                    for(i in 0 until resp.length()) {
+                        dates.add(resp.getString(i))
+                    }
+                    onResponseListener.getResponseBody(dates, true, "")
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail getAttendanceDates $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
 
 }

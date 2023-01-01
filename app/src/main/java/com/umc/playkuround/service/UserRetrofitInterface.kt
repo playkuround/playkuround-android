@@ -27,4 +27,9 @@ interface UserRetrofitInterface {
     @GET("/api/auth/emails")
     fun certifyCode(@Query("email") email : String, @Query("code") code : String) : Call<EmailCertifyResponse>
 
+    @POST("/api/attendances")
+    fun attendanceToday(@Header("Authorization") token : String, @Body location : Location) : Call<CommonResponse>
+
+    @GET("/api/attendances")
+    fun getAttendanceDates(@Header("Authorization") token : String) : Call<CommonResponse>
 }

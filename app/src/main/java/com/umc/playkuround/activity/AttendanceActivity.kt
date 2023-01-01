@@ -1,32 +1,38 @@
 package com.umc.playkuround.activity
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
+import android.util.Log
 import android.util.TypedValue
-import android.view.*
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setMargins
+import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
+import com.umc.playkuround.data.Location
 import com.umc.playkuround.databinding.ActivityAttendanceBinding
+import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.service.UserService
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AttendanceActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityAttendanceBinding
+    private val attendanceActivity = this
 
     private var width = 0 // attendance container width
 
-    lateinit var today : String
-    lateinit var todayTv : TextView
-    var attendanceDates = arrayOf("2022-08-22", "2022-08-02")
+    private lateinit var today : String
+    private lateinit var todayTv : TextView
+    private var attendanceDates : ArrayList<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,19 +42,66 @@ class AttendanceActivity : AppCompatActivity() {
         val format = SimpleDateFormat("yyyy-MM-dd")
         today = format.format(Calendar.getInstance().time)
 
-        binding.attendanceBtn.setOnClickListener {
-            todayTv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_filled)
-        }
-
         if(width == 0)
-            initDates()
+            getAttendanceDates()
+
+        binding.attendanceBtn.setOnClickListener {
+            attendanceToday()
+        }
 
         binding.attendanceBackBtn.setOnClickListener {
             this.finish()
         }
     }
 
+    private fun getAttendanceDates() {
+        val loading = LoadingDialog(this)
+        loading.show()
+
+        val userService = UserService()
+        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    if(body is ArrayList<*>) {
+                        attendanceDates = body as ArrayList<String>
+                        initDates()
+                        loading.dismiss()
+                    }
+                } else {
+                    loading.dismiss()
+                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }).getAttendanceDates(user.getAccessToken())
+    }
+
+    private fun attendanceToday() {
+        val loading = LoadingDialog(this)
+        loading.show()
+
+        val userService = UserService()
+        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    todayTv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_filled)
+                    binding.attendanceBtn.isEnabled = false
+                    attendanceDates!!.add(attendanceActivity.today)
+                    loading.dismiss()
+                } else {
+                    loading.dismiss()
+                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }).attendanceToday(user.getAccessToken(), Location(37.542548, 127.073619))
+    }
+
     private fun initDates() {
+        Log.d("test1", "initDates: start")
+        if(attendanceDates == null) {
+            attendanceDates = ArrayList<String>()
+            this.finish()
+        }
+        Log.d("test1", "initDates: " + attendanceDates)
         val today = Calendar.getInstance()
         today.add(Calendar.DATE, -29)
 
@@ -70,6 +123,7 @@ class AttendanceActivity : AppCompatActivity() {
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
+        Log.d("test2", "onWindowFocusChanged: start")
         this.width = binding.attendanceContainer.width
         binding.attendanceCalendarContainerTl.removeAllViews()
         initDates()
@@ -101,12 +155,19 @@ class AttendanceActivity : AppCompatActivity() {
         tv.layoutParams = tvParam
 
         val format = SimpleDateFormat("yyyy-MM-dd")
-        if(attendanceDates.contains(format.format(today.time))) {
+        if(attendanceDates!!.contains(format.format(today.time))) {
             tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_filled)
             tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
         } else if(format.format(today.time) == this.today) {
-            tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_empty)
-            tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
+            if(attendanceDates!!.contains(this.today)) {
+                tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_filled)
+                tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
+                binding.attendanceBtn.isEnabled = false
+            } else {
+                tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_empty)
+                tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
+                binding.attendanceBtn.isEnabled = true
+            }
             this.todayTv = tv
         } else {
             tv.background = ContextCompat.getDrawable(applicationContext, R.color.transparent)

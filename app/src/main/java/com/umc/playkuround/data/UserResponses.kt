@@ -2,6 +2,11 @@ package com.umc.playkuround.data
 
 import com.google.gson.annotations.SerializedName
 
+data class CommonResponse(
+    @SerializedName(value = "isSuccess") var isSuccess : Boolean,
+    @SerializedName(value = "response") var response : Any
+)
+
 data class UserTokenResponse(
     @SerializedName(value = "isSuccess") var isSuccess : Boolean?,
     @SerializedName(value = "response") var response : Response?
