@@ -23,7 +23,7 @@ android:background="@drawable/badge_dialog_bg">
         android:src="@drawable/agree_x"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="18dp" />
 
     <TextView
@@ -35,7 +35,7 @@ android:background="@drawable/badge_dialog_bg">
         android:fontFamily="@font/pretendard_semi_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="115dp"
+        android:layout_marginTop="95dp"
         android:layout_marginStart="18dp"/>
 
     <ImageView
