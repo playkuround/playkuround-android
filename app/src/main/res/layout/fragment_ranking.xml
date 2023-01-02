@@ -147,7 +147,23 @@
                 android:textSize="16dp"
                 android:id="@+id/ranking_my_score_tv"/>
 
+
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/ranking_empty_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ranking_empty"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ranking_title_bar"
+            app:layout_constraintBottom_toTopOf="@id/ranking_my_bar"
+            android:textColor="@color/light_gray"
+            android:fontFamily="@font/pretendard_medium"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

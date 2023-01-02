@@ -131,7 +131,7 @@ class BadgeFragment : Fragment() {
             startActivity(intent)
 
         }
-        
+
 
 
 
