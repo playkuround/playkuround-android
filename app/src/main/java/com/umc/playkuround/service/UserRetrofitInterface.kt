@@ -32,4 +32,7 @@ interface UserRetrofitInterface {
 
     @GET("/api/attendances")
     fun getAttendanceDates(@Header("Authorization") token : String) : Call<CommonResponse>
+
+    @GET("/api/landmarks")
+    fun getNearLandmark(@Header("Authorization") token : String, @Query("latitude") latitude : String, @Query("longitude") longitude : String) : Call<CommonResponse>
 }

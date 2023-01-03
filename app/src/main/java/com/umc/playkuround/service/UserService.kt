@@ -268,4 +268,38 @@ class UserService {
         })
     }
 
+    fun getNearLandmark(token : String, latitude : String, longitude : String) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.getNearLandmark(token, latitude, longitude).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when(response.code()) {
+                    200 -> { // success
+                        Log.d("attendanceToday", "onResponse: " + response.body().toString())
+                        val resp = JSONObject(response.body()!!.response.toString())
+                        val id = resp.get("id").toString().toDouble()
+                        val name = resp.get("name").toString()
+                        val distance = resp.get("distance").toString().toDouble()
+                        val gameType = resp.get("gameType").toString()
+                        val landmark = LandMark(id.toInt(), name, distance, gameType)
+                        onResponseListener.getResponseBody(landmark, true, "")
+                    }
+                    401 -> { // failed
+                        val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail getAttendanceDates $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
 }

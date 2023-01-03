@@ -17,13 +17,18 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.android.gms.tasks.Task
+import com.umc.playkuround.PlayKuApplication
+import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityMapBinding
+import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.service.UserService
 import kotlin.random.Random
 
 
@@ -60,6 +65,23 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
     private fun startGameActivity(idx : Int) {
         binding.mapClickBtn.setOnClickListener {
+            val loading = LoadingDialog(this)
+            loading.show()
+
+            val userService = UserService()
+            userService.setOnResponseListener(object : UserService.OnResponseListener() {
+                override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                    if(isSuccess) {
+                        loading.dismiss()
+                        Log.d("near_landmark", "getResponseBody: $body")
+                        Toast.makeText(applicationContext, "$body", Toast.LENGTH_SHORT).show()
+                    } else {
+                        loading.dismiss()
+                        Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }).getNearLandmark(user.getAccessToken(), "37.5424444", "127.077995")
+
             /*val intent : Intent = when (idx) {
                 0 -> {
                     Intent(this, MiniGameQuizActivity::class.java)
