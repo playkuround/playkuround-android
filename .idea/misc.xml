@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="..\:/Users/rdrni/AndroidStudioProjects/app/src/main/res/layout/activity_main.xml" value="0.2826086956521739" />
         <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.28" />
         <entry key="..\:/Users/rdrni/AndroidStudioProjects/playkuround/app/src/main/res/drawable/badge_dialog_bg.xml" value="0.22" />
@@ -95,7 +96,7 @@
         <entry key="app/src/main/res/layout/fragment_badge.xml" value="0.3222961425781249" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.24606018066406252" />
         <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.18237915039062502" />
-        <entry key="app/src/main/res/layout/fragment_ranking.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_ranking.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_rank.xml" value="0.29739583333333336" />
         <entry key="app/src/main/res/layout/list_item_badge_attendance.xml" value="0.18704710144927536" />
         <entry key="app/src/main/res/layout/simple_spinner.xml" value="0.36070559610705594" />

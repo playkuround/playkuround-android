@@ -26,7 +26,7 @@ class RankingFragment : Fragment() {
 
 
 
-        val adapter = RankingRVAdapter()
+//        val adapter = RankingRVAdapter()
 
 
 //        fun submitList(items: List<RankingRVAdapter.RankUser>) {
@@ -34,7 +34,7 @@ class RankingFragment : Fragment() {
 //            val adapter = RankingRVAdapter()
 //            binding.rankingEmptyTv.isVisible = false
 //            binding.rankingRecyclerView.isVisible = true
-//            adapter.set
+//            adapter.setItems(Item)
 //
 //            if (items.isEmpty()) {
 //                    binding.rankingEmptyTv.isVisible = true
