@@ -1,5 +1,6 @@
 package com.umc.playkuround.fragment
 
+import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,23 +27,9 @@ class RankingFragment : Fragment() {
 
 
 
-//        val adapter = RankingRVAdapter()
-
-
-//        fun submitList(items: List<RankingRVAdapter.RankUser>) {
-//
-//            val adapter = RankingRVAdapter()
-//            binding.rankingEmptyTv.isVisible = false
-//            binding.rankingRecyclerView.isVisible = true
-//            adapter.setItems(Item)
-//
-//            if (items.isEmpty()) {
-//                    binding.rankingEmptyTv.isVisible = true
-//                    binding.rankingRecyclerView.isVisible = false
-//                }
-//        }
 
         binding.rankingRecyclerView.adapter = RankingRVAdapter()
+        submitList()
 
         binding.rankingInfoIb.setOnClickListener {
             val intent = Intent(context, RankingInfoActivity::class.java)
@@ -52,6 +39,19 @@ class RankingFragment : Fragment() {
 
 
         return binding.root
+    }
+
+
+    fun submitList() {
+
+        binding.rankingEmptyTv.isVisible = false
+        binding.rankingRecyclerView.isVisible = true
+        val items = binding.rankingRecyclerView.adapter?.itemCount
+
+        if (items==0) {
+            binding.rankingEmptyTv.isVisible = true
+            binding.rankingRecyclerView.isVisible = false
+        }
     }
 
 }
