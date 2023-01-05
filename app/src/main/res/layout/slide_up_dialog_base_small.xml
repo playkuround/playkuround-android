@@ -11,13 +11,16 @@
         android:background="#B3000000" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="222dp"
         android:id="@+id/content_container"
-        app:cardCornerRadius="13dp"
-        app:cardElevation="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="232dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-10dp"
         android:background="@color/white"
-        >
+        app:cardCornerRadius="13dp"
+        app:cardElevation="0dp">
     </androidx.cardview.widget.CardView>
+
+
+
 </RelativeLayout>

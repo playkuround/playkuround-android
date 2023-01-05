@@ -57,6 +57,7 @@
         <entry key="app/src/main/res/drawable/badge_dialog_bg.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/button_green.xml" value="0.149" />
         <entry key="app/src/main/res/drawable/custom_checkbox.xml" value="0.1455" />
+        <entry key="app/src/main/res/drawable/dialog_background.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable/edit_text.xml" value="0.149" />
         <entry key="app/src/main/res/drawable/edit_text_wrong.xml" value="0.149" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.179" />
@@ -100,10 +101,11 @@
         <entry key="app/src/main/res/layout/item_rank.xml" value="0.29739583333333336" />
         <entry key="app/src/main/res/layout/list_item_badge_attendance.xml" value="0.18704710144927536" />
         <entry key="app/src/main/res/layout/simple_spinner.xml" value="0.36070559610705594" />
-        <entry key="app/src/main/res/layout/slide_up_dialog_base.xml" value="0.24114583333333334" />
+        <entry key="app/src/main/res/layout/slide_up_dialog_base.xml" value="0.10384615384615385" />
         <entry key="app/src/main/res/layout/slide_up_dialog_base_small.xml" value="0.14463019250253292" />
         <entry key="app/src/main/res/layout/spinner_text.xml" value="0.11727456940222898" />
         <entry key="app/src/main/res/menu/bottom_nav.xml" value="0.240625" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>
     </option>
   </component>
