@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.umc.playkuround.PlayKuApplication.Companion.user
@@ -36,6 +37,17 @@ class RankingFragment : Fragment() {
         return binding.root
     }
 
+    private fun submitList() {
+
+        binding.rankingEmptyTv.isVisible = false
+        binding.rankingRecyclerView.isVisible = true
+        val items = binding.rankingRecyclerView.adapter?.itemCount
+
+        if (items==0) {
+            binding.rankingEmptyTv.isVisible = true
+            binding.rankingRecyclerView.isVisible = false
+        }
+
     private fun setDataFromServer() {
         val loading = LoadingDialog(requireActivity())
         loading.show()
@@ -53,6 +65,7 @@ class RankingFragment : Fragment() {
                         override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                             if(isSuccess) {
                                 binding.rankingRecyclerView.adapter = RankingRVAdapter(body as ArrayList<Ranking>)
+                                submitList()
                                 loading.dismiss()
                             } else {
                                 loading.dismiss()

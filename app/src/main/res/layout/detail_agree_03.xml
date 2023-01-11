@@ -11,8 +11,8 @@
         android:src="@drawable/agree_x"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="28dp"/>
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="18dp"/>
 
     <TextView
         android:layout_width="wrap_content"

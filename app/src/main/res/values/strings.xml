@@ -70,4 +70,6 @@
     <string name="map_place_rank_dialog">방문자 랭킹</string>
     <string name="map_place_info_dialog">건물 설명</string>
 
+    <string name="ranking_empty">아직 순위가 없습니다.\n지금 1위에 도전해보세요!</string>
+
 </resources>

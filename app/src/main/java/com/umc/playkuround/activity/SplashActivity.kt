@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        loading = LoadingDialog(this)
         checkLoginInfo()
         finish()
     }
@@ -39,7 +39,6 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } else {
-            loading = LoadingDialog(this)
             loading.show()
             login()
         }

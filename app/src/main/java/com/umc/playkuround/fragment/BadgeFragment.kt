@@ -134,6 +134,7 @@ class BadgeFragment : Fragment() {
 
 
 
+
         slideupPopup.show()
     }
 

@@ -12,13 +12,14 @@
         />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="410dp"
         android:id="@+id/content_container"
-        app:cardCornerRadius="40dp"
-        app:cardElevation="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_marginBottom="-40dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
-        >
+        app:cardCornerRadius="40dp"
+        app:cardElevation="0dp">
+
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
