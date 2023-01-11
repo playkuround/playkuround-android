@@ -35,4 +35,13 @@ interface UserRetrofitInterface {
 
     @GET("/api/landmarks")
     fun getNearLandmark(@Header("Authorization") token : String, @Query("latitude") latitude : String, @Query("longitude") longitude : String) : Call<CommonResponse>
+
+    @GET("/api/scores/rankings")
+    fun getUserRanking(@Header("Authorization") token : String) : Call<CommonResponse>
+
+    @GET("/api/scores/rankings/top100")
+    fun getTop100Ranking(@Header("Authorization") token : String) : Call<CommonResponse>
+
+    @POST("/api/scores")
+    fun updateUserScore(@Header("Authorization") token : String, @Body scoreType : String) : Call<CommonResponse>
 }

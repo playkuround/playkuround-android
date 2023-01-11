@@ -11,12 +11,14 @@ import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setMargins
 import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.data.Location
+import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityAttendanceBinding
 import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.service.UserService
@@ -83,10 +85,21 @@ class AttendanceActivity : AppCompatActivity() {
         userService.setOnResponseListener(object : UserService.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if(isSuccess) {
-                    todayTv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_filled)
-                    binding.attendanceBtn.isEnabled = false
-                    attendanceDates!!.add(attendanceActivity.today)
-                    loading.dismiss()
+                    val userService2 = UserService()
+
+                    userService2.setOnResponseListener(object : UserService.OnResponseListener() {
+                        override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                            if(isSuccess) {
+                                todayTv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_filled)
+                                binding.attendanceBtn.isEnabled = false
+                                attendanceDates!!.add(attendanceActivity.today)
+
+                                loading.dismiss()
+                            } else {
+                                Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }).updateUserScore(user.getAccessToken(), Ranking.scoreType.ADVENTURE)
                 } else {
                     loading.dismiss()
                     Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()

@@ -2,6 +2,7 @@ package com.umc.playkuround.service
 
 import android.util.Log
 import com.umc.playkuround.data.*
+import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -290,6 +291,113 @@ class UserService {
                     401 -> { // failed
                         val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
                         onResponseListener.getResponseBody(null, false, err)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail getAttendanceDates $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun getUserRanking(token : String) {
+        Log.d("getUserRanking", "start: ")
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.getUserRanking(token).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when(response.code()) {
+                    200 -> { // success
+                        Log.d("getUserRanking", "onResponse: " + response.body().toString())
+                        val resp = JSONObject(response.body()!!.response.toString())
+                        val ranking = resp.get("ranking").toString().toDouble().toInt()
+                        val nickname = resp.get("nickname").toString()
+                        val points = resp.get("points").toString().toDouble().toInt()
+                        val myRank = Ranking(ranking, nickname, points)
+                        onResponseListener.getResponseBody(myRank, true, "")
+                    }
+                    400 -> { // failed
+                        val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail getAttendanceDates $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun getTop100Ranking(token : String) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.getTop100Ranking(token).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when(response.code()) {
+                    200 -> { // success
+                        Log.d("attendanceToday", "onResponse: " + response.body().toString())
+                        if(response.body()!!.response != null) {
+                            val resp = JSONArray(response.body()!!.response.toString())
+                            val top100Rank = ArrayList<Ranking>()
+                            for (i in 0 until resp.length()) {
+                                val jobj = JSONObject(resp[i].toString())
+                                val ranking = jobj.get("ranking").toString().toDouble().toInt()
+                                val nickname = jobj.get("nickname").toString()
+                                val points = jobj.get("points").toString().toDouble().toInt()
+                                val rank = Ranking(ranking, nickname, points)
+                                top100Rank.add(rank)
+                            }
+                            onResponseListener.getResponseBody(top100Rank, true, "")
+                        } else {
+                            onResponseListener.getResponseBody(null, false, "")
+                        }
+                    }
+                    401 -> { // failed
+                        val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail getAttendanceDates $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun updateUserScore(token : String, scoreType : String) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.updateUserScore(token, scoreType).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when(response.code()) {
+                    201 -> { // success
+                        Log.d("attendanceToday", "onResponse: " + response.body().toString())
+                        onResponseListener.getResponseBody(null, true, "")
+                    }
+                    401 -> { // failed
+                        val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                    else -> {
+                        Log.d("updateUserScore", "onResponse: ${response.code()}")
                     }
                 }
             }
