@@ -69,7 +69,7 @@
         <entry key="app/src/main/res/layout/activity_attendance.xml" value="0.25324868740402584" />
         <entry key="app/src/main/res/layout/activity_email_certify.xml" value="0.21696427939594665" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.16462097167968753" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.39176106675762995" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18376546128887994" />
         <entry key="app/src/main/res/layout/activity_major_choice.xml" value="0.24762115478515623" />
         <entry key="app/src/main/res/layout/activity_map.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_minigame_moon.xml" value="0.13155517578125" />
@@ -88,7 +88,7 @@
         <entry key="app/src/main/res/layout/dialog_badge_info.xml" value="0.18704710144927536" />
         <entry key="app/src/main/res/layout/dialog_certify_timeout.xml" value="0.14463019250253292" />
         <entry key="app/src/main/res/layout/dialog_get_badge.xml" value="0.24114583333333334" />
-        <entry key="app/src/main/res/layout/dialog_loading.xml" value="0.29739583333333336" />
+        <entry key="app/src/main/res/layout/dialog_loading.xml" value="0.2922705314009662" />
         <entry key="app/src/main/res/layout/dialog_map_place.xml" value="0.14463019250253292" />
         <entry key="app/src/main/res/layout/dialog_place_info.xml" value="0.15483527062753297" />
         <entry key="app/src/main/res/layout/dialog_place_rank.xml" value="0.14463019250253292" />
