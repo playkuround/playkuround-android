@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -129,11 +130,10 @@ class BadgeFragment : Fragment() {
         mapinfoBtn.setOnClickListener {
             val intent = Intent(context,DialogPlaceInfoActivity::class.java)
             startActivity(intent)
-
         }
 
-
-
+        var mapImg = slideupPopup.findViewById<ImageView>(R.id.map_place_iv)
+        mapImg.setImageResource(R.drawable.landmark_1)
 
         slideupPopup.show()
     }
