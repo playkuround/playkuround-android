@@ -88,6 +88,7 @@
         <entry key="app/src/main/res/layout/detail_agree_02.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_badge_info.xml" value="0.18704710144927536" />
         <entry key="app/src/main/res/layout/dialog_get_badge.xml" value="0.24114583333333334" />
+        <entry key="app/src/main/res/layout/dialog_loading.xml" value="0.11203703703703703" />
         <entry key="app/src/main/res/layout/dialog_quiz_correct.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_quiz_wrong.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/fragment_badge.xml" value="0.1" />
