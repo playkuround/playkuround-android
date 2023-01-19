@@ -27,13 +27,279 @@ data class LandMark(
                 this.longitude = 127.0730058
             }
             2 -> {
+                this.name = "입학정보관"
+                this.latitude = 37.5401585
+                this.longitude = 127.0734625
                 
             }
+            3 -> {
+                this.name = "수의학관"
+                this.latitude = 37.5393144
+                this.longitude = 127.0743188
+            }
+
+            4 -> {
+                this.name = "동물생명과학관"
+                this.latitude = 37.5400992
+                this.longitude = 127.0739755
+            }
+
+            5 -> {
+                this.name = "생명과학관"
+                this.latitude = 37.541211
+                this.longitude = 127.0738829
+
+            }
+
+            6 -> {
+                this.name = "상허도서관"
+                this.latitude = 37.5416478
+                this.longitude = 127.073841
+            }
+
+            7 -> {
+                this.name = "의생명과학연구관"
+                this.latitude = 37.5416377
+                this.longitude = 127.0722548
+            }
+
+            8 -> {
+                this.name = "예디대"
+                this.latitude = 37.5427749
+                this.longitude = 127.0731309
+            }
+
+            9 -> {
+                this.name = "언어교육원"
+                this.latitude = 37.542419
+                this.longitude = 127.0747909
+
+            }
+
+            10 -> {
+                this.name = "법학관"
+                this.latitude = 37.5416114
+                this.longitude = 127.0753642
+            }
+
+            11 -> {
+                this.name = "상허박물관"
+                this.latitude = 37.5423863
+                this.longitude = 127.0759469
+
+            }
+
+            12 -> {
+                this.name = "행정관"
+                this.latitude = 37.5432154
+                this.longitude = 127.0753186
+            }
+
+            13 -> {
+                this.name = "교육과학관"
+                this.latitude = 37.543853
+                this.longitude = 127.074704
+            }
+
+            14 -> {
+                this.name = "상허연구관"
+                this.latitude = 37.5349819
+                this.longitude = 127.0754255
+
+            }
+
+            15 -> {
+                this.name = "경영관"
+                this.latitude = 37.5441063
+                this.longitude = 127.0761259
+            }
+
+            16 -> {
+                this.name = "새천년관"
+                this.latitude = 37.5435018
+                this.longitude = 127.0768672
+            }
+
+            17 -> {
+                this.name = "건축관"
+                this.latitude = 37.5437987
+                this.longitude = 127.0781376
+            }
+
+            18 -> {
+                this.name = "부동산학관"
+                this.latitude = 37.5434680
+                this.longitude = 127.0781208
+            }
+
             19 -> {
-                this.name = "인문학관(인문대)"
+                this.name = "인문학관"
                 this.latitude = 37.5424445
                 this.longitude = 127.0779958
+
             }
+
+            20 -> {
+                this.name = "학생회관"
+                this.latitude = 37.5422029
+                this.longitude = 127.0775529
+            }
+
+            21 -> {
+                this.name = "제2학생회관"
+                this.latitude = 37.5414569
+                this.longitude = 127.0783146
+            }
+
+            22 -> {
+                this.name = "공학관A"
+                this.latitude = 37.5417549
+                this.longitude = 127.0786807
+            }
+
+            23 -> {
+                this.name = "공학관B"
+                this.latitude = 37.5421010
+                this.longitude = 127.0794452
+            }
+
+            24 -> {
+                this.name = "공학관C"
+                this.latitude = 37.5411352
+                this.longitude = 127.0793238
+
+            }
+
+            25 -> {
+                this.name = "신공학관"
+                this.latitude = 37.5408837
+                this.longitude = 127.0795183
+            }
+
+            26 -> {
+                this.name = "과학관(이과대)"
+                this.latitude = 37.5412503
+                this.longitude = 127.0803749
+            }
+
+            27 -> {
+                this.name = "창의관"
+                this.latitude = 37.5408292
+                this.longitude = 127.0813777
+
+            }
+
+            28 -> {
+                this.name = "공예관"
+                this.latitude = 37.5420952
+                this.longitude = 127.0809046
+            }
+
+//            29 -> {
+//                this.name = "국제학사"
+//                this.latitude = 37.5414569
+//                this.longitude = 127.0783146
+//            }
+
+            30 -> {
+                this.name = "기숙사"
+                this.latitude = 37.5392118
+                this.longitude = 127.0774110
+
+            }
+
+//            31 -> {
+//                this.name = "일감호"
+//                this.latitude = 37.5422029
+//                this.longitude = 127.0775529
+//            }
+
+            32 -> {
+                this.name = "홍예교"
+                this.latitude = 37.5418113
+                this.longitude = 127.0774426
+            }
+
+            33 -> {
+                this.name = "황소동상"
+                this.latitude = 37.5431006
+                this.longitude = 127.0761367
+            }
+
+
+            34 -> {
+                this.name = "청심대"
+                this.latitude = 37.5424163
+                this.longitude = 127.0768045
+            }
+
+
+            35 -> {
+                this.name = "상허박사 동상"
+                this.latitude = 37.5413729
+                this.longitude = 127.0734508
+            }
+
+
+            36 -> {
+                this.name = "노천극장 중앙"
+                this.latitude = 37.5414752
+                this.longitude = 127.0778020
+            }
+
+            37 -> {
+                this.name = "운동장"
+                this.latitude = 37.5441467
+                this.longitude = 127.0769722
+            }
+
+
+            38 -> {
+                this.name = "실내체육관"
+                this.latitude = 37.5445231
+                this.longitude = 127.0796061
+            }
+
+
+            39 -> {
+                this.name = "건국문(후문)"
+                this.latitude = 37.544838
+                this.longitude = 127.076628
+            }
+
+
+//            40 -> {
+//                this.name = "중문"
+//                this.latitude = 37.5414569
+//                this.longitude = 127.0783146
+//            }
+//
+//            41 -> {
+//                this.name = "일감문(동물병원)"
+//                this.latitude = 37.5414569
+//                this.longitude = 127.0783146
+//            }
+//
+//
+//            42 -> {
+//                this.name = "상허관(도서관)"
+//                this.latitude = 37.5414569
+//                this.longitude = 127.0783146
+//            }
+
+            43 -> {
+                this.name = "구의역쪽문"
+                this.latitude = 37.541454
+                this.longitude = 127.082172
+            }
+
+
+            44 -> {
+                this.name = "기숙사쪽문"
+                this.latitude = 37.5392216
+                this.longitude = 127.0767438
+            }
+
             else -> {
                 this.name = "존재하지 않는 건물"
                 this.latitude = 37.5399272
