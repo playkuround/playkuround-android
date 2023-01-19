@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.Task
 import com.umc.playkuround.PlayKuApplication
 import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
+import com.umc.playkuround.data.LandMark
 import com.umc.playkuround.databinding.ActivityMapBinding
 import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.service.UserService
@@ -74,7 +75,24 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                     if(isSuccess) {
                         loading.dismiss()
                         Log.d("near_landmark", "getResponseBody: $body")
-                        Toast.makeText(applicationContext, "$body", Toast.LENGTH_SHORT).show()
+                        val landmark = body as LandMark
+
+                        val intent : Intent = when (landmark.gameType) {
+                            LandMark.QUIZ -> {
+                                Intent(applicationContext, MiniGameQuizActivity::class.java)
+                            }
+                            LandMark.MOON -> {
+                                Intent(applicationContext, MiniGameMoonActivity::class.java)
+                            }
+                            LandMark.TIMER -> {
+                                Intent(applicationContext, MiniGameTimerActivity::class.java)
+                            }
+                            else -> {
+                                Intent(applicationContext, MiniGameTimerActivity::class.java)
+                            }
+                        }
+                        intent.putExtra("landmark", landmark)
+                        startActivity(intent)
                     } else {
                         loading.dismiss()
                         Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
@@ -82,22 +100,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                 }
             }).getNearLandmark(user.getAccessToken(), "37.5424444", "127.077995")
 
-            /*val intent : Intent = when (idx) {
-                0 -> {
-                    Intent(this, MiniGameQuizActivity::class.java)
-                }
-                1 -> {
-                    Intent(this, MiniGameMoonActivity::class.java)
-                }
-                2 -> {
-                    Intent(this, MiniGameTimerActivity::class.java)
-                }
-                else -> {
-                    Intent(this, MiniGameTimerActivity::class.java)
-                }
-            }*/
-            val intent = Intent(this, DialogPlaceRankActivity::class.java)
-            startActivity(intent)
+            //val intent = Intent(this, DialogPlaceRankActivity::class.java)
         }
     }
 

@@ -2,6 +2,7 @@ package com.umc.playkuround.service
 
 import android.util.Log
 import com.umc.playkuround.data.*
+import com.umc.playkuround.data.Ranking.Companion.scoreType
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
@@ -285,7 +286,7 @@ class UserService {
                         val name = resp.get("name").toString()
                         val distance = resp.get("distance").toString().toDouble()
                         val gameType = resp.get("gameType").toString()
-                        val landmark = LandMark(id.toInt(), name, distance, gameType)
+                        val landmark = LandMark(id.toInt(), latitude.toDouble(), longitude.toDouble(), name, distance, gameType)
                         onResponseListener.getResponseBody(landmark, true, "")
                     }
                     401 -> { // failed
@@ -398,6 +399,40 @@ class UserService {
                     }
                     else -> {
                         Log.d("updateUserScore", "onResponse: ${response.code()}")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail getAttendanceDates $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun saveAdventureLog(token : String, landmark : LandMark) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.saveAdventureLog(token, landmark).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when(response.code()) {
+                    201 -> { // success
+                        Log.d("saveAdventureLog", "onResponse: " + response.body().toString())
+
+                        // 추후 배지 부분 완성 시 배지 정보 확인 해야함
+
+                        onResponseListener.getResponseBody(null, true, "")
+                    }
+                    401 -> { // failed
+                        val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                    else -> {
+                        Log.d("saveAdventureLog", "onResponse: ${response.code()}")
                     }
                 }
             }

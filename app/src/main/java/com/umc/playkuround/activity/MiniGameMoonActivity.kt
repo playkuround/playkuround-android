@@ -3,8 +3,12 @@ package com.umc.playkuround.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.umc.playkuround.PlayKuApplication
 import com.umc.playkuround.R
+import com.umc.playkuround.data.LandMark
 import com.umc.playkuround.databinding.ActivityMinigameMoonBinding
+import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.service.UserService
 
 
 class MiniGameMoonActivity : AppCompatActivity() {
@@ -29,6 +33,7 @@ class MiniGameMoonActivity : AppCompatActivity() {
                 binding.moonClickIv.getLayoutParams().width = 1000
                 binding.moonClickIv.requestLayout()
 
+                saveAdventureLog()
             }
             else if (count == 80) {
                 binding.moonClickIv.setImageResource(R.drawable.moon_two)
@@ -44,4 +49,25 @@ class MiniGameMoonActivity : AppCompatActivity() {
             this.finish()
         }
     }
+
+    private fun saveAdventureLog() {
+        val landmark = intent.getSerializableExtra("landmark") as LandMark
+
+        val loading = LoadingDialog(this)
+        loading.show()
+
+        val userService = UserService()
+        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if (isSuccess) {
+                    loading.dismiss()
+                    finish()
+                } else {
+                    loading.dismiss()
+                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }).saveAdventureLog(PlayKuApplication.user.getAccessToken(), landmark)
+    }
+
 }
