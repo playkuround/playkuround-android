@@ -7,7 +7,7 @@
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateDrawable="@drawable/loding"
+        android:indeterminateDrawable="@drawable/loading"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,13 +17,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="네트워크 오류가 발생했습니다.\n 잠시만 기다려주세요!"
+        android:text="Loading"
         android:textSize="16dp"
         android:fontFamily="@font/pretendard_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loading_progress_bar"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/light_gray"/>
+        android:layout_marginTop="14dp"
+        android:textColor="@color/green_main"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
