@@ -1,13 +1,41 @@
 package com.umc.playkuround.data
 
+import com.google.gson.annotations.SerializedName
 import com.umc.playkuround.R
+import java.io.Serializable
 
 data class LandMark(
-    val id : Int,
-    val name : String,
+    @SerializedName(value = "landmarkId") val id : Int,
+    @SerializedName(value = "latitude") var latitude : Double,
+    @SerializedName(value = "longitude") var longitude : Double,
+    var name : String,
     val distance : Double,
     val gameType : String
-) {
+) : Serializable {
+
+    companion object {
+        const val QUIZ = "QUIZ"
+        const val TIMER = "TIMER"
+        const val MOON = "MOON"
+    }
+
+    init {
+        when(this.id) {
+            1 -> {
+                this.name = "산학협동관"
+                this.latitude = 37.5399272
+                this.longitude = 127.0730058
+            }
+            2 -> {
+                
+            }
+            else -> {
+                this.name = "존재하지 않는 건물"
+                this.latitude = 0.0
+                this.longitude = 0.0
+            }
+        }
+    }
 
     fun getDescription() : String {
         return when(this.id) {
