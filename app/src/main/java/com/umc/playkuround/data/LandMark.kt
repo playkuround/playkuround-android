@@ -32,7 +32,6 @@ data class LandMark(
                 this.longitude = 127.0734625
                 
             }
-
             3 -> {
                 this.name = "수의학관"
                 this.latitude = 37.5393144
@@ -301,11 +300,10 @@ data class LandMark(
                 this.longitude = 127.0767438
             }
 
-
             else -> {
-                this.name = "예디대"
-                this.latitude = 0.0
-                this.longitude = 0.0
+                this.name = "존재하지 않는 건물"
+                this.latitude = 37.5399272
+                this.longitude = 127.0730058
             }
         }
     }
@@ -462,12 +460,6 @@ data class LandMark(
             42 -> R.drawable.landmark_42
             43 -> R.drawable.landmark_43
 //            44 -> R.drawable.landmark_44
-
-
-
-
-
-
 
 
             else -> R.color.lighter_gray

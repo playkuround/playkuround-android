@@ -14,9 +14,15 @@ import android.os.Bundle
 import android.os.Looper
 import android.telephony.CarrierConfigManager
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.location.*
@@ -29,6 +35,7 @@ import com.umc.playkuround.R
 import com.umc.playkuround.data.LandMark
 import com.umc.playkuround.databinding.ActivityMapBinding
 import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.dialog.SmallSlideUpDialog
 import com.umc.playkuround.service.UserService
 import kotlin.random.Random
 
@@ -56,7 +63,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             }
         }
 
-        startGameActivity(getGames())
+        startGameActivity(1)
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map_map_fragment) as SupportMapFragment?
@@ -99,13 +106,17 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                     }
                 }
             }).getNearLandmark(user.getAccessToken(), "37.5424444", "127.077995")
-
-            //val intent = Intent(this, DialogPlaceRankActivity::class.java)
         }
-    }
 
-    private fun getGames() : Int {
-        return Random(System.currentTimeMillis()).nextInt(3)
+        if(idx == -1) {
+            binding.mapClickBtn.setOnClickListener {
+                //val intent = Intent(applicationContext, MiniGameQuizActivity::class.java)
+                val intent = Intent(applicationContext, MiniGameMoonActivity::class.java)
+                //val intent = Intent(applicationContext, MiniGameTimerActivity::class.java)
+                intent.putExtra("landmark", LandMark(1, 123.2131, 321.1234, "", 0.0, ""))
+                startActivity(intent)
+            }
+        }
     }
 
     override fun onMapReady(p0: GoogleMap) {
@@ -130,9 +141,46 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         map.uiSettings.isMapToolbarEnabled = false
 
         setMarker()
+        map.setOnMarkerClickListener(this)
     }
 
     private fun setMarker() {
+        val loading = LoadingDialog(this)
+        loading.show()
+
+        val userService = UserService()
+        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    loading.dismiss()
+                    Log.d("getUserAdventureLog", "getResponseBody: $body")
+
+                    val landmarks = body as ArrayList<LandMark>
+
+                    landmarks.forEach { l ->
+                        val landmark = LatLng(l.latitude, l.longitude)
+
+                        val bitmapDraw = ResourcesCompat.getDrawable(resources, R.drawable.img_flag, null) as BitmapDrawable
+                        val b = bitmapDraw.bitmap
+                        val smallMarker = Bitmap.createScaledBitmap(b, 60, 90, false)
+
+                        val markerOptions = MarkerOptions()
+
+                        markerOptions.position(landmark)
+                        markerOptions.title(l.name)
+                        markerOptions.snippet("${l.id}")
+                        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+
+                        map.addMarker(markerOptions)
+                    }
+                } else {
+                    loading.dismiss()
+                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }).getUserAdventureLog(user.getAccessToken())
+
+
         val landmark = LatLng(37.5399272, 127.0730058)
 
         val bitmapDraw = ResourcesCompat.getDrawable(resources, R.drawable.img_flag, null) as BitmapDrawable
@@ -142,12 +190,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         val markerOptions = MarkerOptions()
 
         markerOptions.position(landmark)
-        markerOptions.title("산학협동관")
-        markerOptions.snippet("건국대학교 건물 #1")
+        markerOptions.snippet("19")
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
 
         map.addMarker(markerOptions)
-        map.setOnMarkerClickListener(this)
     }
 
     private fun screenWidth() : Int {
@@ -189,8 +235,45 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     }
 
     override fun onMarkerClick(p0: Marker): Boolean {
-        p0.showInfoWindow()
+        //p0.showInfoWindow()
+        placeinfoDialog(p0.snippet!!.toInt())
         return true
+    }
+
+    private fun placeinfoDialog(id : Int) {
+        val landmark = LandMark(id, 0.0, 0.0, "", 0.0, "")
+
+        var contentView: View =
+            (this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
+                R.layout.dialog_map_place, null
+            )
+
+        val slideupPopup = SmallSlideUpDialog.Builder(this)
+            .setContentView(contentView)
+            .create()
+
+        val maprankBtn = slideupPopup.findViewById<Button>(R.id.map_place_rank_bt)
+        maprankBtn.setOnClickListener {
+            val intent = Intent(applicationContext,DialogPlaceRankActivity::class.java)
+            intent.putExtra("landmark", landmark)
+            startActivity(intent)
+        }
+
+        val mapinfoBtn = slideupPopup.findViewById<Button>(R.id.map_place_info_bt)
+        mapinfoBtn.setOnClickListener {
+            val intent = Intent(applicationContext,DialogPlaceInfoActivity::class.java)
+            intent.putExtra("landmark", landmark)
+            startActivity(intent)
+        }
+
+        val title = slideupPopup.findViewById<TextView>(R.id.map_place_title_tv)
+        title.text = landmark.name
+
+        var mapImg = slideupPopup.findViewById<ImageView>(R.id.map_place_iv)
+        mapImg.setImageResource(landmark.getImageDrawable())
+
+        if(this.isFinishing) Log.d("location dialog", "placeinfoDialog: finishing")
+        else slideupPopup.show()
     }
 
 }

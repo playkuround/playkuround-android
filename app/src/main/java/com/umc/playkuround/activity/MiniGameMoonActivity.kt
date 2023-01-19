@@ -1,5 +1,6 @@
 package com.umc.playkuround.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,7 @@ class MiniGameMoonActivity : AppCompatActivity() {
             count--
             binding.moonCountTv.text = count.toString()
             if (count == 0) {
-                Toast.makeText(this, "맞춤", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, "맞춤", Toast.LENGTH_SHORT).show()
                 binding.moonClickIv.isEnabled = false
                 binding.moonClickIv.setImageResource(R.drawable.moon_four)
                 binding.moonClickIv.getLayoutParams().height = 800
@@ -61,6 +62,9 @@ class MiniGameMoonActivity : AppCompatActivity() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if (isSuccess) {
                     loading.dismiss()
+                    val intent = Intent(applicationContext, DialogPlaceInfoActivity::class.java)
+                    intent.putExtra("landmark", landmark)
+                    startActivity(intent)
                     finish()
                 } else {
                     loading.dismiss()

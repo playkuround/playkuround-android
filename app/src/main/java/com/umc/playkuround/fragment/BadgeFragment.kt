@@ -48,13 +48,6 @@ class BadgeFragment : Fragment() {
             }
         })
 
-        binding.badgeAttendanceTv.setOnClickListener {
-            placeinfoDialog()
-        }
-
-
-
-
         binding.badgeAttendanceRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun getItemOffsets(
                 outRect: Rect,
@@ -108,37 +101,6 @@ class BadgeFragment : Fragment() {
 
         badgeslideupPopup.show()
     }
-
-
-    private fun placeinfoDialog() {
-        var contentView: View =
-            (activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
-                R.layout.dialog_map_place, null
-            )
-
-        val slideupPopup = SmallSlideUpDialog.Builder(requireContext())
-            .setContentView(contentView)
-            .create()
-
-        val maprankBtn = slideupPopup.findViewById<Button>(R.id.map_place_rank_bt)
-        maprankBtn.setOnClickListener {
-            val intent = Intent(context,DialogPlaceRankActivity::class.java)
-            startActivity(intent)
-        }
-
-        val mapinfoBtn = slideupPopup.findViewById<Button>(R.id.map_place_info_bt)
-        mapinfoBtn.setOnClickListener {
-            val intent = Intent(context,DialogPlaceInfoActivity::class.java)
-            startActivity(intent)
-        }
-
-        var mapImg = slideupPopup.findViewById<ImageView>(R.id.map_place_iv)
-        mapImg.setImageResource(R.drawable.landmark_1)
-
-        slideupPopup.show()
-    }
-
-
 
 }
 

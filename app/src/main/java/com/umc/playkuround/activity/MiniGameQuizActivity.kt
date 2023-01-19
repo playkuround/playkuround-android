@@ -1,6 +1,7 @@
 package com.umc.playkuround.activity
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.*
 import android.util.Log
@@ -125,6 +126,9 @@ class MiniGameQuizActivity : AppCompatActivity() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if (isSuccess) {
                     loading.dismiss()
+                    val intent = Intent(applicationContext, DialogPlaceInfoActivity::class.java)
+                    intent.putExtra("landmark", landmark)
+                    startActivity(intent)
                     finish()
                 } else {
                     loading.dismiss()

@@ -1,6 +1,7 @@
 package com.umc.playkuround.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -46,11 +47,11 @@ class MiniGameTimerActivity : AppCompatActivity() {
 
     private fun check() {
         if (time in 990..1010) {
-            Toast.makeText(this, "맞춤", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "맞춤", Toast.LENGTH_SHORT).show()
             openResultDialog(true)}
 
         else {
-            Toast.makeText(this, "틀림", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "틀림", Toast.LENGTH_SHORT).show()
             openResultDialog(false)}
     }
 
@@ -134,6 +135,9 @@ class MiniGameTimerActivity : AppCompatActivity() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if (isSuccess) {
                     loading.dismiss()
+                    val intent = Intent(applicationContext, DialogPlaceInfoActivity::class.java)
+                    intent.putExtra("landmark", landmark)
+                    startActivity(intent)
                     finish()
                 } else {
                     loading.dismiss()
