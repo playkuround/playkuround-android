@@ -29,10 +29,15 @@ data class LandMark(
             2 -> {
                 
             }
+            19 -> {
+                this.name = "인문학관(인문대)"
+                this.latitude = 37.5424445
+                this.longitude = 127.0779958
+            }
             else -> {
                 this.name = "존재하지 않는 건물"
-                this.latitude = 0.0
-                this.longitude = 0.0
+                this.latitude = 37.5399272
+                this.longitude = 127.0730058
             }
         }
     }
@@ -189,12 +194,6 @@ data class LandMark(
             42 -> R.drawable.landmark_42
             43 -> R.drawable.landmark_43
 //            44 -> R.drawable.landmark_44
-
-
-
-
-
-
 
 
             else -> R.color.lighter_gray

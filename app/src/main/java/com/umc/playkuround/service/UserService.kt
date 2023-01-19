@@ -8,6 +8,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Header
 import java.nio.charset.StandardCharsets
 
 class UserService {
@@ -429,6 +430,50 @@ class UserService {
                     }
                     401 -> { // failed
                         val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                    else -> {
+                        Log.d("saveAdventureLog", "onResponse: ${response.code()}")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail getAttendanceDates $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun getUserAdventureLog(token : String) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.getUserAdventureLog(token).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when(response.code()) {
+                    200 -> { // success
+                        Log.d("getUserAdventureLog", "onResponse: " + response.body().toString())
+                        if(response.body()!!.response != null) {
+                            val resp = JSONArray(response.body()!!.response.toString())
+                            val landmarks = ArrayList<LandMark>()
+                            for (i in 0 until resp.length()) {
+                                val jobj = JSONObject(resp[i].toString())
+                                val id = jobj.get("landmarkId").toString().toDouble().toInt()
+                                val landmark = LandMark(id, 0.0, 0.0, "", 0.0, "")
+                                landmarks.add(landmark)
+                            }
+                            onResponseListener.getResponseBody(landmarks, true, "")
+                        } else {
+                            onResponseListener.getResponseBody(null, false, "")
+                        }
+                    }
+                    500 -> { // failed
+                        val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
+                        //Log.d("adventure", "onResponse: ${JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("code")}")
                         onResponseListener.getResponseBody(null, false, err)
                     }
                     else -> {
