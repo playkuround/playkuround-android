@@ -6,13 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
-import android.location.LocationRequest
 import android.os.Bundle
 import android.os.Looper
-import android.telephony.CarrierConfigManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,14 +17,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
-import com.google.android.gms.tasks.Task
-import com.umc.playkuround.PlayKuApplication
 import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.data.LandMark
@@ -37,7 +31,6 @@ import com.umc.playkuround.databinding.ActivityMapBinding
 import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.SmallSlideUpDialog
 import com.umc.playkuround.service.UserService
-import kotlin.random.Random
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -63,7 +56,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             }
         }
 
-        startGameActivity(1)
+        startGameActivity(-1)
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map_map_fragment) as SupportMapFragment?
@@ -179,21 +172,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                 }
             }
         }).getUserAdventureLog(user.getAccessToken())
-
-
-        val landmark = LatLng(37.5399272, 127.0730058)
-
-        val bitmapDraw = ResourcesCompat.getDrawable(resources, R.drawable.img_flag, null) as BitmapDrawable
-        val b = bitmapDraw.bitmap
-        val smallMarker = Bitmap.createScaledBitmap(b, 60, 90, false)
-
-        val markerOptions = MarkerOptions()
-
-        markerOptions.position(landmark)
-        markerOptions.snippet("19")
-        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-
-        map.addMarker(markerOptions)
     }
 
     private fun screenWidth() : Int {
@@ -243,7 +221,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private fun placeinfoDialog(id : Int) {
         val landmark = LandMark(id, 0.0, 0.0, "", 0.0, "")
 
-        var contentView: View =
+        val contentView: View =
             (this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
                 R.layout.dialog_map_place, null
             )
@@ -269,7 +247,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         val title = slideupPopup.findViewById<TextView>(R.id.map_place_title_tv)
         title.text = landmark.name
 
-        var mapImg = slideupPopup.findViewById<ImageView>(R.id.map_place_iv)
+        val mapImg = slideupPopup.findViewById<ImageView>(R.id.map_place_iv)
         mapImg.setImageResource(landmark.getImageDrawable())
 
         if(this.isFinishing) Log.d("location dialog", "placeinfoDialog: finishing")
