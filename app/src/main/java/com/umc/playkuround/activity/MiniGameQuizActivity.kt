@@ -3,31 +3,26 @@ package com.umc.playkuround.activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import android.os.*
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.umc.playkuround.PlayKuApplication
 import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.data.LandMark
-import com.umc.playkuround.data.Ranking
+import com.umc.playkuround.data.Quiz
 import com.umc.playkuround.databinding.ActivityMinigameQuizBinding
 import com.umc.playkuround.dialog.LoadingDialog
-import com.umc.playkuround.service.RankingRVAdapter
 import com.umc.playkuround.service.UserService
 
 class MiniGameQuizActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMinigameQuizBinding
-
-    private class Quiz (
-        var question : String,
-        var options : Array<String>,
-        var answer : Int,
-    )
 
     private lateinit var quiz : Quiz
 
@@ -44,17 +39,9 @@ class MiniGameQuizActivity : AppCompatActivity() {
         initQuizView()
     }
 
-    // 현재는 더미 값
     private fun getQuiz() : Quiz {
-        val question = "경영관을 사용하지 않는 학과는\n어디일까요?"
-        val options = Array(4) { "none" }
-        options[0] = "2017년 중앙일보 대학평가 결과 인문계열 5위를 차지했다."
-        options[1] = "기술경영학과"
-        options[2] = "경제학과"
-        options[3] = "경영학과"
-        val answer = 3
-
-        return Quiz(question, options, answer)
+        val landmark = intent.getSerializableExtra("landmark") as LandMark
+        return Quiz(landmark.id, "", ArrayList(), -1)
     }
 
     private fun initQuizView() {
@@ -94,7 +81,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
 
     private fun openResultDialog(result : Boolean) {
         val dialog = Dialog(this)
-        var root : View = if(result) {
+        val root : View = if(result) {
             dialog.setContentView(R.layout.dialog_quiz_correct)
             dialog.findViewById(R.id.dialog_correct_root)
         } else {
