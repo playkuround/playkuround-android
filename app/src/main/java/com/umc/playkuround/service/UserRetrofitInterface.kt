@@ -48,7 +48,7 @@ interface UserRetrofitInterface {
     @POST("/api/adventures")
     fun saveAdventureLog(@Header("Authorization") token : String, @Body landmark : LandMark) : Call<CommonResponse>
 
-    @POST("/api/adventures")
+    @GET("/api/adventures")
     fun getUserAdventureLog(@Header("Authorization") token : String) : Call<CommonResponse>
 
 }

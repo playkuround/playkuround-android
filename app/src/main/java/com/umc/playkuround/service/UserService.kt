@@ -1,15 +1,13 @@
 package com.umc.playkuround.service
 
 import android.util.Log
+import com.google.gson.internal.LinkedTreeMap
 import com.umc.playkuround.data.*
-import com.umc.playkuround.data.Ranking.Companion.scoreType
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Header
-import java.nio.charset.StandardCharsets
 
 class UserService {
 
@@ -41,7 +39,7 @@ class UserService {
                         onResponseListener.getResponseBody(resp, true, "")
                     }
                     400 -> { // failed
-                        val err = JSONObject(response.errorBody()?.string()).getJSONObject("errorResponse").get("message").toString()
+                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
                         onResponseListener.getResponseBody(null, false, err)
                     }
                 }
@@ -90,7 +88,7 @@ class UserService {
                         onResponseListener.getResponseBody(resp, true, "")
                     }
                     401 -> { // failed
-                        val err = JSONObject(response.errorBody()?.string()).getJSONObject("errorResponse").get("code").toString()
+                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("code").toString()
                         //Log.d("login_test", "onResponse: " + response.errorBody()!!.string())
                         onResponseListener.getResponseBody(null, false, err)
                     }
@@ -115,7 +113,7 @@ class UserService {
                         onResponseListener.getResponseBody(response.body()!!, true, "")
                     }
                     401 -> { // failed
-                        val err = JSONObject(response.errorBody()?.string()).getJSONObject("errorResponse").get("message").toString()
+                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
                         onResponseListener.getResponseBody(null, false, err)
                     }
                 }
@@ -144,7 +142,7 @@ class UserService {
                         onResponseListener.getResponseBody(resp, true, "")
                     }
                     401 -> { // failed
-                        val err = JSONObject(response.errorBody()?.string()).getJSONObject("errorResponse").get("code").toString()
+                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("code").toString()
                         onResponseListener.getResponseBody(null, false, err)
                     }
                 }
@@ -169,7 +167,7 @@ class UserService {
                         onResponseListener.getResponseBody(resp, true, "")
                     }
                     400, 429 -> { // bad request, too many request
-                        val err = JSONObject(response.errorBody()?.string()).getJSONObject("errorResponse").get("message").toString()
+                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
                         onResponseListener.getResponseBody(null, false, err)
                     }
                 }
@@ -458,11 +456,12 @@ class UserService {
                     200 -> { // success
                         Log.d("getUserAdventureLog", "onResponse: " + response.body().toString())
                         if(response.body()!!.response != null) {
-                            val resp = JSONArray(response.body()!!.response.toString())
+                            val obj = response.body()!!.response as ArrayList<LinkedTreeMap<String, Double>>
+                            Log.d("getUserAdventureLog", "onResponse: " +  obj[0]["landmarkId"])
+
                             val landmarks = ArrayList<LandMark>()
-                            for (i in 0 until resp.length()) {
-                                val jobj = JSONObject(resp[i].toString())
-                                val id = jobj.get("landmarkId").toString().toDouble().toInt()
+                            for (i in 0 until obj.size) {
+                                val id = obj[i]["landmarkId"]!!.toInt()
                                 val landmark = LandMark(id, 0.0, 0.0, "", 0.0, "")
                                 landmarks.add(landmark)
                             }
