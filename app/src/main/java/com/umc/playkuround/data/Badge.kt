@@ -1,5 +1,7 @@
 package com.umc.playkuround.data
 
+import com.umc.playkuround.R
+
 data class Badge(
     val name : String,
     var description : String
@@ -25,10 +27,18 @@ data class Badge(
     }
 
     init {
-        when(name) {
-            ATTENDANCE_1 -> description = "처음으로 출석을 하셨군요!"
+        description = when(name) {
+            ATTENDANCE_1 -> "처음으로 출석을 하셨군요!"
 
-            else -> description = "알수없는 배지입니다."
+            else -> "알수없는 배지입니다."
+        }
+    }
+
+    fun getImageDrawable() : Int {
+        return when(name) {
+            ATTENDANCE_1 -> R.drawable.badge_attendance_1
+            
+            else -> R.color.lighter_gray
         }
     }
 
