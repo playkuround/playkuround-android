@@ -1,11 +1,17 @@
 package com.umc.playkuround.fragment
 
+import android.app.Activity
+import android.graphics.Color
+import android.graphics.drawable.AnimationDrawable
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDialog
 import androidx.fragment.app.Fragment
 import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.data.Ranking
@@ -28,6 +34,7 @@ class MyPageFragment : Fragment() {
             Log.d("update score", "onCreateView: ")
             val userService = UserService()
 
+
             userService.setOnResponseListener(object : UserService.OnResponseListener() {
                 override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                     if(isSuccess) {
@@ -46,5 +53,6 @@ class MyPageFragment : Fragment() {
         binding.mypageNameTv.text = user.nickname
         binding.mypageMajorTv.text = user.major
     }
+
 
 }

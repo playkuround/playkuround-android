@@ -63,6 +63,7 @@
         <entry key="app/src/main/res/drawable/edit_text.xml" value="0.149" />
         <entry key="app/src/main/res/drawable/edit_text_wrong.xml" value="0.149" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.179" />
+        <entry key="app/src/main/res/drawable/loading_img_list.xml" value="0.15" />
         <entry key="app/src/main/res/drawable/menu_select.xml" value="0.1575" />
         <entry key="app/src/main/res/drawable/menu_select_color.xml" value="0.1575" />
         <entry key="app/src/main/res/drawable/spinner_click_event.xml" value="0.121" />
@@ -88,7 +89,7 @@
         <entry key="app/src/main/res/layout/detail_agree_02.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_badge_info.xml" value="0.18704710144927536" />
         <entry key="app/src/main/res/layout/dialog_get_badge.xml" value="0.24114583333333334" />
-        <entry key="app/src/main/res/layout/dialog_loading.xml" value="0.7703484994393809" />
+        <entry key="app/src/main/res/layout/dialog_loading.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_quiz_correct.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_quiz_wrong.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/fragment_badge.xml" value="0.1" />
