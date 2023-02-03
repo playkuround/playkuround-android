@@ -2,6 +2,7 @@ package com.umc.playkuround.service
 
 import android.util.Log
 import com.google.gson.internal.LinkedTreeMap
+import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.data.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -217,9 +218,30 @@ class UserService {
                 when(response.code()) {
                     200 -> { // success
                         Log.d("attendanceToday", "onResponse: " + response.body().toString())
+
+                        val res = response.body()!!.response as LinkedTreeMap<String, String>
+                        val badgeArr = res["newBadges"] as ArrayList<LinkedTreeMap<String, String>>
+                        val userService2 = UserService()
+                        for(i in 0 until badgeArr.size) {
+                            userService2.setOnResponseListener(object :
+                                UserService.OnResponseListener() {
+                                override fun <T> getResponseBody(
+                                    body: T,
+                                    isSuccess: Boolean,
+                                    err: String
+                                ) {
+                                    if (isSuccess) {
+                                        Log.d("saveBadge", "getResponseBody: success $body")
+                                    } else {
+                                        Log.d("saveBadge", "getResponseBody: fail $body")
+                                    }
+                                }
+                            }).saveBadge(badgeArr[i]["name"].toString())
+                        }
+
                         onResponseListener.getResponseBody(response.body()!!, true, "")
                     }
-                    401 -> { // failed
+                    401, 400 -> { // failed
                         //Log.d("attendanceToday", "onResponse: " + response.errorBody()!!.string())
 //                        val bst = response.errorBody()!!.byteString().toByteArray()
 //                        val str = String(bst, StandardCharsets.UTF_8)
@@ -228,7 +250,11 @@ class UserService {
 //                        val errRes = jobj.getJSONObject("errorResponse")
 //                        val err = errRes.get("message").toString()
 //                        //val err = "response : " + response.errorBody()!!.string()
+                        Log.d("attendance", "onResponse: ${response.errorBody()}")
                         onResponseListener.getResponseBody(null, false, "건국대학교 내에 위치하고 있지 않습니다.")
+                    }
+                    else -> {
+                        Log.d("attendance", "onResponse: ${response.code()}")
                     }
                 }
             }
@@ -422,7 +448,25 @@ class UserService {
                     201 -> { // success
                         Log.d("saveAdventureLog", "onResponse: " + response.body().toString())
 
-                        // 추후 배지 부분 완성 시 배지 정보 확인 해야함
+                        val res = response.body()!!.response as LinkedTreeMap<String, String>
+                        val badgeArr = res["newBadges"] as ArrayList<LinkedTreeMap<String, String>>
+                        val userService2 = UserService()
+                        for(i in 0 until badgeArr.size) {
+                            userService2.setOnResponseListener(object :
+                                UserService.OnResponseListener() {
+                                override fun <T> getResponseBody(
+                                    body: T,
+                                    isSuccess: Boolean,
+                                    err: String
+                                ) {
+                                    if (isSuccess) {
+                                        Log.d("saveBadge", "getResponseBody: success $body")
+                                    } else {
+                                        Log.d("saveBadge", "getResponseBody: fail $body")
+                                    }
+                                }
+                            }).saveBadge(badgeArr[i]["name"].toString())
+                        }
 
                         onResponseListener.getResponseBody(null, true, "")
                     }
@@ -456,12 +500,12 @@ class UserService {
                     200 -> { // success
                         Log.d("getUserAdventureLog", "onResponse: " + response.body().toString())
                         if(response.body()!!.response != null) {
-                            val obj = response.body()!!.response as ArrayList<LinkedTreeMap<String, Double>>
-                            Log.d("getUserAdventureLog", "onResponse: " +  obj[0]["landmarkId"])
+                            val obj = JSONObject(response.body()!!.response.toString()).getJSONArray("landmarkIdList")
+                            Log.d("getUserAdventureLog", "onResponse: " +  obj[0])
 
                             val landmarks = ArrayList<LandMark>()
-                            for (i in 0 until obj.size) {
-                                val id = obj[i]["landmarkId"]!!.toInt()
+                            for (i in 0 until obj.length()) {
+                                val id = obj[i]!!.toString().toDouble().toInt()
                                 val landmark = LandMark(id, 0.0, 0.0, "", 0.0, "")
                                 landmarks.add(landmark)
                             }
@@ -477,6 +521,125 @@ class UserService {
                     }
                     else -> {
                         Log.d("saveAdventureLog", "onResponse: ${response.code()}")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail getAttendanceDates $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun getPlaceRank(token : String, landmarkId : Int) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.getPlaceRank(token, landmarkId).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when(response.code()) {
+                    200 -> { // success
+                        Log.d("getPlaceRank", "onResponse: " + response.body().toString())
+                        val arr = JSONObject(response.body()!!.response.toString()).getJSONArray("top5Users")
+                        val list = ArrayList<HashMap<String, String>>()
+
+                        val myMap = HashMap<String, String>()
+                        myMap["count"] = JSONObject(response.body()!!.response.toString()).getJSONObject("me").get("count").toString().toDouble().toInt().toString()
+                        myMap["ranking"] = JSONObject(response.body()!!.response.toString()).getJSONObject("me").get("ranking").toString().toDouble().toInt().toString()
+                        list.add(myMap)
+
+                        for(i in 0 until arr.length()) {
+                            val map = HashMap<String, String>()
+                            val obj = JSONObject(arr[i].toString())
+                            val nickname = obj.get("nickname").toString()
+                            val count = obj.get("count").toString()
+                            val userId = obj.get("userId").toString()
+                            map["nickname"] = nickname
+                            map["count"] = count
+                            map["userId"] = userId
+                            list.add(map)
+                        }
+
+                        onResponseListener.getResponseBody(list, true, "")
+                    }
+                    500 -> { // failed
+                        val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                    else -> {
+                        Log.d("getPlaceRank", "onResponse: ${response.code()}")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail getAttendanceDates $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun saveBadge(badgeType : String) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.saveBadge(user.getAccessToken(), badgeType).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when(response.code()) {
+                    201 -> { // success
+                        Log.d("saveBadge", "onResponse: " + response.body().toString())
+
+                        onResponseListener.getResponseBody(badgeType, true, "")
+                    }
+                    500 -> { // failed
+                        val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                    else -> {
+                        Log.d("getPlaceRank", "onResponse: ${response.code()}")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail getAttendanceDates $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun getBadgeList(token : String) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.getBadgeList(token).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when(response.code()) {
+                    200 -> { // success
+                        Log.d("getBadgeList", "onResponse: " + response.body().toString())
+                        val arr = response.body()!!.response as ArrayList<LinkedTreeMap<String, String>>
+                        val list = ArrayList<String>()
+                        for(i in 0 until arr.size) {
+                            list.add(arr[i]["name"].toString())
+                        }
+                        onResponseListener.getResponseBody(list, true, "")
+                    }
+                    500 -> { // failed
+                        val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                    else -> {
+                        Log.d("getBadgeList", "onResponse: ${response.code()}")
                     }
                 }
             }

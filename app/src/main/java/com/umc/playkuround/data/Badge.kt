@@ -1,6 +1,7 @@
 package com.umc.playkuround.data
 
 import com.umc.playkuround.R
+import com.umc.playkuround.data.Badge.Companion.ATTENDANCE_30
 
 data class Badge(
     val name : String,
@@ -70,6 +71,29 @@ data class Badge(
             NEIL_ARMSTRONG -> R.drawable.badge_neil_armstrong
 
             else -> R.color.lighter_gray
+        }
+    }
+
+    fun getTitle() : String {
+        return when(name) {
+            ATTENDANCE_1 -> "첫 출석"
+            ATTENDANCE_3 -> "3일 연속 출석"
+            ATTENDANCE_7 -> "7일 연속 출석"
+            ATTENDANCE_30 -> "30일 연속 출석"
+            ATTENDANCE_100 -> "100일 연속 출석"
+            ATTENDANCE_FOUNDATION_DAY -> "애교(校)자"
+            ADVENTURE_1 -> "첫 탐험"
+            ADVENTURE_5 -> "오탐험"
+            ADVENTURE_10 -> "십탐험"
+            ADVENTURE_30 -> "삼십탐험"
+            ENGINEER -> "공대생"
+            ARTIST -> "예술가"
+            CEO -> "CEO"
+            NATIONAL_PLAYER -> "국가대표"
+            CONQUEROR -> "랜드마크 정복자"
+            NEIL_ARMSTRONG -> "닐 암스트롱"
+
+            else -> "없는 배지"
         }
     }
 

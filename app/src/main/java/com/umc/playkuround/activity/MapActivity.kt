@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -17,6 +19,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -30,7 +33,10 @@ import com.umc.playkuround.data.LandMark
 import com.umc.playkuround.databinding.ActivityMapBinding
 import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.SmallSlideUpDialog
+import com.umc.playkuround.service.GpsTracker
 import com.umc.playkuround.service.UserService
+import java.io.IOException
+import java.util.*
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -38,6 +44,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     lateinit var binding : ActivityMapBinding
     private lateinit var map : GoogleMap
     private lateinit var locationCallback : LocationCallback
+    private lateinit var visitedList : ArrayList<LandMark>
+    private var myLocation : Marker? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,16 +60,42 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             override fun onLocationResult(p0: LocationResult) {
                 val nowLocation = LatLng(p0.lastLocation!!.latitude, p0.lastLocation!!.longitude)
                 Log.d("gps", "onLocationChanged: ${p0.lastLocation!!.latitude} , ${p0.lastLocation!!.longitude}")
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation, 18f))
+                //map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation, 18f))
             }
         }
 
-        startGameActivity(-1)
+        startGameActivity(-10)
+
+        /*binding.mapClickBtn.setOnClickListener {
+            getNowLocation()
+        }*/
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map_map_fragment) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
         MapsInitializer.initialize(this)
+    }
+
+    private fun getNowLocation() {
+        val gpsTracker = GpsTracker(applicationContext)
+
+        val lat = gpsTracker.getLatitude()
+        val lon = gpsTracker.getLongitude()
+
+        val nowLocation = LatLng(lat, lon)
+
+        val markerOptions = MarkerOptions()
+
+        markerOptions.position(nowLocation)
+        markerOptions.snippet("19")
+        myLocation = if(myLocation != null) {
+            myLocation!!.remove()
+            map.addMarker(markerOptions)
+        } else {
+            map.addMarker(markerOptions)
+        }
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation, 17f))
     }
 
     private fun startGameActivity(idx : Int) {
@@ -76,23 +110,29 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                         loading.dismiss()
                         Log.d("near_landmark", "getResponseBody: $body")
                         val landmark = body as LandMark
+                        Log.d("map activity check", "getResponseBody: $landmark")
+                        Log.d("map activity check", "getResponseBody: $visitedList")
 
-                        val intent : Intent = when (landmark.gameType) {
-                            LandMark.QUIZ -> {
-                                Intent(applicationContext, MiniGameQuizActivity::class.java)
+                        if(visitedList.contains(LandMark(landmark.id, 0.0, 0.0, "", 0.0, ""))) {
+                            saveAdventureLog(landmark)
+                        } else {
+                            val intent: Intent = when (landmark.gameType) {
+                                LandMark.QUIZ -> {
+                                    Intent(applicationContext, MiniGameQuizActivity::class.java)
+                                }
+                                LandMark.MOON -> {
+                                    Intent(applicationContext, MiniGameMoonActivity::class.java)
+                                }
+                                LandMark.TIMER -> {
+                                    Intent(applicationContext, MiniGameTimerActivity::class.java)
+                                }
+                                else -> {
+                                    Intent(applicationContext, MiniGameTimerActivity::class.java)
+                                }
                             }
-                            LandMark.MOON -> {
-                                Intent(applicationContext, MiniGameMoonActivity::class.java)
-                            }
-                            LandMark.TIMER -> {
-                                Intent(applicationContext, MiniGameTimerActivity::class.java)
-                            }
-                            else -> {
-                                Intent(applicationContext, MiniGameTimerActivity::class.java)
-                            }
+                            intent.putExtra("landmark", landmark)
+                            startActivity(intent)
                         }
-                        intent.putExtra("landmark", landmark)
-                        startActivity(intent)
                     } else {
                         loading.dismiss()
                         Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
@@ -112,11 +152,29 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         }
     }
 
+    private fun saveAdventureLog(landmark : LandMark) {
+        val loading = LoadingDialog(this)
+        loading.show()
+
+        val userService = UserService()
+        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if (isSuccess) {
+                    loading.dismiss()
+                    Toast.makeText(applicationContext, landmark.name + "에 출석했습니다!", Toast.LENGTH_SHORT).show()
+                } else {
+                    loading.dismiss()
+                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }).saveAdventureLog(user.getAccessToken(), landmark)
+    }
+
     override fun onMapReady(p0: GoogleMap) {
         map = p0
         initMap()
 
-        map.setPadding(0, screenHeight() - toPX(142), screenWidth() - toPX(70), 0)
+        //map.setPadding(0, screenHeight() - toPX(142), screenWidth() - toPX(70), 0)
     }
 
     private fun initMap() {
@@ -148,9 +206,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                     loading.dismiss()
                     Log.d("getUserAdventureLog", "getResponseBody: $body")
 
-                    val landmarks = body as ArrayList<LandMark>
+                    visitedList = body as ArrayList<LandMark>
 
-                    landmarks.forEach { l ->
+                    visitedList.forEach { l ->
                         val landmark = LatLng(l.latitude, l.longitude)
 
                         val bitmapDraw = ResourcesCompat.getDrawable(resources, R.drawable.img_flag, null) as BitmapDrawable
