@@ -51,4 +51,12 @@ interface UserRetrofitInterface {
     @GET("/api/adventures")
     fun getUserAdventureLog(@Header("Authorization") token : String) : Call<CommonResponse>
 
+    @GET("/api/adventures/{landmarkId}/most")
+    fun getPlaceRank(@Header("Authorization") token : String, @Path("landmarkId") landmarkId : Int) : Call<CommonResponse>
+
+    @POST("/api/badges")
+    fun saveBadge(@Header("Authorization") token : String, @Body badgeType : String) : Call<CommonResponse>
+
+    @GET("/api/badges")
+    fun getBadgeList(@Header("Authorization") token : String) : Call<CommonResponse>
 }

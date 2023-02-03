@@ -1,29 +1,26 @@
 package com.umc.playkuround.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
-import android.service.controls.ControlsProviderService.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
-import com.umc.playkuround.activity.DialogPlaceInfoActivity
-import com.umc.playkuround.activity.DialogPlaceRankActivity
+import com.umc.playkuround.data.Badge
 import com.umc.playkuround.databinding.FragmentBadgeBinding
+import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.SlideUpDialog
-import com.umc.playkuround.dialog.SmallSlideUpDialog
 import com.umc.playkuround.service.AdListAdapterGrid
 import com.umc.playkuround.service.ListAdapterGrid
+import com.umc.playkuround.service.UserService
 
 class BadgeFragment : Fragment() {
 
@@ -36,60 +33,102 @@ class BadgeFragment : Fragment() {
     ): View? {
         binding = FragmentBadgeBinding.inflate(inflater, container, false)
 
-        val adapter = ListAdapterGrid()
-        binding.badgeAttendanceRv.adapter = adapter
-
-        val atLayoutManager = GridLayoutManager(context, 3)
-        binding.badgeAttendanceRv.layoutManager = atLayoutManager
-
-        adapter.setItemClickListener(object : ListAdapterGrid.OnItemClickListener{
-            override fun onClick(v: View, position: Int) {
-                badgeinfoDialog()
-            }
-        })
-
-        binding.badgeAttendanceRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-                outRect.bottom = 50
-                outRect.left = 20
-                outRect.top = 20
-                outRect.right = 20
-            }
-        })
-
-        binding.badgeAdventureRv.adapter = AdListAdapterGrid()
-        val adLayoutManager = GridLayoutManager(context, 3)
-        binding.badgeAdventureRv.layoutManager = adLayoutManager
-
-
-
-
-
-        binding.badgeAdventureRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-                outRect.bottom = 50
-                outRect.left = 20
-                outRect.top = 20
-                outRect.right = 20
-            }
-        })
+        //saveBadge()
+        getBadgeList()
 
         return binding.root
-
-
     }
 
-    private fun badgeinfoDialog() {
+    private fun saveBadge() {
+        val loading = LoadingDialog(requireActivity())
+        loading.show()
+
+        val userService = UserService()
+        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+
+                    loading.dismiss()
+                } else {
+                    loading.dismiss()
+                    Toast.makeText(context, err, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }).saveBadge(Badge.ATTENDANCE_FOUNDATION_DAY)
+    }
+
+    private fun getBadgeList() {
+        val loading = LoadingDialog(requireActivity())
+        loading.show()
+
+        val userService = UserService()
+        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    val list = body as ArrayList<String>
+
+                    val adapter = ListAdapterGrid(list)
+                    binding.badgeAttendanceRv.adapter = adapter
+
+                    val atLayoutManager = GridLayoutManager(context, 3)
+                    binding.badgeAttendanceRv.layoutManager = atLayoutManager
+
+                    adapter.setItemClickListener(object : ListAdapterGrid.OnItemClickListener{
+                        override fun onClick(v: View, position: Int) {
+                            badgeinfoDialog("attendance", position)
+                        }
+                    })
+
+                    binding.badgeAttendanceRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
+                        override fun getItemOffsets(
+                            outRect: Rect,
+                            view: View,
+                            parent: RecyclerView,
+                            state: RecyclerView.State
+                        ) {
+                            outRect.bottom = 50
+                            outRect.left = 20
+                            outRect.top = 20
+                            outRect.right = 20
+                        }
+                    })
+
+                    val adapterAdventure = AdListAdapterGrid(list)
+                    binding.badgeAdventureRv.adapter = adapterAdventure
+                    val adLayoutManager = GridLayoutManager(context, 3)
+                    binding.badgeAdventureRv.layoutManager = adLayoutManager
+
+                    adapterAdventure.setItemClickListener(object : AdListAdapterGrid.OnItemClickListener {
+                        override fun onClick(v: View, position: Int) {
+                            badgeinfoDialog("adventure", position)
+                        }
+                    })
+
+                    binding.badgeAdventureRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
+                        override fun getItemOffsets(
+                            outRect: Rect,
+                            view: View,
+                            parent: RecyclerView,
+                            state: RecyclerView.State
+                        ) {
+                            outRect.bottom = 50
+                            outRect.left = 20
+                            outRect.top = 20
+                            outRect.right = 20
+                        }
+                    })
+
+
+                    loading.dismiss()
+                } else {
+                    loading.dismiss()
+                    Toast.makeText(context, err, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }).getBadgeList(user.getAccessToken())
+    }
+
+    private fun badgeinfoDialog(key : String, pos : Int) {
         var contentView: View =
             (activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
                 R.layout.dialog_badge_info, null
@@ -98,6 +137,35 @@ class BadgeFragment : Fragment() {
         val badgeslideupPopup = SlideUpDialog.Builder(requireContext())
             .setContentView(contentView)
             .create()
+
+        var badge = Badge("", "")
+        if(key == "attendance") {
+            when(pos) {
+                0 -> badge = Badge(Badge.ATTENDANCE_1, "")
+                1 -> badge = Badge(Badge.ATTENDANCE_3, "")
+                2 -> badge = Badge(Badge.ATTENDANCE_7, "")
+                3 -> badge = Badge(Badge.ATTENDANCE_30, "")
+                4 -> badge = Badge(Badge.ATTENDANCE_100, "")
+                5 -> badge = Badge(Badge.ATTENDANCE_FOUNDATION_DAY, "")
+            }
+        } else if(key == "adventure") {
+            when(pos) {
+                0 -> badge = Badge(Badge.ADVENTURE_1, "")
+                1 -> badge = Badge(Badge.ADVENTURE_5, "")
+                2 -> badge = Badge(Badge.ADVENTURE_10, "")
+                3 -> badge = Badge(Badge.ADVENTURE_30, "")
+                4 -> badge = Badge(Badge.ENGINEER, "")
+                5 -> badge = Badge(Badge.ARTIST, "")
+                6 -> badge = Badge(Badge.CEO, "")
+                7 -> badge = Badge(Badge.NATIONAL_PLAYER, "")
+                8 -> badge = Badge(Badge.CONQUEROR, "")
+                9 -> badge = Badge(Badge.NEIL_ARMSTRONG, "")
+            }
+        }
+
+        badgeslideupPopup.findViewById<ImageView>(R.id.dialog_badge_iv).setImageResource(badge.getImageDrawable())
+        badgeslideupPopup.findViewById<TextView>(R.id.dialog_badge_title_tv).text = badge.getTitle()
+        badgeslideupPopup.findViewById<TextView>(R.id.dialog_badge_description_tv).text = badge.description
 
         badgeslideupPopup.show()
     }
