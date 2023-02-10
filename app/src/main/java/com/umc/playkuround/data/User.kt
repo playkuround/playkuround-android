@@ -1,14 +1,12 @@
 package com.umc.playkuround.data
 
-import android.content.Intent
 import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import com.google.gson.annotations.SerializedName
 import com.umc.playkuround.PlayKuApplication
-import com.umc.playkuround.activity.LoginActivity
 import com.umc.playkuround.service.PreferenceUtil
 import com.umc.playkuround.service.UserService
+import java.text.SimpleDateFormat
+import java.util.*
 
 data class User(
     @SerializedName(value = "email") var email : String,
@@ -61,20 +59,4 @@ data class User(
         return (this.userTokenResponse!!.response!!.grantType + " " + this.userTokenResponse!!.response!!.refreshToken)
     }
 
-    private fun reissuanceToken() {
-        val userService = UserService()
-        val token = PlayKuApplication.user.getRefreshToken()
-        userService.setOnResponseListener(object : UserService.OnResponseListener() {
-            override fun <T> getResponseBody(body : T, isSuccess : Boolean, err : String) {
-                if(isSuccess) {
-                    if(body is RefreshTokenResponse) {
-                        userTokenResponse!!.response!!.accessToken = body.response!!.accessToken
-                        userTokenResponse!!.response!!.accessTokenExpiredAt = body.response!!.accessTokenExpireTime
-                    }
-                } else {
-                    Log.d("reissuance failed", "getResponseBody: $err")
-                }
-            }
-        }).reissuanceToken(token)
-    }
 }
