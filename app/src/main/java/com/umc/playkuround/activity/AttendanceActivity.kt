@@ -112,7 +112,7 @@ class AttendanceActivity : AppCompatActivity() {
     }
 
     private fun initDates() {
-        Log.d("test1", "initDates: start")
+        Log.d("test1", "initDates: start ${this.today}")
         if(attendanceDates == null) {
             attendanceDates = ArrayList<String>()
             this.finish()
@@ -171,23 +171,27 @@ class AttendanceActivity : AppCompatActivity() {
         tv.layoutParams = tvParam
 
         val format = SimpleDateFormat("yyyy-MM-dd")
+        Log.d("today test", "makeTextView: ${format.format(today.time) == this.today}")
         if(attendanceDates!!.contains(format.format(today.time))) {
-            tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_filled)
-            tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
-        } else if(format.format(today.time) == this.today) {
+            tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_empty)
+            tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.green_main))
+        } else {
+            tv.background = ContextCompat.getDrawable(applicationContext, R.color.transparent)
+            tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.light_gray))
+        }
+
+        if(format.format(today.time) == this.today) {
             if(attendanceDates!!.contains(this.today)) {
                 tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_filled)
                 tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
                 binding.attendanceBtn.isEnabled = false
+                binding.attendanceBtn.text = "오늘 출석 완료!"
             } else {
-                tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_empty)
+                tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_small_dot)
                 tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
                 binding.attendanceBtn.isEnabled = true
             }
             this.todayTv = tv
-        } else {
-            tv.background = ContextCompat.getDrawable(applicationContext, R.color.transparent)
-            tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.light_gray))
         }
 
         return tv
