@@ -25,6 +25,7 @@ import com.umc.playkuround.service.UserService
 class BadgeFragment : Fragment() {
 
     lateinit var binding : FragmentBadgeBinding
+    lateinit var badgeList : ArrayList<String>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,9 +66,9 @@ class BadgeFragment : Fragment() {
         userService.setOnResponseListener(object : UserService.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if(isSuccess) {
-                    val list = body as ArrayList<String>
+                    badgeList = body as ArrayList<String>
 
-                    val adapter = ListAdapterGrid(list)
+                    val adapter = ListAdapterGrid(badgeList)
                     binding.badgeAttendanceRv.adapter = adapter
 
                     val atLayoutManager = GridLayoutManager(context, 3)
@@ -93,7 +94,7 @@ class BadgeFragment : Fragment() {
                         }
                     })
 
-                    val adapterAdventure = AdListAdapterGrid(list)
+                    val adapterAdventure = AdListAdapterGrid(badgeList)
                     binding.badgeAdventureRv.adapter = adapterAdventure
                     val adLayoutManager = GridLayoutManager(context, 3)
                     binding.badgeAdventureRv.layoutManager = adLayoutManager
@@ -167,7 +168,8 @@ class BadgeFragment : Fragment() {
         badgeslideupPopup.findViewById<TextView>(R.id.dialog_badge_title_tv).text = badge.getTitle()
         badgeslideupPopup.findViewById<TextView>(R.id.dialog_badge_description_tv).text = badge.description
 
-        badgeslideupPopup.show()
+        if(badgeList.contains(badge.name))
+            badgeslideupPopup.show()
     }
 
 }
