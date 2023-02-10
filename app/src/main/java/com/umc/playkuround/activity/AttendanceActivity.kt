@@ -21,6 +21,7 @@ import com.umc.playkuround.data.Location
 import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityAttendanceBinding
 import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.service.GpsTracker
 import com.umc.playkuround.service.UserService
 import java.text.SimpleDateFormat
 import java.util.*
@@ -81,6 +82,8 @@ class AttendanceActivity : AppCompatActivity() {
         val loading = LoadingDialog(this)
         loading.show()
 
+        val gpsTracker = GpsTracker(applicationContext)
+
         val userService = UserService()
         userService.setOnResponseListener(object : UserService.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
@@ -105,7 +108,7 @@ class AttendanceActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                 }
             }
-        }).attendanceToday(user.getAccessToken(), Location(37.542548, 127.073619))
+        }).attendanceToday(user.getAccessToken(), Location(gpsTracker.getLatitude(), gpsTracker.getLongitude()))
     }
 
     private fun initDates() {
