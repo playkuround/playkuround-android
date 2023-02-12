@@ -1,6 +1,7 @@
 package com.umc.playkuround.fragment
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDialog
 import androidx.fragment.app.Fragment
 import com.umc.playkuround.PlayKuApplication.Companion.user
+import com.umc.playkuround.activity.MajorChoiceActivity
 import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.FragmentMypageBinding
 import com.umc.playkuround.service.UserService
@@ -29,6 +31,13 @@ class MyPageFragment : Fragment() {
     ): View? {
         binding = FragmentMypageBinding.inflate(inflater, container, false)
         initView()
+
+        binding.mypageFeedbackTv.setOnClickListener {
+        }
+
+        binding.mypagePrivacyTv.setOnClickListener {
+
+        }
 
         binding.mypageNoticeTv.setOnClickListener {
             Log.d("update score", "onCreateView: ")
