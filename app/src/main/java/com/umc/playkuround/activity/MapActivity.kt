@@ -6,8 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.location.Address
-import android.location.Geocoder
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -19,7 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -35,8 +33,8 @@ import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.SmallSlideUpDialog
 import com.umc.playkuround.service.GpsTracker
 import com.umc.playkuround.service.UserService
-import java.io.IOException
 import java.util.*
+import kotlin.concurrent.timer
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -45,7 +43,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private lateinit var map : GoogleMap
     private lateinit var locationCallback : LocationCallback
     private lateinit var visitedList : ArrayList<LandMark>
+
     private var myLocation : Marker? = null
+    private var nowLocation : LatLng = LatLng(0.0, 0.0)
+    private lateinit var gpsTracker : GpsTracker
+    private var timer : Timer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,11 +66,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             }
         }
 
-        startGameActivity(-10)
+        gpsTracker = GpsTracker(applicationContext)
 
-        /*binding.mapClickBtn.setOnClickListener {
-            getNowLocation()
-        }*/
+        startGameActivity(-10)
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map_map_fragment) as SupportMapFragment?
@@ -76,26 +76,45 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         MapsInitializer.initialize(this)
     }
 
-    private fun getNowLocation() {
-        val gpsTracker = GpsTracker(applicationContext)
+    override fun onDestroy() {
+        timer?.let { timer?.cancel() }
+        super.onDestroy()
+    }
 
-        val lat = gpsTracker.getLatitude()
-        val lon = gpsTracker.getLongitude()
-
-        val nowLocation = LatLng(lat, lon)
-
-        val markerOptions = MarkerOptions()
-
-        markerOptions.position(nowLocation)
-        markerOptions.snippet("19")
-        myLocation = if(myLocation != null) {
-            myLocation!!.remove()
-            map.addMarker(markerOptions)
-        } else {
-            map.addMarker(markerOptions)
+    private fun updatingNowLocation() {
+        val kuBound = LatLngBounds(
+            LatLng(37.5398, 127.071),
+            LatLng(37.542, 127.082)
+        )
+        if(!kuBound.contains(LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude()))){
+            Toast.makeText(applicationContext, "건국대학교에 위치하고 있지 않습니다.", Toast.LENGTH_SHORT).show()
+            binding.mapClickBtn.visibility = View.INVISIBLE
+            return
         }
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation, 17f))
+        timer = timer(period = 3000) {
+            val lat = gpsTracker.getLatitude()
+            val lon = gpsTracker.getLongitude()
+
+            Log.d("updating now location", "updatingNowLocation: lat : $lat, lon : $lon")
+
+            val markerOptions = MarkerOptions()
+            nowLocation = LatLng(lat, lon)
+
+            markerOptions.position(nowLocation)
+            markerOptions.snippet("19")
+
+            runOnUiThread {
+                myLocation = if(myLocation != null) {
+                    myLocation!!.remove()
+                    map.addMarker(markerOptions)
+                } else {
+                    map.addMarker(markerOptions)
+                }
+
+                //map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation!!, 17f))
+            }
+        }
     }
 
     private fun startGameActivity(idx : Int) {
@@ -138,7 +157,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                         Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                     }
                 }
-            }).getNearLandmark(user.getAccessToken(), "37.5424444", "127.077995")
+            }).getNearLandmark(user.getAccessToken(), nowLocation.latitude.toString(), nowLocation.longitude.toString())
         }
 
         if(idx == -1) {
@@ -173,8 +192,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     override fun onMapReady(p0: GoogleMap) {
         map = p0
         initMap()
-
-        //map.setPadding(0, screenHeight() - toPX(142), screenWidth() - toPX(70), 0)
+        updatingNowLocation()
     }
 
     private fun initMap() {

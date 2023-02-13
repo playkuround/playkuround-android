@@ -28,6 +28,10 @@ class DialogPlaceRankActivity : AppCompatActivity() {
         binding = DialogPlaceRankBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.dialogGetBadgeXIv.setOnClickListener {
+            finish()
+        }
+
         initView()
     }
 

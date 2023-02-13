@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.umc.playkuround.PlayKuApplication
+import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityMainBinding
 import com.umc.playkuround.fragment.BadgeFragment
@@ -29,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         binding.pager.registerOnPageChangeCallback(PageChangeCallback())
         binding.bottomNavigationView.setOnItemSelectedListener { navigationSelected(it) }
 
+        val app = application as PlayKuApplication
+        app.updateAccessToken()
     }
 
     private fun navigationSelected(item: MenuItem): Boolean {

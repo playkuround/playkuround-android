@@ -21,25 +21,22 @@ import com.umc.playkuround.service.UserService
 class SplashActivity : AppCompatActivity() {
 
     lateinit var binding : ActivitySplashBinding
-    lateinit private var loading : LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        loading = LoadingDialog(this)
         checkLoginInfo()
-        finish()
     }
 
     private fun checkLoginInfo() {
         user.load(pref)
         Log.d("user info", "checkLoginInfo: email : ${user.email}, name : ${user.nickname}, major : ${user.major}")
         if(user.major == "null") {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         } else {
-            loading.show()
             login()
         }
     }
@@ -56,6 +53,7 @@ class SplashActivity : AppCompatActivity() {
 
                         val intent = Intent(applicationContext, MainActivity::class.java)
                         startActivity(intent)
+                        finish()
                     }
                 } else {
                     if(err == "A004") { // 유효하지 않은 토큰
@@ -69,6 +67,7 @@ class SplashActivity : AppCompatActivity() {
 
                         val intent = Intent(applicationContext, LoginActivity::class.java)
                         startActivity(intent)
+                        finish()
                     }
                 }
             }
@@ -92,14 +91,10 @@ class SplashActivity : AppCompatActivity() {
 
                     val intent = Intent(applicationContext, LoginActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             }
         }).reissuanceToken(token)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if(loading != null && loading.isShowing) loading.dismiss()
     }
 
 }

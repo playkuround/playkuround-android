@@ -20,6 +20,10 @@ class DialogPlaceInfoActivity : AppCompatActivity() {
         binding.dialogPlaceInfoIv.setImageResource(landmark.getImageDrawable())
         binding.dialogPlaceInfoTv.text = landmark.getDescription()
         binding.dialogPlaceInfoTitleTv.text = landmark.name
+
+        binding.dialogPlaceInfoXIv.setOnClickListener {
+            finish()
+        }
     }
 
 }
