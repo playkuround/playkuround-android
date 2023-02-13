@@ -114,7 +114,7 @@ class GpsTracker(private val mContext: Context) : Service(),
     }
 
     companion object {
-        private const val MIN_DISTANCE_CHANGE_FOR_UPDATES: Long = 5
+        private const val MIN_DISTANCE_CHANGE_FOR_UPDATES: Long = 3
         private const val MIN_TIME_BW_UPDATES = (1000 * 30 * 1).toLong()
     }
 

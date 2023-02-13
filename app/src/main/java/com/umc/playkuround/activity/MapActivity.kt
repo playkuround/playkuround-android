@@ -17,6 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -44,7 +45,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private lateinit var visitedList : ArrayList<LandMark>
 
     private var myLocation : Marker? = null
-    private var nowLocation : LatLng? = null
+    private var nowLocation : LatLng = LatLng(0.0, 0.0)
     private lateinit var gpsTracker : GpsTracker
     private var timer : Timer? = null
 
@@ -91,7 +92,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             return
         }
 
-        timer = timer(period = 5000) {
+        timer = timer(period = 3000) {
             val lat = gpsTracker.getLatitude()
             val lon = gpsTracker.getLongitude()
 
@@ -100,7 +101,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             val markerOptions = MarkerOptions()
             nowLocation = LatLng(lat, lon)
 
-            markerOptions.position(nowLocation!!)
+            markerOptions.position(nowLocation)
             markerOptions.snippet("19")
 
             runOnUiThread {
@@ -111,7 +112,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                     map.addMarker(markerOptions)
                 }
 
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation!!, 17f))
+                //map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation!!, 17f))
             }
         }
     }
@@ -156,7 +157,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                         Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                     }
                 }
-            }).getNearLandmark(user.getAccessToken(), nowLocation!!.latitude.toString(), nowLocation!!.longitude.toString())
+            }).getNearLandmark(user.getAccessToken(), nowLocation.latitude.toString(), nowLocation.longitude.toString())
         }
 
         if(idx == -1) {

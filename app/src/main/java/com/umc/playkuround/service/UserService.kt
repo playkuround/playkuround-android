@@ -297,6 +297,7 @@ class UserService {
 
     fun getNearLandmark(token : String, latitude : String, longitude : String) {
         val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+        Log.d("near landmark", "getNearLandmark: $latitude, $longitude")
 
         userService.getNearLandmark(token, latitude, longitude).enqueue(object : Callback<CommonResponse> {
             override fun onResponse(
@@ -307,6 +308,11 @@ class UserService {
                     200 -> { // success
                         Log.d("attendanceToday", "onResponse: " + response.body().toString())
                         val resp = JSONObject(response.body()!!.response.toString())
+                        if(resp.isNull("id")) {
+                            val err = "올바른 위치가 아닙니다."
+                            onResponseListener.getResponseBody(null, false, err)
+                            return
+                        }
                         val id = resp.get("id").toString().toDouble()
                         val name = resp.get("name").toString()
                         val distance = resp.get("distance").toString().toDouble()
