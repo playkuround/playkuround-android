@@ -87,7 +87,8 @@
         <entry key="app/src/main/res/layout/agree_02.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/layout/agree_03.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/layout/detail_agree_01.xml" value="0.21190338134765627" />
-        <entry key="app/src/main/res/layout/detail_agree_02.xml" value="0.24114583333333334" />
+        <entry key="app/src/main/res/layout/detail_agree_02.xml" value="0.149032992036405" />
+        <entry key="app/src/main/res/layout/detail_agree_03.xml" value="0.22259615384615383" />
         <entry key="app/src/main/res/layout/dialog_badge_info.xml" value="0.18704710144927536" />
         <entry key="app/src/main/res/layout/dialog_get_badge.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_loading.xml" value="0.25" />
