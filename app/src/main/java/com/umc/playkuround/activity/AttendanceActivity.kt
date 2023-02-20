@@ -37,6 +37,10 @@ class AttendanceActivity : AppCompatActivity() {
     private lateinit var todayTv : TextView
     private var attendanceDates : ArrayList<String>? = null
 
+    private var nowLocation : android.location.Location? = null
+
+    private lateinit var gpsTracker : GpsTracker
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAttendanceBinding.inflate(layoutInflater)
@@ -55,6 +59,12 @@ class AttendanceActivity : AppCompatActivity() {
         binding.attendanceBackBtn.setOnClickListener {
             this.finish()
         }
+
+        gpsTracker = GpsTracker(applicationContext, object : GpsTracker.OnLocationUpdateListener {
+            override fun onLocationUpdated(location: android.location.Location) {
+                nowLocation = location
+            }})
+        gpsTracker.startLocationUpdates()
     }
 
     private fun getAttendanceDates() {
@@ -82,7 +92,7 @@ class AttendanceActivity : AppCompatActivity() {
         val loading = LoadingDialog(this)
         loading.show()
 
-        val gpsTracker = GpsTracker(applicationContext)
+        gpsTracker.requestLastLocation()
 
         val userService = UserService()
         userService.setOnResponseListener(object : UserService.OnResponseListener() {
@@ -108,7 +118,7 @@ class AttendanceActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                 }
             }
-        }).attendanceToday(user.getAccessToken(), Location(gpsTracker.getLatitude(), gpsTracker.getLongitude()))
+        }).attendanceToday(user.getAccessToken(), Location(nowLocation!!.getLatitude(), nowLocation!!.getLongitude()))
     }
 
     private fun initDates() {

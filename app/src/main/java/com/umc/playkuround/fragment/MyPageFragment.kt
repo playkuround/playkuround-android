@@ -88,7 +88,7 @@ class MyPageFragment : Fragment() {
         }
 
         binding.mypageNoticeTv.setOnClickListener {
-            val userService = UserService()
+            /*val userService = UserService()
 
             userService.setOnResponseListener(object : UserService.OnResponseListener() {
                 override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
@@ -98,7 +98,8 @@ class MyPageFragment : Fragment() {
                         Toast.makeText(requireContext(), err, Toast.LENGTH_SHORT).show()
                     }
                 }
-            }).updateUserScore(user.getAccessToken(), Ranking.scoreType.ADVENTURE)
+            }).updateUserScore(user.getAccessToken(), Ranking.scoreType.ADVENTURE)*/
+            Toast.makeText(context, "아직 공지사항이 없습니다.", Toast.LENGTH_SHORT).show()
         }
 
         return binding.root

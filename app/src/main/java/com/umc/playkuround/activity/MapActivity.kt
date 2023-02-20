@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -58,27 +59,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             finish()
         }
 
-        binding.mapUpdateBtn.setOnClickListener {
-            val lat = gpsTracker.getLatitude()
-            val lon = gpsTracker.getLongitude()
-
-            //Log.d("updating now location", "updatingNowLocation: lat : $lat, lon : $lon")
-
-            val markerOptions = MarkerOptions()
-            nowLocation = LatLng(lat, lon)
-
-            markerOptions.position(nowLocation)
-            markerOptions.snippet("19")
-
-            myLocation = if(myLocation != null) {
-                myLocation!!.remove()
-                map.addMarker(markerOptions)
-            } else {
-                map.addMarker(markerOptions)
-            }
-            //Toast.makeText(applicationContext, "$lat, $lon", Toast.LENGTH_SHORT).show()
-        }
-
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult) {
                 val nowLocation = LatLng(p0.lastLocation!!.latitude, p0.lastLocation!!.longitude)
@@ -87,7 +67,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             }
         }
 
-        gpsTracker = GpsTracker(applicationContext)
+        gpsTracker = GpsTracker(applicationContext, object : GpsTracker.OnLocationUpdateListener {
+            override fun onLocationUpdated(location: Location) {
+                updatingNowLocation(location)
+            }
+        })
 
         startGameActivity(-10)
 
@@ -99,49 +83,49 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
     override fun onDestroy() {
         timer?.let { timer?.cancel() }
+        gpsTracker.stopLocationUpdates()
         super.onDestroy()
     }
 
-    private fun updatingNowLocation() {
+    private fun updatingNowLocation(location: Location) {
         val kuBound = LatLngBounds(
             LatLng(37.5398, 127.071),
             LatLng(37.54499, 127.08515)
         )
-        if(!kuBound.contains(LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude()))){
-            Log.d("gps tracking", "updatingNowLocation: ${gpsTracker.getLatitude()}, ${gpsTracker.getLongitude()}")
+/*        if(!kuBound.contains(LatLng(location.getLatitude(), location.getLongitude()))){
+            Log.d("gps tracking", "updatingNowLocation: ${location.getLatitude()}, ${location.getLongitude()}")
             Toast.makeText(applicationContext, "건국대학교에 위치하고 있지 않습니다.", Toast.LENGTH_SHORT).show()
             binding.mapClickBtn.visibility = View.INVISIBLE
             return
-        }
+        }*/
 
-        timer = timer(period = 3000) {
-            //gpsTracker.getLocation(applicationContext)
-            val lat = gpsTracker.getLatitude()
-            val lon = gpsTracker.getLongitude()
+        //gpsTracker.getLocation(applicationContext)
+        val lat = location.getLatitude()
+        val lon = location.getLongitude()
 
-            //Log.d("updating now location", "updatingNowLocation: lat : $lat, lon : $lon")
+        //Log.d("updating now location", "updatingNowLocation: lat : $lat, lon : $lon")
 
-            val markerOptions = MarkerOptions()
-            nowLocation = LatLng(lat, lon)
+        val markerOptions = MarkerOptions()
+        nowLocation = LatLng(lat, lon)
 
-            markerOptions.position(nowLocation)
-            markerOptions.snippet("19")
+        markerOptions.position(nowLocation)
+        markerOptions.snippet("19")
 
-            runOnUiThread {
-                myLocation = if(myLocation != null) {
-                    myLocation!!.remove()
-                    map.addMarker(markerOptions)
-                } else {
-                    map.addMarker(markerOptions)
-                }
-                //Toast.makeText(applicationContext, "$lat, $lon", Toast.LENGTH_SHORT).show()
-                //map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation!!, 17f))
+        runOnUiThread {
+            myLocation = if(myLocation != null) {
+                myLocation!!.remove()
+                map.addMarker(markerOptions)
+            } else {
+                map.addMarker(markerOptions)
             }
+        //Toast.makeText(applicationContext, "$lat, $lon", Toast.LENGTH_SHORT).show()
+        //map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation!!, 17f))
         }
     }
 
     private fun startGameActivity(idx : Int) {
         binding.mapClickBtn.setOnClickListener {
+            gpsTracker.requestLastLocation()
             val loading = LoadingDialog(this)
             loading.show()
 
@@ -215,7 +199,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     override fun onMapReady(p0: GoogleMap) {
         map = p0
         initMap()
-        updatingNowLocation()
+        gpsTracker.startLocationUpdates()
     }
 
     private fun initMap() {
