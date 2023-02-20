@@ -8,9 +8,12 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.location.LocationRequest
 import android.os.Bundle
 import android.os.IBinder
+import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.constraintlayout.motion.widget.Debug.getLocation
 import androidx.core.content.ContextCompat
 
@@ -18,13 +21,13 @@ import androidx.core.content.ContextCompat
 class GpsTracker(private val mContext: Context) : Service(),
     LocationListener {
 
-    private var location : Location? = null
+    private var mlocation : Location? = null
     private var latitude = 0.0
     private var longitude = 0.0
 
     private var locationManager: LocationManager? = null
 
-    fun getLocation(): Location? {
+    fun getLocation(mContext : Context): Location? {
         try {
             locationManager = mContext.getSystemService(LOCATION_SERVICE) as LocationManager
             val isGPSEnabled = locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
@@ -52,16 +55,16 @@ class GpsTracker(private val mContext: Context) : Service(),
                         this
                     )
                     if (locationManager != null) {
-                        location =
+                        mlocation =
                             locationManager!!.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                        if (location != null) {
-                            latitude = location!!.latitude
-                            longitude = location!!.longitude
+                        if (mlocation != null) {
+                            latitude = mlocation!!.latitude
+                            longitude = mlocation!!.longitude
                         }
                     }
                 }
                 if (isGPSEnabled) {
-                    if (location == null) {
+                    if (mlocation == null) {
                         locationManager!!.requestLocationUpdates(
                             LocationManager.GPS_PROVIDER,
                             MIN_TIME_BW_UPDATES,
@@ -69,11 +72,11 @@ class GpsTracker(private val mContext: Context) : Service(),
                             this
                         )
                         if (locationManager != null) {
-                            location =
+                            mlocation =
                                 locationManager!!.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                            if (location != null) {
-                                latitude = location!!.latitude
-                                longitude = location!!.longitude
+                            if (mlocation != null) {
+                                latitude = mlocation!!.latitude
+                                longitude = mlocation!!.longitude
                             }
                         }
                     }
@@ -82,24 +85,28 @@ class GpsTracker(private val mContext: Context) : Service(),
         } catch (e: Exception) {
             Log.d("@@@", "" + e.toString())
         }
-        return location
+        return mlocation
     }
 
     fun getLatitude(): Double {
-        if (location != null) {
-            latitude = location!!.latitude
+        if (mlocation != null) {
+            Log.d("gps tracking", "getLatitude: if location != null")
+            latitude = mlocation!!.latitude
         }
         return latitude
     }
 
     fun getLongitude(): Double {
-        if (location != null) {
-            longitude = location!!.longitude
+        if (mlocation != null) {
+            longitude = mlocation!!.longitude
         }
         return longitude
     }
 
-    override fun onLocationChanged(location: Location) {}
+    override fun onLocationChanged(location: Location) {
+        Toast.makeText(mContext, "gps ${location.latitude}, ${location.longitude}", Toast.LENGTH_SHORT).show()
+        mlocation = location
+    }
     override fun onProviderDisabled(provider: String) {}
     override fun onProviderEnabled(provider: String) {}
     override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
@@ -114,11 +121,11 @@ class GpsTracker(private val mContext: Context) : Service(),
     }
 
     companion object {
-        private const val MIN_DISTANCE_CHANGE_FOR_UPDATES: Long = 3
-        private const val MIN_TIME_BW_UPDATES = (1000 * 30 * 1).toLong()
+        private const val MIN_DISTANCE_CHANGE_FOR_UPDATES: Long = 1
+        private const val MIN_TIME_BW_UPDATES = (10 * 30 * 1).toLong()
     }
 
     init {
-        getLocation()
+        getLocation(mContext)
     }
 }

@@ -185,20 +185,21 @@ class UserService {
     fun certifyCode(email : String, code : String) {
         val userService = getRetrofit().create(UserRetrofitInterface::class.java)
 
-        userService.certifyCode(email, code).enqueue(object : Callback<EmailCertifyResponse> {
+        userService.certifyCode(email, code).enqueue(object : Callback<UserTokenResponse> {
             override fun onResponse(
-                call: Call<EmailCertifyResponse>,
-                response: Response<EmailCertifyResponse>
+                call: Call<UserTokenResponse>,
+                response: Response<UserTokenResponse>
             ) {
+                Log.d("certifyCode", "onResponse: ${response.body()}")
                 if(response.body() == null) {
                     onResponseListener.getResponseBody(null, false, "서버의 응답이 올바르지 않습니다.")
                 } else {
-                    val resp: EmailCertifyResponse = response.body()!!
+                    val resp: UserTokenResponse = response.body()!!
                     onResponseListener.getResponseBody(resp, true, "")
                 }
             }
 
-            override fun onFailure(call: Call<EmailCertifyResponse>, t: Throwable) {
+            override fun onFailure(call: Call<UserTokenResponse>, t: Throwable) {
                 Log.e("retrofit", "onResponse: fail certifyCode $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
@@ -507,7 +508,7 @@ class UserService {
                         Log.d("getUserAdventureLog", "onResponse: " + response.body().toString())
                         if(response.body()!!.response != null) {
                             val obj = JSONObject(response.body()!!.response.toString()).getJSONArray("landmarkIdList")
-                            Log.d("getUserAdventureLog", "onResponse: " +  obj[0])
+                            //Log.d("getUserAdventureLog", "onResponse: " +  obj[0])
 
                             val landmarks = ArrayList<LandMark>()
                             for (i in 0 until obj.length()) {
@@ -633,12 +634,15 @@ class UserService {
                 when(response.code()) {
                     200 -> { // success
                         Log.d("getBadgeList", "onResponse: " + response.body().toString())
-                        val arr = response.body()!!.response as ArrayList<LinkedTreeMap<String, String>>
-                        val list = ArrayList<String>()
-                        for(i in 0 until arr.size) {
-                            list.add(arr[i]["name"].toString())
+                        if(response.body() != null && response.body()!!.response != null) {
+                            val arr = response.body()!!.response as ArrayList<LinkedTreeMap<String, String>>
+                            val list = ArrayList<String>()
+                            for (i in 0 until arr.size) {
+                                list.add(arr[i]["name"].toString())
+                            }
+                            onResponseListener.getResponseBody(list, true, "")
                         }
-                        onResponseListener.getResponseBody(list, true, "")
+                        onResponseListener.getResponseBody(ArrayList<String>(), true, "")
                     }
                     500 -> { // failed
                         val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
@@ -652,6 +656,63 @@ class UserService {
 
             override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
                 Log.e("retrofit", "onResponse: fail getAttendanceDates $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun deleteUser(token : String) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.deleteUser(token).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when(response.code()) {
+                    200-> {
+                        onResponseListener.getResponseBody(null, true, "")
+                    }
+                    else -> {
+                        Log.d("deleteUser", "onResponse: ${response.code()}")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail deleteUser $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun getUserInfo(token : String) {
+        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userService.getUserInfo(token).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when(response.code()) {
+                    200-> {
+                        val res = JSONObject(response.body()!!.response.toString())
+                        user.email = res.getString("email")
+                        user.nickname = res.getString("nickname")
+                        user.major = res.getString("major")
+                        onResponseListener.getResponseBody(null, true, "")
+                    }
+                    else -> {
+                        Log.d("deleteUser", "onResponse: ${response.code()}")
+                        onResponseListener.getResponseBody(null, false, "서버 오류로 유저 정보를 불러오지 못했습니다.")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("retrofit", "onResponse: fail deleteUser $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
