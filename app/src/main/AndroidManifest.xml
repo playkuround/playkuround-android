@@ -49,6 +49,8 @@
         <activity android:name=".activity.RankingInfoActivity"/>
         <activity android:name=".activity.MajorChoiceActivity"/>
         <activity android:name=".activity.DetailAgree01Activity"/>
+        <activity android:name=".activity.DetailAgree02Activity"/>
+        <activity android:name=".activity.DetailAgree03Activity"/>
         <activity android:name=".activity.DialogPlaceRankActivity"/>
         <activity android:name=".activity.DialogPlaceInfoActivity"/>
 
