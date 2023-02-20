@@ -14,10 +14,14 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDialog
 import androidx.fragment.app.Fragment
+import com.umc.playkuround.PlayKuApplication.Companion.pref
 import com.umc.playkuround.PlayKuApplication.Companion.user
+import com.umc.playkuround.R
+import com.umc.playkuround.activity.LoginActivity
 import com.umc.playkuround.activity.MajorChoiceActivity
 import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.FragmentMypageBinding
+import com.umc.playkuround.dialog.ConfirmDialog
 import com.umc.playkuround.service.UserService
 
 class MyPageFragment : Fragment() {
@@ -39,10 +43,37 @@ class MyPageFragment : Fragment() {
 
         }
 
-        binding.mypageNoticeTv.setOnClickListener {
-            Log.d("update score", "onCreateView: ")
-            val userService = UserService()
+        binding.mypageSecessionTv.setOnClickListener {
+            val confirmDialog = ConfirmDialog(requireContext(), "정말로 탈퇴하시겠습니까?\n탈퇴하시면 탐험 정보가 모두 사라집니다.")
+            confirmDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            confirmDialog.setOnResponseListener(object : ConfirmDialog.OnResponseListener {
+                override fun confirm() {
+                    confirmDialog.dismiss()
+                    val userService = UserService()
 
+                    userService.setOnResponseListener(object : UserService.OnResponseListener() {
+                        override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                            if(isSuccess) {
+                                pref.clearData()
+                                val intent = Intent(requireContext(), LoginActivity::class.java)
+                                startActivity(intent)
+                                requireActivity().finish()
+                            } else {
+                                Toast.makeText(requireContext(), err, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }).deleteUser(user.getAccessToken())
+                }
+
+                override fun refuse() {
+                    confirmDialog.dismiss()
+                }
+            })
+            confirmDialog.show()
+        }
+
+        binding.mypageNoticeTv.setOnClickListener {
+            val userService = UserService()
 
             userService.setOnResponseListener(object : UserService.OnResponseListener() {
                 override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
@@ -62,6 +93,5 @@ class MyPageFragment : Fragment() {
         binding.mypageNameTv.text = user.nickname
         binding.mypageMajorTv.text = user.major
     }
-
 
 }

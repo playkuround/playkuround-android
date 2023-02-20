@@ -13,10 +13,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
+import com.umc.playkuround.PlayKuApplication
 import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.data.EmailCertifyResponse
 import com.umc.playkuround.data.EmailResponse
+import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityEmailCertifyBinding
 import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.SlideUpDialog
@@ -129,15 +131,33 @@ class EmailCertifyActivity : AppCompatActivity() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 loading.dismiss()
                 if(isSuccess) {
-                    if(body is EmailCertifyResponse) {
-                        if(body.response) // if code is correct
+                    if(body is UserTokenResponse) {
+                        if(body.response!!.grantType == null) // if code is correct
                             certifyEmail()
                         else {
-                            binding.emailWarnNotEqualTv.visibility = View.VISIBLE
-                            binding.emailInputCodeCl.background = ContextCompat.getDrawable(applicationContext, R.drawable.edit_text_wrong)
+                            user.userTokenResponse = body.copy()
+                            user.save(PlayKuApplication.pref)
+
+                            val userService2 = UserService()
+                            userService2.setOnResponseListener(object : UserService.OnResponseListener() {
+                                override fun <T> getResponseBody(
+                                    body: T,
+                                    isSuccess: Boolean,
+                                    err: String
+                                ) {
+                                    if(isSuccess) {
+                                        user.save(PlayKuApplication.pref)
+                                        val intent = Intent(applicationContext, MainActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                }
+                            }).getUserInfo(user.getAccessToken())
                         }
                     } else {
-                        Toast.makeText(applicationContext, "서버의 응답이 올바르지 않습니다.", Toast.LENGTH_SHORT).show()
+                        binding.emailWarnNotEqualTv.visibility = View.VISIBLE
+                        binding.emailInputCodeCl.background = ContextCompat.getDrawable(applicationContext, R.drawable.edit_text_wrong)
+                        Toast.makeText(applicationContext, "적합한 코드가 아닙니다.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
@@ -149,7 +169,7 @@ class EmailCertifyActivity : AppCompatActivity() {
 
     private fun startTimer(expiredAt : String) {
         val expiredTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(expiredAt).time
-        val now = Date(System.currentTimeMillis() - 60 * 60 * 9000 + 1000 * 60 * 4).time
+        val now = Date(System.currentTimeMillis()).time
         var time : Long = (expiredTime - now) / 10
         Log.d("timer", "startTimer: $time, $expiredAt, $expiredTime, $now")
 

@@ -25,7 +25,7 @@ interface UserRetrofitInterface {
     fun sendEmail(@Body target : String) : Call<EmailResponse>
 
     @GET("/api/auth/emails")
-    fun certifyCode(@Query("email") email : String, @Query("code") code : String) : Call<EmailCertifyResponse>
+    fun certifyCode(@Query("email") email : String, @Query("code") code : String) : Call<UserTokenResponse>
 
     @POST("/api/attendances")
     fun attendanceToday(@Header("Authorization") token : String, @Body location : Location) : Call<CommonResponse>
@@ -59,4 +59,11 @@ interface UserRetrofitInterface {
 
     @GET("/api/badges")
     fun getBadgeList(@Header("Authorization") token : String) : Call<CommonResponse>
+
+    @DELETE("/api/users")
+    fun deleteUser(@Header("Authorization") token : String) : Call<CommonResponse>
+
+    @GET("/api/users")
+    fun getUserInfo(@Header("Authorization") token : String) : Call<CommonResponse>
+
 }

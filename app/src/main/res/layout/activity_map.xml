@@ -69,7 +69,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="48dp"/>
+            android:layout_marginBottom="48dp"/>'
+
+        <ImageView
+            android:id="@+id/map_update_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/map_click"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/map_click_btn"
+            app:layout_constraintTop_toTopOf="@id/map_click_btn"
+            android:layout_marginEnd="30dp"/>'
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
