@@ -1,24 +1,20 @@
 package com.umc.playkuround.fragment
 
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDialog
 import androidx.fragment.app.Fragment
 import com.umc.playkuround.PlayKuApplication.Companion.pref
 import com.umc.playkuround.PlayKuApplication.Companion.user
-import com.umc.playkuround.R
+import com.umc.playkuround.activity.DetailAgree02Activity
+import com.umc.playkuround.activity.DetailAgree03Activity
 import com.umc.playkuround.activity.LoginActivity
-import com.umc.playkuround.activity.MajorChoiceActivity
 import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.FragmentMypageBinding
 import com.umc.playkuround.dialog.ConfirmDialog
@@ -36,12 +32,31 @@ class MyPageFragment : Fragment() {
         binding = FragmentMypageBinding.inflate(inflater, container, false)
         initView()
 
+        binding.mypageInstarTv.setOnClickListener {
+            var intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/playkuround/"))
+            startActivity(intent)
+        }
+
         binding.mypageFeedbackTv.setOnClickListener {
+            val email = Intent(Intent.ACTION_SEND)
+            email.type = "plain/text"
+            val address = arrayOf("playkuround@gmail.com")
+            email.putExtra(Intent.EXTRA_EMAIL, address)
+            email.putExtra(Intent.EXTRA_TEXT, "문의사항을 적어주세요.")
+            startActivity(email)
         }
 
         binding.mypagePrivacyTv.setOnClickListener {
+            val intent = Intent(context, DetailAgree03Activity::class.java)
+            startActivity(intent)
 
         }
+
+        binding.mypageTermsOfServiceTv.setOnClickListener {
+            val intent = Intent(context, DetailAgree02Activity::class.java)
+            startActivity(intent)
+        }
+
 
         binding.mypageSecessionTv.setOnClickListener {
             val confirmDialog = ConfirmDialog(requireContext(), "정말로 탈퇴하시겠습니까?\n탈퇴하시면 탐험 정보가 모두 사라집니다.")
