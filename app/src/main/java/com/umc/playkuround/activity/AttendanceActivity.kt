@@ -60,9 +60,13 @@ class AttendanceActivity : AppCompatActivity() {
             this.finish()
         }
 
+        val loading = LoadingDialog(this)
+        loading.show()
         gpsTracker = GpsTracker(applicationContext, object : GpsTracker.OnLocationUpdateListener {
             override fun onLocationUpdated(location: android.location.Location) {
                 nowLocation = location
+                if(loading.isShowing)
+                    loading.dismiss()
             }})
         gpsTracker.startLocationUpdates()
     }
