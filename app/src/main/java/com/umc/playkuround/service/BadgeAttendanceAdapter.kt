@@ -1,5 +1,6 @@
 package com.umc.playkuround.service
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ class ListAdapterGrid(badgeList : ArrayList<String>): RecyclerView.Adapter<ListA
     inner class ViewHolder(val binding : ListItemBadgeAttendanceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(pos : Int) {
             binding.listItemBadgeLoked.setImageResource(R.drawable.badge_locked)
+            Log.d("xdxd", "bind: $pos / $badgeList")
             when(pos) {
                 0 -> {
                     if(badgeList.contains(Badge.ATTENDANCE_1))

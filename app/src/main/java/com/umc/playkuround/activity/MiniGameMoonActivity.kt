@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.PlayKuApplication
 import com.umc.playkuround.R
 import com.umc.playkuround.data.LandMark
+import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityMinigameMoonBinding
 import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.service.UserService
@@ -61,11 +62,21 @@ class MiniGameMoonActivity : AppCompatActivity() {
         userService.setOnResponseListener(object : UserService.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if (isSuccess) {
-                    loading.dismiss()
-                    val intent = Intent(applicationContext, DialogPlaceInfoActivity::class.java)
-                    intent.putExtra("landmark", landmark)
-                    startActivity(intent)
-                    finish()
+                    val userService2 = UserService()
+
+                    userService2.setOnResponseListener(object : UserService.OnResponseListener() {
+                        override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                            if(isSuccess) {
+                                loading.dismiss()
+                                val intent = Intent(applicationContext, DialogPlaceInfoActivity::class.java)
+                                intent.putExtra("landmark", landmark)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }).updateUserScore(PlayKuApplication.user.getAccessToken(), Ranking.scoreType.ADVENTURE)
                 } else {
                     loading.dismiss()
                     Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()

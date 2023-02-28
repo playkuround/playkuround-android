@@ -308,8 +308,10 @@ class UserService {
                 when(response.code()) {
                     200 -> { // success
                         Log.d("attendanceToday", "onResponse: " + response.body().toString())
-                        val resp = JSONObject(response.body()!!.response.toString())
-                        if(resp.isNull("id")) {
+                        val resp = response.body()!!.response as LinkedTreeMap<String, String>
+                        Log.d("xdxd", "onResponse near: $resp")
+                        //val resp = JSONObject(response.body()!!.response.toString())
+                        if(resp.isEmpty()) {
                             val err = "올바른 위치가 아닙니다."
                             onResponseListener.getResponseBody(null, false, err)
                             return
@@ -483,6 +485,8 @@ class UserService {
                     }
                     else -> {
                         Log.d("saveAdventureLog", "onResponse: ${response.code()}")
+                        val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
                     }
                 }
             }
@@ -636,13 +640,17 @@ class UserService {
                         Log.d("getBadgeList", "onResponse: " + response.body().toString())
                         if(response.body() != null && response.body()!!.response != null) {
                             val arr = response.body()!!.response as ArrayList<LinkedTreeMap<String, String>>
+                            Log.d("xdxd", "onResponse: $arr")
                             val list = ArrayList<String>()
                             for (i in 0 until arr.size) {
+                                Log.d("xdxd", "onResponse: " + arr[i]["name"].toString())
                                 list.add(arr[i]["name"].toString())
                             }
+                            Log.d("xdxd", "onResponse: $list")
                             onResponseListener.getResponseBody(list, true, "")
+                        } else {
+                            onResponseListener.getResponseBody(ArrayList<String>(), true, "")
                         }
-                        onResponseListener.getResponseBody(ArrayList<String>(), true, "")
                     }
                     500 -> { // failed
                         val err = JSONObject(response.errorBody()!!.string()).getJSONObject("errorResponse").get("message").toString()

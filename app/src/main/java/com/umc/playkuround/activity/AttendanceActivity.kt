@@ -112,13 +112,13 @@ class AttendanceActivity : AppCompatActivity() {
                                 Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                             }
                         }
-                    }).updateUserScore(user.getAccessToken(), Ranking.scoreType.ADVENTURE)
+                    }).updateUserScore(user.getAccessToken(), Ranking.scoreType.ATTENDANCE)
                 } else {
                     loading.dismiss()
                     Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                 }
             }
-        }).attendanceToday(user.getAccessToken(), Location(nowLocation!!.getLatitude(), nowLocation!!.getLongitude()))
+        }).attendanceToday(user.getAccessToken(), Location(nowLocation!!.latitude, nowLocation!!.longitude))
     }
 
     private fun initDates() {

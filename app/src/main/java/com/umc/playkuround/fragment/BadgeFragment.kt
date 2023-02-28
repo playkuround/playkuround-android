@@ -3,6 +3,7 @@ package com.umc.playkuround.fragment
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,6 +68,7 @@ class BadgeFragment : Fragment() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if(isSuccess) {
                     badgeList = body as ArrayList<String>
+                    Log.d("xdxd", "getResponseBody from badge: $badgeList")
 
                     val adapter = ListAdapterGrid(badgeList)
                     binding.badgeAttendanceRv.adapter = adapter

@@ -18,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.model.*
 import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.data.LandMark
+import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityMapBinding
 import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.SmallSlideUpDialog
@@ -50,6 +52,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private lateinit var gpsTracker : GpsTracker
     private var timer : Timer? = null
 
+    lateinit var loadingDialog : LoadingDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapBinding.inflate(layoutInflater)
@@ -59,31 +63,15 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             finish()
         }
 
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(p0: LocationResult) {
-                val nowLocation = LatLng(p0.lastLocation!!.latitude, p0.lastLocation!!.longitude)
-                Log.d("gps", "onLocationChanged: ${p0.lastLocation!!.latitude} , ${p0.lastLocation!!.longitude}")
-                //map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation, 18f))
-            }
-        }
-
-        gpsTracker = GpsTracker(applicationContext, object : GpsTracker.OnLocationUpdateListener {
-            override fun onLocationUpdated(location: Location) {
-                updatingNowLocation(location)
-            }
-        })
-
-        startGameActivity(-10)
-
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map_map_fragment) as SupportMapFragment?
-        mapFragment!!.getMapAsync(this)
-        MapsInitializer.initialize(this)
+        loadingDialog = LoadingDialog(this)
+        loadingDialog.show()
     }
 
     override fun onDestroy() {
         timer?.let { timer?.cancel() }
         gpsTracker.stopLocationUpdates()
+        if(loadingDialog.isShowing)
+            loadingDialog.dismiss()
         super.onDestroy()
     }
 
@@ -102,7 +90,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         //gpsTracker.getLocation(applicationContext)
         val lat = location.getLatitude()
         val lon = location.getLongitude()
-
+        loadingDialog.dismiss()
         //Log.d("updating now location", "updatingNowLocation: lat : $lat, lon : $lon")
 
         val markerOptions = MarkerOptions()
@@ -165,6 +153,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                     }
                 }
             }).getNearLandmark(user.getAccessToken(), nowLocation.latitude.toString(), nowLocation.longitude.toString())
+            Log.d("xdxd", "startGameActivity: " + nowLocation.latitude.toString() + "/" + nowLocation.longitude.toString())
         }
 
         if(idx == -1) {
@@ -186,8 +175,19 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         userService.setOnResponseListener(object : UserService.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if (isSuccess) {
-                    loading.dismiss()
                     Toast.makeText(applicationContext, landmark.name + "에 출석했습니다!", Toast.LENGTH_SHORT).show()
+
+                    val userService2 = UserService()
+
+                    userService2.setOnResponseListener(object : UserService.OnResponseListener() {
+                        override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                            if(isSuccess) {
+                                loading.dismiss()
+                            } else {
+                                Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }).updateUserScore(user.getAccessToken(), Ranking.scoreType.EXTRA_ADVENTURE)
                 } else {
                     loading.dismiss()
                     Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
@@ -203,8 +203,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     }
 
     private fun initMap() {
-        map.setMinZoomPreference(16.0f)
-        map.setMaxZoomPreference(18.0f)
+        map.setMinZoomPreference(15.0f)
+        map.setMaxZoomPreference(19.0f)
 
         val kuBound = LatLngBounds(
             LatLng(37.5398, 127.071),
@@ -271,6 +271,28 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
     override fun onResume() {
         Log.d("gps", "onResume: start resume")
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(p0: LocationResult) {
+                val nowLocation = LatLng(p0.lastLocation!!.latitude, p0.lastLocation!!.longitude)
+                Log.d("gps", "onLocationChanged: ${p0.lastLocation!!.latitude} , ${p0.lastLocation!!.longitude}")
+                //map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation, 18f))
+            }
+        }
+
+        gpsTracker = GpsTracker(applicationContext, object : GpsTracker.OnLocationUpdateListener {
+            override fun onLocationUpdated(location: Location) {
+                updatingNowLocation(location)
+            }
+        })
+
+        startGameActivity(-10)
+
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map_map_fragment) as SupportMapFragment?
+        mapFragment!!.getMapAsync(this)
+        MapsInitializer.initialize(this)
+
         val client = FusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(
                 this,
