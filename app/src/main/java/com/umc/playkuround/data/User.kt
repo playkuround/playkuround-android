@@ -1,8 +1,12 @@
 package com.umc.playkuround.data
 
+import android.util.Log
 import com.google.gson.annotations.SerializedName
 import com.umc.playkuround.PlayKuApplication
 import com.umc.playkuround.service.PreferenceUtil
+import com.umc.playkuround.service.UserService
+import java.text.SimpleDateFormat
+import java.util.*
 
 data class User(
     @SerializedName(value = "email") var email : String,
@@ -54,4 +58,5 @@ data class User(
     fun getRefreshToken() : String {
         return (this.userTokenResponse!!.response!!.grantType + " " + this.userTokenResponse!!.response!!.refreshToken)
     }
+
 }

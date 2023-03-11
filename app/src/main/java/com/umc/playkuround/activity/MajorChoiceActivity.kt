@@ -1,13 +1,20 @@
 package com.umc.playkuround.activity
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import com.umc.playkuround.PlayKuApplication
+import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
+import com.umc.playkuround.data.User
+import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityMajorChoiceBinding
+import com.umc.playkuround.service.UserService
+import java.lang.reflect.Field
 
 
 class MajorChoiceActivity : AppCompatActivity() {
@@ -24,9 +31,13 @@ class MajorChoiceActivity : AppCompatActivity() {
             val intent = Intent(this, NicknameActivity::class.java)
             startActivity(intent)
 
+            user.major = binding.majorDbSpinner.selectedItem.toString()
+            Log.d("major", user.major)
+
         }
 
         binding.majorScSpinner.adapter = ArrayAdapter.createFromResource(this,R.array.magjor_array,R.layout.spinner_text)
+
 
 
 
@@ -113,6 +124,8 @@ class MajorChoiceActivity : AppCompatActivity() {
 
 
     }
+
+
 
 
 

@@ -12,8 +12,9 @@ import com.umc.playkuround.PlayKuApplication.Companion.pref
 import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.data.RefreshTokenResponse
+import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityLoginBinding
-import com.umc.playkuround.dialog.BadgeInfoDialog
+import com.umc.playkuround.dialog.SlideUpDialog
 import com.umc.playkuround.service.UserService
 
 class LoginActivity : AppCompatActivity() {
@@ -42,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
     private fun onSlideUpDialog() {
         var contentView: View = (getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
             R.layout.dialog_badge_info, null)
-        val slideupPopup = BadgeInfoDialog.Builder(this)
+        val slideupPopup = SlideUpDialog.Builder(this)
             .setContentView(contentView)
             .create()
         slideupPopup.show()
@@ -52,58 +53,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun testing() {
-        /*binding.loginLogoIv.setOnClickListener {
-            val userService = UserService()
-            val temp = User("test21@test.com", "test21", "컴퓨터공학부", null)
-            userService.setOnResponseListener(object : UserService.OnResponseListener() {
-                override fun <T> getResponseBody(body : T, isSuccess : Boolean, err : String) {
-                    if(isSuccess) {
-                        if(body is UserTokenResponse)
-                            temp.userTokenResponse = body
-                        user = temp.copy()
-                        user.save(pref)
-                        Log.d("userInfo", "onCreate: $user")
-                    } else {
-                        Log.d("retrofit", "getResponseBody: $err")
-                        Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }).register(temp)
-        }*/
-
-        /*binding.loginLogoIv.setOnClickListener {
-            val userService = UserService()
-            val nickname = "test17"
-            userService.setOnResponseListener(object : UserService.OnResponseListener() {
-                override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                    if(isSuccess) {
-                        if(body is DuplicateResponse)
-                            Log.d("retrofit", "getResponseBody: " + body.response)
-                    } else {
-                        Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }).isDuplicate(nickname)
-        }*/
-
-        /*binding.loginLogoIv.setOnClickListener {
-            val userService = UserService()
-            val token = user.getAccessToken()
-            userService.setOnResponseListener(object : UserService.OnResponseListener() {
-                override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                    if(isSuccess) {
-                        if(body is UserTokenResponse)
-                            user.userTokenResponse = body
-                        user.save(pref)
-                        Log.d("userInfo", "onCreate: $user")
-                    } else {
-                        Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }).login(token)
-        }*/
-
-        /*binding.loginLogoIv.setOnClickListener {
+        binding.loginLogoIv.setOnClickListener {
             val userService = UserService()
             val token = user.getAccessToken()
             userService.setOnResponseListener(object : UserService.OnResponseListener() {
@@ -115,26 +65,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }).logout(token)
-        }*/
-
-        binding.loginLogoIv.setOnClickListener {
-            val userService = UserService()
-            val token = user.getRefreshToken()
-            userService.setOnResponseListener(object : UserService.OnResponseListener() {
-                override fun <T> getResponseBody(body : T, isSuccess : Boolean, err : String) {
-                    if(isSuccess) {
-                        if(body is RefreshTokenResponse) {
-                            user.userTokenResponse!!.response!!.accessToken = body.response!!.accessToken
-                            user.userTokenResponse!!.response!!.accessTokenExpiredAt = body.response!!.accessTokenExpireTime
-                        }
-                        user.save(pref)
-                        Log.d("userInfo", "onCreate(reissuance): $user")
-                    } else {
-                        Log.d("retrofit", "getResponseBody: $err")
-                        Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }).reissuanceToken(token)
         }
     }
 

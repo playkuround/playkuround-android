@@ -1,12 +1,18 @@
 package com.umc.playkuround.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.umc.playkuround.PlayKuApplication
+import com.umc.playkuround.data.LandMark
+import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityMinigameTimerBinding
+import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.service.UserService
 import java.util.*
 import kotlin.concurrent.timer
 
@@ -42,11 +48,11 @@ class MiniGameTimerActivity : AppCompatActivity() {
 
     private fun check() {
         if (time in 990..1010) {
-            Toast.makeText(this, "맞춤", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "맞춤", Toast.LENGTH_SHORT).show()
             openResultDialog(true)}
 
         else {
-            Toast.makeText(this, "틀림", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "틀림", Toast.LENGTH_SHORT).show()
             openResultDialog(false)}
     }
 
@@ -113,11 +119,43 @@ class MiniGameTimerActivity : AppCompatActivity() {
     // 결과 나오는 창
     private fun openResultDialog(result : Boolean) {
         if(result) {
-
+            saveAdventureLog()
         } else {
 
         }
     }
 
+    private fun saveAdventureLog() {
+        val landmark = intent.getSerializableExtra("landmark") as LandMark
+
+        val loading = LoadingDialog(this)
+        loading.show()
+
+        val userService = UserService()
+        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if (isSuccess) {
+                    val userService2 = UserService()
+
+                    userService2.setOnResponseListener(object : UserService.OnResponseListener() {
+                        override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                            if(isSuccess) {
+                                loading.dismiss()
+                                val intent = Intent(applicationContext, DialogPlaceInfoActivity::class.java)
+                                intent.putExtra("landmark", landmark)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }).updateUserScore(PlayKuApplication.user.getAccessToken(), Ranking.scoreType.ADVENTURE)
+                } else {
+                    loading.dismiss()
+                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }).saveAdventureLog(PlayKuApplication.user.getAccessToken(), landmark)
+    }
 
 }

@@ -40,14 +40,14 @@ class PolicyAgreeActivity : AppCompatActivity() {
             val intent = Intent(this, DetailAgree01Activity::class.java)
             startActivity(intent)
         }
-//        binding.agree02Btn.setOnClickListener {
-//            val intent = Intent(this, Agree01Binding::class.java)
-//            startActivity(intent)
-//        }
-//        binding.agree03Btn.setOnClickListener {
-//            val intent = Intent(this, Agree01Binding::class.java)
-//            startActivity(intent)
-//        }
+        binding.agree02Btn.setOnClickListener {
+            val intent = Intent(this, DetailAgree02Activity::class.java)
+            startActivity(intent)
+        }
+        binding.agree03Btn.setOnClickListener {
+            val intent = Intent(this, DetailAgree03Activity::class.java)
+            startActivity(intent)
+        }
 
 
 

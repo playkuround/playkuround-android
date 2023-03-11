@@ -15,4 +15,10 @@ class PreferenceUtil(context : Context) {
         prefs.edit().putString(key, str).apply()
     }
 
+    fun clearData() {
+        val editor = prefs.edit()
+        editor.clear()
+        editor.commit()
+    }
+
 }

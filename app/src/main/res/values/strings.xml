@@ -19,10 +19,10 @@
     <string name="certify_email">건국대학교 이메일을 인증해주세요.</string>
     <string name="konkuk_address">\@konkuk.ac.kr</string>
     <string name="request_code">인증코드 요청</string>
+    <string name="request_code_again">인증코드 재요청</string>
     <string name="go_to_konkuk_email">건국대학교 이메일 바로가기</string>
     <string name="certify_code">인증코드</string>
     <string name="certify">인증하기</string>
-    <string name="resend_code">인증코드 재전송하기</string>
     <string name="warn_not_equal">입력하신 인증코드가 일치하지 않습니다.</string>
 
     <string name="home_check">출석 체크</string>
@@ -66,5 +66,10 @@
 
     <string name="quiz_correct_dialog">정답입니다!</string>
     <string name="quiz_wrong_dialog">오답입니다.\n다시 시도해보세요!</string>
+
+    <string name="map_place_rank_dialog">방문자 랭킹</string>
+    <string name="map_place_info_dialog">건물 설명</string>
+
+    <string name="ranking_empty">아직 순위가 없습니다.\n지금 1위에 도전해보세요!</string>
 
 </resources>

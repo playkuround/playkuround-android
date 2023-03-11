@@ -15,8 +15,7 @@ class DetailAgree01Activity : AppCompatActivity(){
         setContentView(binding.root)
 
         binding.agree01XBt.setOnClickListener {
-            val intent = Intent(this, PolicyAgreeActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
     }

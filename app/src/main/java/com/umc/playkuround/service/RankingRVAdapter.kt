@@ -6,25 +6,20 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ItemRankBinding
 
-class RankingRVAdapter : RecyclerView.Adapter<RankingRVAdapter.ViewHolder>() {
+class RankingRVAdapter(users : ArrayList<Ranking>) : RecyclerView.Adapter<RankingRVAdapter.ViewHolder>() {
 
     private lateinit var parent : ViewGroup
-    private val users = ArrayList<RankUser>()
-
-    inner class RankUser(
-        val rank : Int,
-        val nickname : String,
-        val score : Int
-    )
+    private val users = users
 
     inner class ViewHolder(val binding : ItemRankBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user : RankUser) {
-            binding.rankingItemRankTv.text = user.rank.toString()
+        fun bind(user : Ranking) {
+            binding.rankingItemRankTv.text = user.ranking.toString()
             binding.rankingItemNameTv.text = user.nickname
-            binding.rankingItemScoreTv.text = user.score.toString()
-            when(user.rank) {
+            binding.rankingItemScoreTv.text = user.points.toString()
+            when(user.ranking) {
                 1-> {
                     binding.rankingItemRankTv.background = makeDrawable("#FFE67E") // gold
                 } 2-> {
@@ -39,7 +34,7 @@ class RankingRVAdapter : RecyclerView.Adapter<RankingRVAdapter.ViewHolder>() {
     }
 
     init {
-        getUsers()
+        //getUsers()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder {
@@ -56,7 +51,7 @@ class RankingRVAdapter : RecyclerView.Adapter<RankingRVAdapter.ViewHolder>() {
 
     private fun getUsers() {
         for(i in 1..100) {
-            users.add(RankUser(i, "건덕이$i", 1000 - i))
+            users.add(Ranking(i, "건덕이$i", 1000 - i))
         }
     }
 

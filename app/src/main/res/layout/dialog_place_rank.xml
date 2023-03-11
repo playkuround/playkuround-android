@@ -23,7 +23,7 @@ android:background="@drawable/badge_dialog_bg">
         android:src="@drawable/agree_x"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="18dp" />
 
     <TextView
@@ -35,7 +35,7 @@ android:background="@drawable/badge_dialog_bg">
         android:fontFamily="@font/pretendard_semi_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="115dp"
+        android:layout_marginTop="95dp"
         android:layout_marginStart="18dp"/>
 
     <ImageView
@@ -61,9 +61,10 @@ android:background="@drawable/badge_dialog_bg">
         android:layout_marginStart="83dp" />
 
     <TextView
+        android:id="@+id/dialog_get_badge_place_count_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+ 1,234"
+        android:text="+ 1234"
         android:textSize="24dp"
         android:fontFamily="@font/pretendard_medium"
         app:layout_constraintStart_toStartOf="@id/dialog_get_badge_circle_iv"
@@ -253,7 +254,8 @@ android:background="@drawable/badge_dialog_bg">
         app:layout_constraintTop_toBottomOf="@id/dialog_get_badge_my_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="invisible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -308,7 +310,8 @@ android:background="@drawable/badge_dialog_bg">
         app:layout_constraintTop_toBottomOf="@id/dialog_get_badge_my_bar2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="invisible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -363,7 +366,8 @@ android:background="@drawable/badge_dialog_bg">
         app:layout_constraintTop_toBottomOf="@id/dialog_get_badge_my_bar3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="invisible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -418,7 +422,8 @@ android:background="@drawable/badge_dialog_bg">
         app:layout_constraintTop_toBottomOf="@id/dialog_get_badge_my_bar4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="invisible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"

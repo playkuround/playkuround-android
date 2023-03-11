@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="340dp"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="인증 입력 시간 초과"
+        android:fontFamily="@font/pretendard_semi_bold"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="72dp"
+        android:id="@+id/timeout_title_tv"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="인증 입력 시간이 초과되었습니다. 인증코드를 다시 요청해주세요."
+        android:textColor="@color/light_gray"
+        android:fontFamily="@font/pretendard_medium"
+        android:textSize="16dp"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeout_title_tv"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/timeout_description_tv"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeout_description_tv"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintDimensionRatio="343:50"
+        android:text="확인"
+        android:fontFamily="@font/pretendard_semi_bold"
+        android:textSize="15dp"
+        android:background="@drawable/button_green"
+        android:id="@+id/timeout_confirm_btn"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

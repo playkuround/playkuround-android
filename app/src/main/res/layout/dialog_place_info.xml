@@ -23,7 +23,7 @@
             android:src="@drawable/agree_x"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="18dp" />
 
         <TextView
@@ -35,7 +35,7 @@
             android:fontFamily="@font/pretendard_semi_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="115dp"
+            android:layout_marginTop="95dp"
             android:layout_marginStart="18dp"/>
 
         <TextView
@@ -64,17 +64,20 @@
             android:layout_marginEnd="46dp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="산학협력관은 교양 수업을 들을 때 주로 이용하는 \n건물이에요. 운이 좋으면 요들송을 들을 수 있으니 \n 귀를 기울여 보세요!"
+            android:text="산학협력관은 교양 수업을 들을 때 주로 이용하는 건물이에요. 운이 좋으면 요들송을 들을 수 있으니 귀를 기울여 보세요!"
             android:fontFamily="@font/pretendard_medium"
             android:textSize="20dp"
             app:layout_constraintTop_toBottomOf="@id/dialog_place_info_iv"
-            app:layout_constraintStart_toStartOf="@id/dialog_place_info_title_tv"
-            app:layout_constraintEnd_toEndOf="@id/dialog_place_info_x_iv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:textAlignment="gravity"
             android:gravity="left"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:id="@+id/dialog_place_info_tv"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
