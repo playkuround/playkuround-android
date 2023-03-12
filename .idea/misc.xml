@@ -98,8 +98,12 @@
         <entry key="app/src/main/res/layout/agree_02.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/layout/agree_03.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/layout/detail_agree_01.xml" value="0.21190338134765627" />
+<<<<<<< HEAD
+        <entry key="app/src/main/res/layout/detail_agree_02.xml" value="0.14463019250253292" />
+=======
         <entry key="app/src/main/res/layout/detail_agree_02.xml" value="0.21124676285608582" />
         <entry key="app/src/main/res/layout/detail_agree_03.xml" value="0.22259615384615383" />
+>>>>>>> dba3c2bf04a84d420c600d2a5b355033743533b3
         <entry key="app/src/main/res/layout/dialog_badge_info.xml" value="0.18704710144927536" />
         <entry key="app/src/main/res/layout/dialog_get_badge.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_loading.xml" value="0.25" />

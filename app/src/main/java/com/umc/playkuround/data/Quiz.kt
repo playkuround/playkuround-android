@@ -63,13 +63,13 @@ data class Quiz (
             }
 
             6 -> {
-                question = "상허도서관 내 복사실이 위치한 층은?"
+                question = "상허도서관에서 가장 가까운 문은?"
                 options = ArrayList()
-                options.add(0, "1층") // 정답
-                options.add(1, "2층")
-                options.add(2, "3층")
-                options.add(3, "4층")
-                answer = 0
+                options.add(0, "건국문")
+                options.add(1, "중문")
+                options.add(2, "상허문")// 정답
+                options.add(3, "일감문")
+                answer = 2
 
             }
 
@@ -162,6 +162,17 @@ data class Quiz (
 
             }
 
+            15 -> {
+                question = "경영대의 케이 허브가 생긴 연도는?"
+                options = ArrayList()
+                options.add(0, "2020년")
+                options.add(1, "2021년")
+                options.add(2, "2022년") // 정답
+                options.add(3, "2023년")
+                answer = 2
+
+            }
+
             16 -> {
                 question = "새천년관에 대해 옳지 않은 것은?"
                 options = ArrayList()
@@ -207,13 +218,13 @@ data class Quiz (
             }
 
             21 -> {
-                question = "제2학생회에 대해 옳지 않은 것은?"
+                question = "학교에 많은 연예인들이 공연을 다녀갔다. 다음 중 노천극장에서 공연하지 않은 그룹은?"
                 options = ArrayList()
-                options.add(0, "동아리 방들이 모여있다.")
-                options.add(1, "모든 중앙동아리는 동아리방이 있다.") // 정답
-                options.add(2, "지하와 2층에 샤워실이 있다.")
-                options.add(3, "축제를 할 때 제일 사람이 많다.")
-                answer = 1
+                options.add(0, "뉴진스")
+                options.add(1, "블랙핑크")
+                options.add(2, "레드벨벳")
+                options.add(3, "르세라핌") // 정답
+                answer = 3
 
             }
 
@@ -246,6 +257,17 @@ data class Quiz (
                 options.add(1, "11층")
                 options.add(2, "12층") // 정답
                 options.add(3, "13층")
+                answer = 2
+
+            }
+
+            26 -> {
+                question = "다음 중 이과대학에 속하지 않는 것은?"
+                options = ArrayList()
+                options.add(0, "물리학과")
+                options.add(1, "수학과")
+                options.add(2, "지리학과")// 정답
+                options.add(3, "화학과")
                 answer = 2
 
             }
@@ -283,6 +305,17 @@ data class Quiz (
 
             }
 
+            30 -> {
+                question = "다음 중 기숙사 건물 이름이 아닌 것은?"
+                options = ArrayList()
+                options.add(0, "비전")
+                options.add(1, "그린") // 정답
+                options.add(2, "레이크")
+                options.add(3, "프론티어")
+                answer = 1
+
+            }
+
             31 -> {
                 question = "일감호 면적 안에 들어가는 대학교는?"
                 options = ArrayList()
@@ -301,6 +334,50 @@ data class Quiz (
                 options.add(1, "시험기간에 건너면 다음 시험 망친다.")
                 options.add(2, "새벽 4시에 다리에서 물을 보면 귀신을 볼 수 있다.")
                 options.add(3, "3명 이상 건너면 저주를 받는다.")
+                answer = 0
+
+            }
+
+            33 -> {
+                question = "건국대학교 대표 동물은 황소이다. 그렇다면 건국대학교 교화는?"
+                options = ArrayList()
+                options.add(0, "목화") // 정답
+                options.add(1, "장미")
+                options.add(2, "벚꽃")
+                options.add(3, "목련")
+                answer = 0
+
+            }
+
+            35 -> {
+                question = "건국대학교는 1931년 민중병원으로 역사를 시작했다. 그 후 조선 정치학관으로 개교를 했는데, 해당 연도는?"
+                options = ArrayList()
+                options.add(0, "1945년")
+                options.add(1, "1946년") // 정답
+                options.add(2, "1947년")
+                options.add(3, "1948년")
+                answer = 1
+
+            }
+
+            37 -> {
+                question = "대운동장은 리모델링 전에 흙 운동장이었다. 대운동장이 잔디 리모델링을 완료한 해는?"
+                options = ArrayList()
+                options.add(0, "2014년")
+                options.add(1, "2015년")
+                options.add(2, "2016년") //정답
+                options.add(3, "2017년")
+                answer = 2
+
+            }
+
+            38 -> {
+                question = "다음 중 건대 동문이 아닌 스포츠 선수는?"
+                options = ArrayList()
+                options.add(0, "이천수") //정답
+                options.add(1, "황선홍")
+                options.add(2, "이종범")
+                options.add(3, "이형택")
                 answer = 0
 
             }
