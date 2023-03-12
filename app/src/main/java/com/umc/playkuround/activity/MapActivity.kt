@@ -97,7 +97,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         nowLocation = LatLng(lat, lon)
 
         markerOptions.position(nowLocation)
-        markerOptions.snippet("19")
+        markerOptions.snippet("-1")
 
         runOnUiThread {
             myLocation = if(myLocation != null) {
@@ -211,7 +211,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             LatLng(37.542, 127.082)
         )
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(kuBound.center, 16f))
-        map.setLatLngBoundsForCameraTarget(kuBound)
+        //map.setLatLngBoundsForCameraTarget(kuBound)
 
         map.uiSettings.isCompassEnabled = false
         map.uiSettings.isMapToolbarEnabled = false
@@ -324,6 +324,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     }
 
     private fun placeinfoDialog(id : Int) {
+        if(id == -1) return
         val landmark = LandMark(id, 0.0, 0.0, "", 0.0, "")
 
         val contentView: View =
