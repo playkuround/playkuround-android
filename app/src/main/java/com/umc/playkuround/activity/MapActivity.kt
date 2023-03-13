@@ -123,7 +123,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                     if(isSuccess) {
                         loading.dismiss()
                         Log.d("near_landmark", "getResponseBody: $body")
-                        val landmark = body as LandMark
+                        val landmark = LandMark((body as LandMark).id, 0.0, 0.0, "", 0.0, "")
                         Log.d("map activity check", "getResponseBody: $landmark")
                         Log.d("map activity check", "getResponseBody: $visitedList")
 
