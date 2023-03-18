@@ -195,29 +195,29 @@ data class LandMark(
                 this.longitude = 127.0809046
             }
 
-//            29 -> {
-//                this.name = "국제학사"
-//                this.latitude = 37.5414569
-//                this.longitude = 127.0783146
-//            }
+            29 -> {
+                this.name = "국제학사"
+                this.latitude = 37.539995
+                this.longitude = 127.077180
+            }
 
             30 -> {
                 this.name = "기숙사"
-                this.latitude = 37.5392118
-                this.longitude = 127.0774110
+                this.latitude = 37.539147
+                this.longitude = 127.078248
 
             }
 
-//            31 -> {
-//                this.name = "일감호"
-//                this.latitude = 37.5422029
-//                this.longitude = 127.0775529
-//            }
+            31 -> {
+                this.name = "일감호"
+                this.latitude = 37.530744
+                this.longitude = 127.075539
+            }
 
             32 -> {
                 this.name = "홍예교"
-                this.latitude = 37.5418113
-                this.longitude = 127.0774426
+                this.latitude = 37.541688
+                this.longitude = 127.077344
             }
 
             33 -> {
@@ -268,36 +268,35 @@ data class LandMark(
             }
 
 
-//            40 -> {
-//                this.name = "중문"
-//                this.latitude = 37.5414569
-//                this.longitude = 127.0783146
-//            }
-//
-//            41 -> {
-//                this.name = "일감문(동물병원)"
-//                this.latitude = 37.5414569
-//                this.longitude = 127.0783146
-//            }
-//
-//
-//            42 -> {
-//                this.name = "상허관(도서관)"
-//                this.latitude = 37.5414569
-//                this.longitude = 127.0783146
-//            }
+            40 -> {
+                this.name = "중문"
+                this.latitude = 37.541827
+                this.longitude = 127.071780
+            }
 
-            43 -> {
-                this.name = "구의역쪽문"
-                this.latitude = 37.541454
-                this.longitude = 127.082172
+            41 -> {
+                this.name = "일감문(동물병원)"
+                this.latitude = 37.539165
+                this.longitude = 127.074042
             }
 
 
+            42 -> {
+                this.name = "상허문(도서관)"
+                this.latitude = 37.539692
+                this.longitude = 127.072491
+            }
+
+            43 -> {
+                this.name = "구의역쪽문"
+                this.latitude = 37.541584
+                this.longitude = 127.082226
+            }
+
             44 -> {
                 this.name = "기숙사쪽문"
-                this.latitude = 37.5392216
-                this.longitude = 127.0767438
+                this.latitude = 37.539255
+                this.longitude = 127.076741
             }
 
             else -> {
