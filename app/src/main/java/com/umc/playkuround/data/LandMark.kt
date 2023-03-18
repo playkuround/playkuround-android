@@ -23,176 +23,176 @@ data class LandMark(
         when(this.id) {
             1 -> {
                 this.name = "산학협동관"
-                this.latitude = 37.5399272
-                this.longitude = 127.0730058
+                this.latitude = 37.539765
+                this.longitude = 127.073215
             }
             2 -> {
                 this.name = "입학정보관"
-                this.latitude = 37.5401585
-                this.longitude = 127.0734625
+                this.latitude = 37.540296
+                this.longitude = 127.073410
                 
             }
             3 -> {
                 this.name = "수의학관"
-                this.latitude = 37.5393144
-                this.longitude = 127.0743188
+                this.latitude = 37.539310
+                this.longitude = 127.074590
             }
 
             4 -> {
                 this.name = "동물생명과학관"
-                this.latitude = 37.5400992
-                this.longitude = 127.0739755
+                this.latitude = 37.540184
+                this.longitude = 127.074179
             }
 
             5 -> {
                 this.name = "생명과학관"
-                this.latitude = 37.541211
-                this.longitude = 127.0738829
+                this.latitude = 37.540901
+                this.longitude = 127.074055
 
             }
 
             6 -> {
                 this.name = "상허도서관"
-                this.latitude = 37.5416478
-                this.longitude = 127.073841
+                this.latitude = 37.542051
+                this.longitude = 127.073808
             }
 
             7 -> {
                 this.name = "의생명과학연구관"
-                this.latitude = 37.5416377
-                this.longitude = 127.0722548
+                this.latitude = 37.541461
+                this.longitude = 127.072215
             }
 
             8 -> {
                 this.name = "예디대"
-                this.latitude = 37.5427749
-                this.longitude = 127.0731309
+                this.latitude = 37.542908
+                this.longitude = 127.072815
             }
 
             9 -> {
                 this.name = "언어교육원"
-                this.latitude = 37.542419
-                this.longitude = 127.0747909
+                this.latitude = 37.542533
+                this.longitude = 127.074700
 
             }
 
             10 -> {
                 this.name = "법학관"
-                this.latitude = 37.5416114
-                this.longitude = 127.0753642
+                this.latitude = 37.541667
+                this.longitude = 127.075046
             }
 
             11 -> {
                 this.name = "상허박물관"
-                this.latitude = 37.5423863
-                this.longitude = 127.0759469
+                this.latitude = 37.542375
+                this.longitude = 127.075711
 
             }
 
             12 -> {
                 this.name = "행정관"
-                this.latitude = 37.5432154
-                this.longitude = 127.0753186
+                this.latitude = 37.543222
+                this.longitude = 127.075305
             }
 
             13 -> {
                 this.name = "교육과학관"
-                this.latitude = 37.543853
-                this.longitude = 127.074704
+                this.latitude = 37.543998
+                this.longitude = 127.074145
             }
 
             14 -> {
                 this.name = "상허연구관"
-                this.latitude = 37.5349819
-                this.longitude = 127.0754255
+                this.latitude = 37.544018
+                this.longitude = 127.075141
 
             }
 
             15 -> {
                 this.name = "경영관"
-                this.latitude = 37.5441063
-                this.longitude = 127.0761259
+                this.latitude = 37.544319
+                this.longitude = 127.076184
             }
 
             16 -> {
                 this.name = "새천년관"
-                this.latitude = 37.5435018
-                this.longitude = 127.0768672
+                this.latitude = 37.543374
+                this.longitude = 127.077314
             }
 
             17 -> {
                 this.name = "건축관"
-                this.latitude = 37.5437987
-                this.longitude = 127.0781376
+                this.latitude = 37.543732
+                this.longitude = 127.078482
             }
 
             18 -> {
                 this.name = "부동산학관"
-                this.latitude = 37.5434680
-                this.longitude = 127.0781208
+                this.latitude = 37.543283
+                this.longitude = 127.078093
             }
 
             19 -> {
                 this.name = "인문학관"
-                this.latitude = 37.5424445
-                this.longitude = 127.0779958
+                this.latitude = 37.542602
+                this.longitude = 127.078250
 
             }
 
             20 -> {
                 this.name = "학생회관"
-                this.latitude = 37.5422029
-                this.longitude = 127.0775529
+                this.latitude = 37.541954
+                this.longitude = 127.077748
             }
 
             21 -> {
-                this.name = "제2학생회관"
-                this.latitude = 37.5414569
-                this.longitude = 127.0783146
+                this.name = "제2학생회관 & 노천극장"
+                this.latitude = 37.541298
+                this.longitude = 127.077828
             }
 
             22 -> {
                 this.name = "공학관A"
-                this.latitude = 37.5417549
-                this.longitude = 127.0786807
+                this.latitude = 37.541655
+                this.longitude = 127.078769
             }
 
             23 -> {
                 this.name = "공학관B"
-                this.latitude = 37.5421010
-                this.longitude = 127.0794452
+                this.latitude = 37.542004
+                this.longitude = 127.079563
             }
 
             24 -> {
                 this.name = "공학관C"
-                this.latitude = 37.5411352
-                this.longitude = 127.0793238
+                this.latitude = 37.541226
+                this.longitude = 127.079357
 
             }
 
             25 -> {
                 this.name = "신공학관"
-                this.latitude = 37.5408837
-                this.longitude = 127.0795183
+                this.latitude = 37.540455
+                this.longitude = 127.079304
             }
 
             26 -> {
                 this.name = "과학관(이과대)"
-                this.latitude = 37.5412503
-                this.longitude = 127.0803749
+                this.latitude = 37.541491
+                this.longitude = 127.080565
             }
 
             27 -> {
                 this.name = "창의관"
-                this.latitude = 37.5408292
-                this.longitude = 127.0813777
+                this.latitude = 37.541114
+                this.longitude = 127.081743
 
             }
 
             28 -> {
                 this.name = "공예관"
-                this.latitude = 37.5420952
-                this.longitude = 127.0809046
+                this.latitude = 37.542220
+                this.longitude = 127.080961
             }
 
             29 -> {
@@ -222,49 +222,47 @@ data class LandMark(
 
             33 -> {
                 this.name = "황소동상"
-                this.latitude = 37.5431006
-                this.longitude = 127.0761367
+                this.latitude = 37.543135
+                this.longitude = 127.076172
             }
 
 
             34 -> {
                 this.name = "청심대"
-                this.latitude = 37.5424163
-                this.longitude = 127.0768045
+                this.latitude = 37.542366
+                this.longitude = 127.076835
             }
 
 
             35 -> {
                 this.name = "상허박사 동상"
-                this.latitude = 37.5413729
-                this.longitude = 127.0734508
+                this.latitude = 37.541365
+                this.longitude = 127.073457
             }
 
-
-            36 -> {
+/*            36 -> {
                 this.name = "노천극장 중앙"
                 this.latitude = 37.5414752
                 this.longitude = 127.0778020
-            }
+            }*/
 
             37 -> {
                 this.name = "운동장"
-                this.latitude = 37.5441467
-                this.longitude = 127.0769722
+                this.latitude = 37.544387
+                this.longitude = 127.077593
             }
-
 
             38 -> {
                 this.name = "실내체육관"
-                this.latitude = 37.5445231
-                this.longitude = 127.0796061
+                this.latitude = 37.544456
+                this.longitude = 127.079587
             }
 
 
             39 -> {
                 this.name = "건국문(후문)"
-                this.latitude = 37.544838
-                this.longitude = 127.076628
+                this.latitude = 37.545122
+                this.longitude = 127.076613
             }
 
 
@@ -359,7 +357,7 @@ data class LandMark(
                     "신한은행이 있어요." +
                     "고전음악감상실이 있어 공강 시간에 쉬어갈 수 있어요." +
                     "2층에서 학생증 재발급 받을 수 있어요."
-            21 -> "주로 동아리실이 모여있어요."
+            21 -> "주로 동아리실이 모여있어요." + " 축제 공연을 할때 노천극장에서 주로 진행해요."
             22 -> "엘레베이터가 없어요." +
                     "1층에 서점이 위치해 있어요." +
                     "공대 과사무실들이 위치해 있어요."
@@ -398,7 +396,7 @@ data class LandMark(
                     "청심대 안에 자판기가 존재해요. "
             35 -> "겨울에 눈사람 명소에요." +
                     "황소동상과 더불어 졸업사진 명소에요."
-            36 -> "축제 공연을 할때 노천극장에서 주로 진행해요."
+            //36 -> "축제 공연을 할때 노천극장에서 주로 진행해요."
             37 -> "16년에 흙운동장에서 인공잔디로 바뀌었어요."
             38 -> "실내 체육관은 건국대학교 농구부가 주로 사용해요. 건국대학교 농구부는 2022년 대학 농구리그 준우승을 차지했어요."
             39 -> "건대입구에 비해 물가가 저렴하며 대학가 같다." +

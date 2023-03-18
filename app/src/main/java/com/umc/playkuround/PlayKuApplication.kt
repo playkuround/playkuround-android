@@ -33,9 +33,11 @@ class PlayKuApplication : Application() {
         val expiredTime = formatter.parse(user.userTokenResponse!!.response!!.accessTokenExpiredAt)
         val nowTime = Date()
 
-        Log.d("time set", "getAccessToken: $expiredTime, $nowTime")
-        var period = expiredTime.time - nowTime.time
+        Log.d("zdzd", "getAccessToken: $expiredTime, $nowTime")
+        var period = expiredTime.time - nowTime.time - 1000
         if(period < 0) period = 5000
+        Log.d("zdzd", "updateAccessToken: $period")
+        //period = 5000
 
         timer(period = period, initialDelay = period) {
             Log.d("time set", "updateAccessToken: reissuance $period")
@@ -54,6 +56,7 @@ class PlayKuApplication : Application() {
                         user.userTokenResponse!!.response!!.accessToken = body.response!!.accessToken
                         user.userTokenResponse!!.response!!.accessTokenExpiredAt = body.response!!.accessTokenExpireTime
                         updateAccessToken()
+                        Log.d("zdzd", "getResponseBody: $user")
                     }
                 } else {
                     Log.d("reissuance failed", "getResponseBody: $err")

@@ -324,7 +324,7 @@ class UserService {
                 try {
                     when (response.code()) {
                         200 -> { // success
-                            Log.d("attendanceToday", "onResponse: " + response.body().toString())
+                            Log.d("getNearLandmark", "onResponse: " + response.body().toString())
                             val resp = response.body()!!.response as LinkedTreeMap<String, String>
                             Log.d("xdxd", "onResponse near: $resp")
                             //val resp = JSONObject(response.body()!!.response.toString())
@@ -345,6 +345,8 @@ class UserService {
                                 distance,
                                 gameType
                             )
+                            landmark.latitude = latitude.toDouble()
+                            landmark.longitude = longitude.toDouble()
                             onResponseListener.getResponseBody(landmark, true, "")
                         }
                         401 -> { // failed
@@ -526,9 +528,11 @@ class UserService {
                             onResponseListener.getResponseBody(null, true, "")
                         }
                         401 -> { // failed
+                            //Log.d("ydyd", "onResponse: ${response.errorBody().toString()}")
                             val err = JSONObject(
                                 response.errorBody()!!.string()
                             ).getJSONObject("errorResponse").get("message").toString()
+                            //Log.d("ydyd", "onResponse: ${JSONObject(response.errorBody()!!.string())}")
                             onResponseListener.getResponseBody(null, false, err)
                         }
                         else -> {
