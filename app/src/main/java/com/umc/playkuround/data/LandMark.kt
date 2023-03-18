@@ -452,17 +452,17 @@ data class LandMark(
             31 -> R.drawable.landmark_31
             32 -> R.drawable.landmark_32
             33 -> R.drawable.landmark_33
-//            34 -> R.drawable.landmark_34
+            34 -> R.drawable.landmark_34
             35 -> R.drawable.landmark_35
             36 -> R.drawable.landmark_36
             37 -> R.drawable.landmark_37
             38 -> R.drawable.landmark_38
             39 -> R.drawable.landmark_39
-//            40 -> R.drawable.landmark_40
+            40 -> R.drawable.landmark_40
             41 -> R.drawable.landmark_41
             42 -> R.drawable.landmark_42
             43 -> R.drawable.landmark_43
-//            44 -> R.drawable.landmark_44
+            44 -> R.drawable.landmark_44
 
 
             else -> R.color.lighter_gray
