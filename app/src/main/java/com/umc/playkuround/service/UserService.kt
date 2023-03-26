@@ -221,7 +221,7 @@ class UserService {
                         200 -> { // success
                             Log.d("attendanceToday", "onResponse: " + response.body().toString())
 
-                            val res = response.body()!!.response as LinkedTreeMap<String, String>
+                            /*val res = response.body()!!.response as LinkedTreeMap<String, String>
                             val badgeArr =
                                 res["newBadges"] as ArrayList<LinkedTreeMap<String, String>>
                             val userService2 = UserService()
@@ -240,7 +240,7 @@ class UserService {
                                         }
                                     }
                                 }).saveBadge(badgeArr[i]["name"].toString())
-                            }
+                            }*/
 
                             onResponseListener.getResponseBody(response.body()!!, true, "")
                         }
@@ -504,7 +504,7 @@ class UserService {
                         201 -> { // success
                             Log.d("saveAdventureLog", "onResponse: " + response.body().toString())
 
-                            val res = response.body()!!.response as LinkedTreeMap<String, String>
+                            /*val res = response.body()!!.response as LinkedTreeMap<String, String>
                             val badgeArr =
                                 res["newBadges"] as ArrayList<LinkedTreeMap<String, String>>
                             val userService2 = UserService()
@@ -523,7 +523,7 @@ class UserService {
                                         }
                                     }
                                 }).saveBadge(badgeArr[i]["name"].toString())
-                            }
+                            }*/
 
                             onResponseListener.getResponseBody(null, true, "")
                         }

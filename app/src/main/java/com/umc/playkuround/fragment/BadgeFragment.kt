@@ -41,24 +41,6 @@ class BadgeFragment : Fragment() {
         return binding.root
     }
 
-    private fun saveBadge() {
-        val loading = LoadingDialog(requireActivity())
-        loading.show()
-
-        val userService = UserService()
-        userService.setOnResponseListener(object : UserService.OnResponseListener() {
-            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                if(isSuccess) {
-
-                    loading.dismiss()
-                } else {
-                    loading.dismiss()
-                    Toast.makeText(context, err, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }).saveBadge(Badge.ATTENDANCE_FOUNDATION_DAY)
-    }
-
     private fun getBadgeList() {
         val loading = LoadingDialog(requireActivity())
         loading.show()
