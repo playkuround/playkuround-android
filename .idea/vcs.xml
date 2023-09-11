@@ -4,6 +4,7 @@
     <mapping directory="$PROJECT_DIR$/../RenjuClock" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../UMC Android study/Android_C" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/privacy policy" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../renjuNote" vcs="Git" />
   </component>
 </project>

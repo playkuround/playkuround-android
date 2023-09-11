@@ -33,8 +33,12 @@ class HomeFragment : Fragment(), ActivityCompat.OnRequestPermissionsResultCallba
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.homeCheckBlackBg.setOnClickListener {
-            val intent = Intent(context, AttendanceActivity::class.java)
-            startActivity(intent)
+            if(getLocationPermission()) {
+                val intent = Intent(context, AttendanceActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(context, "위치 정보 접근 권한을 허용해주세요!", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.homeAdventureBlackBg.setOnClickListener {
