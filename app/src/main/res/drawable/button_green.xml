@@ -2,32 +2,17 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_pressed="false"
-        android:state_enabled="true">
-        <shape>
-            <size android:width="350dp"
-                android:height="55dp"/>
-            <corners android:radius="10dp"/>
-            <solid android:color="@color/green_main"/>
-        </shape>
+        android:state_enabled="true"
+        android:drawable="@drawable/button_green_default">
     </item>
 
     <item android:state_pressed="true"
-        android:state_enabled="true">
-        <shape>
-            <size android:width="350dp"
-                android:height="55dp"/>
-            <corners android:radius="10dp"/>
-            <solid android:color="@color/green_pressed"/>
-        </shape>
+        android:state_enabled="true"
+        android:drawable="@drawable/button_green_pressed">
     </item>
 
-    <item android:state_enabled="false">
-        <shape>
-            <size android:width="350dp"
-                android:height="55dp"/>
-            <corners android:radius="10dp"/>
-            <solid android:color="@color/lighter_gray"/>
-        </shape>
+    <item android:state_enabled="false"
+        android:drawable="@drawable/button_green_enabled">
     </item>
 
 </selector>
