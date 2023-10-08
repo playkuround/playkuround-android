@@ -17,6 +17,7 @@
     <string name="login">로그인</string>
     <string name="greeting">안녕하세요!</string>
     <string name="certify_email">건국대학교 이메일을 인증해주세요.</string>
+    <string name="portal_id">포탈아이디</string>
     <string name="konkuk_address">\@konkuk.ac.kr</string>
     <string name="request_code">인증코드 요청</string>
     <string name="request_code_again">인증코드 재요청</string>

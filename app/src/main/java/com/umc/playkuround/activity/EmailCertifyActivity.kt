@@ -24,6 +24,8 @@ import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.SlideUpDialog
 import com.umc.playkuround.service.UserService
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.concurrent.timer
 
@@ -52,7 +54,7 @@ class EmailCertifyActivity : AppCompatActivity() {
         // 인증요청 버튼 클릭
         binding.emailRequestCodeBtn.setOnClickListener {
             email = binding.emailGetEmailEt.text.toString() + "@konkuk.ac.kr"
-            requestCode(email)
+            //requestCode(email) // 추후 활성화 시켜야 함
 
             binding.emailRequestCountTv.visibility = View.INVISIBLE
             binding.emailGotoKonkukEmailTv.visibility = View.INVISIBLE
@@ -64,6 +66,21 @@ class EmailCertifyActivity : AppCompatActivity() {
 
             if(certifyTimer != null)
                 certifyTimer?.cancel()
+
+            // test code ------------------------------------------------------------
+            binding.emailGotoKonkukEmailTv.visibility = View.VISIBLE
+            binding.emailInputCodeCl.visibility = View.VISIBLE
+            binding.emailCertifyBtn.visibility = View.VISIBLE
+
+            binding.emailRequestCountTv.visibility = View.VISIBLE
+            binding.emailRequestCountTv.text = "오늘 인증 요청 횟수가 5회 남았습니다."
+
+            val currentTime = LocalDateTime.now()
+            val oneMinuteLater = currentTime.plusMinutes(1)
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val formattedTime = oneMinuteLater.format(formatter)
+            startTimer(formattedTime)
+            // ----------------------------------------------------------------------
         }
 
         // 건국대학교 이메일 이동 클릭
@@ -81,7 +98,15 @@ class EmailCertifyActivity : AppCompatActivity() {
         // 인증하기 버튼 클릭
         binding.emailCertifyBtn.setOnClickListener {
             certifyCode = binding.emailInputCodeEt.text.toString()
-            isCodeCorrect(email, certifyCode)
+            // isCodeCorrect(email, certifyCode)
+            // test code -------------------------------------------------------------------------------
+            if(certifyCode != "1234") {
+                binding.emailWarnNotEqualTv.visibility = View.VISIBLE
+//                binding.emailInputCodeCl.background =
+//                    ContextCompat.getDrawable(applicationContext, R.drawable.edit_text_wrong)
+                Toast.makeText(applicationContext, "적합한 코드가 아닙니다.", Toast.LENGTH_SHORT).show()
+            } else certifyEmail()
+            // ------------------------------------------------------------------------------------------
         }
     }
 
@@ -205,6 +230,7 @@ class EmailCertifyActivity : AppCompatActivity() {
             binding.emailInputCodeCl.visibility = View.INVISIBLE
             binding.emailCertifyBtn.visibility = View.INVISIBLE
             binding.emailInputCodeEt.text.clear()
+            //binding.emailGetEmailEt.text.clear()
 
             slideupPopup.dismissAnim()
         }

@@ -31,11 +31,11 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.loginLogoIv.setOnClickListener {
-            //onSlideUpDialog()
-            val intent = Intent(this, MiniGameQuizActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.loginLogoIv.setOnClickListener {
+//            //onSlideUpDialog()
+//            val intent = Intent(this, MiniGameQuizActivity::class.java)
+//            startActivity(intent)
+//        }
 
         //testing()
     }

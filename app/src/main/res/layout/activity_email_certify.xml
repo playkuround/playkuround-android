@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_skyblue">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -20,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@string/greeting"
-            android:fontFamily="@font/pretendard_semi_bold"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
             android:textSize="29dp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="91dp"
@@ -63,7 +64,8 @@
                 android:textSize="15dp"
                 android:textAlignment="textStart"
                 android:maxLines="1"
-                android:id="@+id/email_get_email_et"/>
+                android:id="@+id/email_get_email_et"
+                android:hint="@string/portal_id"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,7 +74,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="@string/konkuk_address"
-                android:fontFamily="@font/pretendard_semi_bold"
+                android:fontFamily="@font/pretendard_medium"
                 android:textSize="15dp"
                 android:textColor="@color/light_gray"
                 android:layout_marginEnd="18dp"
@@ -107,6 +109,7 @@
             android:textColor="@color/green_main"
             android:textSize="13dp"
             android:id="@+id/email_goto_konkuk_email_tv"
+            android:background="@drawable/green_underline"
             android:visibility="gone"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -147,7 +150,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="05:00"
-                android:fontFamily="@font/pretendard_semi_bold"
+                android:fontFamily="@font/pretendard_medium"
                 android:textSize="15dp"
                 android:textColor="@color/light_gray"
                 android:layout_marginEnd="18dp"
