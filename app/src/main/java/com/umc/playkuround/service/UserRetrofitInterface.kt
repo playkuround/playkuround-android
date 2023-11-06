@@ -9,7 +9,7 @@ interface UserRetrofitInterface {
     @POST("/api/users/register")
     fun register(@Body user : User) : Call<UserTokenResponse>
 
-    @GET("/api/users/duplication")
+    @GET("/api/users/availability")
     fun isDuplicate(@Query("nickname") nickname : String) : Call<DuplicateResponse>
 
     @POST("/api/users/login")
@@ -25,7 +25,7 @@ interface UserRetrofitInterface {
     fun sendEmail(@Body target : String) : Call<EmailResponse>
 
     @GET("/api/auth/emails")
-    fun certifyCode(@Query("email") email : String, @Query("code") code : String) : Call<UserTokenResponse>
+    fun certifyCode(@Query("email") email : String, @Query("code") code : String) : Call<CommonResponse>
 
     @POST("/api/attendances")
     fun attendanceToday(@Header("Authorization") token : String, @Body location : Location) : Call<CommonResponse>

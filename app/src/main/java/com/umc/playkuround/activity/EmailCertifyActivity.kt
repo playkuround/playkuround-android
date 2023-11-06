@@ -3,6 +3,7 @@ package com.umc.playkuround.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -15,9 +16,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import com.umc.playkuround.PlayKuApplication
 import com.umc.playkuround.PlayKuApplication.Companion.user
+import com.umc.playkuround.PlayKuApplication.Companion.verifyToken
 import com.umc.playkuround.R
 import com.umc.playkuround.data.EmailCertifyResponse
 import com.umc.playkuround.data.EmailResponse
+import com.umc.playkuround.data.Response
 import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityEmailCertifyBinding
 import com.umc.playkuround.dialog.LoadingDialog
@@ -54,7 +57,7 @@ class EmailCertifyActivity : AppCompatActivity() {
         // 인증요청 버튼 클릭
         binding.emailRequestCodeBtn.setOnClickListener {
             email = binding.emailGetEmailEt.text.toString() + "@konkuk.ac.kr"
-            //requestCode(email) // 추후 활성화 시켜야 함
+            requestCode(email) // 추후 활성화 시켜야 함
 
             binding.emailRequestCountTv.visibility = View.INVISIBLE
             binding.emailGotoKonkukEmailTv.visibility = View.INVISIBLE
@@ -68,18 +71,18 @@ class EmailCertifyActivity : AppCompatActivity() {
                 certifyTimer?.cancel()
 
             // test code ------------------------------------------------------------
-            binding.emailGotoKonkukEmailTv.visibility = View.VISIBLE
-            binding.emailInputCodeCl.visibility = View.VISIBLE
-            binding.emailCertifyBtn.visibility = View.VISIBLE
-
-            binding.emailRequestCountTv.visibility = View.VISIBLE
-            binding.emailRequestCountTv.text = "오늘 인증 요청 횟수가 5회 남았습니다."
-
-            val currentTime = LocalDateTime.now()
-            val oneMinuteLater = currentTime.plusMinutes(1)
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val formattedTime = oneMinuteLater.format(formatter)
-            startTimer(formattedTime)
+//            binding.emailGotoKonkukEmailTv.visibility = View.VISIBLE
+//            binding.emailInputCodeCl.visibility = View.VISIBLE
+//            binding.emailCertifyBtn.visibility = View.VISIBLE
+//
+//            binding.emailRequestCountTv.visibility = View.VISIBLE
+//            binding.emailRequestCountTv.text = "오늘 인증 요청 횟수가 5회 남았습니다."
+//
+//            val currentTime = LocalDateTime.now()
+//            val oneMinuteLater = currentTime.plusSeconds(10)
+//            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+//            val formattedTime = oneMinuteLater.format(formatter)
+//            startTimer(formattedTime)
             // ----------------------------------------------------------------------
         }
 
@@ -92,20 +95,24 @@ class EmailCertifyActivity : AppCompatActivity() {
         binding.emailInputCodeEt.doAfterTextChanged {
             binding.emailCertifyBtn.isEnabled = !it.isNullOrBlank()
             binding.emailWarnNotEqualTv.visibility = View.GONE
+            binding.emailRequestCountTv.visibility = View.VISIBLE
             binding.emailInputCodeCl.background = ContextCompat.getDrawable(this, R.drawable.edit_text)
+            binding.emailInputCodeEt.setTextColor(Color.BLACK)
         }
 
         // 인증하기 버튼 클릭
         binding.emailCertifyBtn.setOnClickListener {
             certifyCode = binding.emailInputCodeEt.text.toString()
-            // isCodeCorrect(email, certifyCode)
+            isCodeCorrect(email, certifyCode)
             // test code -------------------------------------------------------------------------------
-            if(certifyCode != "1234") {
-                binding.emailWarnNotEqualTv.visibility = View.VISIBLE
-//                binding.emailInputCodeCl.background =
-//                    ContextCompat.getDrawable(applicationContext, R.drawable.edit_text_wrong)
-                Toast.makeText(applicationContext, "적합한 코드가 아닙니다.", Toast.LENGTH_SHORT).show()
-            } else certifyEmail()
+//            if(certifyCode != "1234") {
+//                binding.emailRequestCountTv.visibility = View.GONE
+//                binding.emailWarnNotEqualTv.visibility = View.VISIBLE
+//                binding.emailInputCodeEt.setTextColor(Color.RED)
+////                binding.emailInputCodeCl.background =
+////                    ContextCompat.getDrawable(applicationContext, R.drawable.edit_text_wrong)
+//                Toast.makeText(applicationContext, "적합한 코드가 아닙니다.", Toast.LENGTH_SHORT).show()
+//            } else certifyEmail()
             // ------------------------------------------------------------------------------------------
         }
     }
@@ -142,6 +149,12 @@ class EmailCertifyActivity : AppCompatActivity() {
                     }
                 } else {
                     Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+
+                    binding.emailGotoKonkukEmailTv.visibility = View.VISIBLE
+                    binding.emailInputCodeCl.visibility = View.VISIBLE
+                    binding.emailCertifyBtn.visibility = View.VISIBLE
+
+                    binding.emailRequestCountTv.visibility = View.VISIBLE
                 }
             }
         }).sendEmail(email)
@@ -156,11 +169,12 @@ class EmailCertifyActivity : AppCompatActivity() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 loading.dismiss()
                 if(isSuccess) {
-                    if(body is UserTokenResponse) {
-                        if(body.response!!.grantType == null) // if code is correct
-                            certifyEmail()
+                    if(body is Array<*>) {
+                        if(!(body[0] as String).isNullOrEmpty()) // if code is correct
+                            certifyEmail(body[0] as String)
                         else {
-                            user.userTokenResponse = body.copy()
+                            val userTokenResponse = UserTokenResponse(true, Response("Bearer", body[1] as String, body[2] as String))
+                            user.userTokenResponse = userTokenResponse
                             user.save(PlayKuApplication.pref)
 
                             val userService2 = UserService()
@@ -181,7 +195,7 @@ class EmailCertifyActivity : AppCompatActivity() {
                         }
                     } else {
                         binding.emailWarnNotEqualTv.visibility = View.VISIBLE
-                        binding.emailInputCodeCl.background = ContextCompat.getDrawable(applicationContext, R.drawable.edit_text_wrong)
+                        binding.emailInputCodeEt.setTextColor(Color.RED)
                         Toast.makeText(applicationContext, "적합한 코드가 아닙니다.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
@@ -238,14 +252,12 @@ class EmailCertifyActivity : AppCompatActivity() {
         slideupPopup.show()
     }
 
-    private fun certifyEmail() {
+    private fun certifyEmail(verifyToken : String) {
         Log.d("TAG", "init: certifyEmail")
         certifyTimer?.cancel()
-        /*
-        * 이메일이 가입된 이메일일 경우 홈 액티비티로 이동
-        * 아닐 경우 이용약관 액티비티로 이동
-        */
+        PlayKuApplication.verifyToken = verifyToken
         user.email = email
+
         val intent = Intent(this, PolicyAgreeActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

@@ -27,8 +27,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:itemBackground="@color/white"
         app:menu="@menu/bottom_nav"
-        app:itemIconTint="@color/buttom_nav"
-        app:itemTextColor="@color/buttom_nav"/>
+        app:itemIconTint="@color/bottom_nav"
+        app:itemTextColor="@color/bottom_nav"/>
 <!--        android:theme="@style/Widget.BottomNavigationView" />-->
 
 

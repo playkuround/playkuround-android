@@ -2,6 +2,7 @@ package com.umc.playkuround.activity
 
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -50,26 +51,36 @@ class NicknameActivity : AppCompatActivity() {
         val text = binding.nicknameEt.text.toString()
         val regex = "^[ㄱ-ㅣ가-힣a-zA-Z]+\$".toRegex()
 
+        if(binding.nicknameEt.length() == 0) {
+            binding.nicknameErRuleTv.visibility = View.INVISIBLE
+            binding.nicknameErOverlabTv.visibility = View.INVISIBLE
+            binding.nicknameEndBtn.isEnabled = false
+            return
+        }
+
+        if(!(text.matches(regex) && binding.nicknameEt.length() in 2..8)){
+            binding.nicknameEt.setTextColor(Color.RED)
+            binding.nicknameErRuleTv.visibility = View.VISIBLE
+            binding.nicknameErOverlabTv.visibility = View.INVISIBLE
+            binding.nicknameEndBtn.isEnabled = false
+            return
+        }
+
         userService.setOnResponseListener(object : UserService.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if(isSuccess) {
                     if(body is DuplicateResponse) {
-                        if (body.response == true ) {
-                            binding.nicknameGetCl.background = ContextCompat.getDrawable(this@NicknameActivity, R.drawable.edit_text_wrong)
+                        if (!body.response) {
+                            binding.nicknameEt.setTextColor(Color.RED)
                             binding.nicknameErOverlabTv.visibility = View.VISIBLE
-                             binding.nicknameEndBtn.isEnabled = false }
-
-                        else if (body.response == false && text.matches(regex) && binding.nicknameEt.length() in 2..8 ) {
-                            binding.nicknameGetCl.background = ContextCompat.getDrawable(this@NicknameActivity, R.drawable.edit_text)
+                            binding.nicknameErRuleTv.visibility = View.INVISIBLE
+                            binding.nicknameEndBtn.isEnabled = false
+                        }
+                        else {
+                            binding.nicknameEt.setTextColor(Color.BLACK)
                             binding.nicknameEndBtn.isEnabled = true
                             binding.nicknameErOverlabTv.visibility = View.INVISIBLE
                             binding.nicknameErRuleTv.visibility = View.INVISIBLE
-                        }
-                        else {
-                            binding.nicknameGetCl.background = ContextCompat.getDrawable(this@NicknameActivity, R.drawable.edit_text_wrong)
-                            binding.nicknameEndBtn.isEnabled = false
-                            binding.nicknameErRuleTv.visibility = View.VISIBLE
-                            binding.nicknameErOverlabTv.visibility = View.INVISIBLE
                         }
 
                             Log.d("retrofit", "getResponseBody: " + body.response)

@@ -38,64 +38,66 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         } else {
-            login()
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
-    private fun login() {
-        val userService = UserService()
-        val token = user.getAccessToken()
-        userService.setOnResponseListener(object : UserService.OnResponseListener() {
-            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                if(isSuccess) {
-                    if(body is UserTokenResponse) {
-                        user.userTokenResponse = body.copy()
-                        user.save(pref)
-
-                        val intent = Intent(applicationContext, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                } else {
-                    if(err == "A004") { // 유효하지 않은 토큰
-                        reissuanceToken()
-                    } else if(err == "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.") {
-                        Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                        finish()
-                    } else {
-                        Log.d("login failed", "getResponseBody: $err")
-                        Toast.makeText(applicationContext, "로그인에 실패하였습니다!\n다시 로그인하여 주세요.", Toast.LENGTH_SHORT).show()
-
-                        val intent = Intent(applicationContext, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                }
-            }
-        }).login(token)
-    }
-
-    private fun reissuanceToken() {
-        val userService = UserService()
-        val token = user.getRefreshToken()
-        userService.setOnResponseListener(object : UserService.OnResponseListener() {
-            override fun <T> getResponseBody(body : T, isSuccess : Boolean, err : String) {
-                if(isSuccess) {
-                    if(body is RefreshTokenResponse) {
-                        user.userTokenResponse!!.response!!.accessToken = body.response!!.accessToken
-                        user.userTokenResponse!!.response!!.accessTokenExpiredAt = body.response!!.accessTokenExpireTime
-                        login()
-                    }
-                } else {
-                    Log.d("reissuance failed", "getResponseBody: $err")
-                    Toast.makeText(applicationContext, "로그인에 실패하였습니다!\n다시 로그인하여 주세요.", Toast.LENGTH_SHORT).show()
-
-                    val intent = Intent(applicationContext, LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }
-        }).reissuanceToken(token)
-    }
+//    private fun login() {
+//        val userService = UserService()
+//        val token = user.getAccessToken()
+//        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+//            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+//                if(isSuccess) {
+//                    if(body is UserTokenResponse) {
+//                        user.userTokenResponse = body.copy()
+//                        user.save(pref)
+//
+//                        val intent = Intent(applicationContext, MainActivity::class.java)
+//                        startActivity(intent)
+//                        finish()
+//                    }
+//                } else {
+//                    if(err == "A004") { // 유효하지 않은 토큰
+//                        reissuanceToken()
+//                    } else if(err == "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.") {
+//                        Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+//                        finish()
+//                    } else {
+//                        Log.d("login failed", "getResponseBody: $err")
+//                        Toast.makeText(applicationContext, "로그인에 실패하였습니다!\n다시 로그인하여 주세요.", Toast.LENGTH_SHORT).show()
+//
+//                        val intent = Intent(applicationContext, LoginActivity::class.java)
+//                        startActivity(intent)
+//                        finish()
+//                    }
+//                }
+//            }
+//        }).login(token)
+//    }
+//
+//    private fun reissuanceToken() {
+//        val userService = UserService()
+//        val token = user.getRefreshToken()
+//        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+//            override fun <T> getResponseBody(body : T, isSuccess : Boolean, err : String) {
+//                if(isSuccess) {
+//                    if(body is RefreshTokenResponse) {
+//                        user.userTokenResponse!!.response!!.accessToken = body.response!!.accessToken
+//                        user.userTokenResponse!!.response!!.accessTokenExpiredAt = body.response!!.accessTokenExpireTime
+//                        login()
+//                    }
+//                } else {
+//                    Log.d("reissuance failed", "getResponseBody: $err")
+//                    Toast.makeText(applicationContext, "로그인에 실패하였습니다!\n다시 로그인하여 주세요.", Toast.LENGTH_SHORT).show()
+//
+//                    val intent = Intent(applicationContext, LoginActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
+//                }
+//            }
+//        }).reissuanceToken(token)
+//    }
 
 }

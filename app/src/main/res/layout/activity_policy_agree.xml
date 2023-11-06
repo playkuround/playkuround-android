@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_skyblue">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -21,7 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@string/police_agree"
-            android:fontFamily="@font/pretendard_semi_bold"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
             android:textSize="32dp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="91dp" />
@@ -40,16 +41,23 @@
 
         <CheckBox
             android:id="@+id/agree_sum_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="  약관 전체 동의"
-            android:fontFamily="@font/pretendard_semi_bold"
-            android:textSize="18dp"
-            app:layout_constraintStart_toStartOf="@id/agree_intro_tv"
-            app:layout_constraintTop_toBottomOf="@id/agree_intro_tv"
-            android:layout_marginTop="70dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
             android:button="@drawable/custom_checkbox"
-            android:background="@color/transparent"/>
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/button_green_disabled"
+            android:textAlignment="textStart"
+            android:paddingStart="20dp"
+            app:layout_constraintDimensionRatio="343:50"
+            android:textColor="@color/white"
+            android:text="약관 전체 동의"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/agree_intro_tv"
+            android:layout_marginTop="70dp"/>
 
 
         <View
@@ -69,16 +77,23 @@
 
         <CheckBox
             android:id="@+id/agree_01_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="  이용약관 동의"
-            android:fontFamily="@font/pretendard_medium"
-            android:textSize="18dp"
-            app:layout_constraintStart_toStartOf="@id/agree_sum_cb"
-            app:layout_constraintTop_toBottomOf="@id/agree_dev_hr"
-            android:layout_marginTop="10dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
             android:button="@drawable/custom_checkbox"
-            android:background="@color/transparent"/>
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/button_green_disabled"
+            android:textAlignment="textStart"
+            android:paddingStart="20dp"
+            app:layout_constraintDimensionRatio="343:50"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="이용약관 동의"
+            android:textSize="16dp"
+            app:layout_constraintTop_toBottomOf="@id/agree_dev_hr"
+            android:layout_marginTop="10dp"/>
 
         <ImageButton
             android:id="@+id/agree_01_btn"
@@ -86,7 +101,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/img_next"
             android:background="@drawable/img_next"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/agree_01_cb"
             app:layout_constraintTop_toTopOf="@id/agree_01_cb"
             app:layout_constraintBottom_toBottomOf="@id/agree_01_cb"
             android:layout_marginEnd="18dp"
@@ -96,15 +111,23 @@
 
         <CheckBox
             android:id="@+id/agree_02_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="  개인정보 수집 및 이용 동의"
-            android:fontFamily="@font/pretendard_medium"
-            android:textSize="18dp"
-            app:layout_constraintStart_toStartOf="@id/agree_sum_cb"
-            app:layout_constraintTop_toBottomOf="@id/agree_01_cb"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
             android:button="@drawable/custom_checkbox"
-            android:background="@color/transparent"/>
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/button_green_disabled"
+            android:textAlignment="textStart"
+            android:paddingStart="20dp"
+            app:layout_constraintDimensionRatio="343:50"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="개인정보 수집 및 이용 동의"
+            android:textSize="16dp"
+            app:layout_constraintTop_toBottomOf="@id/agree_01_cb"
+            android:layout_marginTop="10dp"/>
 
         <ImageButton
             android:id="@+id/agree_02_btn"
@@ -112,7 +135,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/img_next"
             android:background="@drawable/img_next"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/agree_02_cb"
             app:layout_constraintTop_toTopOf="@id/agree_02_cb"
             app:layout_constraintBottom_toBottomOf="@id/agree_02_cb"
             android:layout_marginEnd="18dp"
@@ -122,15 +145,23 @@
 
         <CheckBox
             android:id="@+id/agree_03_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="  위치기반 서비스 이용약관 동의"
-            android:fontFamily="@font/pretendard_medium"
-            android:textSize="18dp"
-            app:layout_constraintStart_toStartOf="@id/agree_sum_cb"
-            app:layout_constraintTop_toBottomOf="@id/agree_02_cb"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
             android:button="@drawable/custom_checkbox"
-            android:background="@color/transparent"/>
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/button_green_disabled"
+            android:textAlignment="textStart"
+            android:paddingStart="20dp"
+            app:layout_constraintDimensionRatio="343:50"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="위치기반 서비스 이용약관 동의"
+            android:textSize="16dp"
+            app:layout_constraintTop_toBottomOf="@id/agree_02_cb"
+            android:layout_marginTop="10dp"/>
 
         <ImageButton
             android:id="@+id/agree_03_btn"
@@ -138,7 +169,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/img_next"
             android:background="@drawable/img_next"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/agree_03_cb"
             app:layout_constraintTop_toTopOf="@id/agree_03_cb"
             app:layout_constraintBottom_toBottomOf="@id/agree_03_cb"
             android:layout_marginEnd="18dp"
@@ -162,7 +193,7 @@
             android:enabled="false"
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
-            android:layout_marginBottom="33dp"/>
+            android:layout_marginBottom="100dp"/>
 
 
 

@@ -16,7 +16,7 @@ data class User(
 ) {
     companion object {
         fun getDefaultUser(): User {
-            val response = Response("null", "null", "null", "null", "null")
+            val response = Response("null", "null", "null")
             val userTokenResponse = UserTokenResponse(true, response)
             return User("null", "null", "null", userTokenResponse)
         }
@@ -30,9 +30,7 @@ data class User(
             if(this.userTokenResponse!!.response != null) {
                 pref.setString("grantType", this.userTokenResponse!!.response!!.grantType)
                 pref.setString("accessToken", this.userTokenResponse!!.response!!.accessToken)
-                pref.setString("accessTokenExpiredAt", this.userTokenResponse!!.response!!.accessTokenExpiredAt)
                 pref.setString("refreshToken", this.userTokenResponse!!.response!!.refreshToken)
-                pref.setString("refreshTokenExpiredAt", this.userTokenResponse!!.response!!.refreshTokenExpiredAt)
             }
         }
     }
@@ -43,11 +41,9 @@ data class User(
         this.major = pref.getString("major", "null")
         val grantType = pref.getString("grantType", "null")
         val accessToken = pref.getString("accessToken", "null")
-        val accessTokenExpiredAt = pref.getString("accessTokenExpiredAt", "null")
         val refreshToken = pref.getString("refreshToken", "null")
-        val refreshTokenExpiredAt = pref.getString("refreshTokenExpiredAt", "null")
 
-        val response = Response(grantType, accessToken, accessTokenExpiredAt, refreshToken, refreshTokenExpiredAt)
+        val response = Response(grantType, accessToken, refreshToken)
         this.userTokenResponse = UserTokenResponse(true, response)
     }
 

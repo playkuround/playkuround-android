@@ -1,6 +1,7 @@
 package com.umc.playkuround.service
 
 import android.util.Log
+import com.google.android.gms.common.internal.service.Common
 import com.google.gson.internal.LinkedTreeMap
 import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.data.*
@@ -171,6 +172,10 @@ class UserService {
                         val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
                         onResponseListener.getResponseBody(null, false, err)
                     }
+                    else -> {
+                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
                 }
             }
 
@@ -185,21 +190,28 @@ class UserService {
     fun certifyCode(email : String, code : String) {
         val userService = getRetrofit().create(UserRetrofitInterface::class.java)
 
-        userService.certifyCode(email, code).enqueue(object : Callback<UserTokenResponse> {
+        userService.certifyCode(email, code).enqueue(object : Callback<CommonResponse> {
             override fun onResponse(
-                call: Call<UserTokenResponse>,
-                response: Response<UserTokenResponse>
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
             ) {
                 Log.d("certifyCode", "onResponse: ${response.body()}")
                 if(response.body() == null) {
+                    Log.d("certifyCode", "onResponse: ${response.errorBody()?.string()}")
+                    //val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
+                    //onResponseListener.getResponseBody(null, false, err)
                     onResponseListener.getResponseBody(null, false, "서버의 응답이 올바르지 않습니다.")
                 } else {
-                    val resp: UserTokenResponse = response.body()!!
-                    onResponseListener.getResponseBody(resp, true, "")
+                    val body = JSONObject(response.body().toString())
+                    val authToken = body.getString("authVerifyToken")
+                    val accessToken = body.getString("accessToken")
+                    val refreshToken = body.getString("refreshToken")
+                    val returnArray = arrayOf(authToken, accessToken, refreshToken)
+                    onResponseListener.getResponseBody(returnArray, true, "")
                 }
             }
 
-            override fun onFailure(call: Call<UserTokenResponse>, t: Throwable) {
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
                 Log.e("retrofit", "onResponse: fail certifyCode $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")

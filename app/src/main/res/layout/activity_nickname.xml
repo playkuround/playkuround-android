@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_skyblue">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -21,7 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@string/police_agree"
-            android:fontFamily="@font/pretendard_semi_bold"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
             android:textSize="32dp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="91dp" />
@@ -79,8 +80,9 @@
             android:id="@+id/nickname_er_rule_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/nickname_get_cl"
             app:layout_constraintStart_toStartOf="@id/nickname_get_cl"
-            app:layout_constraintTop_toBottomOf="@id/nickname_get_cl"
+            android:layout_marginBottom="10dp"
             android:text="사용할 수 없는 닉네임입니다."
             android:fontFamily="@font/pretendard_medium"
             android:textSize="12dp"
@@ -94,16 +96,16 @@
             android:id="@+id/nickname_er_overlab_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/nickname_get_cl"
-            app:layout_constraintTop_toBottomOf="@id/nickname_get_cl"
-            android:text="중복되는 닉네임입니다."
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/pretendard_medium"
-            android:textSize="12dp"
-            android:textColor="@color/red"
-            android:textAlignment="gravity"
             android:gravity="left"
-            android:layout_marginTop="3dp"
-            android:visibility="invisible"/>
+            android:text="이미 존재하는 닉네임입니다."
+            android:textAlignment="gravity"
+            android:textColor="@color/red"
+            android:textSize="12dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/nickname_get_cl"
+            app:layout_constraintStart_toStartOf="@id/nickname_get_cl" />
 
         <TextView
             android:id="@+id/nickname_sub_tv"
@@ -114,7 +116,7 @@
             android:text="@string/nickname_sub"
             android:fontFamily="@font/pretendard_medium"
             android:textSize="12dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:textColor="@color/light_gray"
             android:textAlignment="gravity"
             android:gravity="left"/>
@@ -125,7 +127,7 @@
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nickname_sub_tv"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="343:50"
             android:background="@drawable/button_green"
             android:text="완료"
@@ -135,7 +137,7 @@
             android:enabled="false"
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
-            android:layout_marginTop="33dp"/>
+            android:layout_marginBottom="100dp"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

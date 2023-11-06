@@ -106,6 +106,41 @@ class PolicyAgreeActivity : AppCompatActivity() {
             }
         }
 
+        if(binding.agree01Cb.isChecked) {
+            binding.agree01Cb.setBackgroundResource(R.drawable.button_green_default)
+            binding.agree01Btn.setImageResource(R.drawable.img_next_disable)
+            binding.agree01Btn.isEnabled = false
+        } else {
+            binding.agree01Cb.setBackgroundResource(R.drawable.button_green_disabled)
+            binding.agree01Btn.setImageResource(R.drawable.img_next)
+            binding.agree01Btn.isEnabled = true
+        }
+
+        if(binding.agree02Cb.isChecked) {
+            binding.agree02Cb.setBackgroundResource(R.drawable.button_green_default)
+            binding.agree02Btn.setImageResource(R.drawable.img_next_disable)
+            binding.agree02Btn.isEnabled = false
+        } else {
+            binding.agree02Cb.setBackgroundResource(R.drawable.button_green_disabled)
+            binding.agree02Btn.setImageResource(R.drawable.img_next)
+            binding.agree02Btn.isEnabled = true
+        }
+
+        if(binding.agree03Cb.isChecked) {
+            binding.agree03Cb.setBackgroundResource(R.drawable.button_green_default)
+            binding.agree03Btn.setImageResource(R.drawable.img_next_disable)
+            binding.agree03Btn.isEnabled = false
+        } else {
+            binding.agree03Cb.setBackgroundResource(R.drawable.button_green_disabled)
+            binding.agree03Btn.setImageResource(R.drawable.img_next)
+            binding.agree03Btn.isEnabled = true
+        }
+
+        if(binding.agreeSumCb.isChecked) {
+            binding.agreeSumCb.setBackgroundResource(R.drawable.button_green_default)
+        } else {
+            binding.agreeSumCb.setBackgroundResource(R.drawable.button_green_disabled)
+        }
     }
 
 

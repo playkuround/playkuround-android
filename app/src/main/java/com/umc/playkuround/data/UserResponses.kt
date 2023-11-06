@@ -15,9 +15,7 @@ data class UserTokenResponse(
 data class Response(
     @SerializedName(value = "grantType") var grantType : String,
     @SerializedName(value = "accessToken") var accessToken : String,
-    @SerializedName(value = "accessTokenExpiredAt") var accessTokenExpiredAt : String,
     @SerializedName(value = "refreshToken") var refreshToken : String,
-    @SerializedName(value = "refreshTokenExpiredAt") var refreshTokenExpiredAt : String
 )
 
 data class DuplicateResponse(

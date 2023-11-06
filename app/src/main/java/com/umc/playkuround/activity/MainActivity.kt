@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
         binding.pager.registerOnPageChangeCallback(PageChangeCallback())
         binding.bottomNavigationView.setOnItemSelectedListener { navigationSelected(it) }
 
-        val app = application as PlayKuApplication
-        app.updateAccessToken()
+//        val app = application as PlayKuApplication
+//        app.updateAccessToken()
     }
 
     private fun navigationSelected(item: MenuItem): Boolean {
