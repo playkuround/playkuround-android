@@ -2,12 +2,15 @@ package com.umc.playkuround.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.umc.playkuround.PlayKuApplication
+import com.umc.playkuround.R
 import com.umc.playkuround.data.LandMark
 import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityMinigameTimerBinding
@@ -40,9 +43,6 @@ class MiniGameTimerActivity : AppCompatActivity() {
         }
         binding.timerRestartBt.setOnClickListener {
             reset()
-        }
-        binding.timerBackBtn.setOnClickListener {
-            this.finish()
         }
     }
 
@@ -90,6 +90,9 @@ class MiniGameTimerActivity : AppCompatActivity() {
     //타이머 리셋
     @SuppressLint("SetTextI18n")
     private fun reset() {
+        binding.timerResultTv.visibility = View.INVISIBLE
+        binding.timerSec.setTextColor(ActivityCompat.getColor(this, R.color.text_color))
+        binding.timerMilli.setTextColor(ActivityCompat.getColor(this, R.color.text_color))
         binding.timerStartBt.visibility = View.VISIBLE
         binding.timerStopBt.visibility = View.INVISIBLE
         binding.timerRestartBt.visibility = View.INVISIBLE
@@ -119,9 +122,20 @@ class MiniGameTimerActivity : AppCompatActivity() {
     // 결과 나오는 창
     private fun openResultDialog(result : Boolean) {
         if(result) {
-            saveAdventureLog()
+            //saveAdventureLog()
+            binding.timerSec.setTextColor(ActivityCompat.getColor(this, R.color.green_stroke))
+            binding.timerMilli.setTextColor(ActivityCompat.getColor(this, R.color.green_stroke))
+            binding.timerResultTv.visibility = View.VISIBLE
+            binding.timerRestartBt.visibility = View.INVISIBLE
+            binding.timerSuccessIv.visibility = View.VISIBLE
+            binding.timerResultTv.text = "성공하셨습니다. 축하합니다!"
+            binding.timerResultTv.setTextColor(ActivityCompat.getColor(this, R.color.green_stroke))
         } else {
-
+            binding.timerSec.setTextColor(ActivityCompat.getColor(this, R.color.red))
+            binding.timerMilli.setTextColor(ActivityCompat.getColor(this, R.color.red))
+            binding.timerResultTv.visibility = View.VISIBLE
+            binding.timerResultTv.text = "실패하셨습니다. 다시 시도해보세요!"
+            binding.timerResultTv.setTextColor(ActivityCompat.getColor(this, R.color.red))
         }
     }
 

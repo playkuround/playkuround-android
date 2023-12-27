@@ -16,7 +16,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import com.umc.playkuround.PlayKuApplication
 import com.umc.playkuround.PlayKuApplication.Companion.user
-import com.umc.playkuround.PlayKuApplication.Companion.verifyToken
 import com.umc.playkuround.R
 import com.umc.playkuround.data.EmailCertifyResponse
 import com.umc.playkuround.data.EmailResponse
@@ -95,7 +94,7 @@ class EmailCertifyActivity : AppCompatActivity() {
         binding.emailInputCodeEt.doAfterTextChanged {
             binding.emailCertifyBtn.isEnabled = !it.isNullOrBlank()
             binding.emailWarnNotEqualTv.visibility = View.GONE
-            binding.emailRequestCountTv.visibility = View.VISIBLE
+            //binding.emailRequestCountTv.visibility = View.INVISIBLE
             binding.emailInputCodeCl.background = ContextCompat.getDrawable(this, R.drawable.edit_text)
             binding.emailInputCodeEt.setTextColor(Color.BLACK)
         }
@@ -150,11 +149,11 @@ class EmailCertifyActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
 
-                    binding.emailGotoKonkukEmailTv.visibility = View.VISIBLE
-                    binding.emailInputCodeCl.visibility = View.VISIBLE
-                    binding.emailCertifyBtn.visibility = View.VISIBLE
+                    binding.emailGotoKonkukEmailTv.visibility = View.INVISIBLE
+                    binding.emailInputCodeCl.visibility = View.INVISIBLE
+                    binding.emailCertifyBtn.visibility = View.INVISIBLE
 
-                    binding.emailRequestCountTv.visibility = View.VISIBLE
+                    binding.emailRequestCountTv.visibility = View.INVISIBLE
                 }
             }
         }).sendEmail(email)
@@ -170,11 +169,13 @@ class EmailCertifyActivity : AppCompatActivity() {
                 loading.dismiss()
                 if(isSuccess) {
                     if(body is Array<*>) {
+                        Log.d("isoo", "getResponseBody: $body")
                         if(!(body[0] as String).isNullOrEmpty()) // if code is correct
                             certifyEmail(body[0] as String)
                         else {
                             val userTokenResponse = UserTokenResponse(true, Response("Bearer", body[1] as String, body[2] as String))
                             user.userTokenResponse = userTokenResponse
+                            Log.d("isoo", "getResponseBody: $user")
                             user.save(PlayKuApplication.pref)
 
                             val userService2 = UserService()
@@ -255,7 +256,7 @@ class EmailCertifyActivity : AppCompatActivity() {
     private fun certifyEmail(verifyToken : String) {
         Log.d("TAG", "init: certifyEmail")
         certifyTimer?.cancel()
-        PlayKuApplication.verifyToken = verifyToken
+        user.verifyToken = verifyToken
         user.email = email
 
         val intent = Intent(this, PolicyAgreeActivity::class.java)

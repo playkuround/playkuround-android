@@ -26,7 +26,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        checkLoginInfo()
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+        //checkLoginInfo()
     }
 
     private fun checkLoginInfo() {

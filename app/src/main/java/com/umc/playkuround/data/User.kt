@@ -12,13 +12,14 @@ data class User(
     @SerializedName(value = "email") var email : String,
     @SerializedName(value = "nickname") var nickname : String,
     @SerializedName(value = "major") var major : String,
+    @SerializedName(value = "authVerifyToken") var verifyToken : String,
     var userTokenResponse : UserTokenResponse?
 ) {
     companion object {
         fun getDefaultUser(): User {
             val response = Response("null", "null", "null")
             val userTokenResponse = UserTokenResponse(true, response)
-            return User("null", "null", "null", userTokenResponse)
+            return User("null", "null", "null", "null", userTokenResponse)
         }
     }
 

@@ -27,7 +27,7 @@
             android:value="AIzaSyAOb8MvvBNoDEsNIU1G_Jt1-7FgDVcp1Ik"/>
 
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.MiniGameTimerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,7 +45,7 @@
         <activity android:name=".activity.MapActivity"/>
         <activity android:name=".activity.MiniGameMoonActivity"/>
         <activity android:name=".activity.MiniGameQuizActivity"/>
-        <activity android:name=".activity.MiniGameTimerActivity"/>
+<!--        <activity android:name=".activity.MiniGameTimerActivity"/>-->
         <activity android:name=".activity.RankingInfoActivity"/>
         <activity android:name=".activity.MajorChoiceActivity"/>
         <activity android:name=".activity.DetailAgree01Activity"/>

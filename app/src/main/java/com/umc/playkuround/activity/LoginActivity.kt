@@ -16,10 +16,14 @@ import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityLoginBinding
 import com.umc.playkuround.dialog.SlideUpDialog
 import com.umc.playkuround.service.UserService
+import java.util.Timer
+import java.util.TimerTask
+import kotlin.concurrent.timer
 
 class LoginActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityLoginBinding
+    private var bgGif : Timer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +31,19 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.loginLoginBtn.setOnClickListener {
-            val intent = Intent(this, EmailCertifyActivity::class.java)
-            startActivity(intent)
+            bgGif?.cancel()
+            user.load(pref)
+            Log.d("isoo", "checkLoginInfo: email : ${user.email}, name : ${user.nickname}, major : ${user.major}")
+            if(user.major == "null") {
+                Log.d("isoo", "checkLoginInfo: ${user.major}")
+                val intent = Intent(this, EmailCertifyActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
 
 //        binding.loginLogoIv.setOnClickListener {
@@ -38,6 +53,17 @@ class LoginActivity : AppCompatActivity() {
 //        }
 
         //testing()
+
+        var num = 0
+        bgGif = timer(period = 300) {
+            runOnUiThread {
+                if(num%4 == 0) binding.loginBackgroundIv.setImageResource(R.drawable.login_bg01)
+                else if(num%4 == 1) binding.loginBackgroundIv.setImageResource(R.drawable.login_bg02)
+                else if(num%4 == 2) binding.loginBackgroundIv.setImageResource(R.drawable.login_bg03)
+                else if(num%4 == 3) binding.loginBackgroundIv.setImageResource(R.drawable.login_bg04)
+                num++
+            }
+        }
     }
 
     private fun onSlideUpDialog() {

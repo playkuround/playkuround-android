@@ -15,7 +15,6 @@ import com.umc.playkuround.PlayKuApplication.Companion.pref
 import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.data.DuplicateResponse
-import com.umc.playkuround.data.User
 import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityNicknameBinding
 import com.umc.playkuround.dialog.LoadingDialog
@@ -105,6 +104,7 @@ class NicknameActivity : AppCompatActivity() {
                     if (body is UserTokenResponse)
                         user.userTokenResponse = body.copy()
                     user.save(pref)
+                    Log.d("isoo", "getResponseBody: ${user.userTokenResponse}")
 
                     val intent = Intent(applicationContext, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

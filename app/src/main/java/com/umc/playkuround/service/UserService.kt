@@ -36,12 +36,23 @@ class UserService {
             ) {
                 Log.d("retrofit", "onResponse: ${response.code()} is received ")
                 when(response.code()) {
-                    200 -> { // success
+                    201 -> { // success
                         val resp : UserTokenResponse = response.body()!!
                         onResponseListener.getResponseBody(resp, true, "")
                     }
                     400 -> { // failed
                         val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                    else -> {
+                        Log.d("isoo", "onResponse: ${response.errorBody()?.string()}, ${response.body()?.toString()}")
+                        val err =
+                        try {
+                          JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
+                        } catch (e : Exception) {
+                            e.printStackTrace()
+                           "something wrong!"
+                        }
                         onResponseListener.getResponseBody(null, false, err)
                     }
                 }
@@ -198,14 +209,21 @@ class UserService {
                 Log.d("certifyCode", "onResponse: ${response.body()}")
                 if(response.body() == null) {
                     Log.d("certifyCode", "onResponse: ${response.errorBody()?.string()}")
-                    //val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
+                    //val err = JSONObject(response.errorBody().toString()).getJSONObject("errorResponse").get("message").toString()
                     //onResponseListener.getResponseBody(null, false, err)
-                    onResponseListener.getResponseBody(null, false, "서버의 응답이 올바르지 않습니다.")
+                    onResponseListener.getResponseBody(null, false, "인증 코드가 올바르지 않습니다.")
                 } else {
-                    val body = JSONObject(response.body().toString())
-                    val authToken = body.getString("authVerifyToken")
-                    val accessToken = body.getString("accessToken")
-                    val refreshToken = body.getString("refreshToken")
+                    Log.d("isoo", "onResponse: ${response.body()!!.response}")
+                    val body = JSONObject(response.body()!!.response.toString())
+                    val authToken : String = try {
+                        body.getString("authVerifyToken")
+                    } catch (e : Exception) { "" }
+                    val accessToken : String = try {
+                        body.getString("accessToken")
+                    } catch (e : Exception) { "" }
+                    val refreshToken : String = try {
+                        body.getString("refreshToken")
+                    } catch (e : Exception) { "" }
                     val returnArray = arrayOf(authToken, accessToken, refreshToken)
                     onResponseListener.getResponseBody(returnArray, true, "")
                 }
@@ -805,13 +823,16 @@ class UserService {
                 call: Call<CommonResponse>,
                 response: Response<CommonResponse>
             ) {
-                try {
+                Log.d("isoo", "onResponse: $response")
+                //try {
                     when (response.code()) {
                         200 -> {
+                            Log.d("isoo", "onResponse: ${response.body()!!.response.toString()}")
                             val res = JSONObject(response.body()!!.response.toString())
                             user.email = res.getString("email")
                             user.nickname = res.getString("nickname")
                             user.major = res.getString("major")
+                            Log.d("isoo", "onResponse: $user")
                             onResponseListener.getResponseBody(null, true, "")
                         }
                         else -> {
@@ -823,10 +844,11 @@ class UserService {
                             )
                         }
                     }
-                } catch (e : Exception) {
-                    e.printStackTrace()
-                    onResponseListener.getResponseBody(null, false, "서버 연결중 오류가 발생했습니다.")
-                }
+//                } catch (e : Exception) {
+//                    Log.d("isoo", "onResponse: ${e.stackTrace}")
+//                    e.printStackTrace()
+//                    onResponseListener.getResponseBody(null, false, "서버 연결중 오류가 발생했습니다.")
+//                }
             }
 
             override fun onFailure(call: Call<CommonResponse>, t: Throwable) {

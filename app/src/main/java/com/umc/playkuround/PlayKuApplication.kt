@@ -15,7 +15,6 @@ class PlayKuApplication : Application() {
 
     companion object {
         lateinit var pref : PreferenceUtil
-        var verifyToken : String? = null
         var user = User.getDefaultUser()
     }
 

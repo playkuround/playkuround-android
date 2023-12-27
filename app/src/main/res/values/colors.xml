@@ -8,6 +8,7 @@
     <color name="black">#1F1F1F</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
+    <color name="green_stroke">#41B274</color>
     <color name="green_pressed">#45B276</color>
     <color name="green_main">#56DF94</color>
     <color name="green_light">#78FFB6</color>
@@ -18,4 +19,5 @@
     <color name="horize_gray">#D9D9D9</color>
     <color name="black_50">#80000000</color>
     <color name="background_skyblue">#E5F5FF</color>
+    <color name="text_color">#504A38</color>
 </resources>

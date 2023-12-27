@@ -35,7 +35,7 @@ class MiniGameMoonActivity : AppCompatActivity() {
                 binding.moonClickIv.getLayoutParams().width = 1000
                 binding.moonClickIv.requestLayout()
 
-                saveAdventureLog()
+                //saveAdventureLog()
             }
             else if (count == 80) {
                 binding.moonClickIv.setImageResource(R.drawable.moon_two)
@@ -47,7 +47,7 @@ class MiniGameMoonActivity : AppCompatActivity() {
 
         }
 
-        binding.timerBackBtn.setOnClickListener {
+        binding.moonPauseBtn.setOnClickListener {
             this.finish()
         }
     }
