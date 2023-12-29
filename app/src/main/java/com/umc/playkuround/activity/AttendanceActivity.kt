@@ -1,6 +1,7 @@
 package com.umc.playkuround.activity
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -60,69 +61,78 @@ class AttendanceActivity : AppCompatActivity() {
             this.finish()
         }
 
-        val loading = LoadingDialog(this)
-        loading.show()
-        gpsTracker = GpsTracker(applicationContext, object : GpsTracker.OnLocationUpdateListener {
-            override fun onLocationUpdated(location: android.location.Location) {
-                nowLocation = location
-                if(loading.isShowing)
-                    loading.dismiss()
-            }})
-        gpsTracker.startLocationUpdates()
+//        val loading = LoadingDialog(this)
+//        loading.show()
+//        gpsTracker = GpsTracker(applicationContext, object : GpsTracker.OnLocationUpdateListener {
+//            override fun onLocationUpdated(location: android.location.Location) {
+//                nowLocation = location
+//                if(loading.isShowing)
+//                    loading.dismiss()
+//            }})
+//        gpsTracker.startLocationUpdates()
     }
 
     private fun getAttendanceDates() {
-        val loading = LoadingDialog(this)
-        loading.show()
-
-        val userService = UserService()
-        userService.setOnResponseListener(object : UserService.OnResponseListener() {
-            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                if(isSuccess) {
-                    if(body is ArrayList<*>) {
-                        attendanceDates = body as ArrayList<String>
-                        initDates()
-                        loading.dismiss()
-                    }
-                } else {
-                    loading.dismiss()
-                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }).getAttendanceDates(user.getAccessToken())
+        attendanceDates = ArrayList()
+        attendanceDates!!.add("2023-12-23")
+        attendanceDates!!.add("2023-12-25")
+        attendanceDates!!.add("2023-12-29")
+//        val loading = LoadingDialog(this)
+//        loading.show()
+//
+//        val userService = UserService()
+//        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+//            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+//                if(isSuccess) {
+//                    if(body is ArrayList<*>) {
+//                        attendanceDates = body as ArrayList<String>
+//                        initDates()
+//                        loading.dismiss()
+//                    }
+//                } else {
+//                    loading.dismiss()
+//                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }).getAttendanceDates(user.getAccessToken())
     }
 
     private fun attendanceToday() {
-        val loading = LoadingDialog(this)
-        loading.show()
-
-        gpsTracker.requestLastLocation()
-
-        val userService = UserService()
-        userService.setOnResponseListener(object : UserService.OnResponseListener() {
-            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                if(isSuccess) {
-                    val userService2 = UserService()
-
-                    userService2.setOnResponseListener(object : UserService.OnResponseListener() {
-                        override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                            if(isSuccess) {
-                                todayTv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_filled)
-                                binding.attendanceBtn.isEnabled = false
-                                attendanceDates!!.add(attendanceActivity.today)
-
-                                loading.dismiss()
-                            } else {
-                                Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }).updateUserScore(user.getAccessToken(), Ranking.scoreType.ATTENDANCE)
-                } else {
-                    loading.dismiss()
-                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }).attendanceToday(user.getAccessToken(), Location(nowLocation!!.latitude, nowLocation!!.longitude))
+        todayTv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
+        binding.attendanceBtn.isEnabled = false
+        binding.attendanceBtn.text = "오늘 출석 완료!"
+        attendanceDates!!.add(attendanceActivity.today)
+//        val loading = LoadingDialog(this)
+//        loading.show()
+//
+//        gpsTracker.requestLastLocation()
+//
+//        val userService = UserService()
+//        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+//            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+//                if(isSuccess) {
+//                    val userService2 = UserService()
+//
+//                    userService2.setOnResponseListener(object : UserService.OnResponseListener() {
+//                        override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+//                            if(isSuccess) {
+//                                todayTv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
+//                                binding.attendanceBtn.isEnabled = false
+//                                binding.attendanceBtn.text = "오늘 출석 완료!"
+//                                attendanceDates!!.add(attendanceActivity.today)
+//
+//                                loading.dismiss()
+//                            } else {
+//                                Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+//                            }
+//                        }
+//                    }).updateUserScore(user.getAccessToken(), Ranking.scoreType.ATTENDANCE)
+//                } else {
+//                    loading.dismiss()
+//                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }).attendanceToday(user.getAccessToken(), Location(nowLocation!!.latitude, nowLocation!!.longitude))
     }
 
     private fun initDates() {
@@ -159,17 +169,13 @@ class AttendanceActivity : AppCompatActivity() {
         initDates()
     }
 
-    private fun screenWidth() : Int {
-        return resources.displayMetrics.widthPixels
-    }
-
     private fun toPX(dp : Int) : Int {
         return (dp * resources.displayMetrics.density).toInt()
     }
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     private fun makeTextView(today : Calendar) : TextView {
-        val a = screenWidth() - toPX(36)
+        val a = toPX(280)
         val tv = TextView(applicationContext)
         if(today.get(Calendar.DATE) == 1)
             tv.text = (today.get(Calendar.MONTH) + 1).toString() + "/" + today.get(Calendar.DATE).toString()
@@ -180,28 +186,28 @@ class AttendanceActivity : AppCompatActivity() {
         tv.gravity = Gravity.CENTER
         tv.textAlignment = View.TEXT_ALIGNMENT_CENTER
 
-        val tvParam = TableRow.LayoutParams(a * 37 / 343, a * 37 / 343)
-        tvParam.setMargins(a * 6 / 343)
+        val tvParam = TableRow.LayoutParams(a * 43 / 343, a * 43 / 343)
+        tvParam.setMargins(a * 3 / 343, a * 8 / 343, a * 3 / 343, a * 8 / 343)
         tv.layoutParams = tvParam
 
         val format = SimpleDateFormat("yyyy-MM-dd")
         Log.d("today test", "makeTextView: ${format.format(today.time) == this.today}")
         if(attendanceDates!!.contains(format.format(today.time))) {
-            tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_empty)
-            tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.green_main))
+            tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
+            tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.white))
         } else {
             tv.background = ContextCompat.getDrawable(applicationContext, R.color.transparent)
-            tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.light_gray))
+            tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.lighter_gray))
         }
 
         if(format.format(today.time) == this.today) {
             if(attendanceDates!!.contains(this.today)) {
-                tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_circle_filled)
+                tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
                 tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
                 binding.attendanceBtn.isEnabled = false
                 binding.attendanceBtn.text = "오늘 출석 완료!"
             } else {
-                tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_small_dot)
+                tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_empty)
                 tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
                 binding.attendanceBtn.isEnabled = true
             }

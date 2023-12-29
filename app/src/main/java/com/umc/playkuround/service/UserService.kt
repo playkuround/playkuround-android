@@ -86,35 +86,35 @@ class UserService {
         })
     }
 
-    fun login(token : String) {
-        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
-
-        userService.login(token).enqueue(object : Callback<UserTokenResponse> {
-            override fun onResponse(
-                call: Call<UserTokenResponse>,
-                response: Response<UserTokenResponse>
-            ) {
-                Log.d("retrofit", "onResponse: ${response.code()} is received ")
-                when(response.code()) {
-                    200 -> { // success
-                        val resp : UserTokenResponse = response.body()!!
-                        onResponseListener.getResponseBody(resp, true, "")
-                    }
-                    401 -> { // failed
-                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("code").toString()
-                        //Log.d("login_test", "onResponse: " + response.errorBody()!!.string())
-                        onResponseListener.getResponseBody(null, false, err)
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<UserTokenResponse>, t: Throwable) {
-                Log.e("retrofit", "onResponse: fail login $call")
-                t.printStackTrace()
-                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
-            }
-        })
-    }
+//    fun login(token : String) {
+//        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+//
+//        userService.login(token).enqueue(object : Callback<UserTokenResponse> {
+//            override fun onResponse(
+//                call: Call<UserTokenResponse>,
+//                response: Response<UserTokenResponse>
+//            ) {
+//                Log.d("retrofit", "onResponse: ${response.code()} is received ")
+//                when(response.code()) {
+//                    200 -> { // success
+//                        val resp : UserTokenResponse = response.body()!!
+//                        onResponseListener.getResponseBody(resp, true, "")
+//                    }
+//                    401 -> { // failed
+//                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("code").toString()
+//                        //Log.d("login_test", "onResponse: " + response.errorBody()!!.string())
+//                        onResponseListener.getResponseBody(null, false, err)
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<UserTokenResponse>, t: Throwable) {
+//                Log.e("retrofit", "onResponse: fail login $call")
+//                t.printStackTrace()
+//                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+//            }
+//        })
+//    }
 
     fun logout(token : String) {
         val userService = getRetrofit().create(UserRetrofitInterface::class.java)
@@ -140,34 +140,34 @@ class UserService {
         })
     }
 
-    fun reissuanceToken(token : String) {
-        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
-
-        userService.reissuanceToken(token).enqueue(object : Callback<RefreshTokenResponse> {
-            override fun onResponse(
-                call: Call<RefreshTokenResponse>,
-                response: Response<RefreshTokenResponse>
-            ) {
-                Log.d("retrofit", "onResponse: ${response.code()} is received ")
-                when(response.code()) {
-                    200 -> { // success
-                        val resp : RefreshTokenResponse = response.body()!!
-                        onResponseListener.getResponseBody(resp, true, "")
-                    }
-                    401 -> { // failed
-                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("code").toString()
-                        onResponseListener.getResponseBody(null, false, err)
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<RefreshTokenResponse>, t: Throwable) {
-                Log.e("retrofit", "onResponse: fail reissuanceToken $call")
-                t.printStackTrace()
-                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
-            }
-        })
-    }
+//    fun reissuanceToken(token : String) {
+//        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+//
+//        userService.reissuanceToken(token).enqueue(object : Callback<RefreshTokenResponse> {
+//            override fun onResponse(
+//                call: Call<RefreshTokenResponse>,
+//                response: Response<RefreshTokenResponse>
+//            ) {
+//                Log.d("retrofit", "onResponse: ${response.code()} is received ")
+//                when(response.code()) {
+//                    200 -> { // success
+//                        val resp : RefreshTokenResponse = response.body()!!
+//                        onResponseListener.getResponseBody(resp, true, "")
+//                    }
+//                    401 -> { // failed
+//                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("code").toString()
+//                        onResponseListener.getResponseBody(null, false, err)
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<RefreshTokenResponse>, t: Throwable) {
+//                Log.e("retrofit", "onResponse: fail reissuanceToken $call")
+//                t.printStackTrace()
+//                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+//            }
+//        })
+//    }
 
     fun sendEmail(email : String) {
         val userService = getRetrofit().create(UserRetrofitInterface::class.java)
