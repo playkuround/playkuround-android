@@ -91,11 +91,11 @@
             android:layout_marginTop="10dp"
             app:layout_constraintDimensionRatio="343:50"
             android:id="@+id/email_request_code_btn"
-            android:background="@drawable/button_green"
+            android:background="@drawable/button_blue"
             android:text="@string/request_code"
             android:fontFamily="@font/pretendard_semi_bold"
             android:textSize="15dp"
-            android:textColor="@color/button_green"
+            android:textColor="@color/button_blue"
             android:enabled="false"/>
         
         <TextView
@@ -181,11 +181,11 @@
             app:layout_goneMarginTop="10dp"
             app:layout_constraintDimensionRatio="343:50"
             android:id="@+id/email_certify_btn"
-            android:background="@drawable/button_green"
+            android:background="@drawable/button_blue"
             android:text="@string/certify"
             android:fontFamily="@font/pretendard_semi_bold"
             android:textSize="15dp"
-            android:textColor="@color/button_green"
+            android:textColor="@color/button_blue"
             android:enabled="false"
             android:visibility="gone"/>
 
