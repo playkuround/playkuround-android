@@ -132,22 +132,22 @@ class MiniGameQuizActivity : AppCompatActivity() {
             } else {
                 when(quiz.answer) {
                     0 -> {
-                        binding.quizOption1Cl.setBackgroundResource(R.drawable.button_green_default)
+                        binding.quizOption1Cl.setBackgroundResource(R.drawable.button_blue_default)
                         binding.quizIndex1Iv.backgroundTintList = ColorStateList.valueOf(Color.WHITE)
                         binding.quizIndex1Iv.setTextColor(Color.BLACK)
                     }
                     1 -> {
-                        binding.quizOption2Cl.setBackgroundResource(R.drawable.button_green_default)
+                        binding.quizOption2Cl.setBackgroundResource(R.drawable.button_blue_default)
                         binding.quizIndex2Iv.backgroundTintList = ColorStateList.valueOf(Color.WHITE)
                         binding.quizIndex2Iv.setTextColor(Color.BLACK)
                     }
                     2 -> {
-                        binding.quizOption3Cl.setBackgroundResource(R.drawable.button_green_default)
+                        binding.quizOption3Cl.setBackgroundResource(R.drawable.button_blue_default)
                         binding.quizIndex3Iv.backgroundTintList = ColorStateList.valueOf(Color.WHITE)
                         binding.quizIndex3Iv.setTextColor(Color.BLACK)
                     }
                     3 -> {
-                        binding.quizOption4Cl.setBackgroundResource(R.drawable.button_green_default)
+                        binding.quizOption4Cl.setBackgroundResource(R.drawable.button_blue_default)
                         binding.quizIndex4Iv.backgroundTintList = ColorStateList.valueOf(Color.WHITE)
                         binding.quizIndex4Iv.setTextColor(Color.BLACK)
                     }

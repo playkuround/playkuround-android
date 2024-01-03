@@ -1,7 +1,9 @@
 package com.umc.playkuround.activity
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -12,6 +14,7 @@ import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -75,8 +78,9 @@ class AttendanceActivity : AppCompatActivity() {
     private fun getAttendanceDates() {
         attendanceDates = ArrayList()
         attendanceDates!!.add("2023-12-23")
-        attendanceDates!!.add("2023-12-25")
+        attendanceDates!!.add("2023-12-24")
         attendanceDates!!.add("2023-12-29")
+        attendanceDates!!.add("2024-01-04")
 //        val loading = LoadingDialog(this)
 //        loading.show()
 //
@@ -99,8 +103,10 @@ class AttendanceActivity : AppCompatActivity() {
 
     private fun attendanceToday() {
         todayTv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
+        todayTv.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#86B6CE"))
         binding.attendanceBtn.isEnabled = false
-        binding.attendanceBtn.text = "오늘 출석 완료!"
+        binding.attendanceBtn.text = "출석완료!"
+        binding.attendanceBtn.setTextColor(ActivityCompat.getColor(this, R.color.text_color))
         attendanceDates!!.add(attendanceActivity.today)
 //        val loading = LoadingDialog(this)
 //        loading.show()
@@ -181,7 +187,7 @@ class AttendanceActivity : AppCompatActivity() {
             tv.text = (today.get(Calendar.MONTH) + 1).toString() + "/" + today.get(Calendar.DATE).toString()
         else
             tv.text = today.get(Calendar.DATE).toString()
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
         tv.typeface = ResourcesCompat.getFont(applicationContext, R.font.pretendard_medium)
         tv.gravity = Gravity.CENTER
         tv.textAlignment = View.TEXT_ALIGNMENT_CENTER
@@ -194,20 +200,24 @@ class AttendanceActivity : AppCompatActivity() {
         Log.d("today test", "makeTextView: ${format.format(today.time) == this.today}")
         if(attendanceDates!!.contains(format.format(today.time))) {
             tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
+            tv.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#86B6CE"))
             tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.white))
         } else {
             tv.background = ContextCompat.getDrawable(applicationContext, R.color.transparent)
-            tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.lighter_gray))
+            tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.light_gray))
         }
 
         if(format.format(today.time) == this.today) {
             if(attendanceDates!!.contains(this.today)) {
                 tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
+                tv.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#86B6CE"))
                 tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
                 binding.attendanceBtn.isEnabled = false
-                binding.attendanceBtn.text = "오늘 출석 완료!"
+                binding.attendanceBtn.text = "출석완료"
+                binding.attendanceBtn.setTextColor(ActivityCompat.getColor(this, R.color.text_color))
             } else {
                 tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_empty)
+                tv.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#86B6CE"))
                 tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
                 binding.attendanceBtn.isEnabled = true
             }

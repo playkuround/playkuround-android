@@ -50,18 +50,18 @@
             android:id="@+id/login_logo_iv"/>
 
         <Button
-            android:layout_width="220dp"
-            android:layout_height="60dp"
+            android:layout_width="160dp"
+            android:layout_height="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="80dp"
             app:layout_constraintDimensionRatio="343:50"
             android:id="@+id/login_login_btn"
-            android:background="@drawable/button_green"
+            android:background="@drawable/button_blue_small"
             android:text="@string/login"
             android:fontFamily="@font/neo_dunggeunmo_regular"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:textColor="@color/button_green"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

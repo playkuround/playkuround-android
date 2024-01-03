@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintWidth_max="450dp"
         app:layout_constraintHeight_max="900dp"
-        android:id="@+id/attendance_container">
+        android:id="@+id/attendance_container"
+        android:background="@drawable/attendance_bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,6 +27,7 @@
             android:id="@+id/attendance_tab_bar">
 
             <ImageButton
+                app:tint="@color/white"
                 android:id="@+id/attendance_back_btn"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -44,6 +46,7 @@
                 android:text="@string/check_attendance"
                 android:fontFamily="@font/neo_dunggeunmo_regular"
                 android:textSize="24dp"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/attendance_back_btn"
@@ -52,26 +55,26 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         
         <ImageView
-            android:layout_width="335dp"
-            android:layout_height="370dp"
+            android:layout_width="336dp"
+            android:layout_height="444dp"
             android:src="@drawable/img_calendar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/attendance_tab_bar"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintVertical_bias="0.25"
             android:id="@+id/attendance_calendar_iv"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/latest_30"
-            android:textSize="22dp"
+            android:textSize="21dp"
             android:fontFamily="@font/neo_dunggeunmo_regular"
             app:layout_constraintStart_toStartOf="@id/attendance_calendar_iv"
             app:layout_constraintEnd_toEndOf="@id/attendance_calendar_iv"
             app:layout_constraintTop_toTopOf="@id/attendance_calendar_iv"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/attendance_latest_tv"/>
 
         <TableLayout
@@ -79,24 +82,24 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/attendance_calendar_iv"
             app:layout_constraintEnd_toEndOf="@id/attendance_calendar_iv"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintTop_toBottomOf="@+id/attendance_latest_tv"
             android:id="@+id/attendance_calendar_container_tl">
         </TableLayout>
 
         <Button
-            android:layout_width="220dp"
-            android:layout_height="60dp"
+            android:layout_width="160dp"
+            android:layout_height="48dp"
             app:layout_constraintStart_toStartOf="@id/attendance_calendar_container_tl"
             app:layout_constraintEnd_toEndOf="@id/attendance_calendar_container_tl"
-            app:layout_constraintTop_toBottomOf="@id/attendance_calendar_iv"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/attendance_calendar_iv"
+            android:layout_marginBottom="40dp"
             android:id="@+id/attendance_btn"
-            android:background="@drawable/button_green"
+            android:background="@drawable/button_blue_small"
             android:text="@string/attendance"
             android:fontFamily="@font/neo_dunggeunmo_regular"
             android:textSize="19dp"
-            android:textColor="@color/button_green"
+            android:textColor="@color/button_blue"
             android:enabled="true"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
