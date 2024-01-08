@@ -482,7 +482,7 @@ android:background="@drawable/badge_dialog_bg">
             android:text="485"
             android:fontFamily="@font/pretendard_semi_bold"
             android:textSize="16dp"
-            android:id="@+id/ranking_my_rank_tv"/>
+            android:id="@+id/ranking_dialog_my_rank_tv"/>
 
         <TextView
             android:layout_width="0dp"
@@ -493,13 +493,13 @@ android:background="@drawable/badge_dialog_bg">
             android:textSize="16dp"/>
 
         <TextView
+            android:id="@+id/ranking_dialog_my_score_tv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="72"
             android:fontFamily="@font/pretendard_semi_bold"
-            android:textSize="16dp"
-            android:id="@+id/ranking_my_score_tv"/>
+            android:text="72"
+            android:textSize="16dp" />
 
     </LinearLayout>
 

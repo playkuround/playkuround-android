@@ -16,7 +16,7 @@
         app:layout_constraintWidth_max="450dp"
         app:layout_constraintHeight_max="900dp"
         android:id="@+id/attendance_container"
-        android:background="@drawable/attendance_bg">
+        android:background="@drawable/background_default">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

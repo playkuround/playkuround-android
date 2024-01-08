@@ -48,8 +48,8 @@ class DialogPlaceRankActivity : AppCompatActivity() {
                     val list = body as ArrayList<HashMap<String, String>>
                     binding.dialogGetBadgePlaceTv.text = landmark.name
 
-                    binding.rankingMyScoreTv.text = list[0]["count"]
-                    binding.rankingMyRankTv.text = list[0]["ranking"]
+                    binding.rankingDialogMyScoreTv.text = list[0]["count"]
+                    binding.rankingDialogMyRankTv.text = list[0]["ranking"]
 
                     binding.dialogGetBadgeNameTv.text = list[1]["nickname"]
                     binding.dialogGetBadgePlaceCountTv.text = "+ " + list[1]["count"].toString()

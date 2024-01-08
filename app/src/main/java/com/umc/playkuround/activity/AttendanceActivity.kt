@@ -80,7 +80,7 @@ class AttendanceActivity : AppCompatActivity() {
         attendanceDates!!.add("2023-12-23")
         attendanceDates!!.add("2023-12-24")
         attendanceDates!!.add("2023-12-29")
-        attendanceDates!!.add("2024-01-04")
+        attendanceDates!!.add("2024-01-03")
 //        val loading = LoadingDialog(this)
 //        loading.show()
 //

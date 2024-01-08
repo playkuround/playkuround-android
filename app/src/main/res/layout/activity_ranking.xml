@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_max="450dp"
+        app:layout_constraintHeight_max="900dp"
+        android:background="@drawable/background_default">
+
+        <TextView
+            android:id="@+id/ranking_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
+            android:text="@string/ranking"
+            android:textSize="24dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="40dp"/>
+
+        <ImageButton
+            android:id="@+id/ranking_back_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/img_back"
+            android:backgroundTint="@color/transparent"
+            android:background="?attr/selectableItemBackground"
+            app:tint="@color/white"
+            android:scaleType="fitCenter"
+            app:layout_constraintTop_toTopOf="@id/ranking_title_tv"
+            app:layout_constraintBottom_toBottomOf="@id/ranking_title_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="18dp"/>
+
+        <ImageButton
+            android:id="@+id/ranking_info_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/img_info"
+            android:backgroundTint="@color/transparent"
+            android:background="?attr/selectableItemBackground"
+            app:tint="@color/white"
+            android:scaleType="fitCenter"
+            app:layout_constraintTop_toTopOf="@id/ranking_title_tv"
+            app:layout_constraintBottom_toBottomOf="@id/ranking_title_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="18dp"/>
+
+        <ImageView
+            android:id="@+id/ranking_background_iv"
+            android:layout_width="336dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_max="712dp"
+            android:layout_margin="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ranking_title_tv"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ranking_bg"/>
+
+        <TextView
+            android:id="@+id/ranking_no_ranking_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="아직 순위가 없습니다.\n지금 1위에 도전해보세요!"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="17dp"
+            app:layout_constraintStart_toStartOf="@id/ranking_background_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_background_iv"
+            app:layout_constraintTop_toTopOf="@id/ranking_background_iv"
+            app:layout_constraintBottom_toBottomOf="@id/ranking_background_iv"
+            android:textColor="@color/text_color"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/ranking_gold_medal_iv"
+            android:layout_width="88dp"
+            android:layout_height="294dp"
+            android:src="@drawable/ranking_gold_medal"
+            app:layout_constraintStart_toStartOf="@id/ranking_background_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_background_iv"
+            app:layout_constraintTop_toTopOf="@id/ranking_background_iv"
+            app:layout_constraintBottom_toBottomOf="@id/ranking_background_iv"
+            app:layout_constraintVertical_bias="0.04"/>
+
+        <ImageView
+            android:id="@+id/ranking_silver_medal_iv"
+            android:layout_width="88dp"
+            android:layout_height="263dp"
+            android:src="@drawable/ranking_silver_medal"
+            app:layout_constraintEnd_toStartOf="@id/ranking_gold_medal_iv"
+            app:layout_constraintTop_toTopOf="@id/ranking_gold_medal_iv"
+            android:layout_marginEnd="7dp"/>
+
+        <ImageView
+            android:id="@+id/ranking_bronze_medal_iv"
+            android:layout_width="88dp"
+            android:layout_height="263dp"
+            android:src="@drawable/ranking_bronze_medal"
+            app:layout_constraintStart_toEndOf="@id/ranking_gold_medal_iv"
+            app:layout_constraintTop_toTopOf="@id/ranking_gold_medal_iv"
+            android:layout_marginStart="7dp"/>
+
+        <TextView
+            android:id="@+id/ranking_silver_medal_score_tv"
+            android:layout_width="63dp"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
+            android:text="1,156점"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:background="#80765C"
+            app:layout_constraintStart_toStartOf="@id/ranking_silver_medal_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_silver_medal_iv"
+            app:layout_constraintBottom_toBottomOf="@id/ranking_silver_medal_iv"
+            android:layout_marginBottom="120dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="2dp"/>
+
+        <TextView
+            android:id="@+id/ranking_gold_medal_score_tv"
+            android:layout_width="63dp"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
+            android:text="77,126점"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:background="#80765C"
+            app:layout_constraintStart_toStartOf="@id/ranking_gold_medal_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_gold_medal_iv"
+            app:layout_constraintBottom_toBottomOf="@id/ranking_gold_medal_iv"
+            android:layout_marginBottom="120dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="2dp"/>
+
+        <TextView
+            android:id="@+id/ranking_bronze_medal_score_tv"
+            android:layout_width="63dp"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
+            android:text="999점"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:background="#80765C"
+            app:layout_constraintStart_toStartOf="@id/ranking_bronze_medal_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_bronze_medal_iv"
+            app:layout_constraintBottom_toBottomOf="@id/ranking_bronze_medal_iv"
+            android:layout_marginBottom="120dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="2dp"/>
+
+        <TextView
+            android:id="@+id/ranking_silver_medal_nickname_tv"
+            android:maxWidth="62dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
+            android:text="안녕하쎄용"
+            android:textColor="@color/text_color"
+            android:textAlignment="textStart"
+            app:layout_constraintStart_toStartOf="@id/ranking_silver_medal_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_silver_medal_iv"
+            app:layout_constraintBottom_toTopOf="@id/ranking_silver_medal_score_tv"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+            android:id="@+id/ranking_gold_medal_nickname_tv"
+            android:maxWidth="62dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
+            android:text="건덕이건덕이건덕"
+            android:textColor="@color/text_color"
+            android:textAlignment="textStart"
+            app:layout_constraintStart_toStartOf="@id/ranking_gold_medal_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_gold_medal_iv"
+            app:layout_constraintBottom_toTopOf="@id/ranking_gold_medal_score_tv"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+            android:id="@+id/ranking_bronze_medal_nickname_tv"
+            android:maxWidth="62dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
+            android:text="BBQ"
+            android:textColor="@color/text_color"
+            android:textAlignment="textStart"
+            app:layout_constraintStart_toStartOf="@id/ranking_bronze_medal_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_bronze_medal_iv"
+            app:layout_constraintBottom_toTopOf="@id/ranking_bronze_medal_score_tv"
+            android:layout_marginBottom="15dp"/>
+        
+        <LinearLayout
+            android:id="@+id/ranking_info_title_ll"
+            android:layout_width="272dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="@id/ranking_background_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_background_iv"
+            app:layout_constraintTop_toBottomOf="@id/ranking_gold_medal_iv"
+            android:background="@drawable/ranking_info_title_bg"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:text="@string/ranking_index"
+                android:fontFamily="@font/neo_dunggeunmo_regular"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:text="@string/ranking_nickname"
+                android:fontFamily="@font/neo_dunggeunmo_regular"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:text="@string/ranking_score"
+                android:fontFamily="@font/neo_dunggeunmo_regular"
+                android:textSize="16dp"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ranking_rank_rv"
+            android:layout_width="272dp"
+            android:layout_height="200dp"
+            app:layout_constraintStart_toStartOf="@id/ranking_background_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_background_iv"
+            app:layout_constraintTop_toBottomOf="@id/ranking_info_title_ll"
+            tools:listitem="@layout/item_rank"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarThumbVertical="@color/scrollbar_thumb"
+            android:scrollbarTrackVertical="@color/scrollbar_track"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarSize="4dp"
+            android:verticalScrollbarPosition="right"
+            android:scrollbarStyle="insideInset"/>
+
+        <LinearLayout
+            android:id="@+id/ranking_my_info_ll"
+            android:layout_width="272dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="@id/ranking_background_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_background_iv"
+            app:layout_constraintTop_toBottomOf="@id/ranking_rank_rv"
+            android:background="@drawable/ranking_my_info_bg"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/ranking_my_rank_tv"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:text="67"
+                android:fontFamily="@font/neo_dunggeunmo_regular"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:text="@string/ranking_me"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:id="@+id/ranking_my_score_tv"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:fontFamily="@font/neo_dunggeunmo_regular"
+                android:textSize="16dp"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,4 +20,6 @@
     <color name="black_50">#80000000</color>
     <color name="background_skyblue">#E5F5FF</color>
     <color name="text_color">#504A38</color>
+    <color name="scrollbar_thumb">#96CE86</color>
+    <color name="scrollbar_track">#C9F2A3</color>
 </resources>
