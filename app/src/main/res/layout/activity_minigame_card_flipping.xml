@@ -14,8 +14,178 @@
         app:layout_constraintWidth_max="450dp"
         app:layout_constraintHeight_max="900dp"
         android:background="@drawable/card_flipping_bg">
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card_flipping_cards_cl"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.4">
 
+            <ImageView
+                android:id="@+id/card_flipping_card_1_1"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/card_flipping_card_1_2"
+                app:layout_constraintBottom_toTopOf="@id/card_flipping_card_2_1"/>
 
+            <ImageView
+                android:id="@+id/card_flipping_card_1_2"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toEndOf="@id/card_flipping_card_1_1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/card_flipping_card_1_3"
+                app:layout_constraintBottom_toTopOf="@id/card_flipping_card_2_2"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_1_3"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toEndOf="@id/card_flipping_card_1_2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/card_flipping_card_1_4"
+                app:layout_constraintBottom_toTopOf="@id/card_flipping_card_2_3"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_1_4"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toEndOf="@id/card_flipping_card_1_3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/card_flipping_card_2_4"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_2_1"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_flipping_card_1_1"
+                app:layout_constraintEnd_toStartOf="@id/card_flipping_card_2_2"
+                app:layout_constraintBottom_toTopOf="@id/card_flipping_card_3_1"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_2_2"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toEndOf="@id/card_flipping_card_2_1"
+                app:layout_constraintTop_toBottomOf="@id/card_flipping_card_1_2"
+                app:layout_constraintEnd_toStartOf="@id/card_flipping_card_2_3"
+                app:layout_constraintBottom_toTopOf="@id/card_flipping_card_3_2"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_2_3"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toEndOf="@id/card_flipping_card_2_2"
+                app:layout_constraintTop_toBottomOf="@id/card_flipping_card_1_3"
+                app:layout_constraintEnd_toStartOf="@id/card_flipping_card_2_4"
+                app:layout_constraintBottom_toTopOf="@id/card_flipping_card_3_3"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_2_4"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toEndOf="@id/card_flipping_card_2_3"
+                app:layout_constraintTop_toBottomOf="@id/card_flipping_card_1_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/card_flipping_card_3_4"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_3_1"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_flipping_card_2_1"
+                app:layout_constraintEnd_toStartOf="@id/card_flipping_card_3_2"
+                app:layout_constraintBottom_toTopOf="@id/card_flipping_card_4_1"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_3_2"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toEndOf="@id/card_flipping_card_3_1"
+                app:layout_constraintTop_toBottomOf="@id/card_flipping_card_2_2"
+                app:layout_constraintEnd_toStartOf="@id/card_flipping_card_3_3"
+                app:layout_constraintBottom_toTopOf="@id/card_flipping_card_4_2"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_3_3"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toEndOf="@id/card_flipping_card_3_2"
+                app:layout_constraintTop_toBottomOf="@id/card_flipping_card_2_3"
+                app:layout_constraintEnd_toStartOf="@id/card_flipping_card_3_4"
+                app:layout_constraintBottom_toTopOf="@id/card_flipping_card_4_3"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_3_4"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toEndOf="@id/card_flipping_card_3_3"
+                app:layout_constraintTop_toBottomOf="@id/card_flipping_card_2_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/card_flipping_card_4_4"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_4_1"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_flipping_card_3_1"
+                app:layout_constraintEnd_toStartOf="@id/card_flipping_card_4_2"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_4_2"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toEndOf="@id/card_flipping_card_4_1"
+                app:layout_constraintTop_toBottomOf="@id/card_flipping_card_3_2"
+                app:layout_constraintEnd_toStartOf="@id/card_flipping_card_4_3"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_4_3"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toEndOf="@id/card_flipping_card_4_2"
+                app:layout_constraintTop_toBottomOf="@id/card_flipping_card_3_3"
+                app:layout_constraintEnd_toStartOf="@id/card_flipping_card_4_4"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/card_flipping_card_4_4"
+                android:layout_width="66dp"
+                android:layout_height="98dp"
+                android:src="@drawable/card_flipping_book_back"
+                app:layout_constraintStart_toEndOf="@id/card_flipping_card_4_3"
+                app:layout_constraintTop_toBottomOf="@id/card_flipping_card_3_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
