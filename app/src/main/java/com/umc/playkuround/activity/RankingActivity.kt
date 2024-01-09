@@ -82,8 +82,8 @@ class RankingActivity : AppCompatActivity() {
     }
 
     private fun getRankData() {
-        for(i in 1..10) {
-            rankInfo.add(RankInfo("덕쿠$i", 1100 - i*100))
+        for(i in 1..2) {
+            rankInfo.add(RankInfo("덕쿠$i", 10100 - i*100))
         }
     }
 
@@ -112,15 +112,30 @@ class RankingActivity : AppCompatActivity() {
         val formatter = NumberFormat.getNumberInstance()
         if(rankInfo.size > 0) {
             binding.rankingGoldMedalNicknameTv.text = rankInfo[0].nickname
+            if(rankInfo[0].score >= 10000) {
+                binding.rankingGoldMedalScoreTv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
+            }
             binding.rankingGoldMedalScoreTv.text = formatter.format(rankInfo[0].score) + "점"
         }
         if(rankInfo.size > 1) {
             binding.rankingSilverMedalNicknameTv.text = rankInfo[1].nickname
+            if(rankInfo[1].score >= 10000) {
+                binding.rankingSilverMedalScoreTv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
+            }
             binding.rankingSilverMedalScoreTv.text = formatter.format(rankInfo[1].score) + "점"
+        } else {
+            binding.rankingSilverMedalNicknameTv.text = ""
+            binding.rankingSilverMedalScoreTv.text = ""
         }
         if(rankInfo.size > 2) {
             binding.rankingBronzeMedalNicknameTv.text = rankInfo[2].nickname
+            if(rankInfo[2].score >= 10000) {
+                binding.rankingBronzeMedalScoreTv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
+            }
             binding.rankingBronzeMedalScoreTv.text = formatter.format(rankInfo[2].score) + "점"
+        } else {
+            binding.rankingBronzeMedalNicknameTv.text = ""
+            binding.rankingBronzeMedalScoreTv.text = ""
         }
     }
 
@@ -134,6 +149,7 @@ class RankingActivity : AppCompatActivity() {
     private fun showRanks() {
         binding.rankingRankRv.adapter = RankingRVAdapter(rankInfo)
         binding.rankingRankRv.layoutManager = LinearLayoutManager(this)
+        binding.rankingRankRv.isVerticalScrollBarEnabled = rankInfo.size > 5
         binding.rankingRankRv.isScrollbarFadingEnabled = false
     }
 
@@ -141,7 +157,6 @@ class RankingActivity : AppCompatActivity() {
         val infoDialog = Dialog(this, R.style.TransparentDialogTheme)
         infoDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         infoDialog.setContentView(R.layout.dialog_ranking_info)
-        infoDialog.window?.setDimAmount(0.5f)
         infoDialog.show()
     }
 
