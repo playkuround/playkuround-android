@@ -14,15 +14,16 @@
         android:id="@+id/loading_progress_bar"/>
 
     <TextView
+        android:id="@+id/loading_comment_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Loading"
+        android:text="로딩중..."
         android:textSize="16dp"
-        android:fontFamily="@font/pretendard_medium"
+        android:fontFamily="@font/pretendard_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loading_progress_bar"
-        android:layout_marginTop="14dp"
-        android:textColor="@color/green_main"/>
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

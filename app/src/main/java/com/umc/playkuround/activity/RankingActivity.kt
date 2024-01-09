@@ -2,23 +2,21 @@ package com.umc.playkuround.activity
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.os.Handler
+import android.os.Looper
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.playkuround.R
-import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityRankingBinding
 import com.umc.playkuround.databinding.ItemRankBinding
+import com.umc.playkuround.dialog.LoadingDialog
 import java.text.NumberFormat
 
 class RankingActivity : AppCompatActivity() {
@@ -36,6 +34,7 @@ class RankingActivity : AppCompatActivity() {
     inner class RankingRVAdapter(private val rank : ArrayList<RankInfo>) : RecyclerView.Adapter<RankingRVAdapter.ViewHolder>() {
 
         inner class ViewHolder(val binding : ItemRankBinding) : RecyclerView.ViewHolder(binding.root) {
+            @SuppressLint("SetTextI18n")
             fun bind(pos : Int) {
                 binding.itemRankIndex.text = (pos + 1).toString()
                 binding.itemRankNickname.text = rank[pos].nickname
@@ -72,39 +71,52 @@ class RankingActivity : AppCompatActivity() {
         }
 
         getRankData()
-        if(rankInfo.isEmpty()) {
-            showNoData()
-        } else {
-            showTopPlayersInfo()
-            showMyInfo()
-            showRanks()
-        }
+    }
+
+    private fun initView() {
+        binding.rankingBackgroundIv.visibility = View.VISIBLE
+
+        binding.rankingGoldMedalIv.visibility = View.VISIBLE
+        binding.rankingSilverMedalIv.visibility = View.VISIBLE
+        binding.rankingBronzeMedalIv.visibility = View.VISIBLE
+
+        binding.rankingGoldMedalNicknameTv.visibility = View.VISIBLE
+        binding.rankingSilverMedalNicknameTv.visibility = View.VISIBLE
+        binding.rankingBronzeMedalNicknameTv.visibility = View.VISIBLE
+
+        binding.rankingGoldMedalScoreTv.visibility = View.VISIBLE
+        binding.rankingSilverMedalScoreTv.visibility = View.VISIBLE
+        binding.rankingBronzeMedalScoreTv.visibility = View.VISIBLE
+
+        binding.rankingInfoTitleLl.visibility = View.VISIBLE
+        binding.rankingMyInfoLl.visibility = View.VISIBLE
+        binding.rankingRankRv.visibility = View.VISIBLE
     }
 
     private fun getRankData() {
         for(i in 1..2) {
             rankInfo.add(RankInfo("덕쿠$i", 10100 - i*100))
         }
+
+        val loadingDialog = LoadingDialog(this)
+        loadingDialog.show()
+        Handler(Looper.getMainLooper()).postDelayed({
+            loadingDialog.dismiss()
+
+            if(rankInfo.isEmpty()) {
+                showNoData()
+            } else {
+                initView()
+                showTopPlayersInfo()
+                showMyInfo()
+                showRanks()
+            }
+        }, 5000)
     }
 
     private fun showNoData() {
+        binding.rankingBackgroundIv.visibility = View.VISIBLE
         binding.rankingNoRankingTv.visibility = View.VISIBLE
-
-        binding.rankingGoldMedalIv.visibility = View.INVISIBLE
-        binding.rankingSilverMedalIv.visibility = View.INVISIBLE
-        binding.rankingBronzeMedalIv.visibility = View.INVISIBLE
-
-        binding.rankingGoldMedalNicknameTv.visibility = View.INVISIBLE
-        binding.rankingSilverMedalNicknameTv.visibility = View.INVISIBLE
-        binding.rankingBronzeMedalNicknameTv.visibility = View.INVISIBLE
-
-        binding.rankingGoldMedalScoreTv.visibility = View.INVISIBLE
-        binding.rankingSilverMedalScoreTv.visibility = View.INVISIBLE
-        binding.rankingBronzeMedalScoreTv.visibility = View.INVISIBLE
-
-        binding.rankingInfoTitleLl.visibility = View.INVISIBLE
-        binding.rankingMyInfoLl.visibility = View.INVISIBLE
-        binding.rankingRankRv.visibility = View.INVISIBLE
     }
 
     @SuppressLint("SetTextI18n")
