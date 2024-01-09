@@ -27,7 +27,7 @@
             android:value="AIzaSyAOb8MvvBNoDEsNIU1G_Jt1-7FgDVcp1Ik"/>
 
         <activity
-            android:name=".activity.RankingActivity"
+            android:name=".activity.MiniGameCardFlippingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,7 +52,8 @@
         <activity android:name=".activity.DetailAgree03Activity"/>
         <activity android:name=".activity.DialogPlaceRankActivity"/>
         <activity android:name=".activity.DialogPlaceInfoActivity"/>
-<!--        <activity android:name=".activity.RankingActivity"/>-->
+        <activity android:name=".activity.RankingActivity"/>
+<!--        <activity android:name=".activity.MiniGameCardFlippingActivity"/>-->
 
     </application>
 
