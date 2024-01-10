@@ -24,19 +24,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/quiz_tab_bar">
 
-            <ImageButton
-                android:id="@+id/quiz_back_btn"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="18dp"
-                android:background="?attr/selectableItemBackground"
-                android:scaleType="fitCenter"
-                android:src="@drawable/quiz_back_btn"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:backgroundTint="@color/transparent"
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
@@ -45,8 +32,8 @@
                 android:textSize="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/quiz_back_btn"
-                app:layout_constraintBottom_toBottomOf="@+id/quiz_back_btn"/>
+                app:layout_constraintTop_toTopOf="@id/quiz_pause_btn"
+                app:layout_constraintBottom_toBottomOf="@id/quiz_pause_btn"/>
 
             <ImageButton
                 android:id="@+id/quiz_pause_btn"

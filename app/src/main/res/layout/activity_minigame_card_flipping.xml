@@ -14,6 +14,31 @@
         app:layout_constraintWidth_max="450dp"
         app:layout_constraintHeight_max="900dp"
         android:background="@drawable/card_flipping_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/card_flipping"
+            android:textSize="24dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/card_flipping_pause_btn"
+            app:layout_constraintBottom_toBottomOf="@id/card_flipping_pause_btn"
+            android:fontFamily="@font/neo_dunggeunmo_regular"/>
+
+        <ImageButton
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/card_flipping_pause"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="18dp"
+            android:scaleType="fitCenter"
+            android:id="@+id/card_flipping_pause_btn"
+            android:backgroundTint="@color/transparent"/>
         
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/card_flipping_cards_cl"
@@ -21,7 +46,7 @@
             android:layout_height="500dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_flipping_pause_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.4">
 

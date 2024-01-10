@@ -1,13 +1,16 @@
 package com.umc.playkuround.activity
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityMinigameCardFlippingBinding
 import com.umc.playkuround.dialog.CountdownDialog
+import com.umc.playkuround.dialog.PauseDialog
 
 private const val FLIPPING_DELAY = 150L
 private const val SHOWING_TIME = 700L
@@ -18,7 +21,7 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
     private val cards = Array(4) { Array(4) { 0 } }
     private val frontCards = ArrayList<Int>()
     private val isMatched = Array(16) { false }
-    private val isFlipping = Array(16) { false }
+    private var isFlipping = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +31,21 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
         shuffleCards()
         addListenerToCards()
 
+        binding.cardFlippingPauseBtn.setOnClickListener {
+            val pauseDialog = PauseDialog(this)
+            pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
+                override fun resume() {
+                    // resume
+                }
+                override fun home() {
+                    finish()
+                }
+            })
+            pauseDialog.show()
+        }
+
         val countdownDialog = CountdownDialog(this)
-        countdownDialog.show()
+        //countdownDialog.show()
     }
 
     private fun shuffleCards() {
@@ -46,7 +62,7 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
 
     private fun addListenerToCards() {
         fun eachCardFunc(iv : ImageView, n : Int) {
-            if(!isMatched[n] && !isFlipping[n]) {
+            if(!isMatched[n] && !isFlipping) {
                 if (frontCards.isEmpty()) {
                     frontCards.add(n)
                     iv.setImageResource(R.drawable.card_flipping_book_side)
@@ -57,16 +73,16 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
                     if (frontCards[0] != n) {
                         frontCards.add(n)
                         iv.setImageResource(R.drawable.card_flipping_book_side)
-                        isFlipping[n] = true
-                        isFlipping[frontCards[0]] = true
+                        isFlipping = true
                         Handler(Looper.getMainLooper()).postDelayed({
                             iv.setImageResource(getCardImage(cards[n / 4][n % 4]))
 
                             if (cards[n / 4][n % 4] == cards[frontCards[0] / 4][frontCards[0] % 4]) {
                                 isMatched[n] = true
                                 isMatched[frontCards[0]] = true
-                                isFlipping[n] = false
-                                isFlipping[frontCards[0]] = false
+                                isFlipping = false
+                                playDisappearCardMotion(n)
+                                playDisappearCardMotion(frontCards[0])
                                 frontCards.clear()
                             } else {
                                 val tmp = frontCards[0]
@@ -133,118 +149,122 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
     }
 
     private fun playCloseCardMotion(pos : Int) {
+        fun close(iv : ImageView) {
+            iv.setImageResource(R.drawable.card_flipping_book_side)
+            Handler(Looper.getMainLooper()).postDelayed({
+                iv.setImageResource(R.drawable.card_flipping_book_back)
+                isFlipping = false
+            }, FLIPPING_DELAY + 50)
+        }
+
         when(pos) {
             0 -> {
-                binding.cardFlippingCard11.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard11.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard11)
             }
             1 -> {
-                binding.cardFlippingCard12.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard12.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard12)
             }
             2 -> {
-                binding.cardFlippingCard13.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard13.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard13)
             }
             3 -> {
-                binding.cardFlippingCard14.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard14.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard14)
             }
             4 -> {
-                binding.cardFlippingCard21.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard21.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard21)
             }
             5 -> {
-                binding.cardFlippingCard22.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard22.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard22)
             }
             6 -> {
-                binding.cardFlippingCard23.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard23.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard23)
             }
             7 -> {
-                binding.cardFlippingCard24.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard24.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard24)
             }
             8 -> {
-                binding.cardFlippingCard31.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard31.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard31)
             }
             9 -> {
-                binding.cardFlippingCard32.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard32.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard32)
             }
             10 -> {
-                binding.cardFlippingCard33.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard33.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard33)
             }
             11 -> {
-                binding.cardFlippingCard34.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard34.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard34)
             }
             12 -> {
-                binding.cardFlippingCard41.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard41.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard41)
             }
             13 -> {
-                binding.cardFlippingCard42.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard42.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard42)
             }
             14 -> {
-                binding.cardFlippingCard43.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard43.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard43)
             }
             15 -> {
-                binding.cardFlippingCard44.setImageResource(R.drawable.card_flipping_book_side)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.cardFlippingCard44.setImageResource(R.drawable.card_flipping_book_back)
-                    isFlipping[pos] = false
-                }, FLIPPING_DELAY + 50)
+                close(binding.cardFlippingCard44)
+            }
+        }
+    }
+
+    private fun playDisappearCardMotion(pos : Int) {
+        fun disappear(iv : ImageView) {
+            val animator = ObjectAnimator.ofFloat(iv, "alpha", 1f, 0f)
+            animator.duration = 700
+            animator.interpolator = AccelerateDecelerateInterpolator()
+            animator.start()
+        }
+
+        when(pos) {
+            0 -> {
+                disappear(binding.cardFlippingCard11)
+            }
+            1 -> {
+                disappear(binding.cardFlippingCard12)
+            }
+            2 -> {
+                disappear(binding.cardFlippingCard13)
+            }
+            3 -> {
+                disappear(binding.cardFlippingCard14)
+            }
+            4 -> {
+                disappear(binding.cardFlippingCard21)
+            }
+            5 -> {
+                disappear(binding.cardFlippingCard22)
+            }
+            6 -> {
+                disappear(binding.cardFlippingCard23)
+            }
+            7 -> {
+                disappear(binding.cardFlippingCard24)
+            }
+            8 -> {
+                disappear(binding.cardFlippingCard31)
+            }
+            9 -> {
+                disappear(binding.cardFlippingCard32)
+            }
+            10 -> {
+                disappear(binding.cardFlippingCard33)
+            }
+            11 -> {
+                disappear(binding.cardFlippingCard34)
+            }
+            12 -> {
+                disappear(binding.cardFlippingCard41)
+            }
+            13 -> {
+                disappear(binding.cardFlippingCard42)
+            }
+            14 -> {
+                disappear(binding.cardFlippingCard43)
+            }
+            15 -> {
+                disappear(binding.cardFlippingCard44)
             }
         }
     }

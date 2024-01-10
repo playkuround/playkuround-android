@@ -12,6 +12,7 @@ import com.umc.playkuround.data.LandMark
 import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityMinigameMoonBinding
 import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.service.UserService
 import java.util.Timer
 import kotlin.concurrent.timer
@@ -28,6 +29,19 @@ class MiniGameMoonActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMinigameMoonBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.moonPauseBtn.setOnClickListener {
+            val pauseDialog = PauseDialog(this)
+            pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
+                override fun resume() {
+                    // resume
+                }
+                override fun home() {
+                    finish()
+                }
+            })
+            pauseDialog.show()
+        }
 
         binding.moonClickIv.setOnClickListener {
             count--

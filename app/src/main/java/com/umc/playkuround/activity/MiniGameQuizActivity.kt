@@ -21,6 +21,7 @@ import com.umc.playkuround.data.Quiz
 import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityMinigameQuizBinding
 import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.service.UserService
 
 class MiniGameQuizActivity : AppCompatActivity() {
@@ -34,8 +35,17 @@ class MiniGameQuizActivity : AppCompatActivity() {
         binding = ActivityMinigameQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.quizBackBtn.setOnClickListener {
-            this.finish()
+        binding.quizPauseBtn.setOnClickListener {
+            val pauseDialog = PauseDialog(this)
+            pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
+                override fun resume() {
+                    // resume
+                }
+                override fun home() {
+                    finish()
+                }
+            })
+            pauseDialog.show()
         }
 
         quiz = Quiz(1, "", ArrayList(), -1)

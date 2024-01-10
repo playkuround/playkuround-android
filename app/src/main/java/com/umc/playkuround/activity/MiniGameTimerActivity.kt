@@ -15,6 +15,7 @@ import com.umc.playkuround.data.LandMark
 import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityMinigameTimerBinding
 import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.service.UserService
 import java.util.*
 import kotlin.concurrent.timer
@@ -32,9 +33,33 @@ class MiniGameTimerActivity : AppCompatActivity() {
         binding = ActivityMinigameTimerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.moonPauseBtn.setOnClickListener {
+            timerTask?.cancel()
+            val pauseDialog = PauseDialog(this)
+            pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
+                override fun resume() {
+                    if(isRunning) {
+                        timerTask = timer(period = 10) {
+                            time++
+                            val sec = time / 100
+                            val milli = time % 100
+
+                            runOnUiThread {
+                                binding.timerSec.text = String.format("%02d:", sec)
+                                binding.timerMilli.text = String.format("%02d", milli)
+                            }
+                        }
+                    }
+                }
+                override fun home() {
+                    finish()
+                }
+            })
+            pauseDialog.show()
+        }
+
         binding.timerStartBt.setOnClickListener {
-            isRunning = !isRunning
-            if (isRunning) start() else pause()
+            if(!isRunning) start() else pause()
         }
         binding.timerStopBt.setOnClickListener{
             pause()
@@ -58,6 +83,7 @@ class MiniGameTimerActivity : AppCompatActivity() {
 
     //타이머 시작
     private fun start() {
+        isRunning = true
         binding.timerStartBt.visibility = View.INVISIBLE
         binding.timerStopBt.visibility = View.VISIBLE
         binding.timerRestartBt.visibility = View.INVISIBLE// 시작버튼을 일시정지 이미지로 변경
@@ -78,6 +104,8 @@ class MiniGameTimerActivity : AppCompatActivity() {
 
     //타이머 멈춤
     private fun pause() {
+        isRunning = false
+
         binding.timerStartBt.visibility = View.INVISIBLE
         binding.timerStopBt.visibility = View.INVISIBLE
         binding.timerRestartBt.visibility = View.VISIBLE// 일시정지 아이콘에서 start 아이콘으로 변경
