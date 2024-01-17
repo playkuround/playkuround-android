@@ -110,8 +110,8 @@ class MiniGameTimerActivity : AppCompatActivity() {
         binding.timerStopBt.visibility = View.INVISIBLE
         binding.timerRestartBt.visibility = View.VISIBLE// 일시정지 아이콘에서 start 아이콘으로 변경
 
-            timerTask?.cancel() // 안전한 호출(?.)로 timerTask가 null이 아니면 cancel() 호출
-        }
+        timerTask?.cancel() // 안전한 호출(?.)로 timerTask가 null이 아니면 cancel() 호출
+    }
 
 
 

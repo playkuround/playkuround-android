@@ -10,7 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityMinigameCardFlippingBinding
 import com.umc.playkuround.dialog.CountdownDialog
+import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
+import com.umc.playkuround.fragment.MiniGameTimerFragment
+import kotlin.concurrent.timer
 
 private const val FLIPPING_DELAY = 150L
 private const val SHOWING_TIME = 700L
@@ -18,6 +21,7 @@ private const val SHOWING_TIME = 700L
 class MiniGameCardFlippingActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMinigameCardFlippingBinding
+    private lateinit var timerFragment : MiniGameTimerFragment
     private val cards = Array(4) { Array(4) { 0 } }
     private val frontCards = ArrayList<Int>()
     private val isMatched = Array(16) { false }
@@ -28,14 +32,24 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
         binding = ActivityMinigameCardFlippingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        timerFragment = supportFragmentManager.findFragmentById(R.id.card_flipping_timer_fragment) as MiniGameTimerFragment
+        timerFragment.setTime(50)
+        timerFragment.setOnTimeUpListener(object : MiniGameTimerFragment.OnTimeUpListener {
+            override fun timeUp() {
+                val gameOverDialog = GameOverDialog(this@MiniGameCardFlippingActivity)
+                gameOverDialog.show()
+            }
+        })
+
         shuffleCards()
         addListenerToCards()
 
         binding.cardFlippingPauseBtn.setOnClickListener {
+            timerFragment.pause()
             val pauseDialog = PauseDialog(this)
             pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
                 override fun resume() {
-                    // resume
+                    timerFragment.start()
                 }
                 override fun home() {
                     finish()
@@ -45,7 +59,12 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
         }
 
         val countdownDialog = CountdownDialog(this)
-        //countdownDialog.show()
+        countdownDialog.setOnFinishListener(object : CountdownDialog.OnFinishListener {
+            override fun onFinish() {
+                timerFragment.start()
+            }
+        })
+        countdownDialog.show()
     }
 
     private fun shuffleCards() {
@@ -84,6 +103,12 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
                                 playDisappearCardMotion(n)
                                 playDisappearCardMotion(frontCards[0])
                                 frontCards.clear()
+                                if(isAllMatched()) {
+                                    timerFragment = supportFragmentManager.findFragmentById(R.id.card_flipping_timer_fragment) as MiniGameTimerFragment
+                                    timerFragment.pause()
+                                    val gameOverDialog = GameOverDialog(this@MiniGameCardFlippingActivity)
+                                    gameOverDialog.show()
+                                }
                             } else {
                                 val tmp = frontCards[0]
                                 frontCards.clear()
@@ -282,6 +307,13 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
             7 -> R.drawable.card_flipping_book_turtle
             else -> R.drawable.card_flipping_book_back
         }
+    }
+
+    private fun isAllMatched() : Boolean {
+        for(i in 0..15) {
+            if(!isMatched[i]) return false
+        }
+        return true
     }
 
 }

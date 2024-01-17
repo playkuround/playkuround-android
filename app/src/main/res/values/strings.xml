@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">플레이쿠라운드</string>
     <string name="ku_explore">건대 탐험</string>
-    <string name="ku_quiz">건국 퀴즈</string>
-    <string name="ku_timer">10초 맞추기</string>
-    <string name="ku_moon">달깨기</string>
+    <string name="ku_quiz">건쏠지식</string>
+    <string name="ku_timer">10초를 맞춰봐</string>
+    <string name="ku_moon">문을 점령해</string>
     
     <string name="police_agree">회원가입</string>
     <string name="intro_agree">서비스 이용을 위한 약관에 동의해주세요.</string>
@@ -78,6 +78,10 @@
     
     <string name="timer">TIME</string>
 
-    <string name="card_flipping">카드 뒤집기</string>
+    <string name="card_flipping">책 뒤집기</string>
+    <string name="catch_duck">덕쿠를 잡아라</string>
+    <string name="typing_game">수강신청 All 클릭</string>
+    <string name="bridge_timing">덕큐피트\u2764</string>
+    <string name="avoid_obstacle">일감호에서 살아남기</string>
 
 </resources>

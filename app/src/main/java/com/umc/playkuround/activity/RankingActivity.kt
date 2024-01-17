@@ -94,7 +94,7 @@ class RankingActivity : AppCompatActivity() {
     }
 
     private fun getRankData() {
-        for(i in 1..2) {
+        for(i in 1..7) {
             rankInfo.add(RankInfo("덕쿠$i", 10100 - i*100))
         }
 

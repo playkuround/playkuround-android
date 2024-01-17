@@ -39,7 +39,18 @@
             android:scaleType="fitCenter"
             android:id="@+id/card_flipping_pause_btn"
             android:backgroundTint="@color/transparent"/>
-        
+
+        <fragment
+            android:id="@+id/card_flipping_timer_fragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:name="com.umc.playkuround.fragment.MiniGameTimerFragment"
+            android:layout_margin="25dp"
+            app:layout_constraintStart_toStartOf="@id/card_flipping_cards_cl"
+            app:layout_constraintEnd_toEndOf="@id/card_flipping_cards_cl"
+            app:layout_constraintTop_toBottomOf="@id/card_flipping_pause_btn"
+            app:layout_constraintBottom_toTopOf="@id/card_flipping_cards_cl"/>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/card_flipping_cards_cl"
             android:layout_width="match_parent"
