@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityMinigameCardFlippingBinding
 import com.umc.playkuround.dialog.CountdownDialog
@@ -33,11 +34,10 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         timerFragment = supportFragmentManager.findFragmentById(R.id.card_flipping_timer_fragment) as MiniGameTimerFragment
-        timerFragment.setTime(50)
+        timerFragment.setTime(30)
         timerFragment.setOnTimeUpListener(object : MiniGameTimerFragment.OnTimeUpListener {
             override fun timeUp() {
-                val gameOverDialog = GameOverDialog(this@MiniGameCardFlippingActivity)
-                gameOverDialog.show()
+                showGameOverDialog()
             }
         })
 
@@ -104,10 +104,8 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
                                 playDisappearCardMotion(frontCards[0])
                                 frontCards.clear()
                                 if(isAllMatched()) {
-                                    timerFragment = supportFragmentManager.findFragmentById(R.id.card_flipping_timer_fragment) as MiniGameTimerFragment
                                     timerFragment.pause()
-                                    val gameOverDialog = GameOverDialog(this@MiniGameCardFlippingActivity)
-                                    gameOverDialog.show()
+                                    showGameOverDialog()
                                 }
                             } else {
                                 val tmp = frontCards[0]
@@ -314,6 +312,24 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
             if(!isMatched[i]) return false
         }
         return true
+    }
+
+    private fun showGameOverDialog() {
+        val gameOverDialog = GameOverDialog(this@MiniGameCardFlippingActivity)
+        gameOverDialog.setOnDismissListener {
+            this@MiniGameCardFlippingActivity.finish()
+        }
+
+        var score = 0
+        for(i in isMatched.indices) {
+            if(isMatched[i]) score += 5
+        }
+        score /= 2
+        score += timerFragment.getLeftTime() * 10
+
+        gameOverDialog.setInfo(resources.getString(R.string.card_flipping), score, 0, 0)
+
+        gameOverDialog.show()
     }
 
 }

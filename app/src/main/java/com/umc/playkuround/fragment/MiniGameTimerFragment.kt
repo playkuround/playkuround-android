@@ -1,11 +1,15 @@
 package com.umc.playkuround.fragment
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.umc.playkuround.R
 import com.umc.playkuround.databinding.FragmentTimerBinding
 import java.util.Timer
 import kotlin.concurrent.timer
@@ -35,6 +39,8 @@ class MiniGameTimerFragment : Fragment() {
         timeLimit = time * 100
         leftTime = timeLimit
     }
+
+    fun getLeftTime() : Int = leftTime / 100
 
     fun start() {
         if(leftTime == timeLimit)
@@ -74,6 +80,11 @@ class MiniGameTimerFragment : Fragment() {
 
     fun setOnTimeUpListener(listener : OnTimeUpListener) {
         onTimeUpListener = listener
+    }
+
+    fun setThemeColor(color : Int) {
+        binding.timerFragmentTimeTv.setTextColor(color)
+        binding.timerFragmentProgressBg.imageTintList = ColorStateList.valueOf(color)
     }
 
 }
