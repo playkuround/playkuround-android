@@ -52,12 +52,7 @@ class MiniGameTypingActivity : AppCompatActivity() {
                     0 -> {
                         binding.typingLife3Iv.setImageResource(R.drawable.typing_empty_heart)
                         binding.typingTextRainView.pause()
-                        val gameOverDialog = GameOverDialog(this@MiniGameTypingActivity)
-                        gameOverDialog.setOnDismissListener {
-                            this@MiniGameTypingActivity.finish()
-                        }
-                        gameOverDialog.setInfo(resources.getString(R.string.typing_game), score, 0, 0)
-                        gameOverDialog.show()
+                        showGameOverDialog()
                     }
                 }
             }
@@ -88,6 +83,15 @@ class MiniGameTypingActivity : AppCompatActivity() {
             }
         })
         countdownDialog.show()
+    }
+
+    private fun showGameOverDialog() {
+        val gameOverDialog = GameOverDialog(this@MiniGameTypingActivity)
+        gameOverDialog.setOnDismissListener {
+            this@MiniGameTypingActivity.finish()
+        }
+        gameOverDialog.setInfo(resources.getString(R.string.typing_game), score * 20, 0, 0)
+        gameOverDialog.show()
     }
 
 }

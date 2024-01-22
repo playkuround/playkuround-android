@@ -1,22 +1,20 @@
 package com.umc.playkuround.fragment
 
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.umc.playkuround.R
 import com.umc.playkuround.databinding.FragmentTimerBinding
 import java.util.Timer
 import kotlin.concurrent.timer
 class MiniGameTimerFragment : Fragment() {
 
-    interface OnTimeUpListener {
+    interface OnTimeProgressListener {
         fun timeUp()
+        fun timeProgress(leftTime : Int)
     }
 
     private lateinit var binding : FragmentTimerBinding
@@ -24,7 +22,7 @@ class MiniGameTimerFragment : Fragment() {
     private var leftTime = timeLimit
     private var timer : Timer? = null
     private var progressWidth = 0
-    private var onTimeUpListener : OnTimeUpListener? = null
+    private var onTimeProgressListener : OnTimeProgressListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,15 +41,23 @@ class MiniGameTimerFragment : Fragment() {
     fun getLeftTime() : Int = leftTime / 100
 
     fun start() {
+        val ratio = binding.timerFragmentDuckIv.width.toFloat() / binding.timerFragmentProgressBg.width
+
         if(leftTime == timeLimit)
             progressWidth = binding.timerFragmentProgress.width
         timer = timer(period = 10) {
+            if(leftTime % 100 == 0) {
+                requireActivity().runOnUiThread {
+                    onTimeProgressListener?.timeProgress(leftTime / 100)
+                }
+            }
+
             leftTime--
             if(leftTime < 0) {
                 binding.timerFragmentProgress.visibility = View.INVISIBLE
                 timer?.cancel()
                 requireActivity().runOnUiThread {
-                    onTimeUpListener?.timeUp()
+                    onTimeProgressListener?.timeUp()
                 }
             }
             requireActivity().runOnUiThread {
@@ -60,11 +66,11 @@ class MiniGameTimerFragment : Fragment() {
                 binding.timerFragmentProgress.layoutParams = lp
 
                 val mlp = binding.timerFragmentDuckIv.layoutParams
-                if(leftTime <= (timeLimit * 0.1).toInt()) {
+                if(leftTime <= (timeLimit * ratio / 2).toInt()) {
                     if(mlp is MarginLayoutParams) {
-                        mlp.setMargins(0,0,-1 * (progressWidth * 0.2 - lp.width).toInt(),0)
+                        mlp.setMargins(0,0,-1 * (progressWidth * ratio - lp.width).toInt(),0)
                     }
-                } else if (leftTime >= (timeLimit * 0.9).toInt()) {
+                } else if (leftTime >= (timeLimit * (1 - ratio / 2)).toInt()) {
                     if(mlp is MarginLayoutParams) {
                         mlp.setMargins(0,0,-1 * (progressWidth - lp.width),0)
                     }
@@ -78,13 +84,15 @@ class MiniGameTimerFragment : Fragment() {
         timer = null
     }
 
-    fun setOnTimeUpListener(listener : OnTimeUpListener) {
-        onTimeUpListener = listener
+    fun setOnTimeProgressListener(listener : OnTimeProgressListener) {
+        onTimeProgressListener = listener
     }
 
     fun setThemeColor(color : Int) {
         binding.timerFragmentTimeTv.setTextColor(color)
         binding.timerFragmentProgressBg.imageTintList = ColorStateList.valueOf(color)
+        binding.timerFragmentMiniBox1.backgroundTintList = ColorStateList.valueOf(color)
+        binding.timerFragmentMiniBox2.backgroundTintList = ColorStateList.valueOf(color)
     }
 
 }

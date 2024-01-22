@@ -7,14 +7,12 @@ import android.os.Looper
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityMinigameCardFlippingBinding
 import com.umc.playkuround.dialog.CountdownDialog
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.fragment.MiniGameTimerFragment
-import kotlin.concurrent.timer
 
 private const val FLIPPING_DELAY = 150L
 private const val SHOWING_TIME = 700L
@@ -35,10 +33,11 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
 
         timerFragment = supportFragmentManager.findFragmentById(R.id.card_flipping_timer_fragment) as MiniGameTimerFragment
         timerFragment.setTime(30)
-        timerFragment.setOnTimeUpListener(object : MiniGameTimerFragment.OnTimeUpListener {
+        timerFragment.setOnTimeProgressListener(object : MiniGameTimerFragment.OnTimeProgressListener {
             override fun timeUp() {
                 showGameOverDialog()
             }
+            override fun timeProgress(leftTime: Int) { return }
         })
 
         shuffleCards()

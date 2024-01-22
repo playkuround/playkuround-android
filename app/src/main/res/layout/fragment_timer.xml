@@ -2,16 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:maxWidth="370dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <ImageView
-        android:id="@+id/timer_fragment_duck_iv"
-        android:layout_width="56dp"
-        android:layout_height="40dp"
-        android:src="@drawable/timer_duck"
-        app:layout_constraintEnd_toEndOf="@id/timer_fragment_progress"
-        app:layout_constraintBottom_toTopOf="@id/timer_fragment_progress_bg"/>
 
     <TextView
         android:id="@+id/timer_fragment_time_tv"
@@ -26,22 +17,60 @@
 
     <ImageView
         android:id="@+id/timer_fragment_progress_bg"
-        android:layout_width="280dp"
+        android:layout_width="0dp"
         android:layout_height="16dp"
-        android:src="@drawable/timer_bar_bg"
+        android:src="@color/white"
+        app:layout_constraintStart_toEndOf="@id/timer_fragment_time_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/timer_fragment_time_tv"
-        app:layout_constraintBottom_toBottomOf="@id/timer_fragment_time_tv"/>
+        app:layout_constraintBottom_toBottomOf="@id/timer_fragment_time_tv"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="4dp"/>
 
-    <ImageView
-        android:id="@+id/timer_fragment_progress"
-        android:layout_width="270dp"
+    <View
+        android:id="@+id/timer_fragment_mini_box1"
+        android:layout_width="4dp"
         android:layout_height="8dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:src="@drawable/timer_bar_progress"
-        app:layout_constraintStart_toStartOf="@id/timer_fragment_progress_bg"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="@id/timer_fragment_progress_bg"
-        app:layout_constraintBottom_toBottomOf="@id/timer_fragment_progress_bg"/>
+        app:layout_constraintBottom_toBottomOf="@id/timer_fragment_progress_bg"
+        app:layout_constraintEnd_toStartOf="@id/timer_fragment_progress_bg"/>
+
+    <View
+        android:id="@+id/timer_fragment_mini_box2"
+        android:layout_width="4dp"
+        android:layout_height="8dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="@id/timer_fragment_progress_bg"
+        app:layout_constraintBottom_toBottomOf="@id/timer_fragment_progress_bg"
+        app:layout_constraintStart_toEndOf="@id/timer_fragment_progress_bg"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/timer_fragment_progress_cl"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        app:layout_constraintStart_toStartOf="@id/timer_fragment_progress_bg"
+        app:layout_constraintEnd_toEndOf="@id/timer_fragment_progress_bg"
+        app:layout_constraintBottom_toBottomOf="@id/timer_fragment_progress_bg"
+        android:background="@color/transparent"
+        android:layout_marginBottom="4dp">
+
+        <ImageView
+            android:id="@+id/timer_fragment_duck_iv"
+            android:layout_width="56dp"
+            android:layout_height="40dp"
+            android:src="@drawable/timer_duck"
+            app:layout_constraintEnd_toEndOf="@id/timer_fragment_progress"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/timer_fragment_progress"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:src="@drawable/timer_bar_progress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

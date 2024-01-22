@@ -27,7 +27,7 @@
             android:value="AIzaSyAOb8MvvBNoDEsNIU1G_Jt1-7FgDVcp1Ik"/>
 
         <activity
-            android:name=".activity.MiniGameTypingActivity"
+            android:name=".activity.MiniGameCatchActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
@@ -54,8 +54,10 @@
         <activity android:name=".activity.DialogPlaceRankActivity"/>
         <activity android:name=".activity.DialogPlaceInfoActivity"/>
         <activity android:name=".activity.RankingActivity"/>
-<!--        <activity android:name=".activity.MiniGameTypingActivity"/>-->
+        <activity android:name=".activity.MiniGameTypingActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".activity.MiniGameCardFlippingActivity"/>
+<!--        <activity android:name=".activity.MiniGameCatchActivity"/>-->
 
     </application>
 
