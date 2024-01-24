@@ -27,8 +27,7 @@
             android:value="AIzaSyAOb8MvvBNoDEsNIU1G_Jt1-7FgDVcp1Ik"/>
 
         <activity
-            android:name=".activity.MiniGameCatchActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:name=".activity.MiniGameBridgeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,7 +56,8 @@
         <activity android:name=".activity.MiniGameTypingActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".activity.MiniGameCardFlippingActivity"/>
-<!--        <activity android:name=".activity.MiniGameCatchActivity"/>-->
+        <activity android:name=".activity.MiniGameCatchActivity"/>
+<!--        <activity android:name=".activity.MiniGameBridgeActivity"/>-->
 
     </application>
 

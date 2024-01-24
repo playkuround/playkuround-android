@@ -123,22 +123,62 @@
             app:layout_constraintBottom_toBottomOf="@id/typing_bg_iv"
             android:layout_marginBottom="-25dp"/>
         
-        <EditText
-            android:id="@+id/typing_text_box"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#676767"
-            android:textColorHint="@color/white"
-            android:hint="입력"
-            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:cursorVisible="false"
-            android:lines="1"
-            android:inputType="text"
-            android:imeOptions="actionDone"
-            android:imeActionLabel="입력"/>
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/typing_apply_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                android:textSize="20dp"
+                android:textColor="#128B50"
+                android:fontFamily="@font/neo_dunggeunmo_regular"
+                android:text="수강신청"/>
+
+            <EditText
+                android:id="@+id/typing_text_box"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@drawable/typing_text_box_bg"
+                android:textColorHint="#B1B1B1"
+                android:hint="과목명 입력"
+                android:textColor="@color/text_color"
+                app:layout_constraintStart_toEndOf="@id/typing_apply_title_tv"
+                app:layout_constraintEnd_toStartOf="@id/typing_apply_btn_iv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
+                android:textAlignment="textStart"
+                android:textSize="18dp"
+                android:fontFamily="@font/neo_dunggeunmo_regular"
+                android:paddingStart="15dp"
+                android:cursorVisible="false"
+                android:lines="1"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:imeActionLabel="입력"/>
+            
+            <ImageView
+                android:id="@+id/typing_apply_btn_iv"
+                android:layout_width="52dp"
+                android:layout_height="40dp"
+                android:src="@drawable/typing_apply_btn"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="7dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

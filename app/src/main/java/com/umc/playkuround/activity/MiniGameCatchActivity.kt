@@ -102,7 +102,7 @@ class MiniGameCatchActivity : AppCompatActivity() {
         for(i in 0 until 30) {
             binding.catchDuckWindowsGl.getChildAt(i).setOnClickListener {
                 if(isOpen[i]) {
-                    if(isBlackDuck[i]) score++
+                    if(!isBlackDuck[i]) score++
                     else score--
                     if(score < 0) score = 0
                     binding.catchDuckScoreTv.text = score.toString()
