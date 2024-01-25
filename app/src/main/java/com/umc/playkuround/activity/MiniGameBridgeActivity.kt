@@ -10,12 +10,13 @@ import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.fragment.MiniGameTimerFragment
 
-private const val TIME_LIMIT = 10
+private const val TIME_LIMIT = 5
 
 class MiniGameBridgeActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMinigameBridgeBinding
     private lateinit var timerFragment : MiniGameTimerFragment
+    private var score = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +32,13 @@ class MiniGameBridgeActivity : AppCompatActivity() {
             }
 
             override fun timeProgress(leftTime: Int) {
-
+                
             }
         })
+
+        binding.bridgeStopBtn.setOnClickListener {
+
+        }
 
         binding.bridgePauseBtn.setOnClickListener {
             timerFragment.pause()
@@ -64,7 +69,7 @@ class MiniGameBridgeActivity : AppCompatActivity() {
             this@MiniGameBridgeActivity.finish()
         }
 
-        gameOverDialog.setInfo(resources.getString(R.string.bridge_timing),  0, 0, 0)
+        gameOverDialog.setInfo(resources.getString(R.string.bridge_timing),  score, 0, 0)
         gameOverDialog.show()
     }
 

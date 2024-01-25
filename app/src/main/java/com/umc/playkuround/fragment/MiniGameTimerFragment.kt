@@ -1,7 +1,9 @@
 package com.umc.playkuround.fragment
 
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +47,7 @@ class MiniGameTimerFragment : Fragment() {
 
         if(leftTime == timeLimit)
             progressWidth = binding.timerFragmentProgress.width
+
         timer = timer(period = 10) {
             if(leftTime % 100 == 0) {
                 requireActivity().runOnUiThread {
@@ -53,16 +56,33 @@ class MiniGameTimerFragment : Fragment() {
             }
 
             leftTime--
-            if(leftTime < 0) {
-                binding.timerFragmentProgress.visibility = View.INVISIBLE
+            if(leftTime <= 0) {
                 timer?.cancel()
                 requireActivity().runOnUiThread {
+                    binding.timerFragmentProgress.visibility = View.INVISIBLE
                     onTimeProgressListener?.timeUp()
                 }
             }
+
+            if(leftTime == timeLimit / 2) {
+                requireActivity().runOnUiThread {
+                    binding.timerFragmentProgress.backgroundTintList =
+                        ColorStateList.valueOf(Color.parseColor("#EE994B"))
+                }
+            } else if(leftTime == timeLimit / 5) {
+                requireActivity().runOnUiThread {
+                    binding.timerFragmentProgress.backgroundTintList =
+                        ColorStateList.valueOf(Color.parseColor("#F05353"))
+                }
+            }
+
             requireActivity().runOnUiThread {
                 val lp = binding.timerFragmentProgress.layoutParams
                 lp.width = (progressWidth.toFloat() * (leftTime.toFloat() / timeLimit)).toInt()
+                if(lp.width == 0) {
+                    lp.width = 1
+                    binding.timerFragmentProgress.visibility = View.INVISIBLE
+                }
                 binding.timerFragmentProgress.layoutParams = lp
 
                 val mlp = binding.timerFragmentDuckIv.layoutParams
