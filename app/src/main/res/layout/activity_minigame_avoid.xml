@@ -13,36 +13,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintWidth_max="450dp"
         app:layout_constraintHeight_max="900dp"
-        android:background="@drawable/bridge_timing_bg">
-        
-        <com.umc.playkuround.service.BridgeDuckView
-            android:id="@+id/bridge_duck_view"
-            android:layout_width="match_parent"
-            android:layout_height="84dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/bridge_bridge_iv"
-            android:layout_marginBottom="-10dp"/>
-
-        <ImageView
-            android:id="@+id/bridge_bridge_iv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="376:346"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/bridge"/>
+        android:background="@drawable/avoid_bg">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bridge_timing"
+            android:text="@string/avoid_obstacle"
             android:textSize="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/bridge_pause_btn"
-            app:layout_constraintBottom_toBottomOf="@id/bridge_pause_btn"
+            app:layout_constraintTop_toTopOf="@id/avoid_pause_btn"
+            app:layout_constraintBottom_toBottomOf="@id/avoid_pause_btn"
             android:fontFamily="@font/neo_dunggeunmo_regular"/>
 
         <ImageButton
@@ -51,67 +32,57 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="?attr/selectableItemBackground"
-            android:src="@drawable/bridge_timing_pause_btn"
+            android:src="@drawable/catch_duck_pause_btn"
             android:layout_marginTop="28dp"
             android:layout_marginEnd="18dp"
             android:scaleType="fitCenter"
-            android:id="@+id/bridge_pause_btn"
+            android:id="@+id/avoid_pause_btn"
             android:backgroundTint="@color/transparent"/>
 
         <fragment
-            android:id="@+id/bridge_timer_fragment"
+            android:id="@+id/avoid_timer_fragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:name="com.umc.playkuround.fragment.MiniGameTimerFragment"
             android:layout_margin="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bridge_pause_btn"/>
+            app:layout_constraintTop_toBottomOf="@id/avoid_pause_btn"/>
 
         <TextView
-            android:id="@+id/bridge_score_title_tv"
+            android:id="@+id/avoid_score_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SCORE"
             android:textSize="23dp"
             android:fontFamily="@font/neo_dunggeunmo_regular"
-            app:layout_constraintTop_toBottomOf="@id/bridge_timer_fragment"
+            app:layout_constraintTop_toBottomOf="@id/avoid_timer_fragment"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="18dp"
             android:layout_marginTop="18dp"/>
 
         <TextView
-            android:id="@+id/bridge_score_tv"
+            android:id="@+id/avoid_score_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
             android:textSize="23dp"
             android:fontFamily="@font/neo_dunggeunmo_regular"
-            app:layout_constraintTop_toBottomOf="@id/bridge_timer_fragment"
-            app:layout_constraintStart_toEndOf="@id/bridge_score_title_tv"
+            app:layout_constraintTop_toBottomOf="@id/avoid_timer_fragment"
+            app:layout_constraintStart_toEndOf="@id/avoid_score_title_tv"
             android:layout_marginStart="12dp"
             android:layout_marginTop="18dp"/>
-        
-        <Button
-            android:id="@+id/bridge_stop_btn"
-            android:layout_width="160dp"
-            android:layout_height="90dp"
-            android:background="@drawable/stop_btn"
-            app:layout_constraintStart_toStartOf="@id/bridge_bridge_iv"
-            app:layout_constraintEnd_toEndOf="@id/bridge_bridge_iv"
-            app:layout_constraintTop_toTopOf="@id/bridge_bridge_iv"
-            app:layout_constraintBottom_toBottomOf="@id/bridge_bridge_iv"
-            app:layout_constraintVertical_bias="0.62"/>
-        
-        <ImageView
-            android:id="@+id/bridge_result_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="122dp"
+
+        <com.umc.playkuround.service.AvoidView
+            android:id="@+id/avoid_game_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bridge_timer_fragment"
-            app:layout_constraintBottom_toTopOf="@id/bridge_bridge_iv"
-            app:layout_constraintVertical_bias="0.4"/>
+            app:layout_constraintTop_toBottomOf="@id/avoid_score_title_tv"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

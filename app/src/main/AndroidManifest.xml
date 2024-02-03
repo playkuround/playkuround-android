@@ -27,7 +27,9 @@
             android:value="AIzaSyAOb8MvvBNoDEsNIU1G_Jt1-7FgDVcp1Ik"/>
 
         <activity
-            android:name=".activity.MiniGameBridgeActivity"
+            android:name=".activity.MiniGameAvoidActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,28 +38,73 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.LoginActivity"/>
-        <activity android:name=".activity.EmailCertifyActivity"/>
-        <activity android:name=".activity.PolicyAgreeActivity"/>
-        <activity android:name=".activity.NicknameActivity"/>
-        <activity android:name=".activity.MainActivity"/>
-        <activity android:name=".activity.AttendanceActivity"/>
-        <activity android:name=".activity.MapActivity"/>
-        <activity android:name=".activity.MiniGameMoonActivity"/>
-        <activity android:name=".activity.MiniGameQuizActivity"/>
-        <activity android:name=".activity.MiniGameTimerActivity"/>
-        <activity android:name=".activity.MajorChoiceActivity"/>
-        <activity android:name=".activity.DetailAgree01Activity"/>
-        <activity android:name=".activity.DetailAgree02Activity"/>
-        <activity android:name=".activity.DetailAgree03Activity"/>
-        <activity android:name=".activity.DialogPlaceRankActivity"/>
-        <activity android:name=".activity.DialogPlaceInfoActivity"/>
-        <activity android:name=".activity.RankingActivity"/>
+        <activity android:name=".activity.LoginActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.EmailCertifyActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PolicyAgreeActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.NicknameActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MainActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AttendanceActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MapActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MiniGameMoonActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MiniGameQuizActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MiniGameTimerActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MajorChoiceActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DetailAgree01Activity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DetailAgree02Activity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DetailAgree03Activity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DialogPlaceRankActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DialogPlaceInfoActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.RankingActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.MiniGameTypingActivity"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".activity.MiniGameCardFlippingActivity"/>
-        <activity android:name=".activity.MiniGameCatchActivity"/>
-<!--        <activity android:name=".activity.MiniGameBridgeActivity"/>-->
+            android:windowSoftInputMode="adjustResize"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MiniGameCardFlippingActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MiniGameCatchActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MiniGameBridgeActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+<!--        <activity android:name=".activity.MiniGameAvoidActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>-->
 
     </application>
 

@@ -92,7 +92,7 @@ class MiniGameCatchActivity : AppCompatActivity() {
 
         openMotion(window, isBlackDuck[idx])
         Handler(Looper.getMainLooper()).postDelayed({
-            if(isOpen[idx]) closeMotion(window, isBlackDuck[idx])
+            if(isOpen[idx]) closeMotion(window, isBlackDuck[idx], false)
             isOpen[idx] = false
             isBlackDuck[idx] = false
         }, OPEN_TIME + WINDOW_MOTION_DELAY)
@@ -102,13 +102,18 @@ class MiniGameCatchActivity : AppCompatActivity() {
         for(i in 0 until 30) {
             binding.catchDuckWindowsGl.getChildAt(i).setOnClickListener {
                 if(isOpen[i]) {
-                    if(!isBlackDuck[i]) score++
-                    else score--
+                    if(!isBlackDuck[i]) {
+                        score++
+                        (binding.catchDuckWindowsGl.getChildAt(i) as ImageView).setImageResource(R.drawable.catch_duck_white_catched)
+                    } else {
+                        score--
+                        (binding.catchDuckWindowsGl.getChildAt(i) as ImageView).setImageResource(R.drawable.catch_duck_black_catched)
+                    }
                     if(score < 0) score = 0
                     binding.catchDuckScoreTv.text = score.toString()
 
                     isOpen[i] = false
-                    closeMotion(binding.catchDuckWindowsGl.getChildAt(i) as ImageView, isBlackDuck[i])
+                    closeMotion(binding.catchDuckWindowsGl.getChildAt(i) as ImageView, isBlackDuck[i], true)
                     isBlackDuck[i] = false
                 }
             }
@@ -137,9 +142,14 @@ class MiniGameCatchActivity : AppCompatActivity() {
         }, WINDOW_MOTION_DELAY)
     }
 
-    private fun closeMotion(window : ImageView, isBlack : Boolean) {
-        if(isBlack) window.setImageResource(R.drawable.catch_duck_black_half)
-        else window.setImageResource(R.drawable.catch_duck_white_half)
+    private fun closeMotion(window : ImageView, isBlack : Boolean, isCatched : Boolean) {
+        if(isBlack) {
+            if(isCatched) window.setImageResource(R.drawable.catch_duck_black_catched_half)
+            else window.setImageResource(R.drawable.catch_duck_black_half)
+        } else {
+            if(isCatched) window.setImageResource(R.drawable.catch_duck_white_catched_half)
+            else window.setImageResource(R.drawable.catch_duck_white_half)
+        }
         Handler(Looper.getMainLooper()).postDelayed({
             window.setImageResource(R.drawable.catch_duck_close_window)
         }, WINDOW_MOTION_DELAY)
