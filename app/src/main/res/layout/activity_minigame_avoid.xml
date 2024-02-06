@@ -73,6 +73,36 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="18dp"/>
 
+        <ImageView
+            android:id="@+id/avoid_life_1_iv"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/typing_heart"
+            app:layout_constraintTop_toTopOf="@id/avoid_score_tv"
+            app:layout_constraintBottom_toBottomOf="@id/avoid_score_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="18dp"/>
+
+        <ImageView
+            android:id="@+id/avoid_life_2_iv"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/typing_heart"
+            app:layout_constraintTop_toTopOf="@id/avoid_score_tv"
+            app:layout_constraintBottom_toBottomOf="@id/avoid_score_tv"
+            app:layout_constraintEnd_toStartOf="@id/avoid_life_1_iv"
+            android:layout_marginEnd="2dp"/>
+
+        <ImageView
+            android:id="@+id/avoid_life_3_iv"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/typing_heart"
+            app:layout_constraintTop_toTopOf="@id/avoid_score_tv"
+            app:layout_constraintBottom_toBottomOf="@id/avoid_score_tv"
+            app:layout_constraintEnd_toStartOf="@id/avoid_life_2_iv"
+            android:layout_marginEnd="2dp"/>
+
         <com.umc.playkuround.service.AvoidView
             android:id="@+id/avoid_game_view"
             android:layout_width="match_parent"
