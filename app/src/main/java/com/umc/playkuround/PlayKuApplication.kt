@@ -9,7 +9,6 @@ import com.umc.playkuround.service.PreferenceUtil
 import com.umc.playkuround.service.UserService
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.concurrent.timer
 
 class PlayKuApplication : Application() {
 

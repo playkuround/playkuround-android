@@ -11,10 +11,5 @@ class PlaceInfoDialog(context : Context) : Dialog(context) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_place_info)
         setCancelable(false)
-
-
-
-
-
     }
 }

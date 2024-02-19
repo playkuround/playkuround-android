@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5F5FF"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/test_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:text="테스트용"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="30dp"/>
+
+    <Button
+        android:id="@+id/test_avoid_btn"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_blue"
+        android:text="@string/avoid_obstacle"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="19dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/test_title_tv"
+        android:layout_marginTop="30dp"/>
+
+    <Button
+        android:id="@+id/test_bridge_btn"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_blue"
+        android:text="@string/bridge_timing"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="19dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/test_avoid_btn"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/test_card_btn"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_blue"
+        android:text="@string/card_flipping"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="19dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/test_bridge_btn"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/test_catch_btn"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_blue"
+        android:text="@string/catch_duck"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="19dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/test_card_btn"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/test_moon_btn"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_blue"
+        android:text="@string/ku_moon"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="19dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/test_catch_btn"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/test_timer_btn"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_blue"
+        android:text="@string/ku_timer"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="19dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/test_moon_btn"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/test_typing_btn"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_blue"
+        android:text="@string/typing_game"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="19dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/test_timer_btn"
+        android:layout_marginTop="20dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

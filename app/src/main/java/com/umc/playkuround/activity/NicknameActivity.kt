@@ -106,7 +106,7 @@ class NicknameActivity : AppCompatActivity() {
                     user.save(pref)
                     Log.d("isoo", "getResponseBody: ${user.userTokenResponse}")
 
-                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    val intent = Intent(applicationContext, MapActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)

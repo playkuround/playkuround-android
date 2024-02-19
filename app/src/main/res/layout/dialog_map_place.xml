@@ -1,59 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="212dp"
-    android:background="@color/white"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <ImageView
-        android:id="@+id/map_place_iv"
-        android:layout_width="124dp"
-        android:layout_height="124dp"
+    <View
+        android:id="@+id/dialog_map_place_bg"
+        android:layout_width="336dp"
+        android:layout_height="452dp"
+        android:background="@drawable/map_place_dialog_bg"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="28dp"
-        android:src="@color/light_gray"/>
-
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    
     <TextView
-        android:id="@+id/map_place_title_tv"
+        android:id="@+id/dialog_map_place_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="입학정보관"
-        android:fontFamily="@font/pretendard_semi_bold"
+        android:text="산학협동관"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
         android:textSize="22dp"
-        app:layout_constraintStart_toEndOf="@id/map_place_iv"
-        app:layout_constraintTop_toTopOf="@id/map_place_iv"
-        android:layout_marginStart="20dp" />
+        app:layout_constraintStart_toStartOf="@id/dialog_map_place_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_map_place_bg"
+        app:layout_constraintTop_toTopOf="@id/dialog_map_place_bg"
+        android:layout_marginTop="50dp"/>
+    
+    <ImageView
+        android:id="@+id/dialog_map_place_img"
+        android:layout_width="116dp"
+        android:layout_height="116dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_map_place_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_map_place_bg"
+        app:layout_constraintTop_toBottomOf="@id/dialog_map_place_title_tv"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/landmark_1"/>
+    
+    <Button
+        android:id="@+id/dialog_map_place_landmark_ranking_btn"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_blue_small"
+        android:text="정복랭킹"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_map_place_landmark_info_btn"
+        app:layout_constraintEnd_toEndOf="@id/dialog_map_place_landmark_info_btn"
+        app:layout_constraintBottom_toTopOf="@id/dialog_map_place_landmark_info_btn"
+        android:layout_marginBottom="5dp"/>
 
     <Button
-        android:id="@+id/map_place_rank_bt"
-        android:layout_width="172dp"
-        android:layout_height="36dp"
-        app:layout_constraintStart_toStartOf="@id/map_place_title_tv"
-        app:layout_constraintTop_toBottomOf="@id/map_place_title_tv"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button_round_green"
-        android:text="@string/map_place_rank_dialog"
-        android:textSize="16dp"
-        android:textColor="@color/map_button"
-        android:fontFamily="@font/pretendard_medium"
-        style="?android:attr/borderlessButtonStyle"/>
-
-    <Button
-        android:id="@+id/map_place_info_bt"
-        android:layout_width="172dp"
-        android:layout_height="36dp"
-        app:layout_constraintStart_toStartOf="@id/map_place_title_tv"
-        app:layout_constraintTop_toBottomOf="@id/map_place_rank_bt"
-        app:layout_constraintBottom_toBottomOf="@id/map_place_iv"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/button_round_green"
-        android:text="@string/map_place_info_dialog"
-        android:textSize="16dp"
-        android:textColor="@color/map_button"
-        android:fontFamily="@font/pretendard_medium"
-        style="?android:attr/borderlessButtonStyle"/>
+        android:id="@+id/dialog_map_place_landmark_info_btn"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_blue_small"
+        android:text="건물설명"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_map_place_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_map_place_bg"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_map_place_bg"
+        android:layout_marginBottom="18dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

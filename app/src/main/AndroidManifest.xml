@@ -27,7 +27,7 @@
             android:value="AIzaSyAOb8MvvBNoDEsNIU1G_Jt1-7FgDVcp1Ik"/>
 
         <activity
-            android:name=".activity.MiniGameAvoidActivity"
+            android:name=".activity.TestGameActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -56,9 +56,9 @@
         <activity android:name=".activity.AttendanceActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.MapActivity"
-            android:resizeableActivity="false"
-            android:screenOrientation="portrait"/>
+<!--        <activity android:name=".activity.MapActivity"-->
+<!--            android:resizeableActivity="false"-->
+<!--            android:screenOrientation="portrait"/>-->
         <activity android:name=".activity.MiniGameMoonActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
@@ -102,9 +102,9 @@
         <activity android:name=".activity.MiniGameBridgeActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
-<!--        <activity android:name=".activity.MiniGameAvoidActivity"
+        <activity android:name=".activity.MiniGameAvoidActivity"
             android:resizeableActivity="false"
-            android:screenOrientation="portrait"/>-->
+            android:screenOrientation="portrait"/>
 
     </application>
 
