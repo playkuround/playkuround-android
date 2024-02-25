@@ -1,25 +1,17 @@
-package com.umc.playkuround.service
+package com.umc.playkuround.custom_view
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Matrix
-import android.graphics.Paint
-import android.graphics.Rect
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.umc.playkuround.R
-import java.util.Timer
-import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
-import kotlin.math.sqrt
 import kotlin.random.Random
 
 class AvoidView(context : Context, attrs : AttributeSet) : View(context, attrs) {

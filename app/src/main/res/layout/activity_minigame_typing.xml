@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintDimensionRatio="375:403"/>
 
-        <com.umc.playkuround.service.TextRainView
+        <com.umc.playkuround.custom_view.TextRainView
             android:id="@+id/typing_text_rain_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"

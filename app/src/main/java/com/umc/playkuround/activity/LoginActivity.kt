@@ -1,23 +1,17 @@
 package com.umc.playkuround.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.umc.playkuround.PlayKuApplication.Companion.pref
-import com.umc.playkuround.PlayKuApplication.Companion.user
+import com.umc.playkuround.util.PlayKuApplication.Companion.pref
+import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
-import com.umc.playkuround.data.RefreshTokenResponse
-import com.umc.playkuround.data.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityLoginBinding
-import com.umc.playkuround.dialog.SlideUpDialog
-import com.umc.playkuround.service.UserService
+import com.umc.playkuround.network.AuthAPI
+import com.umc.playkuround.network.ReissueTokens
 import java.util.Timer
-import java.util.TimerTask
 import kotlin.concurrent.timer
 
 class LoginActivity : AppCompatActivity() {
@@ -40,19 +34,25 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                val intent = Intent(applicationContext, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                val authAPI = AuthAPI()
+                val reissueTokens = ReissueTokens(user.getAccessToken(), user.getRefreshToken())
+                authAPI.setOnResponseListener(object : AuthAPI.OnResponseListener() {
+                    override fun <T> getResponseBody(
+                        body: T,
+                        isSuccess: Boolean,
+                        errorLog: String
+                    ) {
+                        if(isSuccess) {
+                            val intent = Intent(applicationContext, MapActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(applicationContext, errorLog, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }).reissue(reissueTokens)
             }
         }
-
-//        binding.loginLogoIv.setOnClickListener {
-//            //onSlideUpDialog()
-//            val intent = Intent(this, MiniGameQuizActivity::class.java)
-//            startActivity(intent)
-//        }
-
-        //testing()
 
         var num = 0
         bgGif = timer(period = 300) {
@@ -63,34 +63,6 @@ class LoginActivity : AppCompatActivity() {
                 else if(num%4 == 3) binding.loginBackgroundIv.setImageResource(R.drawable.login_bg04)
                 num++
             }
-        }
-    }
-
-    private fun onSlideUpDialog() {
-        var contentView: View = (getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
-            R.layout.dialog_badge_info, null)
-        val slideupPopup = SlideUpDialog.Builder(this)
-            .setContentView(contentView)
-            .create()
-        slideupPopup.show()
-        slideupPopup.backgroundView?.setOnClickListener {
-            slideupPopup.dismissAnim()
-        }
-    }
-
-    private fun testing() {
-        binding.loginLogoIv.setOnClickListener {
-            val userService = UserService()
-            val token = user.getAccessToken()
-            userService.setOnResponseListener(object : UserService.OnResponseListener() {
-                override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                    if(isSuccess) {
-                        Log.d("retrofit", "getResponseBody(logout): logout success!!")
-                    } else {
-                        Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }).logout(token)
         }
     }
 

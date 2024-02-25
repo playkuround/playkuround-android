@@ -28,8 +28,6 @@ class PolicyAgreeActivity : AppCompatActivity() {
         binding.agree03Cb.setOnClickListener{onCheckChanged(binding.agree03Cb)
             isAllChecked()}
 
-
-
         //다음 누르면 activity전환
         binding.agreeNextBtn.setOnClickListener{
             val intent = Intent(this, MajorChoiceActivity::class.java)
@@ -49,41 +47,11 @@ class PolicyAgreeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-
-
-
     }
 
     private fun isAllChecked() {
         binding.agreeNextBtn.isEnabled = binding.agreeSumCb.isChecked
     }
-
-
-
-//    private fun onclick(view: View){
-//        when(view.id){
-//            R.id.agree_next_btn -> {
-//                if (binding.agreeNextBtn.isEnabled){
-//                    binding.agree01Cb.isChecked = true
-//                    binding.agree02Cb.isChecked = true
-//                    binding.agree03Cb.isChecked = true
-//                }
-//                else {
-//                    binding.agree01Cb.isChecked = false
-//                    binding.agree02Cb.isChecked = false
-//                    binding.agree03Cb.isChecked = false
-//                }
-//            }
-//            else -> { binding.agreeNextBtn.isEnabled = (
-//                    binding.agree01Cb.isChecked
-//                            && binding.agree02Cb.isChecked
-//                            &&binding.agree03Cb.isChecked)
-//            }
-//        }
-//
-//    }
-
 
     private fun onCheckChanged(compoundButton: CompoundButton) {
         when(compoundButton.id) {
@@ -142,9 +110,6 @@ class PolicyAgreeActivity : AppCompatActivity() {
             binding.agreeSumCb.setBackgroundResource(R.drawable.button_blue_disabled)
         }
     }
-
-
-
 
 }
 

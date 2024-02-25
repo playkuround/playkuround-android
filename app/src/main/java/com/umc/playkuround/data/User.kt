@@ -1,25 +1,23 @@
 package com.umc.playkuround.data
 
-import android.util.Log
 import com.google.gson.annotations.SerializedName
-import com.umc.playkuround.PlayKuApplication
-import com.umc.playkuround.service.PreferenceUtil
-import com.umc.playkuround.service.UserService
-import java.text.SimpleDateFormat
-import java.util.*
+import com.umc.playkuround.network.TokenData
+import com.umc.playkuround.network.UserTokenResponse
+import com.umc.playkuround.util.PreferenceUtil
 
 data class User(
     @SerializedName(value = "email") var email : String,
     @SerializedName(value = "nickname") var nickname : String,
     @SerializedName(value = "major") var major : String,
     @SerializedName(value = "authVerifyToken") var verifyToken : String,
+    var highestScore : Int,
     var userTokenResponse : UserTokenResponse?
 ) {
     companion object {
         fun getDefaultUser(): User {
-            val response = Response("null", "null", "null")
-            val userTokenResponse = UserTokenResponse(true, response)
-            return User("null", "null", "null", "null", userTokenResponse)
+            val tokenData = TokenData("null", "null", "null")
+            val userTokenResponse = UserTokenResponse(true, tokenData)
+            return User("null", "null", "null", "null", 0, userTokenResponse)
         }
     }
 
@@ -28,10 +26,10 @@ data class User(
         pref.setString("nickname", this.nickname)
         pref.setString("major", this.major)
         if(this.userTokenResponse != null) {
-            if(this.userTokenResponse!!.response != null) {
-                pref.setString("grantType", this.userTokenResponse!!.response!!.grantType)
-                pref.setString("accessToken", this.userTokenResponse!!.response!!.accessToken)
-                pref.setString("refreshToken", this.userTokenResponse!!.response!!.refreshToken)
+            if(this.userTokenResponse!!.tokenData != null) {
+                pref.setString("grantType", this.userTokenResponse!!.tokenData!!.grantType)
+                pref.setString("accessToken", this.userTokenResponse!!.tokenData!!.accessToken)
+                pref.setString("refreshToken", this.userTokenResponse!!.tokenData!!.refreshToken)
             }
         }
     }
@@ -44,16 +42,16 @@ data class User(
         val accessToken = pref.getString("accessToken", "null")
         val refreshToken = pref.getString("refreshToken", "null")
 
-        val response = Response(grantType, accessToken, refreshToken)
-        this.userTokenResponse = UserTokenResponse(true, response)
+        val tokenData = TokenData(grantType, accessToken, refreshToken)
+        this.userTokenResponse = UserTokenResponse(true, tokenData)
     }
 
     fun getAccessToken() : String {
-        return (this.userTokenResponse!!.response!!.grantType + " " + this.userTokenResponse!!.response!!.accessToken)
+        return (this.userTokenResponse!!.tokenData!!.grantType + " " + this.userTokenResponse!!.tokenData!!.accessToken)
     }
 
     fun getRefreshToken() : String {
-        return (this.userTokenResponse!!.response!!.grantType + " " + this.userTokenResponse!!.response!!.refreshToken)
+        return (this.userTokenResponse!!.tokenData!!.grantType + " " + this.userTokenResponse!!.tokenData!!.refreshToken)
     }
 
 }

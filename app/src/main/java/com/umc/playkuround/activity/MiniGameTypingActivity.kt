@@ -2,7 +2,6 @@ package com.umc.playkuround.activity
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +10,7 @@ import com.umc.playkuround.databinding.ActivityMinigameTypingBinding
 import com.umc.playkuround.dialog.CountdownDialog
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
-import com.umc.playkuround.service.TextRainView
+import com.umc.playkuround.custom_view.TextRainView
 
 
 class MiniGameTypingActivity : AppCompatActivity() {

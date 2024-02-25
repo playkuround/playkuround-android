@@ -1,4 +1,4 @@
-package com.umc.playkuround.service
+package com.umc.playkuround.util
 
 import android.Manifest
 import android.content.Context
@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Looper
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 

@@ -2,7 +2,6 @@ package com.umc.playkuround.activity
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
-import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -12,21 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.setMargins
-import com.umc.playkuround.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
-import com.umc.playkuround.data.Location
-import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityAttendanceBinding
-import com.umc.playkuround.dialog.LoadingDialog
-import com.umc.playkuround.service.GpsTracker
-import com.umc.playkuround.service.UserService
+import com.umc.playkuround.util.GpsTracker
 import java.text.SimpleDateFormat
 import java.util.*
 

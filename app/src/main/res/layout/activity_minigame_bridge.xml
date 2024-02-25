@@ -15,7 +15,7 @@
         app:layout_constraintHeight_max="900dp"
         android:background="@drawable/bridge_timing_bg">
         
-        <com.umc.playkuround.service.BridgeDuckView
+        <com.umc.playkuround.custom_view.BridgeDuckView
             android:id="@+id/bridge_duck_view"
             android:layout_width="match_parent"
             android:layout_height="84dp"

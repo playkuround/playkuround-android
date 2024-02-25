@@ -1,4 +1,4 @@
-package com.umc.playkuround.service
+package com.umc.playkuround.custom_view
 
 import android.content.Context
 import android.graphics.Canvas
@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat
 import com.umc.playkuround.R
 import java.util.Timer
 import java.util.TimerTask
-import kotlin.concurrent.timer
 import kotlin.random.Random
 
 class TextRainView(context : Context, attrs : AttributeSet) : View(context, attrs) {

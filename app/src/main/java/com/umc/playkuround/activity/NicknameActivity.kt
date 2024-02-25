@@ -8,19 +8,14 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.Fragment
-import com.umc.playkuround.PlayKuApplication.Companion.pref
-import com.umc.playkuround.PlayKuApplication.Companion.user
-import com.umc.playkuround.R
-import com.umc.playkuround.data.DuplicateResponse
-import com.umc.playkuround.data.UserTokenResponse
+import com.umc.playkuround.util.PlayKuApplication.Companion.pref
+import com.umc.playkuround.util.PlayKuApplication.Companion.user
+import com.umc.playkuround.network.DuplicateResponse
+import com.umc.playkuround.network.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityNicknameBinding
 import com.umc.playkuround.dialog.LoadingDialog
-import com.umc.playkuround.fragment.HomeFragment
-import com.umc.playkuround.service.UserService
-import kotlin.Result.Companion.success
+import com.umc.playkuround.network.UserAPI
 
 
 class NicknameActivity : AppCompatActivity() {
@@ -38,14 +33,13 @@ class NicknameActivity : AppCompatActivity() {
         }
 
         binding.nicknameEndBtn.setOnClickListener{
-            savename()
+            saveName()
         }
 
     }
 
-
     private fun nickname() {
-        val userService = UserService()
+        val userAPI = UserAPI()
         val nickname = binding.nicknameEt.text.toString()
         val text = binding.nicknameEt.text.toString()
         val regex = "^[ㄱ-ㅣ가-힣a-zA-Z]+\$".toRegex()
@@ -65,7 +59,7 @@ class NicknameActivity : AppCompatActivity() {
             return
         }
 
-        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if(isSuccess) {
                     if(body is DuplicateResponse) {
@@ -81,40 +75,33 @@ class NicknameActivity : AppCompatActivity() {
                             binding.nicknameErOverlabTv.visibility = View.INVISIBLE
                             binding.nicknameErRuleTv.visibility = View.INVISIBLE
                         }
-
-                            Log.d("retrofit", "getResponseBody: " + body.response)
-                         }
-
+                    }
                 } else {
                     Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                 }
             }
-        }).isDuplicate(nickname)
+        }).isAvailable(nickname)
     }
 
-    private fun savename() {
+    private fun saveName() {
         val loading = LoadingDialog(this)
         loading.show()
-        val userService = UserService()
+        val userAPI = UserAPI()
         user.nickname = binding.nicknameEt.text.toString()
-        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 loading.dismiss()
                 if (isSuccess) {
                     if (body is UserTokenResponse)
                         user.userTokenResponse = body.copy()
                     user.save(pref)
-                    Log.d("isoo", "getResponseBody: ${user.userTokenResponse}")
 
                     val intent = Intent(applicationContext, MapActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
                     finish()
-
-                    Log.d("userInfo", "onCreate: $user")
                 } else {
-                    Log.d("retrofit", "getResponseBody: $err")
                     Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
                 }
             }

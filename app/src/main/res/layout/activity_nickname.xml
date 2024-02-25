@@ -99,7 +99,7 @@
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/pretendard_medium"
             android:gravity="left"
-            android:text="이미 존재하는 닉네임입니다."
+            android:text="사용할 수 없는 닉네임입니다."
             android:textAlignment="gravity"
             android:textColor="@color/red"
             android:textSize="12dp"

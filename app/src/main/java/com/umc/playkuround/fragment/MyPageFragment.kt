@@ -10,15 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.umc.playkuround.PlayKuApplication.Companion.pref
-import com.umc.playkuround.PlayKuApplication.Companion.user
+import com.umc.playkuround.util.PlayKuApplication.Companion.pref
+import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.activity.DetailAgree02Activity
 import com.umc.playkuround.activity.DetailAgree03Activity
 import com.umc.playkuround.activity.LoginActivity
-import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.FragmentMypageBinding
 import com.umc.playkuround.dialog.ConfirmDialog
-import com.umc.playkuround.service.UserService
+import com.umc.playkuround.network.UserAPI
 
 class MyPageFragment : Fragment() {
 
@@ -64,9 +63,9 @@ class MyPageFragment : Fragment() {
             confirmDialog.setOnResponseListener(object : ConfirmDialog.OnResponseListener {
                 override fun confirm() {
                     confirmDialog.dismiss()
-                    val userService = UserService()
+                    val userAPI = UserAPI()
 
-                    userService.setOnResponseListener(object : UserService.OnResponseListener() {
+                    userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
                         override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                             if(isSuccess) {
                                 pref.clearData()

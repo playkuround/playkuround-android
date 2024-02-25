@@ -1,6 +1,5 @@
-package com.umc.playkuround.service
+package com.umc.playkuround.util
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.umc.playkuround.R
 import com.umc.playkuround.data.Badge
 import com.umc.playkuround.databinding.ListItemBadgeAttendanceBinding
-import com.umc.playkuround.dialog.SlideUpDialog
 
 class AdListAdapterGrid(badgeList : ArrayList<String>): RecyclerView.Adapter<AdListAdapterGrid.ViewHolder>() {
 

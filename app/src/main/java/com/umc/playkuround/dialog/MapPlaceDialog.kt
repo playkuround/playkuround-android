@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Button
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.DialogMapPlaceBinding
+import java.text.NumberFormat
 
 class MapPlaceDialog(context : Context) : Dialog(context) {
 
@@ -42,9 +43,13 @@ class MapPlaceDialog(context : Context) : Dialog(context) {
         onSelectListener = listener
     }
 
-    fun setView(name : String, imgId : Int) {
+    fun setView(name : String, imgId : Int, nickname : String, score : Int) {
         binding.dialogMapPlaceTitleTv.text = name
         binding.dialogMapPlaceImg.setImageResource(imgId)
+        binding.dialogMapPlaceNicknameTv.text = nickname + "님"
+
+        val formatter = NumberFormat.getNumberInstance()
+        binding.dialogMapPlaceScoreTv.text = formatter.format(score) + " 점"
     }
 
 }

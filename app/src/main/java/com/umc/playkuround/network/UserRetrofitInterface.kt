@@ -1,4 +1,4 @@
-package com.umc.playkuround.service
+package com.umc.playkuround.network
 
 import com.umc.playkuround.data.*
 import retrofit2.Call
@@ -10,22 +10,23 @@ interface UserRetrofitInterface {
     fun register(@Body user : User) : Call<UserTokenResponse>
 
     @GET("/api/users/availability")
-    fun isDuplicate(@Query("nickname") nickname : String) : Call<DuplicateResponse>
-
-    @POST("/api/users/login")
-    fun login(@Header("Authorization") token : String) : Call<UserTokenResponse>
+    fun isAvailable(@Query("nickname") nickname : String) : Call<DuplicateResponse>
 
     @POST("/api/users/logout")
-    fun logout(@Header("Authorization") token : String) : Call<LogoutResponse>
+    fun logout(@Header("Authorization") token : String) : Call<CommonResponse>
 
-    @POST("/api/auth/tokens")
-    fun reissuanceToken(@Header("Authorization") token : String) : Call<RefreshTokenResponse>
+    @GET("/api/users")
+    fun getUserInfo(@Header("Authorization") token : String) : Call<UserProfileResponse>
 
-    @POST("/api/auth/emails")
-    fun sendEmail(@Body target : String) : Call<EmailResponse>
+    @GET("/api/users/notification")
+    fun getNotification(@Header("Authorization") token : String) : Call<CommonResponse>
 
-    @GET("/api/auth/emails")
-    fun certifyCode(@Query("email") email : String, @Query("code") code : String) : Call<CommonResponse>
+    @GET("/api/users/game-score")
+    fun getGameScores(@Header("Authorization") token : String) : Call<CommonResponse>
+
+
+    // -----------------------------------------------------------------------------------------------------------------
+
 
     @POST("/api/attendances")
     fun attendanceToday(@Header("Authorization") token : String, @Body location : Location) : Call<CommonResponse>
@@ -62,8 +63,5 @@ interface UserRetrofitInterface {
 
     @DELETE("/api/users")
     fun deleteUser(@Header("Authorization") token : String) : Call<CommonResponse>
-
-    @GET("/api/users")
-    fun getUserInfo(@Header("Authorization") token : String) : Call<CommonResponse>
 
 }

@@ -1,4 +1,4 @@
-package com.umc.playkuround.service
+package com.umc.playkuround.custom_view
 
 import android.content.Context
 import android.graphics.Canvas

@@ -35,6 +35,39 @@
         app:layout_constraintTop_toBottomOf="@id/dialog_map_place_title_tv"
         android:layout_marginTop="15dp"
         android:src="@drawable/landmark_1"/>
+
+    <ImageView
+        android:id="@+id/dialog_map_place_medal_iv"
+        android:layout_width="44dp"
+        android:layout_height="53dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_map_place_img"
+        app:layout_constraintEnd_toEndOf="@id/dialog_map_place_img"
+        app:layout_constraintTop_toBottomOf="@id/dialog_map_place_img"
+        android:src="@drawable/dialog_map_place_medal"/>
+
+    <TextView
+        android:id="@+id/dialog_map_place_nickname_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사용자님"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_map_place_medal_iv"
+        app:layout_constraintEnd_toEndOf="@id/dialog_map_place_medal_iv"
+        app:layout_constraintTop_toBottomOf="@id/dialog_map_place_medal_iv"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/dialog_map_place_score_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12,345 점"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_map_place_nickname_tv"
+        app:layout_constraintEnd_toEndOf="@id/dialog_map_place_nickname_tv"
+        app:layout_constraintTop_toBottomOf="@id/dialog_map_place_nickname_tv"
+        android:layout_marginTop="5dp"/>
     
     <Button
         android:id="@+id/dialog_map_place_landmark_ranking_btn"

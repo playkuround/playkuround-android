@@ -3,8 +3,6 @@ package com.umc.playkuround.activity
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +13,7 @@ import com.umc.playkuround.dialog.CountdownDialog
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.fragment.MiniGameTimerFragment
-import com.umc.playkuround.service.BridgeDuckView
+import com.umc.playkuround.custom_view.BridgeDuckView
 
 private const val TIME_LIMIT = 60
 

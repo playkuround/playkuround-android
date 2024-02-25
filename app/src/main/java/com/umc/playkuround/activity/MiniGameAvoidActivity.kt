@@ -6,7 +6,6 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.umc.playkuround.R
@@ -15,7 +14,7 @@ import com.umc.playkuround.dialog.CountdownDialog
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.fragment.MiniGameTimerFragment
-import com.umc.playkuround.service.AvoidView
+import com.umc.playkuround.custom_view.AvoidView
 
 private const val TIME_LIMIT = 60
 

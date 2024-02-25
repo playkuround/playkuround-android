@@ -10,7 +10,7 @@
 
     <!-- usesCleartextTraffic allow http communication -->
     <application
-        android:name=".PlayKuApplication"
+        android:name=".util.PlayKuApplication"
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -27,7 +27,7 @@
             android:value="AIzaSyAOb8MvvBNoDEsNIU1G_Jt1-7FgDVcp1Ik"/>
 
         <activity
-            android:name=".activity.TestGameActivity"
+            android:name=".activity.SplashActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -56,9 +56,9 @@
         <activity android:name=".activity.AttendanceActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
-<!--        <activity android:name=".activity.MapActivity"-->
-<!--            android:resizeableActivity="false"-->
-<!--            android:screenOrientation="portrait"/>-->
+        <activity android:name=".activity.MapActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.MiniGameMoonActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
@@ -87,6 +87,9 @@
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.RankingActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.LandmarkRankingActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.MiniGameTypingActivity"

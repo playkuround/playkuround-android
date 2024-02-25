@@ -1,4 +1,4 @@
-package com.umc.playkuround.service
+package com.umc.playkuround.util
 
 import android.util.Log
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.umc.playkuround.service
+package com.umc.playkuround.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

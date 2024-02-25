@@ -14,7 +14,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.umc.playkuround.PlayKuApplication.Companion.user
+import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.data.LandMark
 import com.umc.playkuround.data.Quiz
@@ -22,7 +22,7 @@ import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityMinigameQuizBinding
 import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.PauseDialog
-import com.umc.playkuround.service.UserService
+import com.umc.playkuround.network.UserAPI
 
 class MiniGameQuizActivity : AppCompatActivity() {
 
@@ -175,13 +175,13 @@ class MiniGameQuizActivity : AppCompatActivity() {
         val loading = LoadingDialog(this)
         loading.show()
 
-        val userService = UserService()
-        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+        val userAPI = UserAPI()
+        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if (isSuccess) {
-                    val userService2 = UserService()
+                    val userAPI2 = UserAPI()
 
-                    userService2.setOnResponseListener(object : UserService.OnResponseListener() {
+                    userAPI2.setOnResponseListener(object : UserAPI.OnResponseListener() {
                         override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                             if(isSuccess) {
                                 loading.dismiss()

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,21 +18,20 @@ import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityRankingBinding
 import com.umc.playkuround.databinding.ItemRankBinding
 import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.network.RankItem
+import com.umc.playkuround.network.ScoreAPI
+import com.umc.playkuround.network.Top100Response
+import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import java.text.NumberFormat
 
 class RankingActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityRankingBinding
-    private val rankInfo = ArrayList<RankInfo>()
+    private val rankInfo = ArrayList<RankItem>()
     private var myRank = -1
     private var myScore = 0
 
-    data class RankInfo(
-        val nickname : String,
-        val score : Int
-    )
-
-    inner class RankingRVAdapter(private val rank : ArrayList<RankInfo>) : RecyclerView.Adapter<RankingRVAdapter.ViewHolder>() {
+    inner class RankingRVAdapter(private val rank : ArrayList<RankItem>) : RecyclerView.Adapter<RankingRVAdapter.ViewHolder>() {
 
         inner class ViewHolder(val binding : ItemRankBinding) : RecyclerView.ViewHolder(binding.root) {
             @SuppressLint("SetTextI18n")
@@ -94,24 +94,31 @@ class RankingActivity : AppCompatActivity() {
     }
 
     private fun getRankData() {
-        for(i in 1..7) {
-            rankInfo.add(RankInfo("덕쿠$i", 10100 - i*100))
-        }
-
         val loadingDialog = LoadingDialog(this)
         loadingDialog.show()
-        Handler(Looper.getMainLooper()).postDelayed({
-            loadingDialog.dismiss()
-
-            if(rankInfo.isEmpty()) {
-                showNoData()
-            } else {
-                initView()
-                showTopPlayersInfo()
-                showMyInfo()
-                showRanks()
+        val scoreAPI = ScoreAPI()
+        scoreAPI.setOnResponseListener(object : ScoreAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
+                loadingDialog.dismiss()
+                if(isSuccess) {
+                    if(body is Top100Response) {
+                        if(body.responseData.rank.isEmpty()) {
+                            showNoData()
+                        } else {
+                            rankInfo.addAll(body.responseData.rank)
+                            myRank = body.responseData.myRank.ranking
+                            myScore = body.responseData.myRank.score
+                            initView()
+                            showTopPlayersInfo()
+                            showMyInfo()
+                            showRanks()
+                        }
+                    }
+                } else {
+                    Toast.makeText(applicationContext, errorLog, Toast.LENGTH_SHORT).show()
+                }
             }
-        }, 5000)
+        }).getTop100(user.getAccessToken())
     }
 
     private fun showNoData() {

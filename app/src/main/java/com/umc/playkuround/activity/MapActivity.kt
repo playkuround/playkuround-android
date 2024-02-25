@@ -1,7 +1,6 @@
 package com.umc.playkuround.activity
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -10,11 +9,6 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -26,17 +20,15 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
-import com.umc.playkuround.PlayKuApplication.Companion.user
+import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.data.LandMark
 import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityMapBinding
 import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.MapPlaceDialog
-import com.umc.playkuround.dialog.SmallSlideUpDialog
-import com.umc.playkuround.service.AvoidView
-import com.umc.playkuround.service.GpsTracker
-import com.umc.playkuround.service.UserService
+import com.umc.playkuround.util.GpsTracker
+import com.umc.playkuround.network.UserAPI
 import java.util.*
 
 
@@ -230,15 +222,15 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         val loading = LoadingDialog(this)
         loading.show()
 
-        val userService = UserService()
-        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+        val userAPI = UserAPI()
+        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if (isSuccess) {
                     Toast.makeText(applicationContext, landmark.name + "에 출석했습니다!", Toast.LENGTH_SHORT).show()
 
-                    val userService2 = UserService()
+                    val userAPI2 = UserAPI()
 
-                    userService2.setOnResponseListener(object : UserService.OnResponseListener() {
+                    userAPI2.setOnResponseListener(object : UserAPI.OnResponseListener() {
                         override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                             if(isSuccess) {
                                 loading.dismiss()
@@ -412,7 +404,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
         val mapPlaceDialog = MapPlaceDialog(this)
         mapPlaceDialog.show()
-        mapPlaceDialog.setView(landmark.name, landmark.getImageDrawable())
+        mapPlaceDialog.setView(landmark.name, landmark.getImageDrawable(), "사용자", 23452)
     }
 
 }

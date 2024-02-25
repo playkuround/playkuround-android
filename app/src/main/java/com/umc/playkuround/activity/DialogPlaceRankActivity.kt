@@ -1,23 +1,14 @@
 package com.umc.playkuround.activity
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.umc.playkuround.PlayKuApplication
-import com.umc.playkuround.PlayKuApplication.Companion.user
-import com.umc.playkuround.R
+import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.data.LandMark
 import com.umc.playkuround.databinding.DialogPlaceRankBinding
 import com.umc.playkuround.dialog.LoadingDialog
-import com.umc.playkuround.service.UserService
+import com.umc.playkuround.network.UserAPI
 
 class DialogPlaceRankActivity : AppCompatActivity() {
 
@@ -41,8 +32,8 @@ class DialogPlaceRankActivity : AppCompatActivity() {
 
         val landmark = intent.getSerializableExtra("landmark") as LandMark
 
-        val userService = UserService()
-        userService.setOnResponseListener(object : UserService.OnResponseListener() {
+        val userAPI = UserAPI()
+        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
             override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
                 if(isSuccess) {
                     val list = body as ArrayList<HashMap<String, String>>

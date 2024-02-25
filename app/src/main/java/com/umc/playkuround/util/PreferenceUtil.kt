@@ -1,4 +1,4 @@
-package com.umc.playkuround.service
+package com.umc.playkuround.util
 
 import android.content.Context
 import android.content.SharedPreferences
