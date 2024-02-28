@@ -11,30 +11,34 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.umc.playkuround.R
+import com.umc.playkuround.data.Badge
 import com.umc.playkuround.databinding.ActivityAttendanceBinding
-import com.umc.playkuround.util.GpsTracker
+import com.umc.playkuround.dialog.BadgeInfoDialog
+import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.network.AttendanceAPI
+import com.umc.playkuround.network.AttendanceResponse
+import com.umc.playkuround.network.GetBadgeResponse
+import com.umc.playkuround.network.UserLocation
+import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AttendanceActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityAttendanceBinding
-    private val attendanceActivity = this
 
     private var width = 0 // attendance container width
 
     private lateinit var today : String
     private lateinit var todayTv : TextView
-    private var attendanceDates : ArrayList<String>? = null
-
-    private var nowLocation : android.location.Location? = null
-
-    private lateinit var gpsTracker : GpsTracker
+    private var attendanceDates = ArrayList<String>()
+    private lateinit var userLocation : UserLocation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,81 +59,62 @@ class AttendanceActivity : AppCompatActivity() {
             this.finish()
         }
 
-//        val loading = LoadingDialog(this)
-//        loading.show()
-//        gpsTracker = GpsTracker(applicationContext, object : GpsTracker.OnLocationUpdateListener {
-//            override fun onLocationUpdated(location: android.location.Location) {
-//                nowLocation = location
-//                if(loading.isShowing)
-//                    loading.dismiss()
-//            }})
-//        gpsTracker.startLocationUpdates()
+        userLocation = UserLocation(intent.getDoubleExtra("latitude", 0.0),
+            intent.getDoubleExtra("longitude", 0.0))
+        //userLocation = UserLocation(37.540796, 127.076495)
     }
 
     private fun getAttendanceDates() {
-        attendanceDates = ArrayList()
-        attendanceDates!!.add("2023-12-23")
-        attendanceDates!!.add("2023-12-24")
-        attendanceDates!!.add("2023-12-29")
-        attendanceDates!!.add("2024-01-03")
-//        val loading = LoadingDialog(this)
-//        loading.show()
-//
-//        val userService = UserService()
-//        userService.setOnResponseListener(object : UserService.OnResponseListener() {
-//            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-//                if(isSuccess) {
-//                    if(body is ArrayList<*>) {
-//                        attendanceDates = body as ArrayList<String>
-//                        initDates()
-//                        loading.dismiss()
-//                    }
-//                } else {
-//                    loading.dismiss()
-//                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }).getAttendanceDates(user.getAccessToken())
+        val loading = LoadingDialog(this)
+        loading.show()
+
+        val attendanceAPI = AttendanceAPI()
+        attendanceAPI.setOnResponseListener(object : AttendanceAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
+                if(isSuccess) {
+                    if(body is AttendanceResponse) {
+                        attendanceDates.addAll(body.response.attendances)
+                        initDates()
+                        loading.dismiss()
+                    }
+                } else {
+                    loading.dismiss()
+                    Toast.makeText(applicationContext, errorLog, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }).getAttendanceData(user.getAccessToken())
     }
 
     private fun attendanceToday() {
-        todayTv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
-        todayTv.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#86B6CE"))
-        binding.attendanceBtn.isEnabled = false
-        binding.attendanceBtn.text = "출석완료!"
-        binding.attendanceBtn.setTextColor(ActivityCompat.getColor(this, R.color.text_color))
-        attendanceDates!!.add(attendanceActivity.today)
-//        val loading = LoadingDialog(this)
-//        loading.show()
-//
-//        gpsTracker.requestLastLocation()
-//
-//        val userService = UserService()
-//        userService.setOnResponseListener(object : UserService.OnResponseListener() {
-//            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-//                if(isSuccess) {
-//                    val userService2 = UserService()
-//
-//                    userService2.setOnResponseListener(object : UserService.OnResponseListener() {
-//                        override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-//                            if(isSuccess) {
-//                                todayTv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
-//                                binding.attendanceBtn.isEnabled = false
-//                                binding.attendanceBtn.text = "오늘 출석 완료!"
-//                                attendanceDates!!.add(attendanceActivity.today)
-//
-//                                loading.dismiss()
-//                            } else {
-//                                Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-//                            }
-//                        }
-//                    }).updateUserScore(user.getAccessToken(), Ranking.scoreType.ATTENDANCE)
-//                } else {
-//                    loading.dismiss()
-//                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }).attendanceToday(user.getAccessToken(), Location(nowLocation!!.latitude, nowLocation!!.longitude))
+        val loading = LoadingDialog(this)
+        loading.show()
+
+        val attendanceAPI = AttendanceAPI()
+        attendanceAPI.setOnResponseListener(object : AttendanceAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    todayTv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
+                    todayTv.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#86B6CE"))
+                    binding.attendanceBtn.isEnabled = false
+                    binding.attendanceBtn.text = "출석완료!"
+                    binding.attendanceBtn.setTextColor(ActivityCompat.getColor(this@AttendanceActivity, R.color.text_color))
+                    attendanceDates!!.add(today)
+                    loading.dismiss()
+
+                    if(body is GetBadgeResponse) {
+                        body.response.newBadges.forEach {
+                            val badge = Badge(-1, it.name, "")
+                            val badgeInfoDialog = BadgeInfoDialog(this@AttendanceActivity, badge.id)
+                            badgeInfoDialog.setStatus(false, true)
+                            badgeInfoDialog.show()
+                        }
+                    }
+                } else {
+                    loading.dismiss()
+                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }).attendanceToday(user.getAccessToken(), userLocation)
     }
 
     private fun initDates() {

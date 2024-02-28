@@ -106,7 +106,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/go_to_konkuk_email"
             android:fontFamily="@font/pretendard_medium"
-            android:textColor="@color/green_main"
+            android:textColor="#6496B0"
             android:textSize="13dp"
             android:id="@+id/email_goto_konkuk_email_tv"
             android:background="@drawable/green_underline"

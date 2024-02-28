@@ -38,8 +38,9 @@
     <string name="latest_30">최근 30일</string>
     <string name="attendance">출석하기</string>
 
-    <string name="badge_attendance">출석뱃지</string>
-    <string name="badge_adventure">탐험뱃지</string>
+    <string name="badge">배지</string>
+    <string name="badge_attendance">출석 배지</string>
+    <string name="badge_adventure">탐험 배지</string>
 
     <string name="mypage_setting">설정</string>
     <string name="mypage_service">이용 안내</string>

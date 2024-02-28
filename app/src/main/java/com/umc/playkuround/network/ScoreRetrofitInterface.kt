@@ -13,7 +13,7 @@ interface ScoreRetrofitInterface {
     @GET("/api/scores/rank")
     fun getTop100(@Header("Authorization") token : String) : Call<Top100Response>
 
-    @GET("/api/scores/rank/")
+    @GET("/api/scores/rank/{landmarkId}")
     fun getLandmarkTop100(@Header("Authorization") token : String, @Path("landmarkId") landmarkId : Int) : Call<Top100Response>
 
 }

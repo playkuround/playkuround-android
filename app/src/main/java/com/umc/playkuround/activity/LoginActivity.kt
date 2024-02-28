@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             } else {
                 val authAPI = AuthAPI()
-                val reissueTokens = ReissueTokens(user.getAccessToken(), user.getRefreshToken())
+                val reissueTokens = ReissueTokens(user.userTokenResponse?.tokenData!!.accessToken, user.userTokenResponse?.tokenData!!.refreshToken)
                 authAPI.setOnResponseListener(object : AuthAPI.OnResponseListener() {
                     override fun <T> getResponseBody(
                         body: T,

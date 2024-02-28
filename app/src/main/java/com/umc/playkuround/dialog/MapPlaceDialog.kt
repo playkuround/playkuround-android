@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.DialogMapPlaceBinding
@@ -25,7 +26,6 @@ class MapPlaceDialog(context : Context) : Dialog(context) {
         super.onCreate(savedInstanceState)
         binding = DialogMapPlaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setCancelable(false)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window!!.setDimAmount(0.6f)
 
@@ -43,9 +43,17 @@ class MapPlaceDialog(context : Context) : Dialog(context) {
         onSelectListener = listener
     }
 
-    fun setView(name : String, imgId : Int, nickname : String, score : Int) {
+    fun setView(name : String, imgId : Int, nickname : String?, score : Int) {
         binding.dialogMapPlaceTitleTv.text = name
         binding.dialogMapPlaceImg.setImageResource(imgId)
+
+        if(nickname == null) {
+            binding.dialogMapPlaceMedalIv.visibility = View.INVISIBLE
+            binding.dialogMapPlaceNicknameTv.visibility = View.INVISIBLE
+            binding.dialogMapPlaceScoreTv.visibility = View.INVISIBLE
+            return
+        }
+
         binding.dialogMapPlaceNicknameTv.text = nickname + "님"
 
         val formatter = NumberFormat.getNumberInstance()

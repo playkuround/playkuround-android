@@ -18,6 +18,6 @@ data class MyRank(
 )
 
 data class RankItem(
-    @SerializedName("nickname") val nickname: String,
+    @SerializedName("nickname") val nickname: String?,
     @SerializedName("score") val score: Int
 )

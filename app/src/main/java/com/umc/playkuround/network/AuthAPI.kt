@@ -62,15 +62,8 @@ class AuthAPI {
                         onResponseListener.getResponseBody(resp, true, "")
                     }
                     else -> {
-                        Log.d("isoo", "onResponse: ${response.errorBody()?.string()}")
-                        onResponseListener.getResponseBody(null, false, "코드가 일치하지 않습니다.")
-//                        try {
-//                            val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
-//                            onResponseListener.getResponseBody(null, false, err)
-//                        } catch (e : Exception) {
-//                            e.printStackTrace()
-//                            onResponseListener.getResponseBody(null, false, "fail!")
-//                        }
+                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
                     }
                 }
             }
@@ -87,14 +80,16 @@ class AuthAPI {
         val authRetrofit = getRetrofit().create(AuthRetrofitInterface::class.java)
         Log.d("isoo", "reissue: $token")
 
-        authRetrofit.reissue(token).enqueue(object : Callback<TokenData> {
+        authRetrofit.reissue(token).enqueue(object : Callback<UserTokenResponse> {
             override fun onResponse(
-                call: Call<TokenData>,
-                response: Response<TokenData>
+                call: Call<UserTokenResponse>,
+                response: Response<UserTokenResponse>
             ) {
                 when(response.code()) {
                     200 -> { // success
-                        val resp : TokenData = response.body()!!
+                        Log.d("isoo", "onResponse1: ${response.body()}")
+                        val resp : TokenData = response.body()!!.tokenData!!
+                        Log.d("isoo", "onResponse2: $resp")
                         if(user.userTokenResponse == null)
                             user.userTokenResponse = UserTokenResponse(true, resp.copy())
                         else
@@ -108,7 +103,7 @@ class AuthAPI {
                 }
             }
 
-            override fun onFailure(call: Call<TokenData>, t: Throwable) {
+            override fun onFailure(call: Call<UserTokenResponse>, t: Throwable) {
                 Log.e("api err", "onResponse: fail certifyCode $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")

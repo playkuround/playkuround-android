@@ -20,16 +20,16 @@ class ListAdapterGrid(badgeList : ArrayList<String>): RecyclerView.Adapter<ListA
             when(pos) {
                 0 -> {
                     if(badgeList.contains(Badge.ATTENDANCE_1))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_attendance_1)
+                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_attendance_10)
                 }
-                1 -> {
-                    if(badgeList.contains(Badge.ATTENDANCE_3))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_attendance_3)
-                }
-                2 -> {
-                    if(badgeList.contains(Badge.ATTENDANCE_7))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_attendance_7)
-                }
+//                1 -> {
+//                    if(badgeList.contains(Badge.ATTENDANCE_5))
+//                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_attendance_3)
+//                }
+//                2 -> {
+//                    if(badgeList.contains(Badge.ATTENDANCE_10))
+//                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_attendance_7)
+//                }
                 3 -> {
                     if(badgeList.contains(Badge.ATTENDANCE_30))
                         binding.listItemBadgeLoked.setImageResource(R.drawable.badge_attendance_30)

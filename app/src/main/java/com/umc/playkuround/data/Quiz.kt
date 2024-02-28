@@ -1,5 +1,7 @@
 package com.umc.playkuround.data
 
+import java.util.*
+
 data class Quiz (
     val landmarkId : Int,
     var question : String,
@@ -20,7 +22,7 @@ data class Quiz (
             }
 
             2 -> {
-                question = "다음 중 입학처 2023 학년도 수시 학생부종합전형 모집요강에 해당하지 않는 것은?"
+                question = "다음 중 입학처 2024 학년도 수시 학생부종합전형 모집요강에 해당하지 않는 것은?"
                 options = ArrayList()
                 options.add(0, "KU 자기 추천")
                 options.add(1, "특성화 고졸 재직자")
@@ -73,7 +75,6 @@ data class Quiz (
 
             }
 
-
             7 -> {
                 question = "의생명과학연구관은 최대 지하 층수는?"
                 options = ArrayList()
@@ -91,7 +92,7 @@ data class Quiz (
                 options.add(0, "산업디자인")
                 options.add(1, "의상디자인")
                 options.add(2, "영상영화")
-                options.add(3, "시각디자인")// 정답
+                options.add(3, "디지털디자인")// 정답
                 answer = 3
 
             }
@@ -125,7 +126,7 @@ data class Quiz (
                 options.add(1, "도깨비")
                 options.add(2, "치즈인더트랩") // 정답
                 options.add(3, "더킹:영원의 군주")
-                answer = 2
+                answer = 1
 
             }
 
@@ -199,7 +200,7 @@ data class Quiz (
                 question = "부동산학관에 대한 내용 중 틀린 것은?"
                 options = ArrayList()
                 options.add(0, "부동산학관 건물은 2015년에 완공되었다.")
-                options.add(1, "기업연계형 장기현장실습(IPP) 프로그램을 운영중이다.")
+                options.add(1, "기부자의 이름으로 된 강의실이 있다.")
                 options.add(2, "건국 PRIDE Leading Group(선도학과)로 선정된 적이 있다.")
                 options.add(3, "야간석사과정과 야간박사과정이 존재한다") // 정답
                 answer = 3
@@ -266,7 +267,7 @@ data class Quiz (
                 options = ArrayList()
                 options.add(0, "물리학과")
                 options.add(1, "수학과")
-                options.add(2, "지리학과")// 정답
+                options.add(2, "화장품공학과")// 정답
                 options.add(3, "화학과")
                 answer = 2
 
@@ -381,9 +382,6 @@ data class Quiz (
                 answer = 0
 
             }
-
-
-
 
             else -> {
                 question = "잘못된 퀴즈입니다."

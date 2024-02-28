@@ -16,14 +16,6 @@ class DialogPlaceInfoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val landmark = intent.getSerializableExtra("landmark") as LandMark
-
-        binding.dialogPlaceInfoIv.setImageResource(landmark.getImageDrawable())
-        binding.dialogPlaceInfoTv.text = landmark.getDescription()
-        binding.dialogPlaceInfoTitleTv.text = landmark.name
-
-        binding.dialogPlaceInfoXIv.setOnClickListener {
-            finish()
-        }
     }
 
 }

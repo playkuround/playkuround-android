@@ -89,6 +89,9 @@
         <activity android:name=".activity.RankingActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.BadgeActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.LandmarkRankingActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>

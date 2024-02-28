@@ -117,7 +117,7 @@ class LandmarkRankingActivity : AppCompatActivity() {
         binding.landmarkRankingLandmarkNameTv.text = spannableString
 
         val spannableString2 = SpannableString(rankInfo[0].nickname + "님입니다")
-        spannableString.setSpan(colorSpan, 0, rankInfo[0].nickname.length, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(colorSpan, 0, rankInfo[0].nickname!!.length, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE)
         binding.landmarkRankingTopNicknameTv.text = spannableString2
 
         binding.landmarkRankingInfoTitleLl.visibility = View.VISIBLE

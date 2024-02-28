@@ -28,9 +28,6 @@ interface UserRetrofitInterface {
     // -----------------------------------------------------------------------------------------------------------------
 
 
-    @POST("/api/attendances")
-    fun attendanceToday(@Header("Authorization") token : String, @Body location : Location) : Call<CommonResponse>
-
     @GET("/api/attendances")
     fun getAttendanceDates(@Header("Authorization") token : String) : Call<CommonResponse>
 

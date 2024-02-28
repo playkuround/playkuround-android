@@ -15,51 +15,8 @@ class AdListAdapterGrid(badgeList : ArrayList<String>): RecyclerView.Adapter<AdL
     inner class ViewHolder(val binding : ListItemBadgeAttendanceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(pos : Int) {
             binding.listItemBadgeLoked.setImageResource(R.drawable.badge_locked)
-            when(pos) {
-                0 -> {
-                    if(badgeList.contains(Badge.ADVENTURE_1))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_adventure_1)
-                }
-                1 -> {
-                    if(badgeList.contains(Badge.ADVENTURE_5))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_adventure_5)
-                }
-                2 -> {
-                    if(badgeList.contains(Badge.ADVENTURE_10))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_adventure_10)
-                }
-                3 -> {
-                    if(badgeList.contains(Badge.ADVENTURE_30))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_adventure_30)
-                }
-                4 -> {
-                    if(badgeList.contains(Badge.ENGINEER))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_engineer)
-                }
-                5 -> {
-                    if(badgeList.contains(Badge.ARTIST))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_artist)
-                }
-                6 -> {
-                    if(badgeList.contains(Badge.CEO))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_ceo)
-                }
-                7 -> {
-                    if(badgeList.contains(Badge.NATIONAL_PLAYER))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_national_player)
-                }
-                8 -> {
-                    if(badgeList.contains(Badge.CONQUEROR))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_conqueror)
-                }
-                9 -> {
-                    if(badgeList.contains(Badge.NEIL_ARMSTRONG))
-                        binding.listItemBadgeLoked.setImageResource(R.drawable.badge_neil_armstrong)
-                }
             }
         }
-
-    }
 
 //    class GridAdapter(val layout: View): RecyclerView.ViewHolder(layout)
 

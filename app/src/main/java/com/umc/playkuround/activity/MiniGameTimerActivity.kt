@@ -1,21 +1,14 @@
 package com.umc.playkuround.activity
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.umc.playkuround.util.PlayKuApplication
 import com.umc.playkuround.R
-import com.umc.playkuround.data.LandMark
-import com.umc.playkuround.data.Ranking
 import com.umc.playkuround.databinding.ActivityMinigameTimerBinding
-import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.PauseDialog
-import com.umc.playkuround.network.UserAPI
 import java.util.*
 import kotlin.concurrent.timer
 
@@ -164,39 +157,6 @@ class MiniGameTimerActivity : AppCompatActivity() {
             binding.timerResultTv.text = "실패하셨습니다. 다시 시도해보세요!"
             binding.timerResultTv.setTextColor(ActivityCompat.getColor(this, R.color.red))
         }
-    }
-
-    private fun saveAdventureLog() {
-        val landmark = intent.getSerializableExtra("landmark") as LandMark
-
-        val loading = LoadingDialog(this)
-        loading.show()
-
-        val userAPI = UserAPI()
-        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
-            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                if (isSuccess) {
-                    val userAPI2 = UserAPI()
-
-                    userAPI2.setOnResponseListener(object : UserAPI.OnResponseListener() {
-                        override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                            if(isSuccess) {
-                                loading.dismiss()
-                                val intent = Intent(applicationContext, DialogPlaceInfoActivity::class.java)
-                                intent.putExtra("landmark", landmark)
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }).updateUserScore(PlayKuApplication.user.getAccessToken(), Ranking.scoreType.ADVENTURE)
-                } else {
-                    loading.dismiss()
-                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }).saveAdventureLog(PlayKuApplication.user.getAccessToken(), landmark)
     }
 
 }

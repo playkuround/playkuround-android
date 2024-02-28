@@ -120,7 +120,7 @@
             app:layout_constraintStart_toStartOf="@id/landmark_ranking_background_iv"
             app:layout_constraintEnd_toEndOf="@id/landmark_ranking_background_iv"
             app:layout_constraintTop_toBottomOf="@id/landmark_ranking_landmark_name_tv"
-            android:text="제일 많이 방문한 사람은"
+            android:text="제일 많이 정복한 사람은"
             android:layout_marginTop="8dp"/>
 
         <TextView

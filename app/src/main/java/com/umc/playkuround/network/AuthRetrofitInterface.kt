@@ -15,6 +15,6 @@ interface AuthRetrofitInterface {
     fun certifyCode(@Query("email") email : String, @Query("code") code : String) : Call<CertifyCodeResponse>
 
     @POST("/api/auth/reissue")
-    fun reissue(@Body token : ReissueTokens) : Call<TokenData>
+    fun reissue(@Body token : ReissueTokens) : Call<UserTokenResponse>
 
 }
