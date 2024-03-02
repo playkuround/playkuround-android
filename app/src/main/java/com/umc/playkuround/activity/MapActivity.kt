@@ -118,7 +118,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         }
 
         binding.mapMyBtn.setOnClickListener {
-            // my page activity
+            val intent = Intent(applicationContext, MyPageActivity::class.java)
+            startActivity(intent)
         }
     }
 

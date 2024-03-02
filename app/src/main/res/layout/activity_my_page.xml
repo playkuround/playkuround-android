@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#E5F5FF">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_max="450dp"
+        app:layout_constraintHeight_max="900dp">
+
+        <TextView
+            android:id="@+id/my_page_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
+            android:text="@string/mypage"
+            android:textSize="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="40dp"/>
+
+        <ImageButton
+            android:id="@+id/my_page_back_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/img_back"
+            android:backgroundTint="@color/transparent"
+            android:background="?attr/selectableItemBackground"
+            app:tint="@color/text_color"
+            android:scaleType="fitCenter"
+            app:layout_constraintTop_toTopOf="@id/my_page_title_tv"
+            app:layout_constraintBottom_toBottomOf="@id/my_page_title_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="18dp"/>
+
+        <TextView
+            android:id="@+id/my_page_nickname_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
+            android:textSize="22dp"
+            android:text="사용자님"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_page_title_tv"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="25dp"/>
+
+        <TextView
+            android:id="@+id/my_page_major_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
+            android:textSize="15dp"
+            android:text="컴퓨터공학부"
+            app:layout_constraintStart_toStartOf="@id/my_page_nickname_tv"
+            app:layout_constraintTop_toBottomOf="@id/my_page_nickname_tv"
+            android:layout_marginTop="12dp"/>
+
+        <ImageView
+            android:id="@+id/my_page_now_bg"
+            android:layout_width="0dp"
+            android:layout_height="57dp"
+            android:src="@drawable/my_page_now_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_page_major_tv"
+            android:scaleType="fitXY"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="24dp"/>
+
+        <ImageView
+            android:id="@+id/my_page_highest_bg"
+            android:layout_width="0dp"
+            android:layout_height="57dp"
+            android:src="@drawable/my_page_highest_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_page_now_bg"
+            android:scaleType="fitXY"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/my_page_now_score_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="15dp"
+            android:text="현재 점수"
+            app:layout_constraintStart_toStartOf="@id/my_page_now_bg"
+            app:layout_constraintEnd_toStartOf="@id/my_page_now_score_tv"
+            app:layout_constraintTop_toTopOf="@id/my_page_now_bg"
+            app:layout_constraintBottom_toBottomOf="@id/my_page_now_bg"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:layout_marginEnd="20dp"/>
+
+        <TextView
+            android:id="@+id/my_page_highest_score_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="15dp"
+            android:text="최고 점수"
+            app:layout_constraintStart_toStartOf="@id/my_page_now_score_title_tv"
+            app:layout_constraintTop_toTopOf="@id/my_page_highest_bg"
+            app:layout_constraintBottom_toBottomOf="@id/my_page_highest_bg"/>
+
+        <TextView
+            android:id="@+id/my_page_now_score_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
+            android:textSize="20dp"
+            android:text="11,827점(123위)"
+            app:layout_constraintStart_toEndOf="@id/my_page_now_score_title_tv"
+            app:layout_constraintEnd_toEndOf="@id/my_page_now_bg"
+            app:layout_constraintTop_toTopOf="@id/my_page_now_bg"
+            app:layout_constraintBottom_toBottomOf="@id/my_page_now_bg"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/my_page_highest_score_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
+            android:textSize="20dp"
+            android:text="2,105점(3위)"
+            app:layout_constraintStart_toEndOf="@id/my_page_highest_score_title_tv"
+            app:layout_constraintTop_toTopOf="@id/my_page_highest_score_title_tv"
+            app:layout_constraintBottom_toBottomOf="@id/my_page_highest_score_title_tv"
+            android:layout_marginStart="20dp"/>
+
+        <View
+            android:id="@+id/my_page_dividing_line1"
+            android:layout_width="match_parent"
+            android:layout_height="11dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_page_highest_bg"
+            android:background="#CCE8F6"
+            android:layout_marginTop="24dp"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="@id/my_page_highest_bg"
+            app:layout_constraintEnd_toEndOf="@id/my_page_highest_bg"
+            app:layout_constraintTop_toBottomOf="@id/my_page_dividing_line1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:scrollbars="none"
+            android:fadeScrollbars="false">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/my_page_my_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/neo_dunggeunmo_regular"
+                    android:textSize="18dp"
+                    android:text="@string/mypage_my"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="25dp"/>
+
+                <TextView
+                    android:id="@+id/my_page_story_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textSize="15dp"
+                    android:textAlignment="textStart"
+                    android:text="@string/mypage_story"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_my_title_tv"
+                    android:layout_marginTop="15dp"/>
+
+                <TextView
+                    android:id="@+id/my_page_logout_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textSize="15dp"
+                    android:textAlignment="textStart"
+                    android:text="@string/mypage_logout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_story_btn"/>
+
+                <View
+                    android:id="@+id/my_page_dividing_line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_logout_btn"
+                    android:background="#CCE8F6"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/my_page_go_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/neo_dunggeunmo_regular"
+                    android:textSize="18dp"
+                    android:text="@string/mypage_go"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_dividing_line2"
+                    android:layout_marginTop="25dp"/>
+
+                <TextView
+                    android:id="@+id/my_page_instagram_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textSize="15dp"
+                    android:textAlignment="textStart"
+                    android:text="@string/mypage_instar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_go_title_tv"
+                    android:layout_marginTop="15dp"/>
+
+                <TextView
+                    android:id="@+id/my_page_ad_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textSize="15dp"
+                    android:textAlignment="textStart"
+                    android:text="@string/mypage_see_advertisement"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_instagram_btn"/>
+
+                <TextView
+                    android:id="@+id/my_page_feedback_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textSize="15dp"
+                    android:textAlignment="textStart"
+                    android:text="@string/mypage_feedback"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_ad_btn"/>
+
+                <TextView
+                    android:id="@+id/my_page_send_error_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textSize="15dp"
+                    android:textAlignment="textStart"
+                    android:text="@string/mypage_send_error"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_feedback_btn"/>
+
+                <View
+                    android:id="@+id/my_page_dividing_line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_send_error_btn"
+                    android:background="#CCE8F6"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/my_page_service_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/neo_dunggeunmo_regular"
+                    android:textSize="18dp"
+                    android:text="@string/mypage_service"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_dividing_line3"
+                    android:layout_marginTop="25dp"/>
+
+                <TextView
+                    android:id="@+id/my_page_version_title_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textSize="15dp"
+                    android:textAlignment="textStart"
+                    android:text="@string/mypage_app_version"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_service_title_tv"
+                    android:layout_marginTop="15dp"/>
+
+                <TextView
+                    android:id="@+id/my_page_version_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textSize="15dp"
+                    android:textAlignment="textStart"
+                    android:text="1.0.0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_service_title_tv"
+                    android:layout_marginTop="15dp"/>
+
+                <TextView
+                    android:id="@+id/my_page_policy_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textSize="15dp"
+                    android:textAlignment="textStart"
+                    android:text="@string/mypage_privacy"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_version_title_tv"/>
+
+                <TextView
+                    android:id="@+id/my_page_terms_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textSize="15dp"
+                    android:textAlignment="textStart"
+                    android:text="@string/mypage_terms_of_service"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_policy_btn"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="20dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

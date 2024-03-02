@@ -27,7 +27,7 @@ class BadgeInfoDialog(context : Context, private val badgeId : Int) : Dialog(con
         binding.dialogBadgeInfoTitleTv.text = badge.getTitle()
         if(isLocked) {
             binding.dialogBadgeInfoImg.setImageResource(R.drawable.badge_locked)
-            binding.dialogBadgeInfoContextTv.text = "아직 잠겨있어요."
+            binding.dialogBadgeInfoContextTv.text = badge.getCondition()
         } else {
             binding.dialogBadgeInfoImg.setImageResource(badge.getImageDrawable())
             binding.dialogBadgeInfoContextTv.text = badge.description

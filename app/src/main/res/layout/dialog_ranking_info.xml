@@ -25,4 +25,15 @@
         app:layout_constraintTop_toTopOf="@id/ranking_info_dialog_bg"
         android:layout_marginTop="50dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:text="게임 별 점수의 합계 집계 + 출석점수\n출석 점수 : 10점\n게임 점수 : 랭킹 초기화 전까지 개인 최고 점수"
+        app:layout_constraintStart_toStartOf="@id/ranking_info_dialog_bg"
+        app:layout_constraintEnd_toEndOf="@id/ranking_info_dialog_bg"
+        app:layout_constraintBottom_toBottomOf="@id/ranking_info_dialog_bg"
+        android:layout_marginBottom="55dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

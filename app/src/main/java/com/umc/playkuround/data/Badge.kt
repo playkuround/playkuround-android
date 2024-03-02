@@ -309,4 +309,55 @@ data class Badge(
         }
     }
 
+    fun getCondition() : String {
+        return when(name) {
+            ATTENDANCE_1 -> "첫 출석"
+            ATTENDANCE_5 -> "5일 연속 출석"
+            ATTENDANCE_10 -> "10일 연속 출석"
+            ATTENDANCE_30 -> "30일 연속 출석"
+            ATTENDANCE_50 -> "50일 연속 출석"
+            ATTENDANCE_100 -> "100일 연속 출석"
+            ATTENDANCE_FOUNDATION_DAY -> "개교기념일"
+            ATTENDANCE_ARBOR_DAY -> "식목일"
+            ATTENDANCE_CHILDREN_DAY -> "어린이날"
+            ATTENDANCE_WHITE_DAY -> "화이트데이"
+            ATTENDANCE_DUCK_DAY -> "오리의날"
+
+            ENGINEER -> "공과대"
+            ARTIST -> "예디대"
+            CEO -> "경영대"
+            COLLEGE_OF_LIBERAL_ARTS -> "문과대"
+            COLLEGE_OF_SCIENCES -> "이과대"
+            COLLEGE_OF_ARCHITECTURE -> "건축대"
+            COLLEGE_OF_SOCIAL_SCIENCES -> "사과대"
+            COLLEGE_OF_REAL_ESTATE -> "부동산"
+            COLLEGE_OF_INSTITUTE_TECHNOLOGY -> "융과기"
+            COLLEGE_OF_BIOLOGICAL_SCIENCES -> "생과대"
+            COLLEGE_OF_VETERINARY_MEDICINE -> "수의대"
+            COLLEGE_OF_EDUCATION -> "사범대"
+
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_10 -> "인턴"
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_30 -> "대리"
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_50 -> "과장"
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_70 -> "부장"
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_100_AND_FIRST_PLACE -> "CEO"
+
+            COLLEGE_OF_ART_AND_DESIGN_BEFORE_NOON -> "카페인 노예 덕쿠"
+            COLLEGE_OF_ART_AND_DESIGN_AFTER_NOON -> "덕쿠는 작업중"
+            COLLEGE_OF_ART_AND_DESIGN_NIGHT -> "야작하는 덕쿠"
+
+            COLLEGE_OF_ENGINEERING_A -> "공대A"
+            COLLEGE_OF_ENGINEERING_B -> "공대B"
+            COLLEGE_OF_ENGINEERING_C -> "공대C"
+
+            THE_DREAM_OF_DUCK -> "오리의꿈"
+
+            MONTHLY_RANKING_1 -> "금메달"
+            MONTHLY_RANKING_2 -> "은메달"
+            MONTHLY_RANKING_3 -> "동메달"
+
+            else -> "없는 배지"
+        }
+    }
+
 }

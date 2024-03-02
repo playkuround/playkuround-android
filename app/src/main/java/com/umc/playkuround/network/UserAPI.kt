@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.gson.internal.LinkedTreeMap
 import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.data.*
+import com.umc.playkuround.util.PlayKuApplication.Companion.pref
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
@@ -81,7 +82,8 @@ class UserAPI {
                 when(response.code()) {
                     200 -> { // success
                         user = User.getDefaultUser()
-                        onResponseListener.getResponseBody(response.body()!!, true, "")
+                        pref.clearData()
+                        onResponseListener.getResponseBody(null, true, "")
                     }
                     else -> { // failed
                         val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
@@ -113,7 +115,7 @@ class UserAPI {
                         user.nickname = resp.response.nickname
                         user.major = resp.response.major
                         user.highestScore = resp.response.highestScore
-                        onResponseListener.getResponseBody(null, true, "")
+                        onResponseListener.getResponseBody(resp, true, "")
                     }
                     else -> {
                         val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
@@ -179,6 +181,34 @@ class UserAPI {
             }
 
             override fun onFailure(call: Call<HighestScoresResponse>, t: Throwable) {
+                Log.e("api err", "onResponse: fail deleteUser $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun fakeDoor(token : String) {
+        val userAPI = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userAPI.fakeDoor(token).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                when (response.code()) {
+                    201 -> {
+                        val resp : CommonResponse = response.body()!!
+                        onResponseListener.getResponseBody(resp, true, "")
+                    }
+                    else -> {
+                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
                 Log.e("api err", "onResponse: fail deleteUser $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")

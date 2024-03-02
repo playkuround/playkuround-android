@@ -50,6 +50,9 @@
         <activity android:name=".activity.AttendanceActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MyPageActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.MapActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>

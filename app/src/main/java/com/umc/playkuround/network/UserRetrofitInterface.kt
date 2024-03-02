@@ -24,6 +24,9 @@ interface UserRetrofitInterface {
     @GET("/api/users/game-score")
     fun getGameScores(@Header("Authorization") token : String) : Call<HighestScoresResponse>
 
+    @GET("/api/fake-door")
+    fun fakeDoor(@Header("Authorization") token : String) : Call<CommonResponse>
+
 
     // -----------------------------------------------------------------------------------------------------------------
 
