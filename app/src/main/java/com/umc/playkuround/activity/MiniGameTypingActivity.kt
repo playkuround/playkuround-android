@@ -11,6 +11,9 @@ import com.umc.playkuround.dialog.CountdownDialog
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.custom_view.TextRainView
+import com.umc.playkuround.dialog.WaitingDialog
+import com.umc.playkuround.util.PlayKuApplication
+import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 
 
 class MiniGameTypingActivity : AppCompatActivity() {
@@ -60,9 +63,9 @@ class MiniGameTypingActivity : AppCompatActivity() {
         binding.typingTextBox.setOnEditorActionListener { _, i, _ ->
             if(i == EditorInfo.IME_ACTION_DONE) {
                 if(binding.typingTextRainView.deleteText(binding.typingTextBox.text.toString())) {
-                    score += if(binding.typingTextBox.text.length <= 4) 1
-                    else if(binding.typingTextBox.text.length <= 8) 2
-                    else 3
+                    score += if(binding.typingTextBox.text.length <= 4) 2
+                    else if(binding.typingTextBox.text.length <= 8) 4
+                    else 6
 
                     binding.typingScoreTv.text = score.toString()
                 }
@@ -85,12 +88,19 @@ class MiniGameTypingActivity : AppCompatActivity() {
     }
 
     private fun showGameOverDialog() {
-        val gameOverDialog = GameOverDialog(this@MiniGameTypingActivity)
-        gameOverDialog.setOnDismissListener {
-            this@MiniGameTypingActivity.finish()
-        }
-        gameOverDialog.setInfo(resources.getString(R.string.typing_game), score * 20, 0, 0)
-        gameOverDialog.show()
+        val waitingDialog = WaitingDialog(this)
+        waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
+            override fun onFinish() {
+                waitingDialog.dismiss()
+                val gameOverDialog = GameOverDialog(this@MiniGameTypingActivity)
+                gameOverDialog.setOnDismissListener {
+                    this@MiniGameTypingActivity.finish()
+                }
+                gameOverDialog.setInfo(resources.getString(R.string.typing_game), score, 0, userTotalScore + score)
+                gameOverDialog.show()
+            }
+        })
+        waitingDialog.show()
     }
 
 }

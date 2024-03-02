@@ -271,12 +271,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/quiz_timer_tv"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="@string/quiz_again_text"
             android:textColor="@color/red"
             android:fontFamily="@font/pretendard_medium"
             android:textSize="15dp"
             android:id="@+id/quiz_try_again_tv"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/quiz_option4_cl"
+            android:layout_marginTop="40dp"
+            android:text="정답입니다!"
+            android:textColor="@color/green_main"
+            android:fontFamily="@font/pretendard_medium"
+            android:textSize="15dp"
+            android:id="@+id/quiz_correct_tv"
             android:visibility="invisible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

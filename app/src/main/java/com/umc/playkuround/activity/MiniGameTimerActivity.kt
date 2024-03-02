@@ -8,7 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityMinigameTimerBinding
+import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
+import com.umc.playkuround.dialog.WaitingDialog
+import com.umc.playkuround.util.PlayKuApplication
+import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 import java.util.*
 import kotlin.concurrent.timer
 
@@ -142,7 +146,6 @@ class MiniGameTimerActivity : AppCompatActivity() {
     // 결과 나오는 창
     private fun openResultDialog(result : Boolean) {
         if(result) {
-            //saveAdventureLog()
             binding.timerSec.setTextColor(ActivityCompat.getColor(this, R.color.green_stroke))
             binding.timerMilli.setTextColor(ActivityCompat.getColor(this, R.color.green_stroke))
             binding.timerResultTv.visibility = View.VISIBLE
@@ -150,6 +153,8 @@ class MiniGameTimerActivity : AppCompatActivity() {
             binding.timerSuccessIv.visibility = View.VISIBLE
             binding.timerResultTv.text = "성공하셨습니다. 축하합니다!"
             binding.timerResultTv.setTextColor(ActivityCompat.getColor(this, R.color.green_stroke))
+
+            showGameOverDialog()
         } else {
             binding.timerSec.setTextColor(ActivityCompat.getColor(this, R.color.red))
             binding.timerMilli.setTextColor(ActivityCompat.getColor(this, R.color.red))
@@ -157,6 +162,25 @@ class MiniGameTimerActivity : AppCompatActivity() {
             binding.timerResultTv.text = "실패하셨습니다. 다시 시도해보세요!"
             binding.timerResultTv.setTextColor(ActivityCompat.getColor(this, R.color.red))
         }
+    }
+
+    private fun showGameOverDialog() {
+        val waitingDialog = WaitingDialog(this)
+        waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
+            override fun onFinish() {
+                waitingDialog.dismiss()
+                val gameOverDialog = GameOverDialog(this@MiniGameTimerActivity)
+                gameOverDialog.setOnDismissListener {
+                    this@MiniGameTimerActivity.finish()
+                }
+
+                val score = if(time == 1000) 500
+                else 50
+                gameOverDialog.setInfo(resources.getString(R.string.ku_timer), score, 0, userTotalScore + score)
+                gameOverDialog.show()
+            }
+        })
+        waitingDialog.show()
     }
 
 }

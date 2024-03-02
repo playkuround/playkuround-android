@@ -2,6 +2,7 @@ package com.umc.playkuround.activity
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.WallpaperInfo
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -14,14 +15,21 @@ import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.fragment.MiniGameTimerFragment
 import com.umc.playkuround.custom_view.BridgeDuckView
+import com.umc.playkuround.dialog.WaitingDialog
+import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
+import java.util.Timer
+import java.util.TimerTask
+import kotlin.random.Random
 
-private const val TIME_LIMIT = 60
+private const val TIME_LIMIT = 30
 
 class MiniGameBridgeActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMinigameBridgeBinding
     private lateinit var timerFragment : MiniGameTimerFragment
     private var score = 0
+
+    private var duckThread = Timer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +42,11 @@ class MiniGameBridgeActivity : AppCompatActivity() {
         timerFragment.setOnTimeProgressListener(object : MiniGameTimerFragment.OnTimeProgressListener {
             override fun timeUp() {
                 binding.bridgeDuckView.pause()
+                duckThread.cancel()
                 showGameOverDialog()
             }
 
-            override fun timeProgress(leftTime: Int) {
-                if(leftTime > 1)
-                    binding.bridgeDuckView.addDuck()
-            }
+            override fun timeProgress(leftTime: Int) {}
         })
 
         binding.bridgeDuckView.setOnBadListener(object : BridgeDuckView.OnBadListener {
@@ -76,11 +82,13 @@ class MiniGameBridgeActivity : AppCompatActivity() {
         binding.bridgePauseBtn.setOnClickListener {
             timerFragment.pause()
             binding.bridgeDuckView.pause()
+            duckThread.cancel()
             val pauseDialog = PauseDialog(this)
             pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
                 override fun resume() {
                     timerFragment.start()
                     binding.bridgeDuckView.start()
+                    startDuckThread()
                 }
                 override fun home() {
                     finish()
@@ -94,9 +102,26 @@ class MiniGameBridgeActivity : AppCompatActivity() {
             override fun onFinish() {
                 timerFragment.start()
                 binding.bridgeDuckView.start()
+                startDuckThread()
             }
         })
         countdownDialog.show()
+    }
+
+    private fun startDuckThread() {
+        var duck = 0
+        duckThread.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                val rand = Random.nextDouble()
+                if(duck < 4 && rand > 0.35) {
+                    duck++
+                    binding.bridgeDuckView.addDuck()
+                } else if(rand > 0.65) {
+                    duck--
+                    binding.bridgeDuckView.addDuck()
+                }
+            }
+        },0,500)
     }
 
     private fun showResultView() {
@@ -122,13 +147,20 @@ class MiniGameBridgeActivity : AppCompatActivity() {
     }
 
     private fun showGameOverDialog() {
-        val gameOverDialog = GameOverDialog(this@MiniGameBridgeActivity)
-        gameOverDialog.setOnDismissListener {
-            this@MiniGameBridgeActivity.finish()
-        }
+        val waitingDialog = WaitingDialog(this)
+        waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
+            override fun onFinish() {
+                waitingDialog.dismiss()
+                val gameOverDialog = GameOverDialog(this@MiniGameBridgeActivity)
+                gameOverDialog.setOnDismissListener {
+                    this@MiniGameBridgeActivity.finish()
+                }
 
-        gameOverDialog.setInfo(resources.getString(R.string.bridge_timing),  score * 10, 0, 0)
-        gameOverDialog.show()
+                gameOverDialog.setInfo(resources.getString(R.string.bridge_timing),  score, 0, userTotalScore + score)
+                gameOverDialog.show()
+            }
+        })
+        waitingDialog.show()
     }
 
 }

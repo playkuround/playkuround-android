@@ -12,7 +12,10 @@ import com.umc.playkuround.databinding.ActivityMinigameCardFlippingBinding
 import com.umc.playkuround.dialog.CountdownDialog
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
+import com.umc.playkuround.dialog.WaitingDialog
 import com.umc.playkuround.fragment.MiniGameTimerFragment
+import com.umc.playkuround.util.PlayKuApplication
+import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 
 private const val FLIPPING_DELAY = 150L
 private const val SHOWING_TIME = 700L
@@ -314,21 +317,28 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
     }
 
     private fun showGameOverDialog() {
-        val gameOverDialog = GameOverDialog(this@MiniGameCardFlippingActivity)
-        gameOverDialog.setOnDismissListener {
-            this@MiniGameCardFlippingActivity.finish()
-        }
+        val waitingDialog = WaitingDialog(this)
+        waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
+            override fun onFinish() {
+                waitingDialog.dismiss()
+                val gameOverDialog = GameOverDialog(this@MiniGameCardFlippingActivity)
+                gameOverDialog.setOnDismissListener {
+                    this@MiniGameCardFlippingActivity.finish()
+                }
 
-        var score = 0
-        for(i in isMatched.indices) {
-            if(isMatched[i]) score += 5
-        }
-        score /= 2
-        score += timerFragment.getLeftTime() * 10
+                var score = 0
+                for(i in isMatched.indices) {
+                    if(isMatched[i]) score += 5
+                }
+                score /= 2
+                score += timerFragment.getLeftTime() * 2
 
-        gameOverDialog.setInfo(resources.getString(R.string.card_flipping), score, 0, 0)
+                gameOverDialog.setInfo(resources.getString(R.string.card_flipping), score, 0, userTotalScore + score)
 
-        gameOverDialog.show()
+                gameOverDialog.show()
+            }
+        })
+        waitingDialog.show()
     }
 
 }

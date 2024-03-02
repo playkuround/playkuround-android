@@ -61,7 +61,7 @@
     <string name="ranking_score">점수</string>
     <string name="ranking_me">나</string>
     
-    <string name="quiz_again_text">15초 후에 다시 시도해주세요.</string>
+    <string name="quiz_again_text">오답입니다.\n15초 후에 다시 시도해주세요.</string>
     <string name="dialog_get_badge_rank">정복 랭킹</string>
     <string name="dialog_get_badge_visit">가장 많이 방문한 사람은</string>
     <string name="dialog_place_info_conquest">정복!</string>

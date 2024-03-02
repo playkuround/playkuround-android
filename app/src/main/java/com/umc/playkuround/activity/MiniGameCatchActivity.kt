@@ -3,7 +3,6 @@ package com.umc.playkuround.activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -12,7 +11,9 @@ import com.umc.playkuround.databinding.ActivityMinigameCatchBinding
 import com.umc.playkuround.dialog.CountdownDialog
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
+import com.umc.playkuround.dialog.WaitingDialog
 import com.umc.playkuround.fragment.MiniGameTimerFragment
+import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 import kotlin.random.Random
 
 private const val WINDOW_MOTION_DELAY = 150L
@@ -47,7 +48,29 @@ class MiniGameCatchActivity : AppCompatActivity() {
 
             override fun timeProgress(leftTime: Int) {
                 if(isOpenTime[leftTime]) {
-                    randomOpen()
+                    if(leftTime < 20) {
+                        openWindow(false)
+                        openWindow(false)
+                        openWindow(false)
+                        openWindow(false)
+                        openWindow(true)
+                        openWindow(true)
+                        openWindow(true)
+                    } else if(leftTime < 40) {
+                        openWindow(false)
+                        openWindow(false)
+                        openWindow(false)
+                        openWindow(true)
+                        openWindow(true)
+                        if(Random.nextDouble() < 0.5)
+                            openWindow(true)
+                    } else if(leftTime < 60) {
+                        openWindow(false)
+                        openWindow(false)
+                        openWindow(true)
+                        if(Random.nextDouble() < 0.5)
+                            openWindow(true)
+                    }
                 }
             }
         })
@@ -75,7 +98,7 @@ class MiniGameCatchActivity : AppCompatActivity() {
         countdownDialog.show()
     }
 
-    private fun randomOpen() {
+    private fun openWindow(isBlack : Boolean) {
         fun getAvailableWindowIndex() : Int {
             while(true) {
                 val row = Random.nextInt(0, 4)
@@ -88,7 +111,7 @@ class MiniGameCatchActivity : AppCompatActivity() {
         val idx = getAvailableWindowIndex()
         val window = binding.catchDuckWindowsGl.getChildAt(idx) as ImageView
         isOpen[idx] = true
-        if(Random.nextDouble() < 0.6) isBlackDuck[idx] = true
+        isBlackDuck[idx] = isBlack
 
         openMotion(window, isBlackDuck[idx])
         Handler(Looper.getMainLooper()).postDelayed({
@@ -103,10 +126,10 @@ class MiniGameCatchActivity : AppCompatActivity() {
             binding.catchDuckWindowsGl.getChildAt(i).setOnClickListener {
                 if(isOpen[i]) {
                     if(!isBlackDuck[i]) {
-                        score++
+                        score += 1
                         (binding.catchDuckWindowsGl.getChildAt(i) as ImageView).setImageResource(R.drawable.catch_duck_white_catched)
                     } else {
-                        score--
+                        score -= 1
                         (binding.catchDuckWindowsGl.getChildAt(i) as ImageView).setImageResource(R.drawable.catch_duck_black_catched)
                     }
                     if(score < 0) score = 0
@@ -122,13 +145,10 @@ class MiniGameCatchActivity : AppCompatActivity() {
 
     private fun initOpenTime() {
         for(i in isOpenTime.indices) {
-            val rand = Random.nextDouble()
             if(i < 20) {
-                if(rand < 0.35) isOpenTime[i] = true
-            } else if(i < 40) {
-                if(rand < 0.2) isOpenTime[i] = true
+                if(i % 2 == 0) isOpenTime[i] = true
             } else if(i < 60) {
-                if(rand < 0.1) isOpenTime[i] = true
+                if(i % 3 == 1) isOpenTime[i] = true
             }
         }
     }
@@ -156,13 +176,20 @@ class MiniGameCatchActivity : AppCompatActivity() {
     }
 
     private fun showGameOverDialog() {
-        val gameOverDialog = GameOverDialog(this@MiniGameCatchActivity)
-        gameOverDialog.setOnDismissListener {
-            this@MiniGameCatchActivity.finish()
-        }
+        val waitingDialog = WaitingDialog(this)
+        waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
+            override fun onFinish() {
+                waitingDialog.dismiss()
+                val gameOverDialog = GameOverDialog(this@MiniGameCatchActivity)
+                gameOverDialog.setOnDismissListener {
+                    this@MiniGameCatchActivity.finish()
+                }
 
-        gameOverDialog.setInfo(resources.getString(R.string.catch_duck), score * 20, 0, 0)
-        gameOverDialog.show()
+                gameOverDialog.setInfo(resources.getString(R.string.catch_duck), score, 0, userTotalScore + score)
+                gameOverDialog.show()
+            }
+        })
+        waitingDialog.show()
     }
 
 }

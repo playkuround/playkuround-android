@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <ImageView
+        android:id="@+id/dialog_story_bg"
+        android:layout_width="334dp"
+        android:layout_height="412dp"
+        android:src="@drawable/story_dialog_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/dialog_story_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:text="#1. 기적의 시작"
+        app:layout_constraintStart_toStartOf="@id/dialog_story_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_story_bg"
+        app:layout_constraintTop_toTopOf="@id/dialog_story_bg"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/dialog_badge_info_new_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="new!"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@id/dialog_story_title_tv"
+        app:layout_constraintTop_toTopOf="@id/dialog_story_title_tv"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_story_title_tv"
+        android:textColor="#EA4933"
+        android:layout_marginStart="10dp"/>
+
+    <ImageView
+        android:id="@+id/dialog_story_left_iv"
+        android:layout_width="16dp"
+        android:layout_height="28dp"
+        android:src="@drawable/story_arrow"
+        app:layout_constraintTop_toTopOf="@id/dialog_story_bg"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_story_bg"
+        app:layout_constraintStart_toStartOf="@id/dialog_story_bg"
+        android:layout_marginStart="10dp"/>
+
+    <ImageView
+        android:id="@+id/dialog_story_right_iv"
+        android:layout_width="16dp"
+        android:layout_height="28dp"
+        android:src="@drawable/story_arrow"
+        app:layout_constraintTop_toTopOf="@id/dialog_story_bg"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_story_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_story_bg"
+        android:layout_marginEnd="10dp"
+        android:scaleX="-1"/>
+    
+    <ImageView
+        android:id="@+id/dialog_story_img"
+        android:layout_width="270dp"
+        android:layout_height="150dp"
+        android:src="@drawable/story_locked"
+        app:layout_constraintStart_toStartOf="@id/dialog_story_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_story_bg"
+        app:layout_constraintTop_toBottomOf="@id/dialog_story_title_tv"
+        android:layout_marginTop="15dp"/>
+
+    <ImageView
+        android:id="@+id/dialog_story_context_bg"
+        android:layout_width="278dp"
+        android:layout_height="158dp"
+        android:src="@drawable/story_context_bg"
+        app:layout_constraintStart_toStartOf="@id/dialog_story_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_story_bg"
+        app:layout_constraintTop_toBottomOf="@id/dialog_story_img"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"/>
+
+    <TextView
+        android:id="@+id/dialog_story_context_tv"
+        android:layout_width="252dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/dialog_story_context_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_story_context_bg"
+        app:layout_constraintTop_toTopOf="@id/dialog_story_context_bg"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="15dp"
+        android:textAlignment="textStart"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:lineSpacingExtra="3dp"
+        android:text="민수는 오리로서의 삶을 즐기며, 자신이 만나는 모든 도전을 받아들였습니다. 그는 건국대학교를 사랑하며, 그곳에서의 모험이 계속되는 것을 기대하였습니다. 이렇게 민수의 모험이 끝나지 않고 계속되는 것이었습니다"
+        />
+    
+    <GridLayout
+        android:id="@+id/dialog_story_index_container_gl"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_story_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_story_bg"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_story_bg"
+        android:columnCount="6"
+        android:rowCount="1"
+        android:layout_marginBottom="18dp">
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@color/white"
+            android:layout_marginEnd="6dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@color/white"
+            android:layout_marginEnd="6dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@color/white"
+            android:layout_marginEnd="6dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@color/white"
+            android:layout_marginEnd="6dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@color/white"
+            android:layout_marginEnd="6dp"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@color/white"/>
+
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,7 @@ class TextRainView(context : Context, attrs : AttributeSet) : View(context, attr
 
     private val textPaint = Paint()
     private val strokePaint = Paint()
+    private val redTextPaint = Paint()
 
     private var speed = 1000L
     private var time = 0L
@@ -38,7 +39,8 @@ class TextRainView(context : Context, attrs : AttributeSet) : View(context, attr
         "지리와이슈", "삶과소통", "미디어영어", "소비와행복", "윤리와삶", "상실과회복", "경제학입문", "서양문명사", "동양의지혜",
         "선거와여론", "성과문학", "정치학입문")
 
-//    private val subjects = arrayOf("hello", "world")
+    private val basicSubjects = arrayOf("대학영어", "대학일본어", "비판적사고와토론", "창조적사고와표현", "인문사회글쓰기",
+        "사회봉사", "컴퓨팅적사고", "실전취업특강", "외국인글쓰기", "벤처창업및경영")
 
     private inner class Text(val text : String) {
         var x = 0f
@@ -46,7 +48,10 @@ class TextRainView(context : Context, attrs : AttributeSet) : View(context, attr
 
         fun draw(canvas : Canvas) {
             canvas.drawText(text, x, y, strokePaint)
-            canvas.drawText(text, x, y, textPaint)
+            if(basicSubjects.contains(text))
+                canvas.drawText(text, x, y, redTextPaint)
+            else
+                canvas.drawText(text, x, y, textPaint)
         }
 
         fun setRandomX() {
@@ -66,6 +71,10 @@ class TextRainView(context : Context, attrs : AttributeSet) : View(context, attr
         textPaint.color = ActivityCompat.getColor(context, R.color.text_color)
         textPaint.textSize = 45f
         textPaint.typeface = Typeface.createFromAsset(context.assets, "neo_dunggeunmo_regular.ttf")
+
+        redTextPaint.color = Color.RED
+        redTextPaint.textSize = 45f
+        redTextPaint.typeface = Typeface.createFromAsset(context.assets, "neo_dunggeunmo_regular.ttf")
 
         strokePaint.color = Color.WHITE
         strokePaint.textSize = 45f

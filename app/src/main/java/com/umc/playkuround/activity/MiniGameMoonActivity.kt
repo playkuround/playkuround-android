@@ -6,7 +6,11 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityMinigameMoonBinding
+import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
+import com.umc.playkuround.dialog.WaitingDialog
+import com.umc.playkuround.util.PlayKuApplication
+import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 
 
 class MiniGameMoonActivity : AppCompatActivity() {
@@ -37,15 +41,14 @@ class MiniGameMoonActivity : AppCompatActivity() {
         binding.moonClickIv.setOnClickListener {
             count--
             binding.moonCountTv.text = count.toString()
-            if (count == 0) {
-                //Toast.makeText(this, "맞춤", Toast.LENGTH_SHORT).show()
+            if (count <= 0) {
                 binding.moonClickIv.isEnabled = false
                 binding.moonClickIv.setImageResource(R.drawable.moon_four)
-                binding.moonClickIv.getLayoutParams().height = 800
-                binding.moonClickIv.getLayoutParams().width = 1000
+                binding.moonClickIv.layoutParams.height = 800
+                binding.moonClickIv.layoutParams.width = 1000
                 binding.moonClickIv.requestLayout()
 
-                //saveAdventureLog()
+                showGameOverDialog()
             }
             else if (count <= 50) {
                 if(gifCount != 0) return@setOnClickListener
@@ -63,6 +66,9 @@ class MiniGameMoonActivity : AppCompatActivity() {
                             handler.postDelayed(this, 100)
                         else
                             gifCount = 0
+
+                        if(count <= 0)
+                            binding.moonClickIv.setImageResource(R.drawable.moon_four)
                     }
                 })
             }
@@ -109,6 +115,23 @@ class MiniGameMoonActivity : AppCompatActivity() {
         binding.moonPauseBtn.setOnClickListener {
             this.finish()
         }
+    }
+
+    private fun showGameOverDialog() {
+        val waitingDialog = WaitingDialog(this)
+        waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
+            override fun onFinish() {
+                waitingDialog.dismiss()
+                val gameOverDialog = GameOverDialog(this@MiniGameMoonActivity)
+                gameOverDialog.setOnDismissListener {
+                    this@MiniGameMoonActivity.finish()
+                }
+
+                gameOverDialog.setInfo(resources.getString(R.string.ku_moon), 20, 0, userTotalScore + 20)
+                gameOverDialog.show()
+            }
+        })
+        waitingDialog.show()
     }
 
 }

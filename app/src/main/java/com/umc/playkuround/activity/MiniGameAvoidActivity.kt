@@ -15,8 +15,11 @@ import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.fragment.MiniGameTimerFragment
 import com.umc.playkuround.custom_view.AvoidView
+import com.umc.playkuround.dialog.WaitingDialog
+import com.umc.playkuround.util.PlayKuApplication
+import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 
-private const val TIME_LIMIT = 60
+private const val TIME_LIMIT = 120
 
 class MiniGameAvoidActivity : AppCompatActivity() {
 
@@ -70,10 +73,10 @@ class MiniGameAvoidActivity : AppCompatActivity() {
                 if(leftTime % 5 == 0)
                     binding.avoidGameView.addBoats(num/4)
 
-                score += if(leftTime < 30) 20
-                else if(leftTime < 40) 15
-                else if(leftTime < 50) 10
-                else 5
+                score += if(leftTime < 30) 4
+                else if(leftTime < 40) 3
+                else if(leftTime < 50) 2
+                else 1
                 binding.avoidScoreTv.text = score.toString()
             }
         })
@@ -133,13 +136,19 @@ class MiniGameAvoidActivity : AppCompatActivity() {
     }
 
     private fun showGameOverDialog() {
-        val gameOverDialog = GameOverDialog(this@MiniGameAvoidActivity)
-        gameOverDialog.setOnDismissListener {
-            this@MiniGameAvoidActivity.finish()
-        }
-
-        gameOverDialog.setInfo(resources.getString(R.string.bridge_timing),  score, 0, 0)
-        gameOverDialog.show()
+        val waitingDialog = WaitingDialog(this)
+        waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
+            override fun onFinish() {
+                waitingDialog.dismiss()
+                val gameOverDialog = GameOverDialog(this@MiniGameAvoidActivity)
+                gameOverDialog.setOnDismissListener {
+                    this@MiniGameAvoidActivity.finish()
+                }
+                gameOverDialog.setInfo(resources.getString(R.string.avoid_obstacle),  score, 0, userTotalScore + score)
+                gameOverDialog.show()
+            }
+        })
+        waitingDialog.show()
     }
 
     override fun onPause() {

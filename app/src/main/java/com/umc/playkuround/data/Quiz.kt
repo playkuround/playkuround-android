@@ -384,13 +384,13 @@ data class Quiz (
             }
 
             else -> {
-                question = "잘못된 퀴즈입니다."
+                question = "Playkuround를 제작한 플쿠팀에 대해 옳지 않은 설명은?"
                 options = ArrayList()
-                options.add(0, "") // 정답
-                options.add(1, "")
-                options.add(2, "")
-                options.add(3, "")
-                answer = 0
+                options.add(0, "모두 건국대학교 학생이다.")
+                options.add(1, "건국대학교를 사랑하는 마음으로 모였다.")
+                options.add(2, "플레이쿠라운드 공식 인스타 계정은 playkuround_이다.")
+                options.add(3, "총 7명으로 이루어져 있다.") //정답
+                answer = 3
             }
         }
     }

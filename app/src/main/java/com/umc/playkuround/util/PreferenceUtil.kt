@@ -15,10 +15,26 @@ class PreferenceUtil(context : Context) {
         prefs.edit().putString(key, str).apply()
     }
 
+    fun getStringSet(key: String, defValue: Set<String>): MutableSet<String>? {
+        return prefs.getStringSet(key, defValue)
+    }
+
+    fun setStringSet(key: String, strSet: Set<String>) {
+        prefs.edit().putStringSet(key, strSet).apply()
+    }
+
+    fun getInt(key: String, defValue: Int): Int {
+        return prefs.getInt(key, defValue)
+    }
+
+    fun setInt(key: String, num: Int) {
+        prefs.edit().putInt(key, num).apply()
+    }
+
     fun clearData() {
         val editor = prefs.edit()
         editor.clear()
-        editor.commit()
+        editor.apply()
     }
 
 }

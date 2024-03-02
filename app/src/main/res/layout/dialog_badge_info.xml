@@ -21,11 +21,12 @@
         android:text="new!"
         android:fontFamily="@font/neo_dunggeunmo_regular"
         android:textSize="15dp"
-        app:layout_constraintStart_toStartOf="@id/dialog_badge_info_bg"
-        app:layout_constraintEnd_toEndOf="@id/dialog_badge_info_bg"
-        app:layout_constraintBottom_toTopOf="@id/dialog_badge_info_img"
+        app:layout_constraintStart_toEndOf="@id/dialog_badge_info_title_tv"
+        app:layout_constraintTop_toTopOf="@id/dialog_badge_info_title_tv"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_badge_info_title_tv"
         android:textColor="#EA4933"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginStart="7dp"
+        android:layout_marginBottom="3dp"/>
 
     <ImageView
         android:id="@+id/dialog_badge_info_img"
