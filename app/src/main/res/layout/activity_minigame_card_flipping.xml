@@ -44,7 +44,7 @@
             android:id="@+id/card_flipping_timer_fragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:name="com.umc.playkuround.fragment.MiniGameTimerFragment"
+            android:name="com.umc.playkuround.custom_view.MiniGameTimerFragment"
             android:layout_margin="25dp"
             app:layout_constraintStart_toStartOf="@id/card_flipping_cards_cl"
             app:layout_constraintEnd_toEndOf="@id/card_flipping_cards_cl"

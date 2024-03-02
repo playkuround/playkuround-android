@@ -2,7 +2,6 @@ package com.umc.playkuround.activity
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.app.WallpaperInfo
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -13,7 +12,7 @@ import com.umc.playkuround.databinding.ActivityMinigameBridgeBinding
 import com.umc.playkuround.dialog.CountdownDialog
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
-import com.umc.playkuround.fragment.MiniGameTimerFragment
+import com.umc.playkuround.custom_view.MiniGameTimerFragment
 import com.umc.playkuround.custom_view.BridgeDuckView
 import com.umc.playkuround.dialog.WaitingDialog
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore

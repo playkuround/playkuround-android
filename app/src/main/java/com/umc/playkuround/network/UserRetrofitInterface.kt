@@ -19,10 +19,10 @@ interface UserRetrofitInterface {
     fun getUserInfo(@Header("Authorization") token : String) : Call<UserProfileResponse>
 
     @GET("/api/users/notification")
-    fun getNotification(@Header("Authorization") token : String) : Call<CommonResponse>
+    fun getNotification(@Header("Authorization") token : String) : Call<NotificationResponse>
 
     @GET("/api/users/game-score")
-    fun getGameScores(@Header("Authorization") token : String) : Call<CommonResponse>
+    fun getGameScores(@Header("Authorization") token : String) : Call<HighestScoresResponse>
 
 
     // -----------------------------------------------------------------------------------------------------------------

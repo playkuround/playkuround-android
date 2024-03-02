@@ -13,10 +13,9 @@ import com.umc.playkuround.databinding.ActivityMinigameAvoidBinding
 import com.umc.playkuround.dialog.CountdownDialog
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
-import com.umc.playkuround.fragment.MiniGameTimerFragment
+import com.umc.playkuround.custom_view.MiniGameTimerFragment
 import com.umc.playkuround.custom_view.AvoidView
 import com.umc.playkuround.dialog.WaitingDialog
-import com.umc.playkuround.util.PlayKuApplication
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 
 private const val TIME_LIMIT = 120

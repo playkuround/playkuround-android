@@ -12,7 +12,7 @@ import com.umc.playkuround.dialog.CountdownDialog
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.dialog.WaitingDialog
-import com.umc.playkuround.fragment.MiniGameTimerFragment
+import com.umc.playkuround.custom_view.MiniGameTimerFragment
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 import kotlin.random.Random
 

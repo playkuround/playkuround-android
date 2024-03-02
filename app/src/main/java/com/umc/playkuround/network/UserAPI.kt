@@ -117,7 +117,6 @@ class UserAPI {
                     }
                     else -> {
                         val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
-                        Log.d("isoo", "onResponse: $err")
                         onResponseListener.getResponseBody(null, false, "서버 오류로 유저 정보를 불러오지 못했습니다.")
                     }
                 }
@@ -131,92 +130,56 @@ class UserAPI {
         })
     }
 
+    fun getNotification(token : String) {
+        val userAPI = getRetrofit().create(UserRetrofitInterface::class.java)
 
-    // ---------------------------------------------------------------------------------------------------------------------------
-
-    fun getPlaceRank(token : String, landmarkId : Int) {
-        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
-
-        userService.getPlaceRank(token, landmarkId).enqueue(object : Callback<CommonResponse> {
+        userAPI.getNotification(token).enqueue(object : Callback<NotificationResponse> {
             override fun onResponse(
-                call: Call<CommonResponse>,
-                response: Response<CommonResponse>
+                call: Call<NotificationResponse>,
+                response: Response<NotificationResponse>
             ) {
-                try {
-                    when (response.code()) {
-                        200 -> { // success
-                            Log.d("getPlaceRank", "onResponse: " + response.body().toString())
-                            val arr =
-                                JSONObject(response.body()!!.response.toString()).getJSONArray("top5Users")
-                            val list = ArrayList<HashMap<String, String>>()
-
-                            val myMap = HashMap<String, String>()
-                            myMap["count"] =
-                                JSONObject(response.body()!!.response.toString()).getJSONObject("me")
-                                    .get("count").toString().toDouble().toInt().toString()
-                            myMap["ranking"] =
-                                JSONObject(response.body()!!.response.toString()).getJSONObject("me")
-                                    .get("ranking").toString().toDouble().toInt().toString()
-                            list.add(myMap)
-
-                            for (i in 0 until arr.length()) {
-                                val map = HashMap<String, String>()
-                                val obj = JSONObject(arr[i].toString())
-                                val nickname = obj.get("nickname").toString()
-                                val count = obj.get("count").toString()
-                                val userId = obj.get("userId").toString()
-                                map["nickname"] = nickname
-                                map["count"] = count
-                                map["userId"] = userId
-                                list.add(map)
-                            }
-
-                            onResponseListener.getResponseBody(list, true, "")
-                        }
-                        500 -> { // failed
-                            val err = JSONObject(
-                                response.errorBody()!!.string()
-                            ).getJSONObject("errorResponse").get("message").toString()
-                            onResponseListener.getResponseBody(null, false, err)
-                        }
-                        else -> {
-                            Log.d("getPlaceRank", "onResponse: ${response.code()}")
-                        }
+                when (response.code()) {
+                    200 -> {
+                        val resp : NotificationResponse = response.body()!!
+                        onResponseListener.getResponseBody(resp, true, "")
                     }
-                } catch(e : Exception) {
-                    e.printStackTrace()
-                    onResponseListener.getResponseBody(null, false, "서버 연결중 오류가 발생했습니다.")
+                    else -> {
+                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
                 }
             }
 
-            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
-                Log.e("retrofit", "onResponse: fail getAttendanceDates $call")
+            override fun onFailure(call: Call<NotificationResponse>, t: Throwable) {
+                Log.e("api err", "onResponse: fail deleteUser $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }
         })
     }
 
-    fun deleteUser(token : String) {
-        val userService = getRetrofit().create(UserRetrofitInterface::class.java)
+    fun getGameScores(token : String) {
+        val userAPI = getRetrofit().create(UserRetrofitInterface::class.java)
 
-        userService.deleteUser(token).enqueue(object : Callback<CommonResponse> {
+        userAPI.getGameScores(token).enqueue(object : Callback<HighestScoresResponse> {
             override fun onResponse(
-                call: Call<CommonResponse>,
-                response: Response<CommonResponse>
+                call: Call<HighestScoresResponse>,
+                response: Response<HighestScoresResponse>
             ) {
-                when(response.code()) {
-                    200-> {
-                        onResponseListener.getResponseBody(null, true, "")
+                when (response.code()) {
+                    200 -> {
+                        val resp : HighestScoresResponse = response.body()!!
+                        onResponseListener.getResponseBody(resp, true, "")
                     }
                     else -> {
-                        Log.d("deleteUser", "onResponse: ${response.code()}")
+                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
                     }
                 }
             }
 
-            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
-                Log.e("retrofit", "onResponse: fail deleteUser $call")
+            override fun onFailure(call: Call<HighestScoresResponse>, t: Throwable) {
+                Log.e("api err", "onResponse: fail deleteUser $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }

@@ -27,7 +27,7 @@
             android:value="AIzaSyAOb8MvvBNoDEsNIU1G_Jt1-7FgDVcp1Ik"/>
 
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.LoginActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -38,9 +38,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.LoginActivity"
-            android:resizeableActivity="false"
-            android:screenOrientation="portrait"/>
         <activity android:name=".activity.EmailCertifyActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
@@ -48,9 +45,6 @@
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.NicknameActivity"
-            android:resizeableActivity="false"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.MainActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.AttendanceActivity"
@@ -78,12 +72,6 @@
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.DetailAgree03Activity"
-            android:resizeableActivity="false"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.DialogPlaceRankActivity"
-            android:resizeableActivity="false"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.DialogPlaceInfoActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.RankingActivity"
