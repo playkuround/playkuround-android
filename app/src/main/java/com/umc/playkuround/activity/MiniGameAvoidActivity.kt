@@ -1,6 +1,8 @@
 package com.umc.playkuround.activity
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -15,8 +17,16 @@ import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.custom_view.MiniGameTimerFragment
 import com.umc.playkuround.custom_view.AvoidView
+import com.umc.playkuround.data.User
 import com.umc.playkuround.dialog.WaitingDialog
+import com.umc.playkuround.network.AdventureData
+import com.umc.playkuround.network.GetBadgeResponse
+import com.umc.playkuround.network.HighestScoresResponse
+import com.umc.playkuround.network.LandmarkAPI
+import com.umc.playkuround.network.UserAPI
+import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
+import com.umc.playkuround.util.SoundPlayer
 
 private const val TIME_LIMIT = 120
 
@@ -44,10 +54,28 @@ class MiniGameAvoidActivity : AppCompatActivity() {
         }
     }
 
+    private var highestScore = 0
+    private var badges = ArrayList<String>()
+
+    private fun getHighestScore() {
+        val userAPI = UserAPI()
+        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    if(body is HighestScoresResponse) {
+                        highestScore = body.highestScores.highestMicrobeScore
+                    }
+                }
+            }
+        }).getGameScores(user.getAccessToken())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMinigameAvoidBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        getHighestScore()
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
@@ -82,6 +110,7 @@ class MiniGameAvoidActivity : AppCompatActivity() {
 
         binding.avoidGameView.setOnHitListener(object : AvoidView.OnHitListener {
             override fun hit() {
+                SoundPlayer(applicationContext, R.raw.avoid_hit).play()
                 life--
                 when(life) {
                     2 -> binding.avoidLife1Iv.setImageResource(R.drawable.typing_empty_heart)
@@ -135,19 +164,60 @@ class MiniGameAvoidActivity : AppCompatActivity() {
     }
 
     private fun showGameOverDialog() {
+        SoundPlayer(applicationContext, R.raw.avoid_game_over).play()
+        fun showGameOverDialog(result : Int) {
+            val gameOverDialog = GameOverDialog(this@MiniGameAvoidActivity)
+            gameOverDialog.setOnDismissListener {
+                val resultIntent = Intent()
+                resultIntent.putExtra("isNewLandmark", intent.getBooleanExtra("isNewLandmark", false))
+                resultIntent.putExtra("badge", badges)
+                setResult(result, resultIntent)
+                finish()
+            }
+            gameOverDialog.setInfo(resources.getString(R.string.avoid_obstacle),  score, highestScore, userTotalScore + score)
+            gameOverDialog.show()
+        }
+
+        var flag = false
+        var isFailed = false
+
         val waitingDialog = WaitingDialog(this)
         waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
             override fun onFinish() {
                 waitingDialog.dismiss()
-                val gameOverDialog = GameOverDialog(this@MiniGameAvoidActivity)
-                gameOverDialog.setOnDismissListener {
-                    this@MiniGameAvoidActivity.finish()
+                if(flag) {
+                    if(isFailed) showGameOverDialog(Activity.RESULT_CANCELED)
+                    else showGameOverDialog(Activity.RESULT_OK)
                 }
-                gameOverDialog.setInfo(resources.getString(R.string.avoid_obstacle),  score, 0, userTotalScore + score)
-                gameOverDialog.show()
             }
         })
         waitingDialog.show()
+
+        val landmarkId = intent.getIntExtra("landmarkId", 0)
+        val latitude = intent.getDoubleExtra("latitude", 0.0)
+        val longitude = intent.getDoubleExtra("longitude", 0.0)
+
+        val landmarkAPI = LandmarkAPI()
+        landmarkAPI.setOnResponseListener(object : LandmarkAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
+                if(isSuccess) {
+                    if(body is GetBadgeResponse) {
+                        body.response.newBadges.forEach {
+                            badges.add(it.name)
+                        }
+                        flag = true
+                        if (!waitingDialog.isShowing) {
+                            showGameOverDialog(Activity.RESULT_OK)
+                        }
+                    }
+                } else {
+                    flag = true
+                    isFailed = true
+                    if(!waitingDialog.isShowing)
+                        showGameOverDialog(Activity.RESULT_CANCELED)
+                }
+            }
+        }).sendScore(user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, score, "SURVIVE"))
     }
 
     override fun onPause() {

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.DialogMapPlaceBinding
+import com.umc.playkuround.util.SoundPlayer
 import java.text.NumberFormat
 
 class MapPlaceDialog(context : Context) : Dialog(context) {
@@ -30,10 +31,12 @@ class MapPlaceDialog(context : Context) : Dialog(context) {
         window!!.setDimAmount(0.6f)
 
         binding.dialogMapPlaceLandmarkRankingBtn.setOnClickListener {
+            SoundPlayer(context, R.raw.button_click_sound).play()
             onSelectListener?.ranking()
             this@MapPlaceDialog.dismiss()
         }
         binding.dialogMapPlaceLandmarkInfoBtn.setOnClickListener {
+            SoundPlayer(context, R.raw.button_click_sound).play()
             onSelectListener?.info()
             this@MapPlaceDialog.dismiss()
         }

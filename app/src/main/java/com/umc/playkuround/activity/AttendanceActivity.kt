@@ -26,6 +26,7 @@ import com.umc.playkuround.network.AttendanceResponse
 import com.umc.playkuround.network.GetBadgeResponse
 import com.umc.playkuround.network.UserLocation
 import com.umc.playkuround.util.PlayKuApplication.Companion.user
+import com.umc.playkuround.util.SoundPlayer
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -52,6 +53,7 @@ class AttendanceActivity : AppCompatActivity() {
             getAttendanceDates()
 
         binding.attendanceBtn.setOnClickListener {
+            SoundPlayer(this, R.raw.button_click_sound).play()
             attendanceToday()
         }
 

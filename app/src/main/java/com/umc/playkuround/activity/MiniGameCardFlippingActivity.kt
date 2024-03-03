@@ -1,6 +1,8 @@
 package com.umc.playkuround.activity
 
 import android.animation.ObjectAnimator
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,7 +16,14 @@ import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.dialog.WaitingDialog
 import com.umc.playkuround.custom_view.MiniGameTimerFragment
+import com.umc.playkuround.network.AdventureData
+import com.umc.playkuround.network.GetBadgeResponse
+import com.umc.playkuround.network.HighestScoresResponse
+import com.umc.playkuround.network.LandmarkAPI
+import com.umc.playkuround.network.UserAPI
+import com.umc.playkuround.util.PlayKuApplication
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
+import com.umc.playkuround.util.SoundPlayer
 
 private const val FLIPPING_DELAY = 150L
 private const val SHOWING_TIME = 700L
@@ -28,10 +37,28 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
     private val isMatched = Array(16) { false }
     private var isFlipping = false
 
+    private var highestScore = 0
+    private var badges = ArrayList<String>()
+
+    private fun getHighestScore() {
+        val userAPI = UserAPI()
+        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    if(body is HighestScoresResponse) {
+                        highestScore = body.highestScores.highestCardScore
+                    }
+                }
+            }
+        }).getGameScores(PlayKuApplication.user.getAccessToken())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMinigameCardFlippingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        getHighestScore()
 
         timerFragment = supportFragmentManager.findFragmentById(R.id.card_flipping_timer_fragment) as MiniGameTimerFragment
         timerFragment.setTime(30)
@@ -83,6 +110,7 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
     private fun addListenerToCards() {
         fun eachCardFunc(iv : ImageView, n : Int) {
             if(!isMatched[n] && !isFlipping) {
+                SoundPlayer(applicationContext, R.raw.book_clicked).play()
                 if (frontCards.isEmpty()) {
                     frontCards.add(n)
                     iv.setImageResource(R.drawable.card_flipping_book_side)
@@ -105,10 +133,14 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
                                 playDisappearCardMotion(frontCards[0])
                                 frontCards.clear()
                                 if(isAllMatched()) {
+                                    SoundPlayer(applicationContext, R.raw.book_all_clear).play()
                                     timerFragment.pause()
                                     showGameOverDialog()
+                                    return@postDelayed
                                 }
+                                SoundPlayer(applicationContext, R.raw.book_correct).play()
                             } else {
+                                SoundPlayer(applicationContext, R.raw.book_wrong).play()
                                 val tmp = frontCards[0]
                                 frontCards.clear()
                                 Handler(Looper.getMainLooper()).postDelayed({
@@ -316,28 +348,66 @@ class MiniGameCardFlippingActivity : AppCompatActivity() {
     }
 
     private fun showGameOverDialog() {
+        var score = 0
+        for(i in isMatched.indices) {
+            if(isMatched[i]) score += 5
+        }
+        score /= 2
+        score += timerFragment.getLeftTime() * 2
+
+        fun showGameOverDialog(result : Int) {
+            val gameOverDialog = GameOverDialog(this@MiniGameCardFlippingActivity)
+            gameOverDialog.setOnDismissListener {
+                val resultIntent = Intent()
+                resultIntent.putExtra("isNewLandmark", intent.getBooleanExtra("isNewLandmark", false))
+                resultIntent.putExtra("badge", badges)
+                setResult(result, resultIntent)
+                this@MiniGameCardFlippingActivity.finish()
+            }
+            gameOverDialog.setInfo(resources.getString(R.string.card_flipping), score, highestScore, userTotalScore + score)
+            gameOverDialog.show()
+        }
+
+        var flag = false
+        var isFailed = false
+
         val waitingDialog = WaitingDialog(this)
         waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
             override fun onFinish() {
                 waitingDialog.dismiss()
-                val gameOverDialog = GameOverDialog(this@MiniGameCardFlippingActivity)
-                gameOverDialog.setOnDismissListener {
-                    this@MiniGameCardFlippingActivity.finish()
+                if(flag) {
+                    if(isFailed) showGameOverDialog(Activity.RESULT_CANCELED)
+                    else showGameOverDialog(Activity.RESULT_OK)
                 }
-
-                var score = 0
-                for(i in isMatched.indices) {
-                    if(isMatched[i]) score += 5
-                }
-                score /= 2
-                score += timerFragment.getLeftTime() * 2
-
-                gameOverDialog.setInfo(resources.getString(R.string.card_flipping), score, 0, userTotalScore + score)
-
-                gameOverDialog.show()
             }
         })
         waitingDialog.show()
+
+        val landmarkId = intent.getIntExtra("landmarkId", 0)
+        val latitude = intent.getDoubleExtra("latitude", 0.0)
+        val longitude = intent.getDoubleExtra("longitude", 0.0)
+
+        val landmarkAPI = LandmarkAPI()
+        landmarkAPI.setOnResponseListener(object : LandmarkAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
+                if(isSuccess) {
+                    if(body is GetBadgeResponse) {
+                        body.response.newBadges.forEach {
+                            badges.add(it.name)
+                        }
+                        flag = true
+                        if (!waitingDialog.isShowing) {
+                            showGameOverDialog(Activity.RESULT_OK)
+                        }
+                    }
+                } else {
+                    flag = true
+                    isFailed = true
+                    if(!waitingDialog.isShowing)
+                        showGameOverDialog(Activity.RESULT_CANCELED)
+                }
+            }
+        }).sendScore(PlayKuApplication.user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, score, "BOOK"))
     }
 
 }

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
+import com.umc.playkuround.R
 import com.umc.playkuround.util.PlayKuApplication.Companion.pref
 import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.network.DuplicateResponse
@@ -16,6 +17,7 @@ import com.umc.playkuround.network.UserTokenResponse
 import com.umc.playkuround.databinding.ActivityNicknameBinding
 import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.network.UserAPI
+import com.umc.playkuround.util.SoundPlayer
 
 
 class NicknameActivity : AppCompatActivity() {
@@ -33,6 +35,7 @@ class NicknameActivity : AppCompatActivity() {
         }
 
         binding.nicknameEndBtn.setOnClickListener{
+            SoundPlayer(this, R.raw.button_click_sound).play()
             saveName()
         }
 

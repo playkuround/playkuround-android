@@ -22,9 +22,9 @@ data class Badge(
         const val ATTENDANCE_WHITE_DAY = "ATTENDANCE_WHITE_DAY"
         const val ATTENDANCE_DUCK_DAY = "ATTENDANCE_DUCK_DAY"
 
-        const val ENGINEER = "ENGINEER"
-        const val ARTIST = "ARTIST"
-        const val CEO = "CEO"
+        const val COLLEGE_OF_ENGINEERING = "COLLEGE_OF_ENGINEERING"
+        const val COLLEGE_OF_ART_AND_DESIGN = "COLLEGE_OF_ART_AND_DESIGN"
+        const val COLLEGE_OF_BUSINESS_ADMINISTRATION = "COLLEGE_OF_BUSINESS_ADMINISTRATION"
         const val COLLEGE_OF_LIBERAL_ARTS = "COLLEGE_OF_LIBERAL_ARTS"
         const val COLLEGE_OF_SCIENCES = "COLLEGE_OF_SCIENCES"
         const val COLLEGE_OF_ARCHITECTURE = "COLLEGE_OF_ARCHITECTURE"
@@ -73,9 +73,9 @@ data class Badge(
                 9 -> ATTENDANCE_WHITE_DAY
                 10 -> ATTENDANCE_DUCK_DAY
 
-                11 -> ENGINEER
-                12 -> ARTIST
-                13 -> CEO
+                11 -> COLLEGE_OF_ENGINEERING
+                12 -> COLLEGE_OF_ART_AND_DESIGN
+                13 -> COLLEGE_OF_BUSINESS_ADMINISTRATION
                 14 -> COLLEGE_OF_LIBERAL_ARTS
                 15 -> COLLEGE_OF_SCIENCES
                 16 -> COLLEGE_OF_ARCHITECTURE
@@ -117,14 +117,14 @@ data class Badge(
             ATTENDANCE_50 -> "50일 연속 출석이에요!"
             ATTENDANCE_100 -> "100일 연속 출석이에요!"
             ATTENDANCE_FOUNDATION_DAY -> "건국대학교의 개교기념일 5월 15일 쿠라운드에서 축하해요!"
-            ATTENDANCE_ARBOR_DAY -> "오늘은 식목일! 오늘만이라도 나무들에게 칭찬한마디~"
+            ATTENDANCE_ARBOR_DAY -> "오늘은 식목일! 오늘만이라도 나무들에게 칭찬 한마디~"
             ATTENDANCE_CHILDREN_DAY -> "마음이 어린이면 어린이 아닌가요? 우리의 날을 축하하며!"
             ATTENDANCE_WHITE_DAY -> "화이트데이를 기념해 쿠라운드에서 달콤한 사탕 뱃지를 드립니다!"
             ATTENDANCE_DUCK_DAY -> "덕쿠의날을 기록하며 덕쿠야 축하해!"
 
-            ENGINEER -> "공과대학을 탐험했어요"
-            ARTIST -> "예술디자인대학을 탐험했어요"
-            CEO -> "경영대학을 탐험했어요"
+            COLLEGE_OF_ENGINEERING -> "공과대학을 탐험했어요"
+            COLLEGE_OF_ART_AND_DESIGN -> "예술디자인대학을 탐험했어요"
+            COLLEGE_OF_BUSINESS_ADMINISTRATION -> "경영대학을 탐험했어요"
             COLLEGE_OF_LIBERAL_ARTS -> "문과대학을 탐험했어요"
             COLLEGE_OF_SCIENCES -> "이과대학을 탐험했어요"
             COLLEGE_OF_ARCHITECTURE -> "건축대학을 탐험했어요"
@@ -138,22 +138,22 @@ data class Badge(
             COLLEGE_OF_BUSINESS_ADMINISTRATION_10 -> "네..! 넵의 연속 나는야 새싹 인턴"
             COLLEGE_OF_BUSINESS_ADMINISTRATION_30 -> "이걸 제가요? 어엿한 대리 승급!"
             COLLEGE_OF_BUSINESS_ADMINISTRATION_50 -> "라떼는 말이야… 실무와 관리의 공존 과장"
-            COLLEGE_OF_BUSINESS_ADMINISTRATION_70 -> "어째서 내가 리더..? 경쟁을 이끌어! 부장"
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_70 -> "어째서 내가 리더..?\n경쟁을 이끌어! 부장"
             COLLEGE_OF_BUSINESS_ADMINISTRATION_100_AND_FIRST_PLACE -> "john 우리의 수익을 develop할 수 있는 방안 없을까? 비전과 열정 탑 CEO"
 
             COLLEGE_OF_ART_AND_DESIGN_BEFORE_NOON -> "예디대생들 피엔 카페인이 흘러.. "
             COLLEGE_OF_ART_AND_DESIGN_AFTER_NOON -> "영차영차 오늘도 덕쿠는 작업중"
-            COLLEGE_OF_ART_AND_DESIGN_NIGHT -> "너 야작해..? 예디대생들은 야작의 노예"
+            COLLEGE_OF_ART_AND_DESIGN_NIGHT -> "너 야작해..?\n예디대생들은 야작의 노예"
 
             COLLEGE_OF_ENGINEERING_A -> "COLLEGE_OF_ENGINEERING_A"
             COLLEGE_OF_ENGINEERING_B -> "COLLEGE_OF_ENGINEERING_B"
             COLLEGE_OF_ENGINEERING_C -> "COLLEGE_OF_ENGINEERING_C"
 
-            THE_DREAM_OF_DUCK -> "컷신을 모두 보셨군요! 쿠라운드를 즐길 준비 완료!"
+            THE_DREAM_OF_DUCK -> "컷신을 모두 보셨군요!\n쿠라운드를 즐길 준비 완료!"
 
-            MONTHLY_RANKING_1 -> "주간 랭킹 1위 기록을 축하드립니다!"
-            MONTHLY_RANKING_2 -> "주간 랭킹 2위 기록을 축하드립니다!"
-            MONTHLY_RANKING_3 -> "주간 랭킹 3위 기록을 축하드립니다!"
+            MONTHLY_RANKING_1 -> "월간 랭킹 1위 기록을 축하드립니다!"
+            MONTHLY_RANKING_2 -> "월간 랭킹 2위 기록을 축하드립니다!"
+            MONTHLY_RANKING_3 -> "월간 랭킹 3위 기록을 축하드립니다!"
 
             else -> "알 수 없는 배지입니다."
         }
@@ -170,9 +170,9 @@ data class Badge(
             ATTENDANCE_WHITE_DAY -> 9
             ATTENDANCE_DUCK_DAY -> 10
 
-            ENGINEER -> 11
-            ARTIST -> 12
-            CEO -> 13
+            COLLEGE_OF_ENGINEERING -> 11
+            COLLEGE_OF_ART_AND_DESIGN -> 12
+            COLLEGE_OF_BUSINESS_ADMINISTRATION -> 13
             COLLEGE_OF_LIBERAL_ARTS -> 14
             COLLEGE_OF_SCIENCES -> 15
             COLLEGE_OF_ARCHITECTURE -> 16
@@ -221,9 +221,9 @@ data class Badge(
             ATTENDANCE_WHITE_DAY -> R.drawable.badge_attendance_white_day
             ATTENDANCE_DUCK_DAY -> R.drawable.badge_attendance_duck_day
 
-            ENGINEER -> R.drawable.badge_engineer
-            ARTIST -> R.drawable.badge_artist
-            CEO -> R.drawable.badge_ceo
+            COLLEGE_OF_ENGINEERING -> R.drawable.badge_engineer
+            COLLEGE_OF_ART_AND_DESIGN -> R.drawable.badge_artist
+            COLLEGE_OF_BUSINESS_ADMINISTRATION -> R.drawable.badge_ceo
             COLLEGE_OF_LIBERAL_ARTS -> R.drawable.badge_college_of_liberal_arts
             COLLEGE_OF_SCIENCES -> R.drawable.badge_college_of_sciences
             COLLEGE_OF_ARCHITECTURE -> R.drawable.badge_college_of_architecture
@@ -251,8 +251,8 @@ data class Badge(
             THE_DREAM_OF_DUCK -> R.drawable.badge_the_dream_of_duck
 
             MONTHLY_RANKING_1 -> R.drawable.badge_monthly_ranking_1
-            MONTHLY_RANKING_2 -> R.drawable.badge_monthly_ranking_2
-            MONTHLY_RANKING_3 -> R.drawable.badge_monthly_ranking_3
+            MONTHLY_RANKING_2 -> R.drawable.badge_monthly_ranking_3
+            MONTHLY_RANKING_3 -> R.drawable.badge_monthly_ranking_2
 
             else -> R.drawable.badge_locked
         }
@@ -272,9 +272,9 @@ data class Badge(
             ATTENDANCE_WHITE_DAY -> "화이트데이"
             ATTENDANCE_DUCK_DAY -> "오리의날"
 
-            ENGINEER -> "공과대"
-            ARTIST -> "예디대"
-            CEO -> "경영대"
+            COLLEGE_OF_ENGINEERING -> "공과대"
+            COLLEGE_OF_ART_AND_DESIGN -> "예디대"
+            COLLEGE_OF_BUSINESS_ADMINISTRATION -> "경영대"
             COLLEGE_OF_LIBERAL_ARTS -> "문과대"
             COLLEGE_OF_SCIENCES -> "이과대"
             COLLEGE_OF_ARCHITECTURE -> "건축대"
@@ -311,50 +311,50 @@ data class Badge(
 
     fun getCondition() : String {
         return when(name) {
-            ATTENDANCE_1 -> "첫 출석"
-            ATTENDANCE_5 -> "5일 연속 출석"
-            ATTENDANCE_10 -> "10일 연속 출석"
-            ATTENDANCE_30 -> "30일 연속 출석"
-            ATTENDANCE_50 -> "50일 연속 출석"
-            ATTENDANCE_100 -> "100일 연속 출석"
-            ATTENDANCE_FOUNDATION_DAY -> "개교기념일"
-            ATTENDANCE_ARBOR_DAY -> "식목일"
-            ATTENDANCE_CHILDREN_DAY -> "어린이날"
-            ATTENDANCE_WHITE_DAY -> "화이트데이"
-            ATTENDANCE_DUCK_DAY -> "오리의날"
+            ATTENDANCE_1 -> "플레이쿠라운드 접속 1회시 잠금 해제됩니다."
+            ATTENDANCE_5 -> "플레이쿠라운드 접속 5회시 잠금 해제됩니다."
+            ATTENDANCE_10 -> "플레이쿠라운드 접속 10회시 잠금 해제됩니다."
+            ATTENDANCE_30 -> "플레이쿠라운드 접속 30회시 잠금 해제됩니다."
+            ATTENDANCE_50 -> "플레이쿠라운드 접속 50회시 잠금 해제됩니다."
+            ATTENDANCE_100 -> "플레이쿠라운드 접속 100회시 잠금 해제됩니다."
+            ATTENDANCE_FOUNDATION_DAY -> "개교기념일(5/15) 출석 시 잠금 해제됩니다."
+            ATTENDANCE_ARBOR_DAY -> "식목일(4/5) 출석 시 잠금 해제됩니다"
+            ATTENDANCE_CHILDREN_DAY -> "어린이날(5/5) 출석 시 잠금 해제됩니다"
+            ATTENDANCE_WHITE_DAY -> "화이트데이(3/14) 출석 시 잠금 해제됩니다"
+            ATTENDANCE_DUCK_DAY -> "오리의날(5/2) 출석 시 잠금 해제됩니다"
 
-            ENGINEER -> "공과대"
-            ARTIST -> "예디대"
-            CEO -> "경영대"
-            COLLEGE_OF_LIBERAL_ARTS -> "문과대"
-            COLLEGE_OF_SCIENCES -> "이과대"
-            COLLEGE_OF_ARCHITECTURE -> "건축대"
-            COLLEGE_OF_SOCIAL_SCIENCES -> "사과대"
-            COLLEGE_OF_REAL_ESTATE -> "부동산"
-            COLLEGE_OF_INSTITUTE_TECHNOLOGY -> "융과기"
-            COLLEGE_OF_BIOLOGICAL_SCIENCES -> "생과대"
-            COLLEGE_OF_VETERINARY_MEDICINE -> "수의대"
-            COLLEGE_OF_EDUCATION -> "사범대"
+            COLLEGE_OF_ENGINEERING -> "공학관 A, B, C, 신공학관 탐험 시 잠금 해제됩니다."
+            COLLEGE_OF_ART_AND_DESIGN -> "예술디자인관, 공예관 탐험 시 잠금 해제됩니다."
+            COLLEGE_OF_BUSINESS_ADMINISTRATION -> "경영관 탐험 시 잠금 해제됩니다."
+            COLLEGE_OF_LIBERAL_ARTS -> "인문학관 탐험 시 잠금 해제됩니다."
+            COLLEGE_OF_SCIENCES -> "과학관 탐험 시 잠금 해제됩니다."
+            COLLEGE_OF_ARCHITECTURE -> "건축관 탐험 시 잠금 해제됩니다."
+            COLLEGE_OF_SOCIAL_SCIENCES -> "상허연구관 탐험 시 잠금 해제됩니다."
+            COLLEGE_OF_REAL_ESTATE -> "부동산학관 탐험 시 잠금 해제됩니다."
+            COLLEGE_OF_INSTITUTE_TECHNOLOGY -> "공학관 A, B, C, 생명공학관 탐험 시 잠금 해제됩니다."
+            COLLEGE_OF_BIOLOGICAL_SCIENCES -> "동물생명과학관 탐험 시 잠금 해제됩니다."
+            COLLEGE_OF_VETERINARY_MEDICINE -> "수의학관 탐험 시 잠금 해제됩니다."
+            COLLEGE_OF_EDUCATION -> "교육과학관 탐험 시 잠금 해제됩니다."
 
-            COLLEGE_OF_BUSINESS_ADMINISTRATION_10 -> "인턴"
-            COLLEGE_OF_BUSINESS_ADMINISTRATION_30 -> "대리"
-            COLLEGE_OF_BUSINESS_ADMINISTRATION_50 -> "과장"
-            COLLEGE_OF_BUSINESS_ADMINISTRATION_70 -> "부장"
-            COLLEGE_OF_BUSINESS_ADMINISTRATION_100_AND_FIRST_PLACE -> "CEO"
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_10 -> "경영대 건물에서 10회 게임 실행 시 잠금 해제됩니다."
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_30 -> "경영대 건물에서 30회 게임 실행 시 잠금 해제됩니다."
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_50 -> "경영대 건물에서 50회 게임 실행 시 잠금 해제됩니다."
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_70 -> "경영대 건물에서 70회 게임 실행 시 잠금 해제됩니다."
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_100_AND_FIRST_PLACE -> "경영대 건물에서 100회 게임 실행 시 잠금 해제됩니다."
 
-            COLLEGE_OF_ART_AND_DESIGN_BEFORE_NOON -> "카페인 노예 덕쿠"
-            COLLEGE_OF_ART_AND_DESIGN_AFTER_NOON -> "덕쿠는 작업중"
-            COLLEGE_OF_ART_AND_DESIGN_NIGHT -> "야작하는 덕쿠"
+            COLLEGE_OF_ART_AND_DESIGN_BEFORE_NOON -> "9:00 ~ 11:59 사이 예디대 건물에서 게임 실행 시 잠금 해제됩니다."
+            COLLEGE_OF_ART_AND_DESIGN_AFTER_NOON -> "12:00 ~ 18:00 사이 예디대 건물에서 게임 실행 시 잠금 해제됩니다."
+            COLLEGE_OF_ART_AND_DESIGN_NIGHT -> "23:00 ~ 4:00 사이 예디대 건물에서 게임 실행 시 잠금 해제됩니다."
 
-            COLLEGE_OF_ENGINEERING_A -> "공대A"
-            COLLEGE_OF_ENGINEERING_B -> "공대B"
-            COLLEGE_OF_ENGINEERING_C -> "공대C"
+            COLLEGE_OF_ENGINEERING_A -> "공대 A관에서 게임 10회 이상 게임 실행 시 잠금 해제됩니다."
+            COLLEGE_OF_ENGINEERING_B -> "공대 B관에서 게임 10회 이상 게임 실행 시 잠금 해제됩니다."
+            COLLEGE_OF_ENGINEERING_C -> "공대 C관에서 게임 10회 이상 게임 실행 시 잠금 해제됩니다."
 
-            THE_DREAM_OF_DUCK -> "오리의꿈"
+            THE_DREAM_OF_DUCK -> "6개의 스토리 컷씬 모두 보면 잠금 해제됩니다."
 
-            MONTHLY_RANKING_1 -> "금메달"
-            MONTHLY_RANKING_2 -> "은메달"
-            MONTHLY_RANKING_3 -> "동메달"
+            MONTHLY_RANKING_1 -> "월간 전체 랭킹 1등 시 잠금 해제됩니다."
+            MONTHLY_RANKING_2 -> "월간 전체 랭킹 2등 시 잠금 해제됩니다."
+            MONTHLY_RANKING_3 -> "월간 전체 랭킹 3등 시 잠금 해제됩니다."
 
             else -> "없는 배지"
         }

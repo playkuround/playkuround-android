@@ -1,6 +1,7 @@
 package com.umc.playkuround.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -60,6 +61,7 @@ class BadgeActivity : AppCompatActivity() {
                 loadingDialog.dismiss()
                 if(isSuccess) {
                     if(body is UserBadgeResponse) {
+                        Log.d("isoo", "getResponseBody: $body")
                         body.badges.forEach {
                             val badge = Badge(-1, it.name, "")
                             isLocked[badge.id] = false

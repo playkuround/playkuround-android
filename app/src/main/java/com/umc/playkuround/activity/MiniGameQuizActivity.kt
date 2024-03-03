@@ -1,6 +1,8 @@
 package com.umc.playkuround.activity
 
+import android.app.Activity
 import android.app.Dialog
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -19,8 +21,14 @@ import com.umc.playkuround.databinding.ActivityMinigameQuizBinding
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.dialog.WaitingDialog
+import com.umc.playkuround.network.AdventureData
+import com.umc.playkuround.network.GetBadgeResponse
+import com.umc.playkuround.network.HighestScoresResponse
+import com.umc.playkuround.network.LandmarkAPI
+import com.umc.playkuround.network.UserAPI
 import com.umc.playkuround.util.PlayKuApplication
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
+import com.umc.playkuround.util.SoundPlayer
 
 class MiniGameQuizActivity : AppCompatActivity() {
 
@@ -28,10 +36,28 @@ class MiniGameQuizActivity : AppCompatActivity() {
 
     private lateinit var quiz : Quiz
 
+    private var highestScore = 0
+    private var badges = java.util.ArrayList<String>()
+
+    private fun getHighestScore() {
+        val userAPI = UserAPI()
+        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    if(body is HighestScoresResponse) {
+                        highestScore = body.highestScores.highestQuizScore
+                    }
+                }
+            }
+        }).getGameScores(PlayKuApplication.user.getAccessToken())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMinigameQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        getHighestScore()
 
         binding.quizPauseBtn.setOnClickListener {
             val pauseDialog = PauseDialog(this)
@@ -46,14 +72,13 @@ class MiniGameQuizActivity : AppCompatActivity() {
             pauseDialog.show()
         }
 
-        quiz = Quiz(1, "", ArrayList(), -1)
-        //quiz = getQuiz()
+        quiz = getQuiz()
         initQuizView()
     }
 
     private fun getQuiz() : Quiz {
-        val landmark = intent.getSerializableExtra("landmark") as LandMark
-        return Quiz(landmark.id, "", ArrayList(), -1)
+        val landmarkId = intent.getIntExtra("landmarkId", -1)
+        return Quiz(landmarkId, "", ArrayList(), -1)
     }
 
     private fun initQuizView() {
@@ -103,6 +128,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
 
     private fun setViewByResult(result : Boolean, chooseNum : Int) {
         if(!result) {
+            SoundPlayer(applicationContext, R.raw.quiz_wrong).play()
             when(chooseNum) {
                 0 -> {
                     binding.quizOption1Cl.setBackgroundResource(R.drawable.quiz_option_wrong)
@@ -243,20 +269,61 @@ class MiniGameQuizActivity : AppCompatActivity() {
     }
 
     private fun showGameOverDialog() {
+        SoundPlayer(applicationContext, R.raw.quiz_correct).play()
+        fun showGameOverDialog(result : Int) {
+            val gameOverDialog = GameOverDialog(this@MiniGameQuizActivity)
+            gameOverDialog.setOnDismissListener {
+                val resultIntent = Intent()
+                resultIntent.putExtra("isNewLandmark", intent.getBooleanExtra("isNewLandmark", false))
+                resultIntent.putExtra("badge", badges)
+                setResult(result, resultIntent)
+                this@MiniGameQuizActivity.finish()
+            }
+
+            gameOverDialog.setInfo(resources.getString(R.string.ku_quiz), 20, highestScore, userTotalScore + 20)
+            gameOverDialog.show()
+        }
+
+        var flag = false
+        var isFailed = false
+
         val waitingDialog = WaitingDialog(this)
         waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
             override fun onFinish() {
                 waitingDialog.dismiss()
-                val gameOverDialog = GameOverDialog(this@MiniGameQuizActivity)
-                gameOverDialog.setOnDismissListener {
-                    this@MiniGameQuizActivity.finish()
+                if(flag) {
+                    if(isFailed) showGameOverDialog(Activity.RESULT_CANCELED)
+                    else showGameOverDialog(Activity.RESULT_OK)
                 }
-
-                gameOverDialog.setInfo(resources.getString(R.string.ku_quiz), 20, 0, userTotalScore + 20)
-                gameOverDialog.show()
             }
         })
         waitingDialog.show()
+
+        val landmarkId = intent.getIntExtra("landmarkId", 0)
+        val latitude = intent.getDoubleExtra("latitude", 0.0)
+        val longitude = intent.getDoubleExtra("longitude", 0.0)
+
+        val landmarkAPI = LandmarkAPI()
+        landmarkAPI.setOnResponseListener(object : LandmarkAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
+                if(isSuccess) {
+                    if(body is GetBadgeResponse) {
+                        body.response.newBadges.forEach {
+                            badges.add(it.name)
+                        }
+                        flag = true
+                        if (!waitingDialog.isShowing) {
+                            showGameOverDialog(Activity.RESULT_OK)
+                        }
+                    }
+                } else {
+                    flag = true
+                    isFailed = true
+                    if(!waitingDialog.isShowing)
+                        showGameOverDialog(Activity.RESULT_CANCELED)
+                }
+            }
+        }).sendScore(PlayKuApplication.user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, 20, "QUIZ"))
     }
 
 }

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.Button
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.DialogGameOverBinding
+import com.umc.playkuround.util.SoundPlayer
 
 class GameOverDialog(context : Context) : Dialog(context) {
 
@@ -34,6 +35,7 @@ class GameOverDialog(context : Context) : Dialog(context) {
 
         val quitBtn = findViewById<Button>(R.id.dialog_game_over_quit)
         quitBtn.setOnClickListener {
+            SoundPlayer(context, R.raw.button_click_sound).play()
             this.dismiss()
         }
     }

@@ -1,6 +1,8 @@
 package com.umc.playkuround.activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -11,8 +13,14 @@ import com.umc.playkuround.databinding.ActivityMinigameTimerBinding
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.dialog.WaitingDialog
+import com.umc.playkuround.network.AdventureData
+import com.umc.playkuround.network.GetBadgeResponse
+import com.umc.playkuround.network.HighestScoresResponse
+import com.umc.playkuround.network.LandmarkAPI
+import com.umc.playkuround.network.UserAPI
 import com.umc.playkuround.util.PlayKuApplication
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
+import com.umc.playkuround.util.SoundPlayer
 import java.util.*
 import kotlin.concurrent.timer
 
@@ -24,10 +32,28 @@ class MiniGameTimerActivity : AppCompatActivity() {
     private var isRunning = false
     private var timerTask: Timer? = null
 
+    private var highestScore = 0
+    private var badges = ArrayList<String>()
+
+    private fun getHighestScore() {
+        val userAPI = UserAPI()
+        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    if(body is HighestScoresResponse) {
+                        highestScore = body.highestScores.highestTimeScore
+                    }
+                }
+            }
+        }).getGameScores(PlayKuApplication.user.getAccessToken())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMinigameTimerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        getHighestScore()
 
         binding.moonPauseBtn.setOnClickListener {
             timerTask?.cancel()
@@ -55,26 +81,29 @@ class MiniGameTimerActivity : AppCompatActivity() {
         }
 
         binding.timerStartBt.setOnClickListener {
+            SoundPlayer(this, R.raw.timer_button_click).play()
             if(!isRunning) start() else pause()
         }
         binding.timerStopBt.setOnClickListener{
+            SoundPlayer(this, R.raw.timer_button_click).play()
             pause()
             lapTime()
             check()
         }
         binding.timerRestartBt.setOnClickListener {
+            SoundPlayer(this, R.raw.timer_button_click).play()
             reset()
         }
     }
 
     private fun check() {
         if (time in 990..1010) {
-            //Toast.makeText(this, "맞춤", Toast.LENGTH_SHORT).show()
-            openResultDialog(true)}
-
-        else {
-            //Toast.makeText(this, "틀림", Toast.LENGTH_SHORT).show()
-            openResultDialog(false)}
+            SoundPlayer(this, R.raw.timer_correct).play()
+            openResultDialog(true)
+        } else {
+            SoundPlayer(this, R.raw.timer_wrong).play()
+            openResultDialog(false)
+        }
     }
 
     //타이머 시작
@@ -165,22 +194,63 @@ class MiniGameTimerActivity : AppCompatActivity() {
     }
 
     private fun showGameOverDialog() {
+        val score = if(time == 1000) 500
+        else 50
+
+        fun showGameOverDialog(result : Int) {
+            val gameOverDialog = GameOverDialog(this@MiniGameTimerActivity)
+            gameOverDialog.setOnDismissListener {
+                val resultIntent = Intent()
+                resultIntent.putExtra("isNewLandmark", intent.getBooleanExtra("isNewLandmark", false))
+                resultIntent.putExtra("badge", badges)
+                setResult(result, resultIntent)
+                this@MiniGameTimerActivity.finish()
+            }
+
+            gameOverDialog.setInfo(resources.getString(R.string.ku_timer), score, highestScore, userTotalScore + score)
+            gameOverDialog.show()
+        }
+
+        var flag = false
+        var isFailed = false
+
         val waitingDialog = WaitingDialog(this)
         waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
             override fun onFinish() {
                 waitingDialog.dismiss()
-                val gameOverDialog = GameOverDialog(this@MiniGameTimerActivity)
-                gameOverDialog.setOnDismissListener {
-                    this@MiniGameTimerActivity.finish()
+                if(flag) {
+                    if(isFailed) showGameOverDialog(Activity.RESULT_CANCELED)
+                    else showGameOverDialog(Activity.RESULT_OK)
                 }
-
-                val score = if(time == 1000) 500
-                else 50
-                gameOverDialog.setInfo(resources.getString(R.string.ku_timer), score, 0, userTotalScore + score)
-                gameOverDialog.show()
             }
         })
         waitingDialog.show()
+
+        val landmarkId = intent.getIntExtra("landmarkId", 0)
+        val latitude = intent.getDoubleExtra("latitude", 0.0)
+        val longitude = intent.getDoubleExtra("longitude", 0.0)
+
+        val landmarkAPI = LandmarkAPI()
+        landmarkAPI.setOnResponseListener(object : LandmarkAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
+                if(isSuccess) {
+                    if(body is GetBadgeResponse) {
+                        body.response.newBadges.forEach {
+                            badges.add(it.name)
+                        }
+                        flag = true
+                        if (!waitingDialog.isShowing) {
+                            showGameOverDialog(Activity.RESULT_OK)
+                        }
+                    }
+                } else {
+                    flag = true
+                    isFailed = true
+                    if(!waitingDialog.isShowing)
+                        showGameOverDialog(Activity.RESULT_CANCELED)
+                }
+            }
+        }).sendScore(PlayKuApplication.user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, score, "TIME"))
     }
 
 }

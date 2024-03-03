@@ -3,6 +3,7 @@ package com.umc.playkuround.activity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -11,6 +12,8 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.view.Window
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -30,22 +33,29 @@ import com.umc.playkuround.data.LandMark
 import com.umc.playkuround.databinding.ActivityMapBinding
 import com.umc.playkuround.dialog.BadgeInfoDialog
 import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.dialog.LogoutDialog
 import com.umc.playkuround.dialog.MapPlaceDialog
 import com.umc.playkuround.dialog.PlaceInfoDialog
+import com.umc.playkuround.dialog.RandomGameDialog
 import com.umc.playkuround.dialog.StoryDialog
+import com.umc.playkuround.network.AuthAPI
 import com.umc.playkuround.network.BadgeAPI
 import com.umc.playkuround.network.LandmarkAPI
 import com.umc.playkuround.network.LandmarkResponse
 import com.umc.playkuround.network.LandmarkTopResponse
+import com.umc.playkuround.network.ReissueTokens
 import com.umc.playkuround.network.ScoreAPI
 import com.umc.playkuround.network.Top100Response
+import com.umc.playkuround.network.UserAPI
 import com.umc.playkuround.network.UserBadgeResponse
 import com.umc.playkuround.util.GpsTracker
 import com.umc.playkuround.util.PlayKuApplication.Companion.exploredLandmarks
 import com.umc.playkuround.util.PlayKuApplication.Companion.pref
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
+import com.umc.playkuround.util.SoundPlayer
 import java.text.NumberFormat
 import java.util.*
+import kotlin.random.Random
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -61,6 +71,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private var timer : Timer? = null
 
     private lateinit var loadingDialog : LoadingDialog
+
+    private var bgm = SoundPlayer(this, R.raw.background_bgm)
 
     private val gameLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if(result.resultCode == Activity.RESULT_OK) {
@@ -86,6 +98,28 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                 val storyDialog = StoryDialog(this)
                 storyDialog.show()
             }
+        } else if(result.resultCode == Activity.RESULT_CANCELED) {
+            Toast.makeText(applicationContext, "게임 점수가 반영되지 않았습니다!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showNotification() {
+        val alarms = intent.getStringArrayListExtra("alarm")
+        alarms?.forEach {
+            val infoDialog = Dialog(this, R.style.TransparentDialogTheme)
+            infoDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            infoDialog.setContentView(R.layout.dialog_ranking_info)
+            infoDialog.findViewById<TextView>(R.id.dialog_ranking_info_title).text = "알림"
+            infoDialog.findViewById<TextView>(R.id.dialog_ranking_info_context).text = it
+            infoDialog.show()
+        }
+
+        val badges = intent.getStringArrayListExtra("badge")
+        badges?.forEach {
+            val badge = Badge(-1, it, "")
+            val badgeInfoDialog = BadgeInfoDialog(this@MapActivity, badge.id)
+            badgeInfoDialog.setStatus(false, true)
+            badgeInfoDialog.show()
         }
     }
 
@@ -94,6 +128,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         binding = ActivityMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        showNotification()
+
         loadingDialog = LoadingDialog(this)
         loadingDialog.show()
 
@@ -101,6 +137,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         binding.mapMapFragment.getMapAsync(this@MapActivity)
 
         binding.mapAttendanceBtn.setOnClickListener {
+            SoundPlayer(this, R.raw.button_click_sound).play()
             val intent = Intent(applicationContext, AttendanceActivity::class.java)
             intent.putExtra("latitude", nowLocation.latitude)
             intent.putExtra("longitude", nowLocation.longitude)
@@ -108,16 +145,19 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         }
 
         binding.mapRankingBtn.setOnClickListener {
+            SoundPlayer(this, R.raw.button_click_sound).play()
             val intent = Intent(applicationContext, RankingActivity::class.java)
             startActivity(intent)
         }
 
         binding.mapBadgeBtn.setOnClickListener {
+            SoundPlayer(this, R.raw.button_click_sound).play()
             val intent = Intent(applicationContext, BadgeActivity::class.java)
             startActivity(intent)
         }
 
         binding.mapMyBtn.setOnClickListener {
+            SoundPlayer(this, R.raw.button_click_sound).play()
             val intent = Intent(applicationContext, MyPageActivity::class.java)
             startActivity(intent)
         }
@@ -171,16 +211,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     }
 
     private fun updatingNowLocation(location: Location) {
-//        val kuBound = LatLngBounds(
-//            LatLng(37.5398, 127.071),
-//            LatLng(37.54499, 127.08515)
-//        )
-//        if(!kuBound.contains(LatLng(location.latitude, location.longitude))){
-//            Toast.makeText(applicationContext, "건국대학교 내부에 위치하고 있지 않습니다.", Toast.LENGTH_SHORT).show()
-//            binding.mapExploreBtn.visibility = View.INVISIBLE
-//            return
-//        }
-
         val lat = location.latitude
         val lon = location.longitude
         if(loadingDialog.isShowing) {
@@ -188,17 +218,16 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             loadingDialog.dismiss()
         }
 
-        val bitmapDraw =
-            ResourcesCompat.getDrawable(resources, R.drawable.map_duck, null) as BitmapDrawable
+        val bitmapDraw = ResourcesCompat.getDrawable(resources, R.drawable.map_duck, null) as BitmapDrawable
         val b = bitmapDraw.bitmap
         val smallMarker = Bitmap.createScaledBitmap(b, 124, 144, false)
-
 
         val markerOptions = MarkerOptions()
         nowLocation = LatLng(lat, lon)
 
         markerOptions.position(nowLocation)
         markerOptions.snippet("-1")
+        markerOptions.zIndex(10f)
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
 
         runOnUiThread {
@@ -213,12 +242,12 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
     private fun startRandomGame(landmarkId : Int) {
         fun startGameActivity(intent : Intent) {
+            val landmark = LandMark(landmarkId, 0.0,0.0,"",0.0,"")
             intent.putExtra("landmarkId", landmarkId)
-            intent.putExtra("latitude", nowLocation.latitude)
-            intent.putExtra("longitude", nowLocation.longitude)
+            intent.putExtra("latitude", landmark.latitude)
+            intent.putExtra("longitude", landmark.longitude)
 
             if(exploredLandmarks.size < 6) {
-                val landmark = LandMark(landmarkId, 0.0,0.0,"",0.0,"")
                 if (exploredLandmarks.contains(landmark.name)) {
                     intent.putExtra("isNewLandmark", false)
                 } else {
@@ -233,20 +262,29 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             gameLauncher.launch(intent)
         }
 
-        val intent : Intent = when((1..6).random()) {
-            1 -> Intent(applicationContext, MiniGameTimerActivity::class.java)
-            2 -> Intent(applicationContext, MiniGameAvoidActivity::class.java)
-            3 -> Intent(applicationContext, MiniGameBridgeActivity::class.java)
-            4 -> Intent(applicationContext, MiniGameCardFlippingActivity::class.java)
-            5 -> Intent(applicationContext, MiniGameCatchActivity::class.java)
-            6 -> Intent(applicationContext, MiniGameTypingActivity::class.java)
-            else -> Intent(applicationContext, MiniGameTypingActivity::class.java)
-        }
-        startGameActivity(intent)
+        val randomGameDialog = RandomGameDialog(this, landmarkId)
+        randomGameDialog.setOnStartListener(object : RandomGameDialog.OnStartListener {
+            override fun onStart(selected: Int) {
+                val intent : Intent = when(selected) {
+                    1 -> Intent(applicationContext, MiniGameCardFlippingActivity::class.java)
+                    2 -> Intent(applicationContext, MiniGameCatchActivity::class.java)
+                    3 -> Intent(applicationContext, MiniGameTypingActivity::class.java)
+                    4 -> Intent(applicationContext, MiniGameBridgeActivity::class.java)
+                    5 -> Intent(applicationContext, MiniGameMoonActivity::class.java)
+                    6 -> Intent(applicationContext, MiniGameAvoidActivity::class.java)
+                    7 -> Intent(applicationContext, MiniGameQuizActivity::class.java)
+                    8 -> Intent(applicationContext, MiniGameTimerActivity::class.java)
+                    else -> Intent(applicationContext, MiniGameTypingActivity::class.java)
+                }
+                startGameActivity(intent)
+            }
+        })
+        randomGameDialog.show()
     }
 
     private fun exploreBtnClicked(idx : Int) {
         binding.mapExploreBtn.setOnClickListener {
+            SoundPlayer(this, R.raw.button_click_sound).play()
             gpsTracker.requestLastLocation()
             val loading = LoadingDialog(this)
             loading.show()
@@ -287,20 +325,25 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     }
 
     private fun initMap() {
-        map.setMinZoomPreference(15.0f)
-        map.setMaxZoomPreference(19.0f)
+        map.setMinZoomPreference(15.5f)
+        map.setMaxZoomPreference(18.0f)
+
+        map.mapType = GoogleMap.MAP_TYPE_TERRAIN
 
         val kuBound = LatLngBounds(
-            LatLng(37.5398, 127.071),
-            LatLng(37.542, 127.082)
+            LatLng(37.537420146943006, 127.06821864009382),
+            LatLng(37.545348706514964, 127.08474104762556)
         )
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(kuBound.center, 16f))
+        map.setLatLngBoundsForCameraTarget(kuBound)
 
         map.uiSettings.isCompassEnabled = false
         map.uiSettings.isMapToolbarEnabled = false
 
         setMarker()
         map.setOnMarkerClickListener(this)
+
+        map.setPadding(5000,5000,0,0)
     }
 
     private fun setMarker() {
@@ -328,25 +371,30 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         }
     }
 
-    private fun screenWidth() : Int {
-        return resources.displayMetrics.widthPixels
-    }
-
-    private fun screenHeight() : Int {
-        return resources.displayMetrics.heightPixels
-    }
-
-    private fun toPX(dp : Int) : Int {
-        return (dp * resources.displayMetrics.density).toInt()
+    override fun onBackPressed() {
+        val logoutDialog = LogoutDialog(this)
+        logoutDialog.setOnSelectListener(object : LogoutDialog.OnSelectListener {
+            override fun yes() {
+                bgm.stop()
+                finishAffinity()
+            }
+        })
+        logoutDialog.show()
+        logoutDialog.setContext("정말 종료하시겠습니까?")
     }
 
     override fun onResume() {
+        val reissueTokens = ReissueTokens(user.userTokenResponse?.tokenData!!.accessToken, user.userTokenResponse?.tokenData!!.refreshToken)
+        AuthAPI().reissue(reissueTokens)
+
+        if(bgm.isPlaying() == null || !bgm.isPlaying()!!)
+            bgm.repeat()
         setUserData()
 
         Log.d("isoo", "onResume: trigger!")
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult) {
-                val nowLocation = LatLng(p0.lastLocation!!.latitude, p0.lastLocation!!.longitude)
+                //val nowLocation = LatLng(p0.lastLocation!!.latitude, p0.lastLocation!!.longitude)
                 //map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation, 18f))
             }
         }
@@ -354,6 +402,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         gpsTracker = GpsTracker(applicationContext, object : GpsTracker.OnLocationUpdateListener {
             override fun onLocationUpdated(location: Location) {
                 updatingNowLocation(location)
+//                val location2 = Location("isoo")
+//                val landmark = LandMark(Random.nextInt(45), 0.0,0.0,"",0.0,"")
+//                location2.latitude = landmark.latitude
+//                location2.longitude = landmark.longitude
+//                updatingNowLocation(location2)
             }
         })
 

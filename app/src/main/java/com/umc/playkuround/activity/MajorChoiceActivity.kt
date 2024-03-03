@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityMajorChoiceBinding
+import com.umc.playkuround.util.SoundPlayer
 
 
 class MajorChoiceActivity : AppCompatActivity() {
@@ -25,12 +26,12 @@ class MajorChoiceActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.agreeNextBtn.setOnClickListener{
+            SoundPlayer(this, R.raw.button_click_sound).play()
             val intent = Intent(this, NicknameActivity::class.java)
             startActivity(intent)
 
             user.major = binding.majorDbSpinner.selectedItem.toString()
             Log.d("major", user.major)
-
         }
 
         val items = resources.getStringArray(R.array.magjor_array)

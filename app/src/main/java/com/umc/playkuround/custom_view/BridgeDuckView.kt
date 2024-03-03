@@ -52,14 +52,14 @@ class BridgeDuckView(context : Context, attrs : AttributeSet) : View(context, at
     private var whiteDucks = CopyOnWriteArrayList<Duck>()
     private var blackDucks = CopyOnWriteArrayList<Duck>()
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         blackDucks.forEach {
-            it.draw(canvas!!)
+            it.draw(canvas)
         }
         whiteDucks.forEach {
-            it.draw(canvas!!)
+            it.draw(canvas)
         }
     }
 

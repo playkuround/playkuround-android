@@ -39,7 +39,7 @@
     <ImageView
         android:layout_width="70dp"
         android:layout_height="54dp"
-        android:src="@drawable/game_over_crying_duck"
+        android:src="@drawable/game_over_duck"
         app:layout_constraintStart_toStartOf="@id/dialog_game_score_bg"
         app:layout_constraintEnd_toEndOf="@id/dialog_game_score_bg"
         app:layout_constraintBottom_toTopOf="@id/dialog_game_score_bg"

@@ -1,5 +1,7 @@
 package com.umc.playkuround.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,7 +15,14 @@ import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.dialog.WaitingDialog
 import com.umc.playkuround.custom_view.MiniGameTimerFragment
+import com.umc.playkuround.network.AdventureData
+import com.umc.playkuround.network.GetBadgeResponse
+import com.umc.playkuround.network.HighestScoresResponse
+import com.umc.playkuround.network.LandmarkAPI
+import com.umc.playkuround.network.UserAPI
+import com.umc.playkuround.util.PlayKuApplication
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
+import com.umc.playkuround.util.SoundPlayer
 import kotlin.random.Random
 
 private const val WINDOW_MOTION_DELAY = 150L
@@ -30,10 +39,28 @@ class MiniGameCatchActivity : AppCompatActivity() {
     private val isBlackDuck = Array(30) { false }
     private val isOpenTime = Array(TIME_LIMIT) { false }
 
+    private var highestScore = 0
+    private var badges = ArrayList<String>()
+
+    private fun getHighestScore() {
+        val userAPI = UserAPI()
+        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    if(body is HighestScoresResponse) {
+                        highestScore = body.highestScores.highestCatchScore
+                    }
+                }
+            }
+        }).getGameScores(PlayKuApplication.user.getAccessToken())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMinigameCatchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        getHighestScore()
 
         initOpenTime()
         initWindowClick()
@@ -48,6 +75,7 @@ class MiniGameCatchActivity : AppCompatActivity() {
 
             override fun timeProgress(leftTime: Int) {
                 if(isOpenTime[leftTime]) {
+                    SoundPlayer(applicationContext, R.raw.catch_window).play()
                     if(leftTime < 20) {
                         openWindow(false)
                         openWindow(false)
@@ -126,9 +154,11 @@ class MiniGameCatchActivity : AppCompatActivity() {
             binding.catchDuckWindowsGl.getChildAt(i).setOnClickListener {
                 if(isOpen[i]) {
                     if(!isBlackDuck[i]) {
+                        SoundPlayer(applicationContext, R.raw.catch_white_duck_clicked).play()
                         score += 1
                         (binding.catchDuckWindowsGl.getChildAt(i) as ImageView).setImageResource(R.drawable.catch_duck_white_catched)
                     } else {
+                        SoundPlayer(applicationContext, R.raw.catch_black_duck_clicked).play()
                         score -= 1
                         (binding.catchDuckWindowsGl.getChildAt(i) as ImageView).setImageResource(R.drawable.catch_duck_black_catched)
                     }
@@ -176,20 +206,60 @@ class MiniGameCatchActivity : AppCompatActivity() {
     }
 
     private fun showGameOverDialog() {
+        fun showGameOverDialog(result : Int) {
+            val gameOverDialog = GameOverDialog(this@MiniGameCatchActivity)
+            gameOverDialog.setOnDismissListener {
+                val resultIntent = Intent()
+                resultIntent.putExtra("isNewLandmark", intent.getBooleanExtra("isNewLandmark", false))
+                resultIntent.putExtra("badge", badges)
+                setResult(result, resultIntent)
+                this@MiniGameCatchActivity.finish()
+            }
+
+            gameOverDialog.setInfo(resources.getString(R.string.catch_duck), score, highestScore, userTotalScore + score)
+            gameOverDialog.show()
+        }
+
+        var flag = false
+        var isFailed = false
+
         val waitingDialog = WaitingDialog(this)
         waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
             override fun onFinish() {
                 waitingDialog.dismiss()
-                val gameOverDialog = GameOverDialog(this@MiniGameCatchActivity)
-                gameOverDialog.setOnDismissListener {
-                    this@MiniGameCatchActivity.finish()
+                if(flag) {
+                    if(isFailed) showGameOverDialog(Activity.RESULT_CANCELED)
+                    else showGameOverDialog(Activity.RESULT_OK)
                 }
-
-                gameOverDialog.setInfo(resources.getString(R.string.catch_duck), score, 0, userTotalScore + score)
-                gameOverDialog.show()
             }
         })
         waitingDialog.show()
+
+        val landmarkId = intent.getIntExtra("landmarkId", 0)
+        val latitude = intent.getDoubleExtra("latitude", 0.0)
+        val longitude = intent.getDoubleExtra("longitude", 0.0)
+
+        val landmarkAPI = LandmarkAPI()
+        landmarkAPI.setOnResponseListener(object : LandmarkAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
+                if(isSuccess) {
+                    if(body is GetBadgeResponse) {
+                        body.response.newBadges.forEach {
+                            badges.add(it.name)
+                        }
+                        flag = true
+                        if (!waitingDialog.isShowing) {
+                            showGameOverDialog(Activity.RESULT_OK)
+                        }
+                    }
+                } else {
+                    flag = true
+                    isFailed = true
+                    if(!waitingDialog.isShowing)
+                        showGameOverDialog(Activity.RESULT_CANCELED)
+                }
+            }
+        }).sendScore(PlayKuApplication.user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, score, "CATCH"))
     }
 
 }

@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.umc.playkuround"
         minSdk 26
-        targetSdk 32
+        targetSdk 34
         versionCode 4
         versionName "2.0.0"
 

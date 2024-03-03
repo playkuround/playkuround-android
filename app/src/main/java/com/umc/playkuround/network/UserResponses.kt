@@ -39,7 +39,7 @@ data class UserProfileData(
 
 data class NotificationResponse(
     @SerializedName("isSuccess") val isSuccess: Boolean,
-    @SerializedName("response") val badges: List<Notification>
+    @SerializedName("response") val notifications: List<Notification>
 )
 
 data class Notification(

@@ -132,10 +132,10 @@ class UserAPI {
         })
     }
 
-    fun getNotification(token : String) {
+    fun getNotification(token : String, version : String) {
         val userAPI = getRetrofit().create(UserRetrofitInterface::class.java)
 
-        userAPI.getNotification(token).enqueue(object : Callback<NotificationResponse> {
+        userAPI.getNotification(token, version).enqueue(object : Callback<NotificationResponse> {
             override fun onResponse(
                 call: Call<NotificationResponse>,
                 response: Response<NotificationResponse>

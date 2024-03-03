@@ -61,7 +61,7 @@ class LandmarkRankingActivity : AppCompatActivity() {
         binding = ActivityLandmarkRankingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        intent.getIntExtra("landmarkId", -1)
+        landmarkId = intent.getIntExtra("landmarkId", -1)
 
         binding.landmarkRankingBackBtn.setOnClickListener {
             finish()
@@ -111,13 +111,15 @@ class LandmarkRankingActivity : AppCompatActivity() {
         binding.landmarkRankingTopScoreTv.text = "+ " + formatter.format(rankInfo[0].score)
 
         val landmark = LandMark(landmarkId, 0.0,0.0,"",0.0,"")
+        binding.landmarkRankingImgIv.setImageResource(landmark.getImageDrawable())
+
         val spannableString = SpannableString(landmark.name + "을")
         val colorSpan = ForegroundColorSpan(Color.parseColor("#84BB74"))
         spannableString.setSpan(colorSpan, 0, landmark.name.length, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE)
         binding.landmarkRankingLandmarkNameTv.text = spannableString
 
         val spannableString2 = SpannableString(rankInfo[0].nickname + "님입니다")
-        spannableString.setSpan(colorSpan, 0, rankInfo[0].nickname!!.length, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE)
+        spannableString2.setSpan(colorSpan, 0, rankInfo[0].nickname!!.length, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE)
         binding.landmarkRankingTopNicknameTv.text = spannableString2
 
         binding.landmarkRankingInfoTitleLl.visibility = View.VISIBLE

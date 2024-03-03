@@ -26,6 +26,7 @@ import com.umc.playkuround.dialog.SlideUpDialog
 import com.umc.playkuround.network.AuthAPI
 import com.umc.playkuround.network.CertifyCodeResponse
 import com.umc.playkuround.network.UserAPI
+import com.umc.playkuround.util.SoundPlayer
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.timer
@@ -54,6 +55,7 @@ class EmailCertifyActivity : AppCompatActivity() {
 
         // 인증요청 버튼 클릭
         binding.emailRequestCodeBtn.setOnClickListener {
+            SoundPlayer(this, R.raw.button_click_sound).play()
             email = binding.emailGetEmailEt.text.toString() + "@konkuk.ac.kr"
             requestCode(email)
 
@@ -84,6 +86,7 @@ class EmailCertifyActivity : AppCompatActivity() {
 
         // 인증하기 버튼 클릭
         binding.emailCertifyBtn.setOnClickListener {
+            SoundPlayer(this, R.raw.button_click_sound).play()
             certifyCode = binding.emailInputCodeEt.text.toString()
             isCodeCorrect(email, certifyCode)
         }
@@ -212,6 +215,7 @@ class EmailCertifyActivity : AppCompatActivity() {
 
         val confirmBtn = slideupPopup.findViewById<Button>(R.id.timeout_confirm_btn)
         confirmBtn.setOnClickListener {
+            SoundPlayer(this, R.raw.button_click_sound).play()
             binding.emailRequestCountTv.visibility = View.INVISIBLE
             binding.emailGotoKonkukEmailTv.visibility = View.INVISIBLE
             binding.emailInputCodeCl.visibility = View.INVISIBLE

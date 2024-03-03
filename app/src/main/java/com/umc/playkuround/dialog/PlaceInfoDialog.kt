@@ -11,6 +11,7 @@ import android.widget.ImageView
 import com.umc.playkuround.R
 import com.umc.playkuround.data.LandMark
 import com.umc.playkuround.databinding.DialogPlaceInfoBinding
+import com.umc.playkuround.util.SoundPlayer
 
 class PlaceInfoDialog(context : Context, private val landmarkId : Int) : Dialog(context) {
 
@@ -30,6 +31,7 @@ class PlaceInfoDialog(context : Context, private val landmarkId : Int) : Dialog(
         binding.dialogPlaceInfoContextTv.text = landmark.getDescription()
 
         binding.dialogPlaceInfoCloseBtn.setOnClickListener {
+            SoundPlayer(context, R.raw.button_click_sound).play()
             this.dismiss()
         }
 

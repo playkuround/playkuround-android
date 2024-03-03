@@ -38,7 +38,7 @@ class AvoidView(context : Context, attrs : AttributeSet) : View(context, attrs) 
         init {
             width = dpToPx(33f).toInt()
             height = dpToPx(30f).toInt()
-            speed = 0.333f
+            speed = 0.3f
         }
 
         override fun draw(canvas : Canvas) {
@@ -96,7 +96,7 @@ class AvoidView(context : Context, attrs : AttributeSet) : View(context, attrs) 
         init {
             width = dpToPx(13f).toInt()
             height = dpToPx(21.12f).toInt()
-            speed = 3f
+            speed = 2.8f
             angle = Random.nextDouble(0.0,360.0)
             val rand = Random.nextInt(2)
             if(angle < 90) {
@@ -156,7 +156,7 @@ class AvoidView(context : Context, attrs : AttributeSet) : View(context, attrs) 
         init {
             width = dpToPx(27f).toInt()
             height = dpToPx(82f).toInt()
-            speed = 6f
+            speed = 5.6f
             angle = Random.nextDouble(0.0,360.0)
             val rand = Random.nextInt(2)
             if(angle < 90) {
@@ -228,10 +228,10 @@ class AvoidView(context : Context, attrs : AttributeSet) : View(context, attrs) 
         duck.y = (height / 2).toDouble()
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        duck.draw(canvas!!)
+        duck.draw(canvas)
         germs.forEach {
             it.draw(canvas)
         }

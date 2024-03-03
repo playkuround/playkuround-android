@@ -8,28 +8,45 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityPolicyAgreeBinding
+import com.umc.playkuround.util.SoundPlayer
 
 class PolicyAgreeActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityPolicyAgreeBinding
+    private lateinit var sound : SoundPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPolicyAgreeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        sound = SoundPlayer(this, R.raw.button_click_sound)
+
         //전체동의 누르면 넘어가짐
-        binding.agreeSumCb.setOnClickListener{ onCheckChanged(binding.agreeSumCb)
-            isAllChecked()}
-        binding.agree01Cb.setOnClickListener{onCheckChanged(binding.agree01Cb)
-            isAllChecked()}
-        binding.agree02Cb.setOnClickListener{onCheckChanged(binding.agree02Cb)
-            isAllChecked()}
-        binding.agree03Cb.setOnClickListener{onCheckChanged(binding.agree03Cb)
-            isAllChecked()}
+        binding.agreeSumCb.setOnClickListener{
+            sound.play()
+            onCheckChanged(binding.agreeSumCb)
+            isAllChecked()
+        }
+        binding.agree01Cb.setOnClickListener{
+            sound.play()
+            onCheckChanged(binding.agree01Cb)
+            isAllChecked()
+        }
+        binding.agree02Cb.setOnClickListener{
+            sound.play()
+            onCheckChanged(binding.agree02Cb)
+            isAllChecked()
+        }
+        binding.agree03Cb.setOnClickListener{
+            sound.play()
+            onCheckChanged(binding.agree03Cb)
+            isAllChecked()
+        }
 
         //다음 누르면 activity전환
         binding.agreeNextBtn.setOnClickListener{
+            sound.play()
             val intent = Intent(this, MajorChoiceActivity::class.java)
             startActivity(intent)
         }

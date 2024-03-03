@@ -6,9 +6,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.databinding.ActivityMyPageBinding
 import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.dialog.LogoutDialog
 import com.umc.playkuround.dialog.StoryDialog
 import com.umc.playkuround.network.ScoreAPI
 import com.umc.playkuround.network.Top100Response
@@ -86,23 +88,35 @@ class MyPageActivity : AppCompatActivity() {
         val packageInfo = packageManager.getPackageInfo(packageName, 0)
         val appVersionName = packageInfo.versionName
         binding.myPageVersionTv.text = appVersionName
+        binding.myPageVersionTitleTv.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("BGM - Prod. 브금공방\n\n<Back in my days>")
+            val dialog = builder.create()
+            dialog.show()
+        }
     }
 
     private fun logout() {
-        val userAPI = UserAPI()
-        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
-            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                if(isSuccess) {
-                    val intent = Intent(applicationContext, LoginActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Toast.makeText(applicationContext, "로그아웃에 실패하였습니다.", Toast.LENGTH_SHORT).show()
-                }
+        val logoutDialog = LogoutDialog(this)
+        logoutDialog.setOnSelectListener(object : LogoutDialog.OnSelectListener {
+            override fun yes() {
+                val userAPI = UserAPI()
+                userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
+                    override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                        if(isSuccess) {
+                            val intent = Intent(applicationContext, LoginActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(applicationContext, "로그아웃에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }).logout(user.getAccessToken())
             }
-        }).logout(user.getAccessToken())
+        })
+        logoutDialog.show()
     }
 
     private fun backdoor() {

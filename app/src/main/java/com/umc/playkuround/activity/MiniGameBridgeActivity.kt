@@ -2,6 +2,8 @@ package com.umc.playkuround.activity
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -15,7 +17,14 @@ import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.custom_view.MiniGameTimerFragment
 import com.umc.playkuround.custom_view.BridgeDuckView
 import com.umc.playkuround.dialog.WaitingDialog
+import com.umc.playkuround.network.AdventureData
+import com.umc.playkuround.network.GetBadgeResponse
+import com.umc.playkuround.network.HighestScoresResponse
+import com.umc.playkuround.network.LandmarkAPI
+import com.umc.playkuround.network.UserAPI
+import com.umc.playkuround.util.PlayKuApplication
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
+import com.umc.playkuround.util.SoundPlayer
 import java.util.Timer
 import java.util.TimerTask
 import kotlin.random.Random
@@ -30,10 +39,28 @@ class MiniGameBridgeActivity : AppCompatActivity() {
 
     private var duckThread = Timer()
 
+    private var highestScore = 0
+    private var badges = ArrayList<String>()
+
+    private fun getHighestScore() {
+        val userAPI = UserAPI()
+        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                if(isSuccess) {
+                    if(body is HighestScoresResponse) {
+                        highestScore = body.highestScores.highestHongBridgeScore
+                    }
+                }
+            }
+        }).getGameScores(PlayKuApplication.user.getAccessToken())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMinigameBridgeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        getHighestScore()
 
         timerFragment = supportFragmentManager.findFragmentById(R.id.bridge_timer_fragment) as MiniGameTimerFragment
         timerFragment.setTime(TIME_LIMIT)
@@ -50,6 +77,7 @@ class MiniGameBridgeActivity : AppCompatActivity() {
 
         binding.bridgeDuckView.setOnBadListener(object : BridgeDuckView.OnBadListener {
             override fun onBad() {
+                SoundPlayer(applicationContext, R.raw.bridge_bad).play()
                 binding.bridgeResultIv.setImageResource(R.drawable.bridge_timing_bad)
                 showResultView()
             }
@@ -60,16 +88,19 @@ class MiniGameBridgeActivity : AppCompatActivity() {
 
             when(binding.bridgeDuckView.stop()) {
                 "perfect" -> {
+                    SoundPlayer(applicationContext, R.raw.bridge_good).play()
                     binding.bridgeResultIv.setImageResource(R.drawable.bridge_timing_perfect)
                     score += 3
                     binding.bridgeScoreTv.text = score.toString()
                 }
                 "good" -> {
+                    SoundPlayer(applicationContext, R.raw.bridge_good).play()
                     binding.bridgeResultIv.setImageResource(R.drawable.bridge_timing_good)
                     score += 1
                     binding.bridgeScoreTv.text = score.toString()
                 }
                 "bad" -> {
+                    SoundPlayer(applicationContext, R.raw.bridge_bad).play()
                     binding.bridgeResultIv.setImageResource(R.drawable.bridge_timing_bad)
                 }
                 else -> return@setOnClickListener
@@ -109,6 +140,7 @@ class MiniGameBridgeActivity : AppCompatActivity() {
 
     private fun startDuckThread() {
         var duck = 0
+        duckThread = Timer()
         duckThread.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 val rand = Random.nextDouble()
@@ -146,20 +178,60 @@ class MiniGameBridgeActivity : AppCompatActivity() {
     }
 
     private fun showGameOverDialog() {
+        fun showGameOverDialog(result : Int) {
+            val gameOverDialog = GameOverDialog(this@MiniGameBridgeActivity)
+            gameOverDialog.setOnDismissListener {
+                val resultIntent = Intent()
+                resultIntent.putExtra("isNewLandmark", intent.getBooleanExtra("isNewLandmark", false))
+                resultIntent.putExtra("badge", badges)
+                setResult(result, resultIntent)
+                this@MiniGameBridgeActivity.finish()
+            }
+
+            gameOverDialog.setInfo(resources.getString(R.string.bridge_timing),  score, highestScore, userTotalScore + score)
+            gameOverDialog.show()
+        }
+
+        var flag = false
+        var isFailed = false
+
         val waitingDialog = WaitingDialog(this)
         waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
             override fun onFinish() {
                 waitingDialog.dismiss()
-                val gameOverDialog = GameOverDialog(this@MiniGameBridgeActivity)
-                gameOverDialog.setOnDismissListener {
-                    this@MiniGameBridgeActivity.finish()
+                if(flag) {
+                    if(isFailed) showGameOverDialog(Activity.RESULT_CANCELED)
+                    else showGameOverDialog(Activity.RESULT_OK)
                 }
-
-                gameOverDialog.setInfo(resources.getString(R.string.bridge_timing),  score, 0, userTotalScore + score)
-                gameOverDialog.show()
             }
         })
         waitingDialog.show()
+
+        val landmarkId = intent.getIntExtra("landmarkId", 0)
+        val latitude = intent.getDoubleExtra("latitude", 0.0)
+        val longitude = intent.getDoubleExtra("longitude", 0.0)
+
+        val landmarkAPI = LandmarkAPI()
+        landmarkAPI.setOnResponseListener(object : LandmarkAPI.OnResponseListener() {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
+                if(isSuccess) {
+                    if(body is GetBadgeResponse) {
+                        body.response.newBadges.forEach {
+                            badges.add(it.name)
+                        }
+                        flag = true
+                        if (!waitingDialog.isShowing) {
+                            showGameOverDialog(Activity.RESULT_OK)
+                        }
+                    }
+                } else {
+                    flag = true
+                    isFailed = true
+                    if(!waitingDialog.isShowing)
+                        showGameOverDialog(Activity.RESULT_CANCELED)
+                }
+            }
+        }).sendScore(PlayKuApplication.user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, score, "CUPID"))
     }
 
 }

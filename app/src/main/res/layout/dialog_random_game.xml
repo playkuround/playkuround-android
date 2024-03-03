@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/dialog_random_bg"
+        android:layout_width="334dp"
+        android:layout_height="439dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/dialog_random_bg"/>
+
+    <ImageView
+        android:id="@+id/dialog_random_landmark_img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_random_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_random_bg"
+        app:layout_constraintTop_toTopOf="@id/dialog_random_bg"
+        android:src="@drawable/landmark_1"
+        android:layout_marginTop="60dp"/>
+
+    <TextView
+        android:id="@+id/dialog_random_landmark_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="20dp"
+        android:text="산학협동관"
+        app:layout_constraintStart_toStartOf="@id/dialog_random_landmark_img"
+        app:layout_constraintEnd_toEndOf="@id/dialog_random_landmark_img"
+        app:layout_constraintTop_toBottomOf="@id/dialog_random_landmark_img"
+        android:layout_marginTop="20dp"/>
+    
+    <ImageView
+        android:id="@+id/dialog_random_game_name_bg"
+        android:layout_width="220dp"
+        android:layout_height="97dp"
+        android:src="@drawable/dialog_random_game_name_bg"
+        app:layout_constraintStart_toStartOf="@id/dialog_random_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_random_bg"
+        app:layout_constraintTop_toBottomOf="@id/dialog_random_landmark_name_tv"
+        android:layout_marginTop="13dp"/>
+
+    <TextView
+        android:id="@+id/dialog_random_game_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:text="@string/typing_game"
+        android:textSize="19dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_random_game_name_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_random_game_name_bg"
+        app:layout_constraintTop_toTopOf="@id/dialog_random_game_name_bg"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_random_game_name_bg"/>
+    
+    <Button
+        android:id="@+id/dialog_random_start_btn"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_blue_small"
+        android:text="게임시작"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_random_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_random_bg"
+        app:layout_constraintTop_toBottomOf="@id/dialog_random_game_name_bg"
+        android:layout_marginTop="20dp"
+        android:enabled="false"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

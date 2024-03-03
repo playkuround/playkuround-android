@@ -79,7 +79,7 @@ class LandmarkAPI {
         landmarkRetrofit.sendScore(token, adventureData).enqueue(object : Callback<GetBadgeResponse> {
             override fun onResponse(call: Call<GetBadgeResponse>, response: Response<GetBadgeResponse>) {
                 when(response.code()) {
-                    200 -> { // success
+                    201 -> { // success
                         Log.d("isoo", "onResponse: ${response.body()}")
                         val resp : GetBadgeResponse = response.body()!!
                         onResponseListener.getResponseBody(resp, true, "")

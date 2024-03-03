@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/logout_dialog_context"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/logout_dialog_yes_btn"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:text="로그아웃 하시겠습니까?"
+        android:layout_marginBottom="25dp"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/logout_dialog_yes_btn"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_blue_small"
+        android:text="예"
+        android:textSize="21dp"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logout_dialog_context"
+        app:layout_constraintBottom_toTopOf="@id/logout_dialog_no_btn"
+        android:layout_marginBottom="15dp"/>
+
+    <Button
+        android:id="@+id/logout_dialog_no_btn"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_gray"
+        android:text="아니오"
+        android:textSize="21dp"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logout_dialog_yes_btn"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,13 +27,10 @@ class GpsTracker(private val context: Context,  private val listener: OnLocation
     private fun initLocationClient() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
 
-        val locationRequest = LocationRequest.create().apply {
-            interval = 1000
-            priority = Priority.PRIORITY_HIGH_ACCURACY
-        }
+        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000).build()
 
         val builder = LocationSettingsRequest.Builder()
-            .addLocationRequest(locationRequest!!)
+            .addLocationRequest(locationRequest)
         val client = LocationServices.getSettingsClient(context)
         val task = client.checkLocationSettings(builder.build())
         task.addOnSuccessListener {
@@ -50,7 +47,6 @@ class GpsTracker(private val context: Context,  private val listener: OnLocation
             override fun onLocationResult(locationResult: LocationResult) {
                 for (location in locationResult.locations) {
                     listener.onLocationUpdated(location)
-                    //Toast.makeText(context, "gps tracking : ${location.latitude}/${location.longitude}", Toast.LENGTH_SHORT).show()
                     break
                 }
             }
@@ -68,10 +64,8 @@ class GpsTracker(private val context: Context,  private val listener: OnLocation
         ) {
             return
         }
-        val locationRequest = LocationRequest.create().apply {
-            interval = 1000
-            priority = Priority.PRIORITY_HIGH_ACCURACY
-        }
+        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000).build()
+
         fusedLocationProviderClient.requestLocationUpdates(
             locationRequest,
             locationCallback,

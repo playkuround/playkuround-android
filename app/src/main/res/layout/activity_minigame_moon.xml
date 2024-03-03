@@ -33,8 +33,8 @@
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/moon_pause_btn"
-            app:layout_constraintBottom_toBottomOf="@+id/moon_pause_btn"/>
+            app:layout_constraintTop_toTopOf="@id/moon_pause_btn1"
+            app:layout_constraintBottom_toBottomOf="@id/moon_pause_btn1"/>
 
         <ImageButton
             android:layout_width="32dp"
@@ -45,7 +45,7 @@
             android:src="@drawable/moon_pause_btn"
             android:layout_marginEnd="18dp"
             android:scaleType="fitCenter"
-            android:id="@+id/moon_pause_btn"
+            android:id="@+id/moon_pause_btn1"
             android:backgroundTint="@color/transparent"/>
 
 
