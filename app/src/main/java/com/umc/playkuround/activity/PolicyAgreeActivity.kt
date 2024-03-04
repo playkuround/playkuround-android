@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityPolicyAgreeBinding
 import com.umc.playkuround.util.SoundPlayer
@@ -95,36 +96,44 @@ class PolicyAgreeActivity : AppCompatActivity() {
             binding.agree01Cb.setBackgroundResource(R.drawable.button_blue_default)
             binding.agree01Btn.setImageResource(R.drawable.img_next_disable)
             binding.agree01Btn.isEnabled = false
+            binding.agree01Cb.setTextColor(ActivityCompat.getColor(this, R.color.text_color))
         } else {
             binding.agree01Cb.setBackgroundResource(R.drawable.button_blue_disabled)
             binding.agree01Btn.setImageResource(R.drawable.img_next)
             binding.agree01Btn.isEnabled = true
+            binding.agree01Cb.setTextColor(ActivityCompat.getColor(this, R.color.white))
         }
 
         if(binding.agree02Cb.isChecked) {
             binding.agree02Cb.setBackgroundResource(R.drawable.button_blue_default)
             binding.agree02Btn.setImageResource(R.drawable.img_next_disable)
             binding.agree02Btn.isEnabled = false
+            binding.agree02Cb.setTextColor(ActivityCompat.getColor(this, R.color.text_color))
         } else {
             binding.agree02Cb.setBackgroundResource(R.drawable.button_blue_disabled)
             binding.agree02Btn.setImageResource(R.drawable.img_next)
             binding.agree02Btn.isEnabled = true
+            binding.agree02Cb.setTextColor(ActivityCompat.getColor(this, R.color.white))
         }
 
         if(binding.agree03Cb.isChecked) {
             binding.agree03Cb.setBackgroundResource(R.drawable.button_blue_default)
             binding.agree03Btn.setImageResource(R.drawable.img_next_disable)
             binding.agree03Btn.isEnabled = false
+            binding.agree03Cb.setTextColor(ActivityCompat.getColor(this, R.color.text_color))
         } else {
             binding.agree03Cb.setBackgroundResource(R.drawable.button_blue_disabled)
             binding.agree03Btn.setImageResource(R.drawable.img_next)
             binding.agree03Btn.isEnabled = true
+            binding.agree03Cb.setTextColor(ActivityCompat.getColor(this, R.color.white))
         }
 
         if(binding.agreeSumCb.isChecked) {
             binding.agreeSumCb.setBackgroundResource(R.drawable.button_blue_default)
+            binding.agreeSumCb.setTextColor(ActivityCompat.getColor(this, R.color.text_color))
         } else {
             binding.agreeSumCb.setBackgroundResource(R.drawable.button_blue_disabled)
+            binding.agreeSumCb.setTextColor(ActivityCompat.getColor(this, R.color.white))
         }
     }
 
