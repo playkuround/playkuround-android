@@ -55,7 +55,7 @@ class MiniGameTimerActivity : AppCompatActivity() {
 
         getHighestScore()
 
-        binding.moonPauseBtn.setOnClickListener {
+        binding.timerPauseBtn.setOnClickListener {
             timerTask?.cancel()
             val pauseDialog = PauseDialog(this)
             pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
@@ -94,6 +94,31 @@ class MiniGameTimerActivity : AppCompatActivity() {
             SoundPlayer(this, R.raw.timer_button_click).play()
             reset()
         }
+    }
+
+    override fun onBackPressed() {
+        timerTask?.cancel()
+        val pauseDialog = PauseDialog(this)
+        pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
+            override fun resume() {
+                if(isRunning) {
+                    timerTask = timer(period = 10) {
+                        time++
+                        val sec = time / 100
+                        val milli = time % 100
+
+                        runOnUiThread {
+                            binding.timerSec.text = String.format("%02d:", sec)
+                            binding.timerMilli.text = String.format("%02d", milli)
+                        }
+                    }
+                }
+            }
+            override fun home() {
+                finish()
+            }
+        })
+        pauseDialog.show()
     }
 
     private fun check() {

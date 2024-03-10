@@ -76,6 +76,19 @@ class MiniGameQuizActivity : AppCompatActivity() {
         initQuizView()
     }
 
+    override fun onBackPressed() {
+        val pauseDialog = PauseDialog(this)
+        pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
+            override fun resume() {
+                // resume
+            }
+            override fun home() {
+                finish()
+            }
+        })
+        pauseDialog.show()
+    }
+
     private fun getQuiz() : Quiz {
         val landmarkId = intent.getIntExtra("landmarkId", -1)
         return Quiz(landmarkId, "", ArrayList(), -1)

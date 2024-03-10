@@ -145,9 +145,9 @@ data class Badge(
             COLLEGE_OF_ART_AND_DESIGN_AFTER_NOON -> "영차영차 오늘도 덕쿠는 작업중"
             COLLEGE_OF_ART_AND_DESIGN_NIGHT -> "너 야작해..?\n예디대생들은 야작의 노예"
 
-            COLLEGE_OF_ENGINEERING_A -> "COLLEGE_OF_ENGINEERING_A"
-            COLLEGE_OF_ENGINEERING_B -> "COLLEGE_OF_ENGINEERING_B"
-            COLLEGE_OF_ENGINEERING_C -> "COLLEGE_OF_ENGINEERING_C"
+            COLLEGE_OF_ENGINEERING_A -> "당신을 공대 A관의 공돌이로 임명합니다!"
+            COLLEGE_OF_ENGINEERING_B -> "당신을 공대 B관의 공돌이로 임명합니다!"
+            COLLEGE_OF_ENGINEERING_C -> "당신을 공대 C관의 공돌이로 임명합니다!"
 
             THE_DREAM_OF_DUCK -> "컷신을 모두 보셨군요!\n쿠라운드를 즐길 준비 완료!"
 

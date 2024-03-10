@@ -72,8 +72,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
     private lateinit var loadingDialog : LoadingDialog
 
-    private var bgm = SoundPlayer(this, R.raw.background_bgm)
-
     private val gameLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if(result.resultCode == Activity.RESULT_OK) {
             val data : Intent = result.data!!
@@ -375,7 +373,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         val logoutDialog = LogoutDialog(this)
         logoutDialog.setOnSelectListener(object : LogoutDialog.OnSelectListener {
             override fun yes() {
-                bgm.stop()
                 finishAffinity()
             }
         })
@@ -387,8 +384,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         val reissueTokens = ReissueTokens(user.userTokenResponse?.tokenData!!.accessToken, user.userTokenResponse?.tokenData!!.refreshToken)
         AuthAPI().reissue(reissueTokens)
 
-        if(bgm.isPlaying() == null || !bgm.isPlaying()!!)
-            bgm.repeat()
         setUserData()
 
         Log.d("isoo", "onResume: trigger!")

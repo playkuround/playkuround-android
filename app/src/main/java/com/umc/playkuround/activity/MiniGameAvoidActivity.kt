@@ -163,6 +163,28 @@ class MiniGameAvoidActivity : AppCompatActivity() {
         countdownDialog.show()
     }
 
+    override fun onBackPressed() {
+        timerFragment.pause()
+        sensorManager.unregisterListener(accelerometerEventListener)
+        val pauseDialog = PauseDialog(this)
+        pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
+            override fun resume() {
+                accelerometerSensor?.let {
+                    sensorManager.registerListener(
+                        accelerometerEventListener,
+                        it,
+                        SensorManager.SENSOR_DELAY_GAME
+                    )
+                }
+                timerFragment.start()
+            }
+            override fun home() {
+                finish()
+            }
+        })
+        pauseDialog.show()
+    }
+
     private fun showGameOverDialog() {
         SoundPlayer(applicationContext, R.raw.avoid_game_over).play()
         fun showGameOverDialog(result : Int) {

@@ -12,6 +12,7 @@ import com.umc.playkuround.databinding.ActivityMyPageBinding
 import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.LogoutDialog
 import com.umc.playkuround.dialog.StoryDialog
+import com.umc.playkuround.dialog.ThanksDialog
 import com.umc.playkuround.network.ScoreAPI
 import com.umc.playkuround.network.Top100Response
 import com.umc.playkuround.network.UserAPI
@@ -120,6 +121,9 @@ class MyPageActivity : AppCompatActivity() {
     }
 
     private fun backdoor() {
+        val thanksDialog = ThanksDialog(this)
+        thanksDialog.show()
+
         val userAPI = UserAPI()
         userAPI.fakeDoor(user.getAccessToken())
     }

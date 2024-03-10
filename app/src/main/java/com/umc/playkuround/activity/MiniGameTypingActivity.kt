@@ -115,6 +115,20 @@ class MiniGameTypingActivity : AppCompatActivity() {
         countdownDialog.show()
     }
 
+    override fun onBackPressed() {
+        binding.typingTextRainView.pause()
+        val pauseDialog = PauseDialog(this)
+        pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
+            override fun resume() {
+                binding.typingTextRainView.start()
+            }
+            override fun home() {
+                finish()
+            }
+        })
+        pauseDialog.show()
+    }
+
     private fun showGameOverDialog() {
         SoundPlayer(applicationContext, R.raw.typing_game_over).play()
         fun showGameOverDialog(result : Int) {

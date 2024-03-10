@@ -97,7 +97,7 @@ class AuthAPI {
                         onResponseListener.getResponseBody(null, true, "")
                     }
                     else -> {
-                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
+                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("code").toString()
                         onResponseListener.getResponseBody(null, false, err)
                     }
                 }

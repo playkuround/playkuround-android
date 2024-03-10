@@ -49,7 +49,7 @@ class MiniGameTimerFragment : Fragment() {
 
         timer = timer(period = 10) {
             if(leftTime % 100 == 0) {
-                requireActivity().runOnUiThread {
+                activity?.runOnUiThread {
                     onTimeProgressListener?.timeProgress(leftTime / 100)
                 }
             }
@@ -57,25 +57,25 @@ class MiniGameTimerFragment : Fragment() {
             leftTime--
             if(leftTime <= 0) {
                 timer?.cancel()
-                requireActivity().runOnUiThread {
+                activity?.runOnUiThread {
                     binding.timerFragmentProgress.visibility = View.INVISIBLE
                     onTimeProgressListener?.timeUp()
                 }
             }
 
             if(leftTime == timeLimit / 2) {
-                requireActivity().runOnUiThread {
+                activity?.runOnUiThread {
                     binding.timerFragmentProgress.backgroundTintList =
                         ColorStateList.valueOf(Color.parseColor("#EE994B"))
                 }
             } else if(leftTime == timeLimit / 5) {
-                requireActivity().runOnUiThread {
+                activity?.runOnUiThread {
                     binding.timerFragmentProgress.backgroundTintList =
                         ColorStateList.valueOf(Color.parseColor("#F05353"))
                 }
             }
 
-            requireActivity().runOnUiThread {
+            activity?.runOnUiThread {
                 val lp = binding.timerFragmentProgress.layoutParams
                 lp.width = (progressWidth.toFloat() * (leftTime.toFloat() / timeLimit)).toInt()
                 if(lp.width == 0) {

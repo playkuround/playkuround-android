@@ -92,6 +92,9 @@ class LoginActivity : AppCompatActivity() {
                                                     } else if(it.name == "update") {
                                                         Toast.makeText(applicationContext, "어플리케이션을 업데이트 해주세요!", Toast.LENGTH_SHORT).show()
                                                         return
+                                                    } else if(it.name == "system_check") {
+                                                        Toast.makeText(applicationContext, "서버 점검 중입니다. 나중에 접속해주세요.", Toast.LENGTH_SHORT).show()
+                                                        return
                                                     }
                                                 }
                                                 val intent = Intent(applicationContext, MapActivity::class.java)
@@ -107,9 +110,13 @@ class LoginActivity : AppCompatActivity() {
                                 }).getNotification(user.getAccessToken(), packageManager.getPackageInfo(packageName, 0).versionName)
                             }
                         } else {
-                            user = User.getDefaultUser()
-                            user.save(pref)
-                            Toast.makeText(applicationContext, "다시 로그인 해주세요!", Toast.LENGTH_SHORT).show()
+                            if(errorLog == "A003" || errorLog == "A004") {
+                                user = User.getDefaultUser()
+                                user.save(pref)
+                                Toast.makeText(applicationContext, "다시 로그인 해주세요!", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(applicationContext, "네트워크가 원활하지 않습니다.", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }).reissue(reissueTokens)

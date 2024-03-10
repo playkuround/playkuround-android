@@ -138,6 +138,24 @@ class MiniGameBridgeActivity : AppCompatActivity() {
         countdownDialog.show()
     }
 
+    override fun onBackPressed() {
+        timerFragment.pause()
+        binding.bridgeDuckView.pause()
+        duckThread.cancel()
+        val pauseDialog = PauseDialog(this)
+        pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
+            override fun resume() {
+                timerFragment.start()
+                binding.bridgeDuckView.start()
+                startDuckThread()
+            }
+            override fun home() {
+                finish()
+            }
+        })
+        pauseDialog.show()
+    }
+
     private fun startDuckThread() {
         var duck = 0
         duckThread = Timer()

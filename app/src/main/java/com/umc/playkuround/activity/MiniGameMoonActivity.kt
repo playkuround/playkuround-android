@@ -56,9 +56,7 @@ class MiniGameMoonActivity : AppCompatActivity() {
         getHighestScore()
 
         binding.moonPauseBtn1.setOnClickListener {
-            Log.d("isoo", "home: 0")
             val pauseDialog = PauseDialog(this)
-            Log.d("isoo", "home: 1")
             pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
                 override fun resume() {
                     // resume
@@ -146,6 +144,20 @@ class MiniGameMoonActivity : AppCompatActivity() {
                 })
             }
         }
+    }
+
+    override fun onBackPressed() {
+        val pauseDialog = PauseDialog(this)
+        pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
+            override fun resume() {
+                // resume
+            }
+            override fun home() {
+                Log.d("isoo", "home: clicked")
+                finish()
+            }
+        })
+        pauseDialog.show()
     }
 
     private fun showGameOverDialog() {

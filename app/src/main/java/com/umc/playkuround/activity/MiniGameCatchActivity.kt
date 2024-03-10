@@ -126,6 +126,20 @@ class MiniGameCatchActivity : AppCompatActivity() {
         countdownDialog.show()
     }
 
+    override fun onBackPressed() {
+        timerFragment.pause()
+        val pauseDialog = PauseDialog(this)
+        pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
+            override fun resume() {
+                timerFragment.start()
+            }
+            override fun home() {
+                finish()
+            }
+        })
+        pauseDialog.show()
+    }
+
     private fun openWindow(isBlack : Boolean) {
         fun getAvailableWindowIndex() : Int {
             while(true) {
