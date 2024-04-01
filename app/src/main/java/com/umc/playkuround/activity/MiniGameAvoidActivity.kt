@@ -247,4 +247,15 @@ class MiniGameAvoidActivity : AppCompatActivity() {
         sensorManager.unregisterListener(accelerometerEventListener)
     }
 
+    override fun onResume() {
+        super.onResume()
+        accelerometerSensor?.let {
+            sensorManager.registerListener(
+                accelerometerEventListener,
+                it,
+                SensorManager.SENSOR_DELAY_GAME
+            )
+        }
+    }
+
 }
