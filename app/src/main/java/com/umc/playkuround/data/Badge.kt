@@ -111,11 +111,11 @@ data class Badge(
         }
         description = when(name) {
             ATTENDANCE_1 -> "첫 출석을 축하드려요!"
-            ATTENDANCE_5 -> "5일 연속 출석이에요!"
-            ATTENDANCE_10 -> "10일 연속 출석이에요!"
-            ATTENDANCE_30 -> "30일 연속 출석이에요!"
-            ATTENDANCE_50 -> "50일 연속 출석이에요!"
-            ATTENDANCE_100 -> "100일 연속 출석이에요!"
+            ATTENDANCE_5 -> "5일 출석하셨어요!"
+            ATTENDANCE_10 -> "10일 출석하셨어요!"
+            ATTENDANCE_30 -> "30일 출석하셨어요!"
+            ATTENDANCE_50 -> "50일 출석하셨어요!"
+            ATTENDANCE_100 -> "100일 출석하셨어요!"
             ATTENDANCE_FOUNDATION_DAY -> "건국대학교의 개교기념일 5월 15일 쿠라운드에서 축하해요!"
             ATTENDANCE_ARBOR_DAY -> "오늘은 식목일! 오늘만이라도 나무들에게 칭찬 한마디~"
             ATTENDANCE_CHILDREN_DAY -> "마음이 어린이면 어린이 아닌가요? 우리의 날을 축하하며!"
@@ -261,11 +261,11 @@ data class Badge(
     fun getTitle() : String {
         return when(name) {
             ATTENDANCE_1 -> "첫 출석"
-            ATTENDANCE_5 -> "5일 연속 출석"
-            ATTENDANCE_10 -> "10일 연속 출석"
-            ATTENDANCE_30 -> "30일 연속 출석"
-            ATTENDANCE_50 -> "50일 연속 출석"
-            ATTENDANCE_100 -> "100일 연속 출석"
+            ATTENDANCE_5 -> "5일 출석"
+            ATTENDANCE_10 -> "10일 출석"
+            ATTENDANCE_30 -> "30일 출석"
+            ATTENDANCE_50 -> "50일 출석"
+            ATTENDANCE_100 -> "100일 출석"
             ATTENDANCE_FOUNDATION_DAY -> "개교기념일"
             ATTENDANCE_ARBOR_DAY -> "식목일"
             ATTENDANCE_CHILDREN_DAY -> "어린이날"
@@ -311,12 +311,12 @@ data class Badge(
 
     fun getCondition() : String {
         return when(name) {
-            ATTENDANCE_1 -> "플레이쿠라운드 접속 1회시 잠금 해제됩니다."
-            ATTENDANCE_5 -> "플레이쿠라운드 접속 5회시 잠금 해제됩니다."
-            ATTENDANCE_10 -> "플레이쿠라운드 접속 10회시 잠금 해제됩니다."
-            ATTENDANCE_30 -> "플레이쿠라운드 접속 30회시 잠금 해제됩니다."
-            ATTENDANCE_50 -> "플레이쿠라운드 접속 50회시 잠금 해제됩니다."
-            ATTENDANCE_100 -> "플레이쿠라운드 접속 100회시 잠금 해제됩니다."
+            ATTENDANCE_1 -> "플레이쿠라운드 출석 1회시 잠금 해제됩니다."
+            ATTENDANCE_5 -> "플레이쿠라운드 출석 5회시 잠금 해제됩니다."
+            ATTENDANCE_10 -> "플레이쿠라운드 출석 10회시 잠금 해제됩니다."
+            ATTENDANCE_30 -> "플레이쿠라운드 출석 30회시 잠금 해제됩니다."
+            ATTENDANCE_50 -> "플레이쿠라운드 출석 50회시 잠금 해제됩니다."
+            ATTENDANCE_100 -> "플레이쿠라운드 출석 100회시 잠금 해제됩니다."
             ATTENDANCE_FOUNDATION_DAY -> "개교기념일(5/15) 출석 시 잠금 해제됩니다."
             ATTENDANCE_ARBOR_DAY -> "식목일(4/5) 출석 시 잠금 해제됩니다"
             ATTENDANCE_CHILDREN_DAY -> "어린이날(5/5) 출석 시 잠금 해제됩니다"
