@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/neo_dunggeunmo_regular"
-        android:text="테스트용"
+        android:text="축제용 PK"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,9 +28,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/test_title_tv"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="50dp"/>
 
     <Button
+        android:visibility="gone"
         android:id="@+id/test_bridge_btn"
         android:layout_width="335dp"
         android:layout_height="50dp"
@@ -44,6 +45,7 @@
         android:layout_marginTop="20dp"/>
 
     <Button
+        android:visibility="gone"
         android:id="@+id/test_card_btn"
         android:layout_width="335dp"
         android:layout_height="50dp"
@@ -57,6 +59,7 @@
         android:layout_marginTop="20dp"/>
 
     <Button
+        android:visibility="gone"
         android:id="@+id/test_catch_btn"
         android:layout_width="335dp"
         android:layout_height="50dp"
@@ -70,6 +73,7 @@
         android:layout_marginTop="20dp"/>
 
     <Button
+        android:visibility="gone"
         android:id="@+id/test_moon_btn"
         android:layout_width="335dp"
         android:layout_height="50dp"
@@ -83,6 +87,7 @@
         android:layout_marginTop="20dp"/>
 
     <Button
+        android:visibility="gone"
         android:id="@+id/test_timer_btn"
         android:layout_width="335dp"
         android:layout_height="50dp"
@@ -106,6 +111,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/test_timer_btn"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/test_quiz_btn"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_blue"
+        android:text="@string/ku_quiz"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="19dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/test_typing_btn"
         android:layout_marginTop="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,7 @@ data class Quiz (
     init {
         when(landmarkId) {
             1 -> {
-                question = "다음 중 해당 층에 없는 시설은?"
+                question = "다음 중 산학협동관의 해당 층에 없는 시설은?"
                 options = ArrayList()
                 options.add(0, "1층 - 레스티오(카페)")
                 options.add(1, "2층 - 상허교양대학 행정실")

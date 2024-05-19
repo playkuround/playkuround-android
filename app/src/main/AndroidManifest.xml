@@ -27,7 +27,7 @@
             android:value="AIzaSyAOb8MvvBNoDEsNIU1G_Jt1-7FgDVcp1Ik"/>
 
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.TestGameActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             android:exported="true">

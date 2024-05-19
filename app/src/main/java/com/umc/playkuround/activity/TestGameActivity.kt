@@ -48,6 +48,11 @@ class TestGameActivity : AppCompatActivity() {
             val intent = Intent(this, MiniGameTypingActivity::class.java)
             startActivity(intent)
         }
+
+        binding.testQuizBtn.setOnClickListener {
+            val intent = Intent(this, MiniGameQuizActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }

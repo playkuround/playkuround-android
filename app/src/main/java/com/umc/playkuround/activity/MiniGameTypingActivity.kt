@@ -20,6 +20,7 @@ import com.umc.playkuround.network.HighestScoresResponse
 import com.umc.playkuround.network.LandmarkAPI
 import com.umc.playkuround.network.UserAPI
 import com.umc.playkuround.util.PlayKuApplication
+import com.umc.playkuround.util.PlayKuApplication.Companion.pref
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 import com.umc.playkuround.util.SoundPlayer
 
@@ -34,16 +35,7 @@ class MiniGameTypingActivity : AppCompatActivity() {
     private var badges = java.util.ArrayList<String>()
 
     private fun getHighestScore() {
-        val userAPI = UserAPI()
-        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
-            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                if(isSuccess) {
-                    if(body is HighestScoresResponse) {
-                        highestScore = body.highestScores.highestAllClearScore
-                    }
-                }
-            }
-        }).getGameScores(PlayKuApplication.user.getAccessToken())
+        highestScore = pref.getInt("typing_high", 0)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,6 +123,11 @@ class MiniGameTypingActivity : AppCompatActivity() {
 
     private fun showGameOverDialog() {
         SoundPlayer(applicationContext, R.raw.typing_game_over).play()
+
+        if(highestScore < score){
+            pref.setInt("typing_high", score)
+        }
+
         fun showGameOverDialog(result : Int) {
             val gameOverDialog = GameOverDialog(this@MiniGameTypingActivity)
             gameOverDialog.setOnDismissListener {
@@ -151,10 +148,7 @@ class MiniGameTypingActivity : AppCompatActivity() {
         waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
             override fun onFinish() {
                 waitingDialog.dismiss()
-                if(flag) {
-                    if(isFailed) showGameOverDialog(Activity.RESULT_CANCELED)
-                    else showGameOverDialog(Activity.RESULT_OK)
-                }
+                showGameOverDialog(Activity.RESULT_OK)
             }
         })
         waitingDialog.show()
@@ -163,27 +157,27 @@ class MiniGameTypingActivity : AppCompatActivity() {
         val latitude = intent.getDoubleExtra("latitude", 0.0)
         val longitude = intent.getDoubleExtra("longitude", 0.0)
 
-        val landmarkAPI = LandmarkAPI()
-        landmarkAPI.setOnResponseListener(object : LandmarkAPI.OnResponseListener() {
-            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
-                if(isSuccess) {
-                    if(body is GetBadgeResponse) {
-                        body.response.newBadges.forEach {
-                            badges.add(it.name)
-                        }
-                        flag = true
-                        if (!waitingDialog.isShowing) {
-                            showGameOverDialog(Activity.RESULT_OK)
-                        }
-                    }
-                } else {
-                    flag = true
-                    isFailed = true
-                    if(!waitingDialog.isShowing)
-                        showGameOverDialog(Activity.RESULT_CANCELED)
-                }
-            }
-        }).sendScore(PlayKuApplication.user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, score, "ALL_CLEAR"))
+//        val landmarkAPI = LandmarkAPI()
+//        landmarkAPI.setOnResponseListener(object : LandmarkAPI.OnResponseListener() {
+//            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
+//                if(isSuccess) {
+//                    if(body is GetBadgeResponse) {
+//                        body.response.newBadges.forEach {
+//                            badges.add(it.name)
+//                        }
+//                        flag = true
+//                        if (!waitingDialog.isShowing) {
+//                            showGameOverDialog(Activity.RESULT_OK)
+//                        }
+//                    }
+//                } else {
+//                    flag = true
+//                    isFailed = true
+//                    if(!waitingDialog.isShowing)
+//                        showGameOverDialog(Activity.RESULT_CANCELED)
+//                }
+//            }
+//        }).sendScore(PlayKuApplication.user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, score, "ALL_CLEAR"))
     }
 
 }

@@ -24,6 +24,7 @@ import com.umc.playkuround.network.GetBadgeResponse
 import com.umc.playkuround.network.HighestScoresResponse
 import com.umc.playkuround.network.LandmarkAPI
 import com.umc.playkuround.network.UserAPI
+import com.umc.playkuround.util.PlayKuApplication.Companion.pref
 import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 import com.umc.playkuround.util.SoundPlayer
@@ -58,16 +59,7 @@ class MiniGameAvoidActivity : AppCompatActivity() {
     private var badges = ArrayList<String>()
 
     private fun getHighestScore() {
-        val userAPI = UserAPI()
-        userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
-            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
-                if(isSuccess) {
-                    if(body is HighestScoresResponse) {
-                        highestScore = body.highestScores.highestMicrobeScore
-                    }
-                }
-            }
-        }).getGameScores(user.getAccessToken())
+        highestScore= pref.getInt("avoid_high", 0)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -187,6 +179,11 @@ class MiniGameAvoidActivity : AppCompatActivity() {
 
     private fun showGameOverDialog() {
         SoundPlayer(applicationContext, R.raw.avoid_game_over).play()
+
+        if(highestScore < score) {
+            pref.setInt("avoid_high", score)
+        }
+
         fun showGameOverDialog(result : Int) {
             val gameOverDialog = GameOverDialog(this@MiniGameAvoidActivity)
             gameOverDialog.setOnDismissListener {
@@ -207,10 +204,7 @@ class MiniGameAvoidActivity : AppCompatActivity() {
         waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
             override fun onFinish() {
                 waitingDialog.dismiss()
-                if(flag) {
-                    if(isFailed) showGameOverDialog(Activity.RESULT_CANCELED)
-                    else showGameOverDialog(Activity.RESULT_OK)
-                }
+                showGameOverDialog(Activity.RESULT_OK)
             }
         })
         waitingDialog.show()
@@ -220,26 +214,26 @@ class MiniGameAvoidActivity : AppCompatActivity() {
         val longitude = intent.getDoubleExtra("longitude", 0.0)
 
         val landmarkAPI = LandmarkAPI()
-        landmarkAPI.setOnResponseListener(object : LandmarkAPI.OnResponseListener() {
-            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
-                if(isSuccess) {
-                    if(body is GetBadgeResponse) {
-                        body.response.newBadges.forEach {
-                            badges.add(it.name)
-                        }
-                        flag = true
-                        if (!waitingDialog.isShowing) {
-                            showGameOverDialog(Activity.RESULT_OK)
-                        }
-                    }
-                } else {
-                    flag = true
-                    isFailed = true
-                    if(!waitingDialog.isShowing)
-                        showGameOverDialog(Activity.RESULT_CANCELED)
-                }
-            }
-        }).sendScore(user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, score, "SURVIVE"))
+//        landmarkAPI.setOnResponseListener(object : LandmarkAPI.OnResponseListener() {
+//            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
+//                if(isSuccess) {
+//                    if(body is GetBadgeResponse) {
+//                        body.response.newBadges.forEach {
+//                            badges.add(it.name)
+//                        }
+//                        flag = true
+//                        if (!waitingDialog.isShowing) {
+//                            showGameOverDialog(Activity.RESULT_OK)
+//                        }
+//                    }
+//                } else {
+//                    flag = true
+//                    isFailed = true
+//                    if(!waitingDialog.isShowing)
+//                        showGameOverDialog(Activity.RESULT_CANCELED)
+//                }
+//            }
+//        }).sendScore(user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, score, "SURVIVE"))
     }
 
     override fun onPause() {
