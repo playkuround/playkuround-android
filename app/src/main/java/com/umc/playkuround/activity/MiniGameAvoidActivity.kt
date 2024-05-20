@@ -29,7 +29,7 @@ import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 import com.umc.playkuround.util.SoundPlayer
 
-private const val TIME_LIMIT = 120
+private const val TIME_LIMIT = 180
 
 class MiniGameAvoidActivity : AppCompatActivity() {
 
@@ -82,19 +82,20 @@ class MiniGameAvoidActivity : AppCompatActivity() {
             }
 
             override fun timeProgress(leftTime: Int) {
-                var num = 10
-                if(leftTime < 20) num = 20
-                else if(leftTime < 30) num = 15
-                else if(leftTime < 40) num = 10
-                else if(leftTime < 50) num = 5
+                var num = 5
+                if(leftTime < 15) num = 30
+                else if(leftTime < 40) num = 20
+                else if(leftTime < 60) num = 15
+                else if(leftTime < 100) num = 11
+                else if(leftTime < 160) num = 7
                 if(leftTime % 3 == 0)
                     binding.avoidGameView.addGerms(num)
                 if(leftTime % 5 == 0)
                     binding.avoidGameView.addBoats(num/4)
 
-                score += if(leftTime < 30) 4
-                else if(leftTime < 40) 3
-                else if(leftTime < 50) 2
+                score += if(leftTime < 60) 4
+                else if(leftTime < 100) 3
+                else if(leftTime < 140) 2
                 else 1
                 binding.avoidScoreTv.text = score.toString()
             }
