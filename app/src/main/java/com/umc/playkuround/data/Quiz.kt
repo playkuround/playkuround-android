@@ -364,11 +364,11 @@ data class Quiz (
             33 -> {
                 question = "건국대학교 대표 동물은 황소이다. 그렇다면 건국대학교 교화는?"
                 options = ArrayList()
-                options.add(0, "목화") // 정답
+                options.add(0, "목화")
                 options.add(1, "장미")
                 options.add(2, "벚꽃")
-                options.add(3, "목련")
-                answer = 0
+                options.add(3, "목련") // 정답
+                answer = 3
 
             }
 
