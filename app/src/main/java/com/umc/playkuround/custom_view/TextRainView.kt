@@ -20,6 +20,7 @@ class TextRainView(context : Context, attrs : AttributeSet) : View(context, attr
     private val textPaint = Paint()
     private val strokePaint = Paint()
     private val redTextPaint = Paint()
+    private val greenTextPaint = Paint()
 
     private var speed = 1000L
     private var time = 0L
@@ -37,7 +38,7 @@ class TextRainView(context : Context, attrs : AttributeSet) : View(context, attr
         "국제통상정책", "논리와사고", "야외스포츠", "생활건강", "과학사", "요가와명상", "하모니인건국", "교육과인간", "영화영어",
         "말과승마", "철학산책", "명저읽기", "신화와영화", "언어와마음", "기초글쓰기", "재무와회계", "인구의정치학", "과학의원리",
         "지리와이슈", "삶과소통", "미디어영어", "소비와행복", "윤리와삶", "상실과회복", "경제학입문", "서양문명사", "동양의지혜",
-        "선거와여론", "성과문학", "정치학입문")
+        "선거와여론", "성과문학", "정치학입문", "녹색지대", "녹색지대", "녹색지대", "녹색지대")
 
     private val basicSubjects = arrayOf("대학영어", "대학일본어", "비판적사고와토론", "창조적사고와표현", "인문사회글쓰기",
         "사회봉사", "컴퓨팅적사고", "실전취업특강", "외국인글쓰기", "벤처창업및경영")
@@ -50,6 +51,8 @@ class TextRainView(context : Context, attrs : AttributeSet) : View(context, attr
             canvas.drawText(text, x, y, strokePaint)
             if(basicSubjects.contains(text))
                 canvas.drawText(text, x, y, redTextPaint)
+            else if(text == "녹색지대")
+                canvas.drawText(text, x, y, greenTextPaint)
             else
                 canvas.drawText(text, x, y, textPaint)
         }
@@ -75,6 +78,10 @@ class TextRainView(context : Context, attrs : AttributeSet) : View(context, attr
         redTextPaint.color = Color.RED
         redTextPaint.textSize = 45f
         redTextPaint.typeface = Typeface.createFromAsset(context.assets, "neo_dunggeunmo_regular.ttf")
+
+        greenTextPaint.color = Color.GREEN
+        greenTextPaint.textSize = 45f
+        greenTextPaint.typeface = Typeface.createFromAsset(context.assets, "neo_dunggeunmo_regular.ttf")
 
         strokePaint.color = Color.WHITE
         strokePaint.textSize = 45f

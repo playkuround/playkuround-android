@@ -87,6 +87,9 @@ class MiniGameTypingActivity : AppCompatActivity() {
                     else if(binding.typingTextBox.text.length <= 8) 4
                     else 6
 
+                    if(binding.typingTextBox.text.toString() == "녹색지대")
+                        score += 3
+
                     binding.typingScoreTv.text = score.toString()
                 }
                 binding.typingTextBox.text.clear()

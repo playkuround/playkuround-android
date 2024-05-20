@@ -218,6 +218,17 @@ data class Quiz (
 
             }
 
+            20 -> {
+                question = "가수 '녹색지대'는 몇인조 그룹일까요?"
+                options = ArrayList()
+                options.add(0, "솔로")
+                options.add(1, "2인조") // 정답
+                options.add(2, "3인조")
+                options.add(3, "4인조")
+                answer = 1
+
+            }
+
             21 -> {
                 question = "학교에 많은 연예인들이 공연을 다녀갔다. 다음 중 노천극장에서 공연하지 않은 그룹은?"
                 options = ArrayList()
@@ -226,6 +237,17 @@ data class Quiz (
                 options.add(2, "레드벨벳")
                 options.add(3, "르세라핌") // 정답
                 answer = 3
+
+            }
+
+            22 -> {
+                question = "건국대학교 축제 이름인 '녹색지대'는 몇 번 진행되었을까요?"
+                options = ArrayList()
+                options.add(0, "1번")
+                options.add(1, "2번")
+                options.add(2, "3번") // 정답
+                options.add(3, "4번")
+                answer = 2
 
             }
 
@@ -350,6 +372,17 @@ data class Quiz (
 
             }
 
+            34 -> {
+                question = "2024 건국대학교 공식 응원가 제목은?"
+                options = ArrayList()
+                options.add(0, "건국과 영원히") // 정답
+                options.add(1, "건대의 자랑")
+                options.add(2, "함께하라 건국")
+                options.add(3, "건국의 이름으로")
+                answer = 0
+
+            }
+
             35 -> {
                 question = "건국대학교는 1931년 민중병원으로 역사를 시작했다. 그 후 조선 정치학관으로 개교를 했는데, 해당 연도는?"
                 options = ArrayList()
@@ -358,6 +391,18 @@ data class Quiz (
                 options.add(2, "1947년")
                 options.add(3, "1948년")
                 answer = 1
+
+            }
+
+            36 -> {
+                question = "'2024 건국대학교 일감호축전 녹색지대 : 000'\n" +
+                        "'000' 안에 들어갈 올바른 단어는?"
+                options = ArrayList()
+                options.add(0, "The Rhythm")
+                options.add(1, "The Journey")
+                options.add(2, "The Harmony")
+                options.add(3, "The Palette") // 정답
+                answer = 3
 
             }
 
