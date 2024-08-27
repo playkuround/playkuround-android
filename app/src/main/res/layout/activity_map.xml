@@ -108,7 +108,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/map_nickname_tv"
             app:layout_constraintBottom_toBottomOf="@id/map_nickname_tv"
-            android:src="@drawable/badge_artist"
+            android:src="@drawable/badge_locked"
             app:layout_constraintHorizontal_bias="0.08"/>
 
         <TextView

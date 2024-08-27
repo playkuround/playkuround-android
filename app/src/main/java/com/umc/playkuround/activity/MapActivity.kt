@@ -48,6 +48,7 @@ import com.umc.playkuround.network.ScoreAPI
 import com.umc.playkuround.network.Top100Response
 import com.umc.playkuround.network.UserAPI
 import com.umc.playkuround.network.UserBadgeResponse
+import com.umc.playkuround.network.UserProfileResponse
 import com.umc.playkuround.util.GpsTracker
 import com.umc.playkuround.util.PlayKuApplication.Companion.exploredLandmarks
 import com.umc.playkuround.util.PlayKuApplication.Companion.pref
@@ -159,10 +160,36 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             val intent = Intent(applicationContext, MyPageActivity::class.java)
             startActivity(intent)
         }
+
+        binding.mapNoticeBtn.setOnClickListener {
+            SoundPlayer(this, R.raw.button_click_sound).play()
+            // TODO: show notice dialog
+        }
     }
 
     private fun setUserData() {
         binding.mapNicknameTv.text = user.nickname
+
+        if(user.profileBadgeName == "null") {
+            val userAPI = UserAPI()
+            userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
+                override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                    loadingDialog.dismiss()
+                    if (isSuccess) {
+                        if (body is UserProfileResponse) {
+                            val badge = Badge(-1, body.response.profileBadgeName, "")
+                            binding.mapProfileIv.setImageResource(badge.getImageDrawable())
+                            user.save(pref)
+                        }
+                    } else {
+                        binding.mapProfileIv.setImageResource(R.drawable.badge_locked)
+                    }
+                }
+            }).getUserInfo(user.getAccessToken())
+        } else {
+            val badge = Badge(-1, user.profileBadgeName, "")
+            binding.mapProfileIv.setImageResource(badge.getImageDrawable())
+        }
 
         val scoreAPI = ScoreAPI()
         scoreAPI.setOnResponseListener(object : ScoreAPI.OnResponseListener(){

@@ -5,6 +5,7 @@ import com.google.gson.internal.LinkedTreeMap
 import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.data.*
 import com.umc.playkuround.util.PlayKuApplication.Companion.pref
+import com.umc.playkuround.util.PreferenceUtil
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
@@ -115,6 +116,7 @@ class UserAPI {
                         user.nickname = resp.response.nickname
                         user.major = resp.response.major
                         user.highestScore = resp.response.highestScore
+                        user.profileBadgeName = resp.response.profileBadgeName
                         onResponseListener.getResponseBody(resp, true, "")
                     }
                     else -> {

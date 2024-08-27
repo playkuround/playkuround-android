@@ -10,6 +10,7 @@ data class User(
     @SerializedName(value = "nickname") var nickname : String,
     @SerializedName(value = "major") var major : String,
     @SerializedName(value = "authVerifyToken") var verifyToken : String,
+    var profileBadgeName : String,
     var highestScore : Int,
     var userTokenResponse : UserTokenResponse?
 ) {
@@ -17,7 +18,7 @@ data class User(
         fun getDefaultUser(): User {
             val tokenData = TokenData("null", "null", "null")
             val userTokenResponse = UserTokenResponse(true, tokenData)
-            return User("null", "null", "null", "null", 0, userTokenResponse)
+            return User("null", "null", "null", "null", "null", 0, userTokenResponse)
         }
     }
 
@@ -25,6 +26,7 @@ data class User(
         pref.setString("email", this.email)
         pref.setString("nickname", this.nickname)
         pref.setString("major", this.major)
+        pref.setString("profile", this.profileBadgeName)
         if(this.userTokenResponse != null) {
             if(this.userTokenResponse!!.tokenData != null) {
                 pref.setString("grantType", this.userTokenResponse!!.tokenData!!.grantType)
@@ -38,6 +40,7 @@ data class User(
         this.email = pref.getString("email", "null")
         this.nickname = pref.getString("nickname", "null")
         this.major = pref.getString("major", "null")
+        this.profileBadgeName = pref.getString("profile", "null")
         val grantType = pref.getString("grantType", "null")
         val accessToken = pref.getString("accessToken", "null")
         val refreshToken = pref.getString("refreshToken", "null")

@@ -34,7 +34,8 @@ data class UserProfileData(
     @SerializedName(value = "major") var major : String,
     @SerializedName(value = "highestScore") var highestScore : Int,
     @SerializedName(value = "highestRank") var highestRank : Int,
-    @SerializedName(value = "attendanceDays") var attendanceDays : Int
+    @SerializedName(value = "attendanceDays") var attendanceDays : Int,
+    @SerializedName(value = "profileBadge") var profileBadgeName : String
 )
 
 data class NotificationResponse(
