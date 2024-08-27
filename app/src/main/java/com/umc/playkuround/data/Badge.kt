@@ -40,6 +40,7 @@ data class Badge(
         const val COLLEGE_OF_BIOLOGICAL_SCIENCES = "COLLEGE_OF_BIOLOGICAL_SCIENCES"
         const val COLLEGE_OF_VETERINARY_MEDICINE = "COLLEGE_OF_VETERINARY_MEDICINE"
         const val COLLEGE_OF_EDUCATION = "COLLEGE_OF_EDUCATION"
+
         const val COLLEGE_OF_SANG_HUH = "COLLEGE_OF_SANG_HUH"
         const val COLLEGE_OF_INTERNATIONAL = "COLLEGE_OF_INTERNATIONAL"
 
@@ -88,38 +89,44 @@ data class Badge(
                 14 -> ATTENDANCE_KIMCHI_DAY
                 15 -> ATTENDANCE_CHRISTMAS_DAY
 
-                11 -> COLLEGE_OF_ENGINEERING
-                12 -> COLLEGE_OF_ART_AND_DESIGN
-                13 -> COLLEGE_OF_BUSINESS_ADMINISTRATION
-                14 -> COLLEGE_OF_LIBERAL_ARTS
-                15 -> COLLEGE_OF_SCIENCES
-                16 -> COLLEGE_OF_ARCHITECTURE
-                17 -> COLLEGE_OF_SOCIAL_SCIENCES
-                18 -> COLLEGE_OF_REAL_ESTATE
-                19 -> COLLEGE_OF_INSTITUTE_TECHNOLOGY
-                20 -> COLLEGE_OF_BIOLOGICAL_SCIENCES
-                21 -> COLLEGE_OF_VETERINARY_MEDICINE
-                22 -> COLLEGE_OF_EDUCATION
+                16 -> COLLEGE_OF_ENGINEERING
+                17 -> COLLEGE_OF_ART_AND_DESIGN
+                18 -> COLLEGE_OF_BUSINESS_ADMINISTRATION
+                19 -> COLLEGE_OF_LIBERAL_ARTS
+                20 -> COLLEGE_OF_SCIENCES
+                21 -> COLLEGE_OF_ARCHITECTURE
+                22 -> COLLEGE_OF_SOCIAL_SCIENCES
+                23 -> COLLEGE_OF_REAL_ESTATE
+                24 -> COLLEGE_OF_INSTITUTE_TECHNOLOGY
+                25 -> COLLEGE_OF_BIOLOGICAL_SCIENCES
+                26 -> COLLEGE_OF_VETERINARY_MEDICINE
+                27 -> COLLEGE_OF_EDUCATION
 
-                23 -> COLLEGE_OF_BUSINESS_ADMINISTRATION_10
-                24 -> COLLEGE_OF_BUSINESS_ADMINISTRATION_30
-                25 -> COLLEGE_OF_BUSINESS_ADMINISTRATION_50
-                26 -> COLLEGE_OF_BUSINESS_ADMINISTRATION_70
-                27 -> COLLEGE_OF_BUSINESS_ADMINISTRATION_100_AND_FIRST_PLACE
+                28 -> COLLEGE_OF_SANG_HUH
+                29 -> COLLEGE_OF_INTERNATIONAL
 
-                28 -> COLLEGE_OF_ART_AND_DESIGN_BEFORE_NOON
-                29 -> COLLEGE_OF_ART_AND_DESIGN_AFTER_NOON
-                30 -> COLLEGE_OF_ART_AND_DESIGN_NIGHT
+                30 -> COLLEGE_OF_BUSINESS_ADMINISTRATION_10
+                31 -> COLLEGE_OF_BUSINESS_ADMINISTRATION_30
+                32 -> COLLEGE_OF_BUSINESS_ADMINISTRATION_50
+                33 -> COLLEGE_OF_BUSINESS_ADMINISTRATION_70
+                34 -> COLLEGE_OF_BUSINESS_ADMINISTRATION_100_AND_FIRST_PLACE
 
-                31 -> COLLEGE_OF_ENGINEERING_A
-                32 -> COLLEGE_OF_ENGINEERING_B
-                33 -> COLLEGE_OF_ENGINEERING_C
+                35 -> COLLEGE_OF_ART_AND_DESIGN_BEFORE_NOON
+                36 -> COLLEGE_OF_ART_AND_DESIGN_AFTER_NOON
+                37 -> COLLEGE_OF_ART_AND_DESIGN_NIGHT
 
-                34 -> THE_DREAM_OF_DUCK
+                38 -> COLLEGE_OF_ENGINEERING_A
+                39 -> COLLEGE_OF_ENGINEERING_B
+                40 -> COLLEGE_OF_ENGINEERING_C
 
-                35 -> MONTHLY_RANKING_1
-                36 -> MONTHLY_RANKING_2
-                37 -> MONTHLY_RANKING_3
+                41 -> THE_DREAM_OF_DUCK
+
+                42 -> MONTHLY_RANKING_1
+                43 -> MONTHLY_RANKING_2
+                44 -> MONTHLY_RANKING_3
+
+                45 -> BUSINESS_ARCHITECTURE_EVENT_BUSINESS
+                46 -> BUSINESS_ARCHITECTURE_EVENT_ARCHITECTURE
 
                 else -> ""
             }
@@ -137,6 +144,12 @@ data class Badge(
             ATTENDANCE_WHITE_DAY -> "화이트데이를 기념해 쿠라운드에서 달콤한 사탕 뱃지를 드립니다!"
             ATTENDANCE_DUCK_DAY -> "덕쿠의날을 기록하며 덕쿠야 축하해!"
 
+            ATTENDANCE_CHUSEOK_DAY -> "풍요로운 추석 보내세요! 덕쿠 절 드립니다!"
+            ATTENDANCE_KOREAN_DAY -> "훈민정음 창제를 기념하고 우리 한글의 우수성을 알리며!"
+            ATTENDANCE_DOKDO_DAY -> "뱃길따라 이백리~ 독도는 우리땅!"
+            ATTENDANCE_KIMCHI_DAY -> "도둑 덕쿠도 못참는 한국의 전통음식 김치! 김치의 날을 기념해요!"
+            ATTENDANCE_CHRISTMAS_DAY -> "Merry Christmas! 모두 행복한 크리스마스 보내세요"
+
             COLLEGE_OF_ENGINEERING -> "공과대학을 탐험했어요"
             COLLEGE_OF_ART_AND_DESIGN -> "예술디자인대학을 탐험했어요"
             COLLEGE_OF_BUSINESS_ADMINISTRATION -> "경영대학을 탐험했어요"
@@ -149,6 +162,9 @@ data class Badge(
             COLLEGE_OF_BIOLOGICAL_SCIENCES -> "생명과학대학을 탐험했어요"
             COLLEGE_OF_VETERINARY_MEDICINE -> "수의과대학을 탐험했어요"
             COLLEGE_OF_EDUCATION -> "사범대학을 탐험했어요"
+
+            COLLEGE_OF_SANG_HUH -> "상허교양대학을 탐험했어요"
+            COLLEGE_OF_INTERNATIONAL -> "국제대학을 탐험했어요"
 
             COLLEGE_OF_BUSINESS_ADMINISTRATION_10 -> "네..! 넵의 연속 나는야 새싹 인턴"
             COLLEGE_OF_BUSINESS_ADMINISTRATION_30 -> "이걸 제가요? 어엿한 대리 승급!"
@@ -170,6 +186,9 @@ data class Badge(
             MONTHLY_RANKING_2 -> "월간 랭킹 2위 기록을 축하드립니다!"
             MONTHLY_RANKING_3 -> "월간 랭킹 3위 기록을 축하드립니다!"
 
+            BUSINESS_ARCHITECTURE_EVENT_BUSINESS -> "경영대학의 힘을 보여줘! 와우도를 차지하자!"
+            BUSINESS_ARCHITECTURE_EVENT_ARCHITECTURE -> "건축대학의 힘을 보여줘! 와우도를 차지하자!"
+
             else -> "알 수 없는 배지입니다."
         }
         id = when(name) {
@@ -185,38 +204,50 @@ data class Badge(
             ATTENDANCE_WHITE_DAY -> 9
             ATTENDANCE_DUCK_DAY -> 10
 
-            COLLEGE_OF_ENGINEERING -> 11
-            COLLEGE_OF_ART_AND_DESIGN -> 12
-            COLLEGE_OF_BUSINESS_ADMINISTRATION -> 13
-            COLLEGE_OF_LIBERAL_ARTS -> 14
-            COLLEGE_OF_SCIENCES -> 15
-            COLLEGE_OF_ARCHITECTURE -> 16
-            COLLEGE_OF_SOCIAL_SCIENCES -> 17
-            COLLEGE_OF_REAL_ESTATE -> 18
-            COLLEGE_OF_INSTITUTE_TECHNOLOGY -> 19
-            COLLEGE_OF_BIOLOGICAL_SCIENCES -> 20
-            COLLEGE_OF_VETERINARY_MEDICINE -> 21
-            COLLEGE_OF_EDUCATION -> 22
+            ATTENDANCE_CHUSEOK_DAY -> 11
+            ATTENDANCE_KOREAN_DAY -> 12
+            ATTENDANCE_DOKDO_DAY -> 13
+            ATTENDANCE_KIMCHI_DAY -> 14
+            ATTENDANCE_CHRISTMAS_DAY -> 15
 
-            COLLEGE_OF_BUSINESS_ADMINISTRATION_10 -> 23
-            COLLEGE_OF_BUSINESS_ADMINISTRATION_30 -> 24
-            COLLEGE_OF_BUSINESS_ADMINISTRATION_50 -> 25
-            COLLEGE_OF_BUSINESS_ADMINISTRATION_70 -> 26
-            COLLEGE_OF_BUSINESS_ADMINISTRATION_100_AND_FIRST_PLACE -> 27
+            COLLEGE_OF_ENGINEERING -> 16
+            COLLEGE_OF_ART_AND_DESIGN -> 17
+            COLLEGE_OF_BUSINESS_ADMINISTRATION -> 18
+            COLLEGE_OF_LIBERAL_ARTS -> 19
+            COLLEGE_OF_SCIENCES -> 20
+            COLLEGE_OF_ARCHITECTURE -> 21
+            COLLEGE_OF_SOCIAL_SCIENCES -> 22
+            COLLEGE_OF_REAL_ESTATE -> 23
+            COLLEGE_OF_INSTITUTE_TECHNOLOGY -> 24
+            COLLEGE_OF_BIOLOGICAL_SCIENCES -> 25
+            COLLEGE_OF_VETERINARY_MEDICINE -> 26
+            COLLEGE_OF_EDUCATION -> 27
 
-            COLLEGE_OF_ART_AND_DESIGN_BEFORE_NOON -> 28
-            COLLEGE_OF_ART_AND_DESIGN_AFTER_NOON -> 29
-            COLLEGE_OF_ART_AND_DESIGN_NIGHT -> 30
+            COLLEGE_OF_SANG_HUH -> 28
+            COLLEGE_OF_INTERNATIONAL -> 29
 
-            COLLEGE_OF_ENGINEERING_A -> 31
-            COLLEGE_OF_ENGINEERING_B -> 32
-            COLLEGE_OF_ENGINEERING_C -> 33
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_10 -> 30
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_30 -> 31
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_50 -> 32
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_70 -> 33
+            COLLEGE_OF_BUSINESS_ADMINISTRATION_100_AND_FIRST_PLACE -> 34
 
-            THE_DREAM_OF_DUCK -> 34
+            COLLEGE_OF_ART_AND_DESIGN_BEFORE_NOON -> 35
+            COLLEGE_OF_ART_AND_DESIGN_AFTER_NOON -> 36
+            COLLEGE_OF_ART_AND_DESIGN_NIGHT -> 37
 
-            MONTHLY_RANKING_1 -> 35
-            MONTHLY_RANKING_2 -> 36
-            MONTHLY_RANKING_3 -> 37
+            COLLEGE_OF_ENGINEERING_A -> 38
+            COLLEGE_OF_ENGINEERING_B -> 39
+            COLLEGE_OF_ENGINEERING_C -> 40
+
+            THE_DREAM_OF_DUCK -> 41
+
+            MONTHLY_RANKING_1 -> 42
+            MONTHLY_RANKING_2 -> 43
+            MONTHLY_RANKING_3 -> 44
+
+            BUSINESS_ARCHITECTURE_EVENT_BUSINESS -> 45
+            BUSINESS_ARCHITECTURE_EVENT_ARCHITECTURE -> 46
 
             else -> -1
         }
@@ -236,6 +267,12 @@ data class Badge(
             ATTENDANCE_WHITE_DAY -> R.drawable.badge_attendance_white_day
             ATTENDANCE_DUCK_DAY -> R.drawable.badge_attendance_duck_day
 
+            ATTENDANCE_CHUSEOK_DAY -> R.drawable.badge_attendance_chuseok
+            ATTENDANCE_KOREAN_DAY -> R.drawable.badge_attendance_korean
+            ATTENDANCE_DOKDO_DAY -> R.drawable.badge_attendance_dokdo
+            ATTENDANCE_KIMCHI_DAY -> R.drawable.badge_attendance_kimchi
+            ATTENDANCE_CHRISTMAS_DAY -> R.drawable.badge_attendance_christmas
+
             COLLEGE_OF_ENGINEERING -> R.drawable.badge_engineer
             COLLEGE_OF_ART_AND_DESIGN -> R.drawable.badge_artist
             COLLEGE_OF_BUSINESS_ADMINISTRATION -> R.drawable.badge_ceo
@@ -248,6 +285,9 @@ data class Badge(
             COLLEGE_OF_BIOLOGICAL_SCIENCES -> R.drawable.badge_college_of_biological_sciences
             COLLEGE_OF_VETERINARY_MEDICINE -> R.drawable.badge_college_of_veterinary_medicine
             COLLEGE_OF_EDUCATION -> R.drawable.badge_college_of_education
+
+            COLLEGE_OF_SANG_HUH -> R.drawable.badge_college_of_sanghuh
+            COLLEGE_OF_INTERNATIONAL -> R.drawable.badge_college_of_international
 
             COLLEGE_OF_BUSINESS_ADMINISTRATION_10 -> R.drawable.badge_college_of_business_administration_10
             COLLEGE_OF_BUSINESS_ADMINISTRATION_30 -> R.drawable.badge_college_of_business_administration_30
@@ -269,6 +309,9 @@ data class Badge(
             MONTHLY_RANKING_2 -> R.drawable.badge_monthly_ranking_3
             MONTHLY_RANKING_3 -> R.drawable.badge_monthly_ranking_2
 
+            BUSINESS_ARCHITECTURE_EVENT_BUSINESS -> R.drawable.badge_event_business
+            BUSINESS_ARCHITECTURE_EVENT_ARCHITECTURE -> R.drawable.badge_event_architecture
+
             else -> R.drawable.badge_locked
         }
     }
@@ -287,6 +330,12 @@ data class Badge(
             ATTENDANCE_WHITE_DAY -> "화이트데이"
             ATTENDANCE_DUCK_DAY -> "오리의날"
 
+            ATTENDANCE_CHUSEOK_DAY -> "추석"
+            ATTENDANCE_KOREAN_DAY -> "한글날"
+            ATTENDANCE_DOKDO_DAY -> "독도 덕쿠"
+            ATTENDANCE_KIMCHI_DAY -> "김치도둑 덕쿠"
+            ATTENDANCE_CHRISTMAS_DAY -> "성탄절"
+
             COLLEGE_OF_ENGINEERING -> "공과대"
             COLLEGE_OF_ART_AND_DESIGN -> "예디대"
             COLLEGE_OF_BUSINESS_ADMINISTRATION -> "경영대"
@@ -299,6 +348,9 @@ data class Badge(
             COLLEGE_OF_BIOLOGICAL_SCIENCES -> "생과대"
             COLLEGE_OF_VETERINARY_MEDICINE -> "수의대"
             COLLEGE_OF_EDUCATION -> "사범대"
+
+            COLLEGE_OF_SANG_HUH -> "상허교양대"
+            COLLEGE_OF_INTERNATIONAL -> "국제대"
 
             COLLEGE_OF_BUSINESS_ADMINISTRATION_10 -> "인턴"
             COLLEGE_OF_BUSINESS_ADMINISTRATION_30 -> "대리"
@@ -320,23 +372,32 @@ data class Badge(
             MONTHLY_RANKING_2 -> "은메달"
             MONTHLY_RANKING_3 -> "동메달"
 
+            BUSINESS_ARCHITECTURE_EVENT_BUSINESS -> "경영오리 비쿠"
+            BUSINESS_ARCHITECTURE_EVENT_ARCHITECTURE -> "건축오리 어쿠"
+
             else -> "없는 배지"
         }
     }
 
     fun getCondition() : String {
         return when(name) {
-            ATTENDANCE_1 -> "플레이쿠라운드 출석 1회시 잠금 해제됩니다."
-            ATTENDANCE_5 -> "플레이쿠라운드 출석 5회시 잠금 해제됩니다."
-            ATTENDANCE_10 -> "플레이쿠라운드 출석 10회시 잠금 해제됩니다."
-            ATTENDANCE_30 -> "플레이쿠라운드 출석 30회시 잠금 해제됩니다."
-            ATTENDANCE_50 -> "플레이쿠라운드 출석 50회시 잠금 해제됩니다."
-            ATTENDANCE_100 -> "플레이쿠라운드 출석 100회시 잠금 해제됩니다."
+            ATTENDANCE_1 -> "플레이쿠라운드 출석 1회 시 잠금 해제됩니다."
+            ATTENDANCE_5 -> "플레이쿠라운드 출석 5회 시 잠금 해제됩니다."
+            ATTENDANCE_10 -> "플레이쿠라운드 출석 10회 시 잠금 해제됩니다."
+            ATTENDANCE_30 -> "플레이쿠라운드 출석 30회 시 잠금 해제됩니다."
+            ATTENDANCE_50 -> "플레이쿠라운드 출석 50회 시 잠금 해제됩니다."
+            ATTENDANCE_100 -> "플레이쿠라운드 출석 100회 시 잠금 해제됩니다."
             ATTENDANCE_FOUNDATION_DAY -> "개교기념일(5/15) 출석 시 잠금 해제됩니다."
-            ATTENDANCE_ARBOR_DAY -> "식목일(4/5) 출석 시 잠금 해제됩니다"
-            ATTENDANCE_CHILDREN_DAY -> "어린이날(5/5) 출석 시 잠금 해제됩니다"
-            ATTENDANCE_WHITE_DAY -> "화이트데이(3/14) 출석 시 잠금 해제됩니다"
-            ATTENDANCE_DUCK_DAY -> "오리의날(5/2) 출석 시 잠금 해제됩니다"
+            ATTENDANCE_ARBOR_DAY -> "식목일(4/5) 출석 시 잠금 해제됩니다."
+            ATTENDANCE_CHILDREN_DAY -> "어린이날(5/5) 출석 시 잠금 해제됩니다."
+            ATTENDANCE_WHITE_DAY -> "화이트데이(3/14) 출석 시 잠금 해제됩니다."
+            ATTENDANCE_DUCK_DAY -> "오리의날(5/2) 출석 시 잠금 해제됩니다."
+
+            ATTENDANCE_CHUSEOK_DAY -> "추석(9/16) 출석 시 잠금 해제됩니다."
+            ATTENDANCE_KOREAN_DAY -> "한글날(10/19) 출석 시 잠금 해제됩니다."
+            ATTENDANCE_DOKDO_DAY -> "독도의 날(10/25) 출석 시 잠금 해제됩니다."
+            ATTENDANCE_KIMCHI_DAY -> "김치의 날(11/22) 출석 시 잠금 해제됩니다."
+            ATTENDANCE_CHRISTMAS_DAY -> "성탄절(12/25) 출석 시 잠금 해제됩니다."
 
             COLLEGE_OF_ENGINEERING -> "공학관 A, B, C, 신공학관 탐험 시 잠금 해제됩니다."
             COLLEGE_OF_ART_AND_DESIGN -> "예술디자인관, 공예관 탐험 시 잠금 해제됩니다."
@@ -350,6 +411,9 @@ data class Badge(
             COLLEGE_OF_BIOLOGICAL_SCIENCES -> "동물생명과학관 탐험 시 잠금 해제됩니다."
             COLLEGE_OF_VETERINARY_MEDICINE -> "수의학관 탐험 시 잠금 해제됩니다."
             COLLEGE_OF_EDUCATION -> "교육과학관 탐험 시 잠금 해제됩니다."
+
+            COLLEGE_OF_SANG_HUH -> "산학협동관 탐험 시 잠금 해제됩니다."
+            COLLEGE_OF_INTERNATIONAL -> "법학관 탐험 시 잠금 해제됩니다."
 
             COLLEGE_OF_BUSINESS_ADMINISTRATION_10 -> "경영대 건물에서 10회 게임 실행 시 잠금 해제됩니다."
             COLLEGE_OF_BUSINESS_ADMINISTRATION_30 -> "경영대 건물에서 30회 게임 실행 시 잠금 해제됩니다."
@@ -370,6 +434,9 @@ data class Badge(
             MONTHLY_RANKING_1 -> "월간 전체 랭킹 1등 시 잠금 해제됩니다."
             MONTHLY_RANKING_2 -> "월간 전체 랭킹 2등 시 잠금 해제됩니다."
             MONTHLY_RANKING_3 -> "월간 전체 랭킹 3등 시 잠금 해제됩니다."
+
+            BUSINESS_ARCHITECTURE_EVENT_BUSINESS -> "경영X건축 이벤트 와우도 쟁탈전에 참여하는 경영대학 학생에게 지급됩니다."
+            BUSINESS_ARCHITECTURE_EVENT_ARCHITECTURE -> "경영X건축 이벤트 와우도 쟁탈전에 참여하는 건축대학 학생에게 지급됩니다."
 
             else -> "없는 배지"
         }

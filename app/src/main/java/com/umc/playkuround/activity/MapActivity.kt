@@ -248,8 +248,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private fun updatingNowLocation(location: Location) {
 //        val lat = location.latitude
 //        val lon = location.longitude
-        val lat = 37.544299246227844
-        val lon = 127.0760213627617
+        val lat = 37.53974193320623
+        val lon = 127.07326154305827
         if(loadingDialog.isShowing) {
             Log.d("isoo127", "updatingNowLocation: $lat, $lon")
             loadingDialog.dismiss()

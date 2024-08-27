@@ -16,7 +16,7 @@ import com.umc.playkuround.util.PlayKuApplication.Companion.user
 class BadgeActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityBadgeBinding
-    private val isLocked = BooleanArray(38) { true }
+    private val isLocked = BooleanArray(47) { true }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ class BadgeActivity : AppCompatActivity() {
     }
 
     private fun setBadgeImg() {
-        for(i in 0..10) {
+        for(i in 0..15) {
             if(!isLocked[i])
                     (binding.badgeAttendanceBadgesGl.getChildAt(i) as ImageView).setImageResource(Badge(i,"","").getImageDrawable())
             binding.badgeAttendanceBadgesGl.getChildAt(i).setOnClickListener {
@@ -40,10 +40,10 @@ class BadgeActivity : AppCompatActivity() {
                 badgeInfoDialog.show()
             }
         }
-        for(i in 11..37) {
+        for(i in 16..46) {
             if(!isLocked[i])
-                (binding.badgeAdventureBadgesGl.getChildAt(i-11) as ImageView).setImageResource(Badge(i,"","").getImageDrawable())
-            binding.badgeAdventureBadgesGl.getChildAt(i-11).setOnClickListener {
+                (binding.badgeAdventureBadgesGl.getChildAt(i-16) as ImageView).setImageResource(Badge(i,"","").getImageDrawable())
+            binding.badgeAdventureBadgesGl.getChildAt(i-16).setOnClickListener {
                 val badgeInfoDialog = BadgeInfoDialog(this, i)
                 badgeInfoDialog.setStatus(isLocked[i], false)
                 badgeInfoDialog.show()
