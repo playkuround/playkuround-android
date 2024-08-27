@@ -65,7 +65,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dialog_profile_badge_list_rv"
         android:layout_width="230dp"
-        android:layout_height="230dp"
+        android:layout_height="240dp"
         app:layout_constraintStart_toStartOf="@id/dialog_profile_bg"
         app:layout_constraintEnd_toEndOf="@id/dialog_profile_bg"
         app:layout_constraintTop_toBottomOf="@id/dialog_profile_nickname_tv"

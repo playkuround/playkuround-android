@@ -38,6 +38,10 @@ data class UserProfileData(
     @SerializedName(value = "profileBadge") var profileBadgeName : String
 )
 
+data class UserProfileBadgeRequest(
+    @SerializedName(value = "profileBadge") var profileBadgeName : String
+)
+
 data class NotificationResponse(
     @SerializedName("isSuccess") val isSuccess: Boolean,
     @SerializedName("response") val notifications: List<Notification>

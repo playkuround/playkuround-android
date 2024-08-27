@@ -11,6 +11,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Body
 
 class UserAPI {
 
@@ -69,6 +70,28 @@ class UserAPI {
 
             override fun onFailure(call: Call<DuplicateResponse>, t: Throwable) {
                 Log.e("api err", "onResponse: fail isDuplicate $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
+    fun setProfileBadge(token : String, profile : UserProfileBadgeRequest) {
+        val userAPI = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userAPI.setProfileBadge(token, profile).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                val resp : CommonResponse = response.body()!!
+                user.profileBadgeName = profile.profileBadgeName
+                user.save(pref)
+                onResponseListener.getResponseBody(resp, true, "")
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("api err", "onResponse: fail setProfileBadge $call")
                 t.printStackTrace()
                 onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
             }

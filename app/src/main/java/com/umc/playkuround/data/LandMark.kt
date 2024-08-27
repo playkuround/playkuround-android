@@ -65,8 +65,8 @@ data class LandMark(
 
             8 -> {
                 this.name = "예디대"
-                this.latitude = 37.542908
-                this.longitude = 127.072815
+                this.latitude = 37.54294056755734
+                this.longitude = 127.07312322985227
             }
 
             9 -> {

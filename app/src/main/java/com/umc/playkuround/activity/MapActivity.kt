@@ -36,6 +36,7 @@ import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.LogoutDialog
 import com.umc.playkuround.dialog.MapPlaceDialog
 import com.umc.playkuround.dialog.PlaceInfoDialog
+import com.umc.playkuround.dialog.ProfileDialog
 import com.umc.playkuround.dialog.RandomGameDialog
 import com.umc.playkuround.dialog.StoryDialog
 import com.umc.playkuround.network.AuthAPI
@@ -167,7 +168,12 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         }
 
         binding.mapProfileIv.setOnClickListener {
-            // TODO: show profile dialog
+            val profileDialog = ProfileDialog(this)
+            profileDialog.show()
+            profileDialog.setOnDismissListener {
+                val badge = Badge(-1, user.profileBadgeName, "")
+                binding.mapProfileIv.setImageResource(badge.getImageDrawable())
+            }
         }
     }
 
@@ -240,8 +246,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     }
 
     private fun updatingNowLocation(location: Location) {
-        val lat = location.latitude
-        val lon = location.longitude
+//        val lat = location.latitude
+//        val lon = location.longitude
+        val lat = 37.544299246227844
+        val lon = 127.0760213627617
         if(loadingDialog.isShowing) {
             Log.d("isoo127", "updatingNowLocation: $lat, $lon")
             loadingDialog.dismiss()
@@ -273,8 +281,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         fun startGameActivity(intent : Intent) {
             val landmark = LandMark(landmarkId, 0.0,0.0,"",0.0,"")
             intent.putExtra("landmarkId", landmarkId)
-            intent.putExtra("latitude", landmark.latitude)
-            intent.putExtra("longitude", landmark.longitude)
+            intent.putExtra("latitude", nowLocation.latitude)
+            intent.putExtra("longitude", nowLocation.longitude)
 
             if(exploredLandmarks.size < 6) {
                 if (exploredLandmarks.contains(landmark.name)) {

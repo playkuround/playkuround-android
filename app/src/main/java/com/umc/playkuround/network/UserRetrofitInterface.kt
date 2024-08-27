@@ -12,6 +12,9 @@ interface UserRetrofitInterface {
     @GET("/api/users/availability")
     fun isAvailable(@Query("nickname") nickname : String) : Call<DuplicateResponse>
 
+    @POST("/api/users/profile-badge")
+    fun setProfileBadge(@Header("Authorization") token : String, @Body profile : UserProfileBadgeRequest) : Call<CommonResponse>
+
     @POST("/api/users/logout")
     fun logout(@Header("Authorization") token : String) : Call<CommonResponse>
 
