@@ -27,8 +27,10 @@ import com.umc.playkuround.network.HighestScoresResponse
 import com.umc.playkuround.network.LandmarkAPI
 import com.umc.playkuround.network.UserAPI
 import com.umc.playkuround.util.PlayKuApplication
+import com.umc.playkuround.util.PlayKuApplication.Companion.pref
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 import com.umc.playkuround.util.SoundPlayer
+import kotlin.random.Random
 
 class MiniGameQuizActivity : AppCompatActivity() {
 
@@ -36,6 +38,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
 
     private lateinit var quiz : Quiz
 
+    private var score = 0
     private var highestScore = 0
     private var badges = java.util.ArrayList<String>()
 
@@ -90,7 +93,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
     }
 
     private fun getQuiz() : Quiz {
-        val landmarkId = intent.getIntExtra("landmarkId", -1)
+        val landmarkId = Random.nextInt(1, 54)
         return Quiz(landmarkId, "", ArrayList(), -1)
     }
 
@@ -176,7 +179,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
                     binding.quizOption4Tv.setTextColor(Color.BLACK)
                 }
             }
-            startTimer(15)
+            showGameOverDialog()
         } else {
             when(quiz.answer) {
                 0 -> {
@@ -201,8 +204,58 @@ class MiniGameQuizActivity : AppCompatActivity() {
                 }
             }
             binding.quizCorrectTv.visibility = View.VISIBLE
-            showGameOverDialog()
+
+            val waitingDialog = WaitingDialog(this)
+            waitingDialog.setIsResult(false)
+            waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
+                override fun onFinish() {
+                    waitingDialog.dismiss()
+                    score += 10
+                    binding.quizScoreTv.text = "$score 점"
+                    quiz = getQuiz()
+                    restoreView()
+                    initQuizView()
+                }
+            })
+            waitingDialog.show()
         }
+    }
+
+    private fun restoreView() {
+        binding.quizCorrectTv.visibility = View.INVISIBLE
+
+        binding.quizTimerTv.visibility = View.INVISIBLE
+        binding.quizTryAgainTv.visibility = View.INVISIBLE
+
+        binding.quizOption1Cl.isClickable = true
+        binding.quizOption2Cl.isClickable = true
+        binding.quizOption3Cl.isClickable = true
+        binding.quizOption4Cl.isClickable = true
+
+        binding.quizIndex1Iv.backgroundTintList = null
+        binding.quizIndex1Iv.setTextColor(Color.WHITE)
+        binding.quizIndex2Iv.backgroundTintList = null
+        binding.quizIndex2Iv.setTextColor(Color.WHITE)
+        binding.quizIndex3Iv.backgroundTintList = null
+        binding.quizIndex3Iv.setTextColor(Color.WHITE)
+        binding.quizIndex4Iv.backgroundTintList = null
+        binding.quizIndex4Iv.setTextColor(Color.WHITE)
+
+        binding.quizIndex1Iv.alpha = 1f
+        binding.quizIndex2Iv.alpha = 1f
+        binding.quizIndex3Iv.alpha = 1f
+        binding.quizIndex4Iv.alpha = 1f
+
+        binding.quizOption1Tv.alpha = 1f
+        binding.quizOption2Tv.alpha = 1f
+        binding.quizOption3Tv.alpha = 1f
+        binding.quizOption4Tv.alpha = 1f
+
+        binding.quizOption1Cl.background = ContextCompat.getDrawable(applicationContext, R.drawable.quiz_option)
+        binding.quizOption2Cl.background = ContextCompat.getDrawable(applicationContext, R.drawable.quiz_option)
+        binding.quizOption3Cl.background = ContextCompat.getDrawable(applicationContext, R.drawable.quiz_option)
+        binding.quizOption4Cl.background = ContextCompat.getDrawable(applicationContext, R.drawable.quiz_option)
+
     }
 
     private fun startTimer(sec : Int) {
@@ -283,6 +336,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
 
     private fun showGameOverDialog() {
         SoundPlayer(applicationContext, R.raw.quiz_correct).play()
+
         fun showGameOverDialog(result : Int) {
             val gameOverDialog = GameOverDialog(this@MiniGameQuizActivity)
             gameOverDialog.setOnDismissListener {
@@ -293,7 +347,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
                 this@MiniGameQuizActivity.finish()
             }
 
-            gameOverDialog.setInfo(resources.getString(R.string.ku_quiz), 20, highestScore, userTotalScore + 20)
+            gameOverDialog.setInfo(resources.getString(R.string.ku_quiz), score, highestScore, userTotalScore + score)
             gameOverDialog.show()
         }
 
@@ -336,7 +390,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
                         showGameOverDialog(Activity.RESULT_CANCELED)
                 }
             }
-        }).sendScore(PlayKuApplication.user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, 20, "QUIZ"))
+        }).sendScore(PlayKuApplication.user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, score, "QUIZ"))
     }
 
 }

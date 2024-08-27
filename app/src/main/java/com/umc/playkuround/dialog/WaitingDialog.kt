@@ -19,6 +19,8 @@ class WaitingDialog(context : Context) : Dialog(context) {
 
     private var onFinishListener : OnFinishListener? = null
 
+    private var isResult = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_waiting)
@@ -31,10 +33,13 @@ class WaitingDialog(context : Context) : Dialog(context) {
         window!!.attributes = layoutParams
 
         val comment = findViewById<TextView>(R.id.dialog_waiting_comment_tv)
+        if(!isResult) comment.text = "다음 문제까지 3초"
         Handler(Looper.getMainLooper()).postDelayed({
-            comment.text = "2초 후 결과 창으로 이동합니다"
+            if(isResult) comment.text = "2초 후 결과 창으로 이동합니다"
+            else comment.text = "다음 문제까지 2초"
             Handler(Looper.getMainLooper()).postDelayed({
-                comment.text = "1초 후 결과 창으로 이동합니다"
+                if(isResult) comment.text = "1초 후 결과 창으로 이동합니다"
+                else comment.text = "다음 문제까지 1초"
                 Handler(Looper.getMainLooper()).postDelayed({
                     onFinishListener?.onFinish()
                 }, 1000)
@@ -44,6 +49,10 @@ class WaitingDialog(context : Context) : Dialog(context) {
 
     fun setOnFinishListener(listener : OnFinishListener) {
         onFinishListener = listener
+    }
+
+    fun setIsResult(isResult : Boolean) {
+        this.isResult = isResult
     }
 
 }
