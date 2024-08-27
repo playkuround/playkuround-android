@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <ImageView
+        android:id="@+id/dialog_profile_bg"
+        android:layout_width="336dp"
+        android:layout_height="712dp"
+        android:src="@drawable/dialog_profile_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/dialog_profile_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="배지 아이콘 선택"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="21dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_profile_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_profile_bg"
+        app:layout_constraintTop_toTopOf="@id/dialog_profile_bg"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_profile_bg"
+        app:layout_constraintVertical_bias="0.095"/>
+
+    <TextView
+        android:id="@+id/dialog_profile_description_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="나를 표현할 사진을 선택하세요!"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_profile_title_tv"
+        app:layout_constraintEnd_toEndOf="@id/dialog_profile_title_tv"
+        app:layout_constraintTop_toBottomOf="@id/dialog_profile_title_tv"
+        android:layout_marginTop="8dp"/>
+    
+    <ImageView
+        android:id="@+id/dialog_profile_profile_iv"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_profile_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_profile_bg"
+        app:layout_constraintTop_toBottomOf="@id/dialog_profile_description_tv"
+        android:src="@drawable/badge_locked"
+        android:layout_marginTop="34dp"/>
+
+    <TextView
+        android:id="@+id/dialog_profile_nickname_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사용자"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="19dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_profile_profile_iv"
+        app:layout_constraintEnd_toEndOf="@id/dialog_profile_profile_iv"
+        app:layout_constraintTop_toBottomOf="@id/dialog_profile_profile_iv"
+        android:layout_marginTop="15dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dialog_profile_badge_list_rv"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_profile_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_profile_bg"
+        app:layout_constraintTop_toBottomOf="@id/dialog_profile_nickname_tv"
+        android:layout_marginTop="30dp"
+        android:scrollbars="vertical"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarThumbVertical="@color/scrollbar_thumb"
+        android:scrollbarTrackVertical="@color/scrollbar_track"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarSize="4dp"
+        android:verticalScrollbarPosition="right"
+        android:scrollbarStyle="insideInset"/>
+    
+    <Button
+        android:id="@+id/dialog_profile_change_btn"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_blue_small"
+        android:text="변경하기"
+        android:fontFamily="@font/neo_dunggeunmo_regular"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@id/dialog_profile_bg"
+        app:layout_constraintEnd_toEndOf="@id/dialog_profile_bg"
+        app:layout_constraintTop_toBottomOf="@id/dialog_profile_badge_list_rv"
+        android:layout_marginTop="30dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

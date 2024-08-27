@@ -165,6 +165,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             SoundPlayer(this, R.raw.button_click_sound).play()
             // TODO: show notice dialog
         }
+
+        binding.mapProfileIv.setOnClickListener {
+            // TODO: show profile dialog
+        }
     }
 
     private fun setUserData() {
