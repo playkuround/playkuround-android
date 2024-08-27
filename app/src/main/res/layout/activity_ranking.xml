@@ -218,6 +218,39 @@
             app:layout_constraintEnd_toEndOf="@id/ranking_bronze_medal_iv"
             app:layout_constraintBottom_toTopOf="@id/ranking_bronze_medal_score_tv"
             android:layout_marginBottom="15dp"/>
+
+        <ImageView
+            android:visibility="invisible"
+            android:id="@+id/ranking_silver_medal_profile_iv"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/badge_artist"
+            app:layout_constraintStart_toStartOf="@id/ranking_silver_medal_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_silver_medal_iv"
+            app:layout_constraintBottom_toTopOf="@id/ranking_silver_medal_score_tv"
+            android:layout_marginBottom="55dp"/>
+
+        <ImageView
+            android:visibility="invisible"
+            android:id="@+id/ranking_gold_medal_profile_iv"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/badge_artist"
+            app:layout_constraintStart_toStartOf="@id/ranking_gold_medal_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_gold_medal_iv"
+            app:layout_constraintBottom_toTopOf="@id/ranking_gold_medal_score_tv"
+            android:layout_marginBottom="55dp"/>
+
+        <ImageView
+            android:visibility="invisible"
+            android:id="@+id/ranking_bronze_medal_profile_iv"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/badge_artist"
+            app:layout_constraintStart_toStartOf="@id/ranking_bronze_medal_iv"
+            app:layout_constraintEnd_toEndOf="@id/ranking_bronze_medal_iv"
+            app:layout_constraintBottom_toTopOf="@id/ranking_bronze_medal_score_tv"
+            android:layout_marginBottom="55dp"/>
         
         <LinearLayout
             android:visibility="invisible"
@@ -287,18 +320,26 @@
 
             <TextView
                 android:id="@+id/ranking_my_rank_tv"
-                android:layout_width="64dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="67"
                 android:fontFamily="@font/neo_dunggeunmo_regular"
                 android:textSize="16dp"/>
 
+            <ImageView
+                android:id="@+id/ranking_my_profile_iv"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:src="@drawable/badge_artist"/>
+
             <TextView
-                android:layout_width="144dp"
+                android:layout_width="127dp"
                 android:layout_height="wrap_content"
                 android:text="@string/ranking_me"
                 android:fontFamily="@font/pretendard_regular"
-                android:textSize="16dp"/>
+                android:textSize="16dp"
+                android:textAlignment="textStart"
+                android:paddingStart="10dp"/>
 
             <TextView
                 android:id="@+id/ranking_my_score_tv"

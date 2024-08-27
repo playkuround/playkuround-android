@@ -204,18 +204,26 @@
 
             <TextView
                 android:id="@+id/landmark_ranking_my_rank_tv"
-                android:layout_width="64dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="67"
                 android:fontFamily="@font/neo_dunggeunmo_regular"
                 android:textSize="16dp"/>
 
+            <ImageView
+                android:id="@+id/landmark_ranking_my_profile_iv"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:src="@drawable/badge_artist"/>
+
             <TextView
-                android:layout_width="144dp"
+                android:layout_width="127dp"
                 android:layout_height="wrap_content"
                 android:text="@string/ranking_me"
                 android:fontFamily="@font/pretendard_regular"
-                android:textSize="16dp"/>
+                android:textSize="16dp"
+                android:textAlignment="textStart"
+                android:paddingStart="10dp"/>
 
             <TextView
                 android:id="@+id/landmark_ranking_my_score_tv"

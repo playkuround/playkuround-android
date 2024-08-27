@@ -40,6 +40,13 @@ class LandmarkRankingActivity : AppCompatActivity() {
 
                 val formatter = NumberFormat.getNumberInstance()
                 binding.itemRankScore.text = formatter.format(rank[pos].score)
+
+                val badge = rank[pos].profileBadge?.let {
+                    com.umc.playkuround.data.Badge(-1, it, "")
+                }
+                if (badge != null) {
+                    binding.itemRankProfile.setImageResource(badge.getImageDrawable())
+                }
             }
         }
 
@@ -133,10 +140,13 @@ class LandmarkRankingActivity : AppCompatActivity() {
     }
 
     private fun showMyInfo() {
-        if(myRank == -1) binding.landmarkRankingMyRankTv.text = "-"
+        if(myRank == -1 || myRank == 0) binding.landmarkRankingMyRankTv.text = "-"
         else binding.landmarkRankingMyRankTv.text = myRank.toString()
 
         binding.landmarkRankingMyScoreTv.text = myScore.toString()
+
+        val badge = com.umc.playkuround.data.Badge(-1, PlayKuApplication.user.profileBadgeName, "")
+        binding.landmarkRankingMyProfileIv.setImageResource(badge.getImageDrawable())
     }
 
     private fun showRanks() {

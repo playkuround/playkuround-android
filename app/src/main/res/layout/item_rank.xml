@@ -15,19 +15,27 @@
 
         <TextView
             android:id="@+id/item_rank_index"
-            android:layout_width="64dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="1"
             android:fontFamily="@font/neo_dunggeunmo_regular"
             android:textSize="16dp"/>
 
+        <ImageView
+            android:id="@+id/item_rank_profile"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:src="@drawable/badge_artist"/>
+
         <TextView
             android:id="@+id/item_rank_nickname"
-            android:layout_width="144dp"
+            android:layout_width="127dp"
             android:layout_height="wrap_content"
             android:text="건덕이건덕이건덕"
             android:fontFamily="@font/pretendard_regular"
-            android:textSize="16dp"/>
+            android:textSize="16dp"
+            android:textAlignment="textStart"
+            android:paddingStart="10dp"/>
 
         <TextView
             android:id="@+id/item_rank_score"

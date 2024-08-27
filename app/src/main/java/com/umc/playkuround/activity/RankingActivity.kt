@@ -3,8 +3,6 @@ package com.umc.playkuround.activity
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +16,7 @@ import com.umc.playkuround.R
 import com.umc.playkuround.databinding.ActivityRankingBinding
 import com.umc.playkuround.databinding.ItemRankBinding
 import com.umc.playkuround.dialog.LoadingDialog
+import com.umc.playkuround.network.Badge
 import com.umc.playkuround.network.RankItem
 import com.umc.playkuround.network.ScoreAPI
 import com.umc.playkuround.network.Top100Response
@@ -41,6 +40,13 @@ class RankingActivity : AppCompatActivity() {
 
                 val formatter = NumberFormat.getNumberInstance()
                 binding.itemRankScore.text = formatter.format(rank[pos].score)
+
+                val badge = rank[pos].profileBadge?.let {
+                    com.umc.playkuround.data.Badge(-1, it, "")
+                }
+                if (badge != null) {
+                    binding.itemRankProfile.setImageResource(badge.getImageDrawable())
+                }
             }
         }
 
@@ -79,6 +85,10 @@ class RankingActivity : AppCompatActivity() {
         binding.rankingGoldMedalIv.visibility = View.VISIBLE
         binding.rankingSilverMedalIv.visibility = View.VISIBLE
         binding.rankingBronzeMedalIv.visibility = View.VISIBLE
+
+        binding.rankingGoldMedalProfileIv.visibility = View.VISIBLE
+        binding.rankingSilverMedalProfileIv.visibility = View.VISIBLE
+        binding.rankingBronzeMedalProfileIv.visibility = View.VISIBLE
 
         binding.rankingGoldMedalNicknameTv.visibility = View.VISIBLE
         binding.rankingSilverMedalNicknameTv.visibility = View.VISIBLE
@@ -130,6 +140,8 @@ class RankingActivity : AppCompatActivity() {
     private fun showTopPlayersInfo() {
         val formatter = NumberFormat.getNumberInstance()
         if(rankInfo.size > 0) {
+            val badge = com.umc.playkuround.data.Badge(-1, rankInfo[0].profileBadge, "")
+            binding.rankingGoldMedalProfileIv.setImageResource(badge.getImageDrawable())
             binding.rankingGoldMedalNicknameTv.text = rankInfo[0].nickname
             if(rankInfo[0].score >= 10000) {
                 binding.rankingGoldMedalScoreTv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
@@ -137,6 +149,8 @@ class RankingActivity : AppCompatActivity() {
             binding.rankingGoldMedalScoreTv.text = formatter.format(rankInfo[0].score) + "점"
         }
         if(rankInfo.size > 1) {
+            val badge = com.umc.playkuround.data.Badge(-1, rankInfo[1].profileBadge, "")
+            binding.rankingSilverMedalProfileIv.setImageResource(badge.getImageDrawable())
             binding.rankingSilverMedalNicknameTv.text = rankInfo[1].nickname
             if(rankInfo[1].score >= 10000) {
                 binding.rankingSilverMedalScoreTv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
@@ -145,8 +159,11 @@ class RankingActivity : AppCompatActivity() {
         } else {
             binding.rankingSilverMedalNicknameTv.text = ""
             binding.rankingSilverMedalScoreTv.text = ""
+            binding.rankingSilverMedalProfileIv.visibility = View.INVISIBLE
         }
         if(rankInfo.size > 2) {
+            val badge = com.umc.playkuround.data.Badge(-1, rankInfo[2].profileBadge, "")
+            binding.rankingBronzeMedalProfileIv.setImageResource(badge.getImageDrawable())
             binding.rankingBronzeMedalNicknameTv.text = rankInfo[2].nickname
             if(rankInfo[2].score >= 10000) {
                 binding.rankingBronzeMedalScoreTv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
@@ -155,14 +172,18 @@ class RankingActivity : AppCompatActivity() {
         } else {
             binding.rankingBronzeMedalNicknameTv.text = ""
             binding.rankingBronzeMedalScoreTv.text = ""
+            binding.rankingBronzeMedalProfileIv.visibility = View.INVISIBLE
         }
     }
 
     private fun showMyInfo() {
-        if(myRank == -1) binding.rankingMyRankTv.text = "-"
+        if(myRank == -1 || myRank == 0) binding.rankingMyRankTv.text = "-"
         else binding.rankingMyRankTv.text = myRank.toString()
 
         binding.rankingMyScoreTv.text = myScore.toString()
+
+        val badge = com.umc.playkuround.data.Badge(-1, user.profileBadgeName, "")
+        binding.rankingMyProfileIv.setImageResource(badge.getImageDrawable())
     }
 
     private fun showRanks() {
