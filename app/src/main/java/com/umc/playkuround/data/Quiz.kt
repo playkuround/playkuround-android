@@ -12,7 +12,7 @@ data class Quiz (
     init {
         when(landmarkId) {
             1 -> {
-                question = "다음 중 해당 층에 없는 시설은?"
+                question = "다음 중 산학협동관의 해당 층에 없는 시설은?"
                 options = ArrayList()
                 options.add(0, "1층 - 레스티오(카페)")
                 options.add(1, "2층 - 상허교양대학 행정실")
@@ -218,6 +218,17 @@ data class Quiz (
 
             }
 
+            20 -> {
+                question = "건국대학교 학생홍보대사의 명칭은 무엇일까요?"
+                options = ArrayList()
+                options.add(0, "건우건희") // 정답
+                options.add(1, "건희건우")
+                options.add(2, "건우건의")
+                options.add(3, "건의건우")
+                answer = 0
+
+            }
+
             21 -> {
                 question = "학교에 많은 연예인들이 공연을 다녀갔다. 다음 중 노천극장에서 공연하지 않은 그룹은?"
                 options = ArrayList()
@@ -226,6 +237,17 @@ data class Quiz (
                 options.add(2, "레드벨벳")
                 options.add(3, "르세라핌") // 정답
                 answer = 3
+
+            }
+
+            22 -> {
+                question = "건국대학교 축제 이름인 '녹색지대'는 몇 번 진행되었을까요?"
+                options = ArrayList()
+                options.add(0, "1번")
+                options.add(1, "2번")
+                options.add(2, "3번") // 정답
+                options.add(3, "4번")
+                answer = 2
 
             }
 
@@ -342,11 +364,22 @@ data class Quiz (
             33 -> {
                 question = "건국대학교 대표 동물은 황소이다. 그렇다면 건국대학교 교화는?"
                 options = ArrayList()
-                options.add(0, "목화") // 정답
+                options.add(0, "목화")
                 options.add(1, "장미")
                 options.add(2, "벚꽃")
-                options.add(3, "목련")
-                answer = 0
+                options.add(3, "목련") // 정답
+                answer = 3
+
+            }
+
+            34 -> {
+                question = "건국대학교 출신 연예인이 아닌 인물은 누구일까요?"
+                options = ArrayList()
+                options.add(0, "송강")
+                options.add(1, "트와이스 나연")
+                options.add(2, "샤이니 민호")
+                options.add(3, "방탄소년단 정국") // 정답
+                answer = 3
 
             }
 
@@ -357,6 +390,17 @@ data class Quiz (
                 options.add(1, "1946년") // 정답
                 options.add(2, "1947년")
                 options.add(3, "1948년")
+                answer = 1
+
+            }
+
+            36 -> {
+                question = "건국대학교 설립자 유석창 박사의 호는 무엇일까요?"
+                options = ArrayList()
+                options.add(0, "상청")
+                options.add(1, "상허") // 정답
+                options.add(2, "상공")
+                options.add(3, "상묵")
                 answer = 1
 
             }
@@ -380,6 +424,182 @@ data class Quiz (
                 options.add(2, "이종범")
                 options.add(3, "이형택")
                 answer = 0
+
+            }
+
+            39 -> {
+                question = "PLAYKUROUND의 개발 인원은 총 몇 명일까요?"
+                options = ArrayList()
+                options.add(0, "6")
+                options.add(1, "7")
+                options.add(2, "8") //정답
+                options.add(3, "9")
+                answer = 2
+
+            }
+
+            40 -> {
+                question = "PLAYKUROUND의 메인 캐릭터 OO의 이름은?"
+                options = ArrayList()
+                options.add(0, "덕후")
+                options.add(1, "덕쿠") //정답
+                options.add(2, "덕민")
+                options.add(3, "덕봉")
+                answer = 1
+
+            }
+
+            41 -> {
+                question = "건국대학교 서울캠퍼스의 설립연도는?"
+                options = ArrayList()
+                options.add(0, "1931년") //정답
+                options.add(1, "1941년")
+                options.add(2, "1951년")
+                options.add(3, "1961년")
+                answer = 0
+
+            }
+
+            42 -> {
+                question = "건국대학교 서울캠퍼스의 단과대학이 아닌 것은?"
+                options = ArrayList()
+                options.add(0, "공과대학")
+                options.add(1, "경영대학")
+                options.add(2, "예술디자인대학")
+                options.add(3, "간호대학") //정답
+                answer = 3
+
+            }
+
+            43 -> {
+                question = "건국대학교 학생회관에 없는 시설은?"
+                options = ArrayList()
+                options.add(0, "신한은행")
+                options.add(1, "건국기념품")
+                options.add(2, "대학일자리사업단")
+                options.add(3, "국민은행") //정답
+                answer = 3
+
+            }
+
+            44 -> {
+                question = "상허박물관의 운영 시간으로 옳은 것은?"
+                options = ArrayList()
+                options.add(0, "09~16시")
+                options.add(1, "09~17시")
+                options.add(2, "10~16시") //정답
+                options.add(3, "10~17시")
+                answer = 2
+
+            }
+
+            45 -> {
+                question = "건국대학교 기숙사 중 '드림홀'에 없는 시설은?"
+                options = ArrayList()
+                options.add(0, "편의점")
+                options.add(1, "세탁소")
+                options.add(2, "헬스장") //정답
+                options.add(3, "분식점")
+                answer = 2
+
+            }
+
+            46 -> {
+                question = "신공학관에 있는 공간으로 학생들의 자율적 이용으로 다양한 창의적 아이디어를 발굴하고 공유하며, 직접제조가 가능한 개방형 커뮤니티 랩의 이름은?"
+                options = ArrayList()
+                options.add(0, "스마트팩토리") //정답
+                options.add(1, "스마트랩")
+                options.add(2, "인텔리전스팩토리")
+                options.add(3, "인텔리전스랩")
+                answer = 0
+
+            }
+
+            47 -> {
+                question = "건국대학교 운동장의 대여가능 시간으로 옳은 것은?"
+                options = ArrayList()
+                options.add(0, "08~22시")
+                options.add(1, "09~22시") //정답
+                options.add(2, "10~22시")
+                options.add(3, "11~22시")
+                answer = 1
+
+            }
+
+            48 -> {
+                question = "상허도서관의 건물 번호로 옳은 것은?"
+                options = ArrayList()
+                options.add(0, "6번")
+                options.add(1, "7번")
+                options.add(2, "8번")
+                options.add(3, "9번") //정답
+                answer = 3
+
+            }
+
+            49 -> {
+                question = "건물 이름을 딴 따릉이 대여소가 아닌 곳은?"
+                options = ArrayList()
+                options.add(0, "경영관") //정답
+                options.add(1, "행정관")
+                options.add(2, "학생회관")
+                options.add(3, "과학관")
+                answer = 0
+
+            }
+
+            50 -> {
+                question = "건국대학교 위인교육센터의 전화번호로 옳은 것은?"
+                options = ArrayList()
+                options.add(0, "02-450-4210") //정답
+                options.add(1, "02-450-4310")
+                options.add(2, "02-450-4410")
+                options.add(3, "02-450-4510")
+                answer = 0
+
+            }
+
+            51 -> {
+                question = "예술디자인대학에 있는 영화관의 이름은 무엇일까요?"
+                options = ArrayList()
+                options.add(0, "KU하우스")
+                options.add(1, "KU시네마테크") //정답
+                options.add(2, "KU엔터")
+                options.add(3, "KU Theater")
+                answer = 1
+
+            }
+
+            52 -> {
+                question = "건국대학교의 학점인정 시스템으로 들어가 있지 않은 것은?"
+                options = ArrayList()
+                options.add(0, "학점교류")
+                options.add(1, "자기설계학기제")
+                options.add(2, "군e러닝")
+                options.add(3, "G-MOOC") //정답
+                answer = 3
+
+            }
+
+            53 -> {
+                question = "PLAYKUROUND 'PM(Project Manager)'의 닉네임은 무엇일까요?"
+                options = ArrayList()
+                options.add(0, "숑송")
+                options.add(1, "싱싱") //정답
+                options.add(2, "상상")
+                options.add(3, "슝슝")
+                answer = 1
+
+            }
+
+            54 -> {
+                question = "건국대학교 캠퍼스에서 촬영하지 않은 드라마·영화·웹툰은 무엇일까요?"
+                options = ArrayList()
+                options.add(0, "기생충")
+                options.add(1, "도깨비")
+                options.add(2, "치즈인더트랩")
+                options.add(3, "건축학개론") //정답
+                answer = 3
 
             }
 
