@@ -114,7 +114,6 @@ class ProfileDialog(context : Context) : Dialog(context) {
         setContentView(binding.root)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window!!.setDimAmount(0.6f)
-        setCancelable(false)
 
         binding.dialogProfileNicknameTv.text = user.nickname
         val userProfileBadge = Badge(-1, user.profileBadgeName, "")

@@ -90,10 +90,6 @@ class MiniGameTimerActivity : AppCompatActivity() {
             lapTime()
             check()
         }
-        binding.timerRestartBt.setOnClickListener {
-            SoundPlayer(this, R.raw.timer_button_click).play()
-            reset()
-        }
     }
 
     override fun onBackPressed() {
@@ -122,7 +118,7 @@ class MiniGameTimerActivity : AppCompatActivity() {
     }
 
     private fun check() {
-        if (time in 990..1010) {
+        if (time in 900..1100) {
             SoundPlayer(this, R.raw.timer_correct).play()
             openResultDialog(true)
         } else {
@@ -136,7 +132,6 @@ class MiniGameTimerActivity : AppCompatActivity() {
         isRunning = true
         binding.timerStartBt.visibility = View.INVISIBLE
         binding.timerStopBt.visibility = View.VISIBLE
-        binding.timerRestartBt.visibility = View.INVISIBLE// 시작버튼을 일시정지 이미지로 변경
 
                 timerTask = timer(period = 10) {    // timer() 호출
                     time++    // period=10, 0.01초마다 time를 1씩 증가
@@ -158,29 +153,8 @@ class MiniGameTimerActivity : AppCompatActivity() {
 
         binding.timerStartBt.visibility = View.INVISIBLE
         binding.timerStopBt.visibility = View.INVISIBLE
-        binding.timerRestartBt.visibility = View.VISIBLE// 일시정지 아이콘에서 start 아이콘으로 변경
 
         timerTask?.cancel() // 안전한 호출(?.)로 timerTask가 null이 아니면 cancel() 호출
-    }
-
-
-
-    //타이머 리셋
-    @SuppressLint("SetTextI18n")
-    private fun reset() {
-        binding.timerResultTv.visibility = View.INVISIBLE
-        binding.timerSec.setTextColor(ActivityCompat.getColor(this, R.color.text_color))
-        binding.timerMilli.setTextColor(ActivityCompat.getColor(this, R.color.text_color))
-        binding.timerStartBt.visibility = View.VISIBLE
-        binding.timerStopBt.visibility = View.INVISIBLE
-        binding.timerRestartBt.visibility = View.INVISIBLE
-        timerTask?.cancel()	// timerTask가 null이 아니라면 cancel() 호출
-
-        time = 0		// 시간저장 변수 초기화
-        isRunning = false	// 현재 진행중인지 판별하기 위한 Boolean 변수 false 세팅
-        binding.timerSec.text = "00:"		// TextView 초기화
-        binding.timerMilli.text = "00"
-
     }
 
     //  타이머 기록 저장
@@ -203,7 +177,6 @@ class MiniGameTimerActivity : AppCompatActivity() {
             binding.timerSec.setTextColor(ActivityCompat.getColor(this, R.color.green_stroke))
             binding.timerMilli.setTextColor(ActivityCompat.getColor(this, R.color.green_stroke))
             binding.timerResultTv.visibility = View.VISIBLE
-            binding.timerRestartBt.visibility = View.INVISIBLE
             binding.timerSuccessIv.visibility = View.VISIBLE
             binding.timerResultTv.text = "성공하셨습니다. 축하합니다!"
             binding.timerResultTv.setTextColor(ActivityCompat.getColor(this, R.color.green_stroke))
@@ -213,14 +186,22 @@ class MiniGameTimerActivity : AppCompatActivity() {
             binding.timerSec.setTextColor(ActivityCompat.getColor(this, R.color.red))
             binding.timerMilli.setTextColor(ActivityCompat.getColor(this, R.color.red))
             binding.timerResultTv.visibility = View.VISIBLE
+            binding.timerFailIv.visibility = View.VISIBLE
             binding.timerResultTv.text = "실패하셨습니다. 다시 시도해보세요!"
             binding.timerResultTv.setTextColor(ActivityCompat.getColor(this, R.color.red))
+
+            showGameOverDialog()
         }
     }
 
     private fun showGameOverDialog() {
-        val score = if(time == 1000) 500
-        else 50
+        val score =
+            if(time == 1000) 200
+            else if(time in 975..1025) 40
+            else if(time in 950..1050) 35
+            else if(time in 925..1075) 30
+            else if(time in 900..1100) 20
+            else 0
 
         fun showGameOverDialog(result : Int) {
             val gameOverDialog = GameOverDialog(this@MiniGameTimerActivity)

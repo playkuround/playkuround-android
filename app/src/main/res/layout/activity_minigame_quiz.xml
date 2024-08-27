@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/quiz_option1_cl"
             app:layout_constraintTop_toBottomOf="@id/quiz_tab_bar"
-            android:text="0 점"
+            android:text="5 점"
             android:fontFamily="@font/neo_dunggeunmo_regular"
             android:textSize="20dp"
             android:layout_marginStart="5dp"

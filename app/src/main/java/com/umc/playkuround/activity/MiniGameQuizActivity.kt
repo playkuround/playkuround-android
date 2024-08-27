@@ -38,7 +38,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
 
     private lateinit var quiz : Quiz
 
-    private var score = 0
+    private var score = 5
     private var highestScore = 0
     private var badges = java.util.ArrayList<String>()
 
@@ -210,7 +210,16 @@ class MiniGameQuizActivity : AppCompatActivity() {
             waitingDialog.setOnFinishListener(object : WaitingDialog.OnFinishListener {
                 override fun onFinish() {
                     waitingDialog.dismiss()
-                    score += 10
+                    if(score == 5)
+                        score = 10
+                    else if(score < 150)
+                        score += 10
+                    else if(score == 150)
+                        score += 30
+                    else if(score < 360)
+                        score += 20
+                    else
+                        score = 400
                     binding.quizScoreTv.text = "$score 점"
                     quiz = getQuiz()
                     restoreView()
