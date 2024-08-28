@@ -166,13 +166,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         binding.mapNoticeBtn.setOnClickListener {
             SoundPlayer(this, R.raw.button_click_sound).play()
             // TODO: show notice dialog
-
-            val landmarkUtil = LandmarkUtil(this)
-            var str = landmarkUtil.getDescription(id) + "\n"
-            str += landmarkUtil.getInformation(id) + "\n"
-            str += landmarkUtil.getAmenity(id)
-            Log.d("isoo", str)
-            id++
         }
 
         binding.mapProfileIv.setOnClickListener {
@@ -184,8 +177,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             }
         }
     }
-
-    var id = 1
 
     private fun setUserData() {
         binding.mapNicknameTv.text = user.nickname
