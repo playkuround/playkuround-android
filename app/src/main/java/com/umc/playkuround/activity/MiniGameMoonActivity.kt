@@ -8,7 +8,9 @@ import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.playkuround.R
+import com.umc.playkuround.custom_view.MiniGameTimerFragment
 import com.umc.playkuround.databinding.ActivityMinigameMoonBinding
+import com.umc.playkuround.dialog.CountdownDialog
 import com.umc.playkuround.dialog.GameOverDialog
 import com.umc.playkuround.dialog.PauseDialog
 import com.umc.playkuround.dialog.WaitingDialog
@@ -34,6 +36,9 @@ class MiniGameMoonActivity : AppCompatActivity() {
 
     private lateinit var sound : SoundPlayer
 
+    private lateinit var timerFragment : MiniGameTimerFragment
+    private var isFailed = false
+
     private fun getHighestScore() {
         val userAPI = UserAPI()
         userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
@@ -52,14 +57,27 @@ class MiniGameMoonActivity : AppCompatActivity() {
         binding = ActivityMinigameMoonBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        timerFragment = supportFragmentManager.findFragmentById(R.id.moon_timer_fragment) as MiniGameTimerFragment
+        timerFragment.setTime(15)
+        timerFragment.setOnTimeProgressListener(object : MiniGameTimerFragment.OnTimeProgressListener {
+            override fun timeUp() {
+                isFailed = true
+                showGameOverDialog()
+            }
+            override fun timeProgress(leftTime: Int) {
+                return
+            }
+        })
+
         sound = SoundPlayer(applicationContext, R.raw.moon_clicked)
         getHighestScore()
 
         binding.moonPauseBtn1.setOnClickListener {
+            timerFragment.pause()
             val pauseDialog = PauseDialog(this)
             pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
                 override fun resume() {
-                    // resume
+                    timerFragment.start()
                 }
                 override fun home() {
                     Log.d("isoo", "home: clicked")
@@ -81,6 +99,7 @@ class MiniGameMoonActivity : AppCompatActivity() {
                 binding.moonClickIv.layoutParams.width = 1000
                 binding.moonClickIv.requestLayout()
 
+                timerFragment.pause()
                 showGameOverDialog()
             }
             else if (count <= 50) {
@@ -144,13 +163,22 @@ class MiniGameMoonActivity : AppCompatActivity() {
                 })
             }
         }
+
+        val countdownDialog = CountdownDialog(this)
+        countdownDialog.setOnFinishListener(object : CountdownDialog.OnFinishListener {
+            override fun onFinish() {
+                timerFragment.start()
+            }
+        })
+        countdownDialog.show()
     }
 
     override fun onBackPressed() {
+        timerFragment.pause()
         val pauseDialog = PauseDialog(this)
         pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
             override fun resume() {
-                // resume
+                timerFragment.start()
             }
             override fun home() {
                 Log.d("isoo", "home: clicked")
@@ -161,6 +189,19 @@ class MiniGameMoonActivity : AppCompatActivity() {
     }
 
     private fun showGameOverDialog() {
+        // calculate score
+        var score = 40
+        if(timerFragment.getLeftTime() >= 13) score += 160
+        else if(timerFragment.getLeftTime() >= 11) score += 100
+        else if(timerFragment.getLeftTime() >= 9) score += 80
+        else if(timerFragment.getLeftTime() >= 7) score += 60
+        else if(timerFragment.getLeftTime() >= 5) score += 40
+        else if(timerFragment.getLeftTime() >= 3) score += 30
+        else if(timerFragment.getLeftTime() >= 2) score += 20
+        else if(timerFragment.getLeftTime() >= 1) score += 10
+
+        if(isFailed) score = 0
+
         fun showGameOverDialog(result : Int) {
             val gameOverDialog = GameOverDialog(this@MiniGameMoonActivity)
             gameOverDialog.setOnDismissListener {
@@ -171,7 +212,7 @@ class MiniGameMoonActivity : AppCompatActivity() {
                 this@MiniGameMoonActivity.finish()
             }
 
-            gameOverDialog.setInfo(resources.getString(R.string.ku_moon), 20, highestScore, userTotalScore + 20)
+            gameOverDialog.setInfo(resources.getString(R.string.ku_moon), score, highestScore, userTotalScore + score)
             gameOverDialog.show()
         }
 
@@ -214,7 +255,7 @@ class MiniGameMoonActivity : AppCompatActivity() {
                         showGameOverDialog(Activity.RESULT_CANCELED)
                 }
             }
-        }).sendScore(PlayKuApplication.user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, 20, "MOON"))
+        }).sendScore(PlayKuApplication.user.getAccessToken(), AdventureData(landmarkId, latitude, longitude, score, "MOON"))
     }
 
 }

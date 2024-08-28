@@ -48,8 +48,17 @@
             android:id="@+id/moon_pause_btn1"
             android:backgroundTint="@color/transparent"/>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <fragment
+        android:id="@+id/moon_timer_fragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:name="com.umc.playkuround.custom_view.MiniGameTimerFragment"
+        android:layout_margin="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timer_tab_bar"/>
 
     <TextView
         android:layout_width="wrap_content"

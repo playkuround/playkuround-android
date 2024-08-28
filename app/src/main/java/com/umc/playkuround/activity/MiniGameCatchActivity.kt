@@ -88,13 +88,15 @@ class MiniGameCatchActivity : AppCompatActivity() {
                         openWindow(false)
                         openWindow(false)
                         openWindow(false)
+                        openWindow(false)
                         openWindow(true)
                         openWindow(true)
-                        if(Random.nextDouble() < 0.5)
-                            openWindow(true)
+                        openWindow(true)
                     } else if(leftTime < 60) {
                         openWindow(false)
                         openWindow(false)
+                        openWindow(false)
+                        openWindow(true)
                         openWindow(true)
                         if(Random.nextDouble() < 0.5)
                             openWindow(true)
@@ -190,6 +192,8 @@ class MiniGameCatchActivity : AppCompatActivity() {
     private fun initOpenTime() {
         for(i in isOpenTime.indices) {
             if(i < 20) {
+                isOpenTime[i] = true
+            } else if(i < 40) {
                 if(i % 2 == 0) isOpenTime[i] = true
             } else if(i < 60) {
                 if(i % 3 == 1) isOpenTime[i] = true
