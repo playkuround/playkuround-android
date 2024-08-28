@@ -26,7 +26,6 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
-import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.R
 import com.umc.playkuround.data.Badge
 import com.umc.playkuround.data.LandMark
@@ -51,14 +50,13 @@ import com.umc.playkuround.network.UserAPI
 import com.umc.playkuround.network.UserBadgeResponse
 import com.umc.playkuround.network.UserProfileResponse
 import com.umc.playkuround.util.GpsTracker
-import com.umc.playkuround.util.LandmarkUtil
 import com.umc.playkuround.util.PlayKuApplication.Companion.exploredLandmarks
 import com.umc.playkuround.util.PlayKuApplication.Companion.pref
+import com.umc.playkuround.util.PlayKuApplication.Companion.user
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 import com.umc.playkuround.util.SoundPlayer
 import java.text.NumberFormat
 import java.util.*
-import kotlin.random.Random
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -409,6 +407,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         }
     }
 
+    @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
         val logoutDialog = LogoutDialog(this)
         logoutDialog.setOnSelectListener(object : LogoutDialog.OnSelectListener {

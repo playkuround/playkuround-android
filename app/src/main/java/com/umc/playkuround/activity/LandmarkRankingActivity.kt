@@ -41,12 +41,10 @@ class LandmarkRankingActivity : AppCompatActivity() {
                 val formatter = NumberFormat.getNumberInstance()
                 binding.itemRankScore.text = formatter.format(rank[pos].score)
 
-                val badge = rank[pos].profileBadge?.let {
+                val badge = rank[pos].profileBadge.let {
                     com.umc.playkuround.data.Badge(-1, it, "")
                 }
-                if (badge != null) {
-                    binding.itemRankProfile.setImageResource(badge.getImageDrawable())
-                }
+                binding.itemRankProfile.setImageResource(badge.getImageDrawable())
             }
         }
 

@@ -87,11 +87,11 @@ class MiniGameTimerActivity : AppCompatActivity() {
         binding.timerStopBt.setOnClickListener{
             SoundPlayer(this, R.raw.timer_button_click).play()
             pause()
-            lapTime()
             check()
         }
     }
 
+    @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
         timerTask?.cancel()
         val pauseDialog = PauseDialog(this)
@@ -156,20 +156,6 @@ class MiniGameTimerActivity : AppCompatActivity() {
 
         timerTask?.cancel() // 안전한 호출(?.)로 timerTask가 null이 아니면 cancel() 호출
     }
-
-    //  타이머 기록 저장
-    @SuppressLint("SetTextI18n")
-    private fun lapTime() {
-        val lapTime = time		// 함수 호출 시 시간(time) 저장
-
-        // apply() 스코프 함수로, TextView를 생성과 동시에 초기화
-        val textView = TextView(this).apply {
-            textSize = 20f    // fontSize 20 설정
-            text = "${lapTime / 100}.${lapTime % 100}"	// 출력할 시간 설정
-        }
-
-    }
-
 
     // 결과 나오는 창
     private fun openResultDialog(result : Boolean) {

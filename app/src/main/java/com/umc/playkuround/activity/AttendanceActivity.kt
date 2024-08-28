@@ -93,14 +93,14 @@ class AttendanceActivity : AppCompatActivity() {
 
         val attendanceAPI = AttendanceAPI()
         attendanceAPI.setOnResponseListener(object : AttendanceAPI.OnResponseListener() {
-            override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+            override fun <T> getResponseBody(body: T, isSuccess: Boolean, errorLog: String) {
                 if(isSuccess) {
                     todayTv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
                     todayTv.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#86B6CE"))
                     binding.attendanceBtn.isEnabled = false
                     binding.attendanceBtn.text = "출석완료!"
                     binding.attendanceBtn.setTextColor(ActivityCompat.getColor(this@AttendanceActivity, R.color.text_color))
-                    attendanceDates!!.add(today)
+                    attendanceDates.add(today)
                     loading.dismiss()
 
                     if(body is GetBadgeResponse) {
@@ -113,7 +113,7 @@ class AttendanceActivity : AppCompatActivity() {
                     }
                 } else {
                     loading.dismiss()
-                    Toast.makeText(applicationContext, err, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, errorLog, Toast.LENGTH_SHORT).show()
                 }
             }
         }).attendanceToday(user.getAccessToken(), userLocation)
@@ -121,15 +121,11 @@ class AttendanceActivity : AppCompatActivity() {
 
     private fun initDates() {
         Log.d("test1", "initDates: start ${this.today}")
-        if(attendanceDates == null) {
-            attendanceDates = ArrayList<String>()
-            this.finish()
-        }
-        Log.d("test1", "initDates: " + attendanceDates)
+        Log.d("test1", "initDates: $attendanceDates")
         val today = Calendar.getInstance()
         today.add(Calendar.DATE, -29)
 
-        var row = ArrayList<TableRow>()
+        val row = ArrayList<TableRow>()
         for(i in 0..29) {
             if(i % 7 == 0) {
                 row.add(TableRow(applicationContext))
@@ -176,7 +172,7 @@ class AttendanceActivity : AppCompatActivity() {
 
         val format = SimpleDateFormat("yyyy-MM-dd")
         Log.d("today test", "makeTextView: ${format.format(today.time) == this.today}")
-        if(attendanceDates!!.contains(format.format(today.time))) {
+        if(attendanceDates.contains(format.format(today.time))) {
             tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
             tv.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#86B6CE"))
             tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.white))
@@ -186,7 +182,7 @@ class AttendanceActivity : AppCompatActivity() {
         }
 
         if(format.format(today.time) == this.today) {
-            if(attendanceDates!!.contains(this.today)) {
+            if(attendanceDates.contains(this.today)) {
                 tv.background = ContextCompat.getDrawable(applicationContext, R.drawable.green_rec_filled)
                 tv.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#86B6CE"))
                 tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))

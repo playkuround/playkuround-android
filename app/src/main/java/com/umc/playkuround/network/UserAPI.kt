@@ -143,7 +143,7 @@ class UserAPI {
                         onResponseListener.getResponseBody(resp, true, "")
                     }
                     else -> {
-                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
+                        //val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
                         onResponseListener.getResponseBody(null, false, "서버 오류로 유저 정보를 불러오지 못했습니다.")
                     }
                 }
