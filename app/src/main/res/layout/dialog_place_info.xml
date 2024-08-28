@@ -58,7 +58,7 @@
         app:layout_constraintStart_toStartOf="@id/dialog_place_info_bg"
         app:layout_constraintEnd_toEndOf="@id/dialog_place_info_bg"
         app:layout_constraintTop_toBottomOf="@id/dialog_place_info_tag_rv"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="6dp"/>
 
     <ScrollView
         android:id="@+id/dialog_place_info_scroll"
