@@ -364,7 +364,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         map.setMinZoomPreference(15.5f)
         map.setMaxZoomPreference(18.0f)
 
-        map.mapType = GoogleMap.MAP_TYPE_TERRAIN
+        map.mapType = GoogleMap.MAP_TYPE_NORMAL
 
         val kuBound = LatLngBounds(
             LatLng(37.537420146943006, 127.06821864009382),
