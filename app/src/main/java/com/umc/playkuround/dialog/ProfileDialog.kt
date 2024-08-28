@@ -28,6 +28,10 @@ import com.umc.playkuround.util.SoundPlayer
 
 class ProfileDialog(context : Context) : Dialog(context) {
 
+    interface OnSelectListener {
+        fun onSelect(pos: Int)
+    }
+
     inner class BadgeAdapter() : RecyclerView.Adapter<BadgeAdapter.BadgeViewHolder>() {
 
         override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) : BadgeViewHolder {
@@ -71,6 +75,7 @@ class ProfileDialog(context : Context) : Dialog(context) {
 
                 imageView.setOnClickListener {
                     selectedItemIdx = pos
+                    onSelectListener.onSelect(pos)
                     notifyDataSetChanged()
                 }
             }
@@ -81,6 +86,11 @@ class ProfileDialog(context : Context) : Dialog(context) {
     private lateinit var binding : DialogProfileBinding
     private var badges = ArrayList<Badge>()
     private var selectedItemIdx = 0
+    private var onSelectListener : OnSelectListener = object : OnSelectListener {
+        override fun onSelect(pos: Int) {
+            binding.dialogProfileProfileIv.setImageResource(badges[pos].getImageDrawable())
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

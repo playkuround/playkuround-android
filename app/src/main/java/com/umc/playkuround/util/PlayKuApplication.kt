@@ -27,6 +27,7 @@ class PlayKuApplication : Application() {
         Log.d("userInfo", "onCreate: $user")
 
         exploredLandmarks = pref.getStringSet("exploredLandmarks", HashSet())!!
+        Log.d("isoo", exploredLandmarks.toString())
         userTotalScore = pref.getInt("score", 0)
 
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {

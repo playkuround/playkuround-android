@@ -57,6 +57,7 @@ import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
 import com.umc.playkuround.util.SoundPlayer
 import java.text.NumberFormat
 import java.util.*
+import kotlin.collections.HashSet
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -177,7 +178,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     }
 
     private fun setUserData() {
-        binding.mapNicknameTv.text = user.nickname
+        binding.mapNicknameTv.text = user.nickname + "님"
 
         if(user.profileBadgeName == "null") {
             val userAPI = UserAPI()
@@ -247,8 +248,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private fun updatingNowLocation(location: Location) {
 //        val lat = location.latitude
 //        val lon = location.longitude
-        val lat = 37.53974193320623
-        val lon = 127.07326154305827
+        val lat = 37.54254526140909
+        val lon = 127.07837883906629
         if(loadingDialog.isShowing) {
             Log.d("isoo127", "updatingNowLocation: $lat, $lon")
             loadingDialog.dismiss()
@@ -283,12 +284,16 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             intent.putExtra("latitude", nowLocation.latitude)
             intent.putExtra("longitude", nowLocation.longitude)
 
+            Log.d("isoo", "startGameActivity: $exploredLandmarks")
             if(exploredLandmarks.size < 6) {
                 if (exploredLandmarks.contains(landmark.name)) {
                     intent.putExtra("isNewLandmark", false)
                 } else {
                     exploredLandmarks.add(landmark.name)
                     pref.setStringSet("exploredLandmarks", exploredLandmarks)
+                    Log.d("isoo", "startGameActivity: save landmarks! $exploredLandmarks")
+                    val set = pref.getStringSet("exploredLandmarks", HashSet())
+                    Log.d("isoo", "startGameActivity: save check $set")
                     intent.putExtra("isNewLandmark", true)
                 }
             } else {
