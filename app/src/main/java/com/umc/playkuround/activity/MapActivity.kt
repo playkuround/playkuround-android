@@ -90,7 +90,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                 if(exploredLandmarks.size == 6) {
                     val badgeAPI = BadgeAPI()
                     badgeAPI.addDreamOfDuckBadge(user.getAccessToken())
-                    val badgeInfoDialog = BadgeInfoDialog(this@MapActivity, 34)
+                    val badgeInfoDialog = BadgeInfoDialog(this@MapActivity, 41)
                     badgeInfoDialog.setStatus(false, true)
                     badgeInfoDialog.show()
                 }
@@ -248,8 +248,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private fun updatingNowLocation(location: Location) {
 //        val lat = location.latitude
 //        val lon = location.longitude
-        val lat = 37.54254526140909
-        val lon = 127.07837883906629
+        val lat = 37.53965233067356
+        val lon = 127.07245526550366
         if(loadingDialog.isShowing) {
             Log.d("isoo127", "updatingNowLocation: $lat, $lon")
             loadingDialog.dismiss()

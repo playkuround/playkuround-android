@@ -12,7 +12,7 @@ class PreferenceUtil(context : Context) {
     }
 
     fun setString(key: String, str: String) {
-        prefs.edit().putString(key, str).apply()
+        prefs.edit().putString(key, str).commit()
     }
 
     fun getStringSet(key: String, defValue: Set<String>): MutableSet<String>? {
@@ -20,7 +20,7 @@ class PreferenceUtil(context : Context) {
     }
 
     fun setStringSet(key: String, strSet: Set<String>) {
-        prefs.edit().putStringSet(key, strSet).apply()
+        prefs.edit().putStringSet(key, strSet).commit()
     }
 
     fun getInt(key: String, defValue: Int): Int {
@@ -28,7 +28,7 @@ class PreferenceUtil(context : Context) {
     }
 
     fun setInt(key: String, num: Int) {
-        prefs.edit().putInt(key, num).apply()
+        prefs.edit().putInt(key, num).commit()
     }
 
     fun clearData() {

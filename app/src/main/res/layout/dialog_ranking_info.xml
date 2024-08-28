@@ -35,7 +35,8 @@
         android:text="게임 별 점수의 합계 집계 + 출석점수\n출석 점수 : 10점\n게임 점수 : 랭킹 초기화 전까지 개인 최고 점수"
         app:layout_constraintStart_toStartOf="@id/ranking_info_dialog_bg"
         app:layout_constraintEnd_toEndOf="@id/ranking_info_dialog_bg"
+        app:layout_constraintTop_toBottomOf="@id/dialog_ranking_info_title"
         app:layout_constraintBottom_toBottomOf="@id/ranking_info_dialog_bg"
-        android:layout_marginBottom="55dp"/>
+        app:layout_constraintVertical_bias="0.3"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
