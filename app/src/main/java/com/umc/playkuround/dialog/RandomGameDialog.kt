@@ -49,7 +49,7 @@ class RandomGameDialog(context : Context, private val landmarkId : Int) : Dialog
             onStartListener?.onStart(8)
         }
 
-        val landmark = LandMark(landmarkId, 0.0, 0.0, "", 0.0, "")
+        val landmark = LandMark(landmarkId, 0.0, 0.0, "")
         binding.dialogRandomLandmarkImg.setImageResource(landmark.getImageDrawable())
         binding.dialogRandomLandmarkNameTv.text = landmark.name
 

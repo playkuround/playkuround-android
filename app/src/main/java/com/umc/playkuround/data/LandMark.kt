@@ -8,16 +8,8 @@ data class LandMark(
     @SerializedName(value = "landmarkId") val id : Int,
     @SerializedName(value = "latitude") var latitude : Double,
     @SerializedName(value = "longitude") var longitude : Double,
-    var name : String,
-    val distance : Double,
-    val gameType : String
+    var name : String
 ) : Serializable {
-
-    companion object {
-        const val QUIZ = "QUIZ"
-        const val TIMER = "TIMER"
-        const val MOON = "MOON"
-    }
 
     init {
         when(this.id) {
@@ -29,7 +21,7 @@ data class LandMark(
             2 -> {
                 this.name = "입학정보관"
                 this.latitude = 37.540296
-                this.longitude = 127.073410
+                this.longitude = 127.07341
                 
             }
             3 -> {
@@ -65,8 +57,8 @@ data class LandMark(
 
             8 -> {
                 this.name = "예디대"
-                this.latitude = 37.54294056755734
-                this.longitude = 127.07312322985227
+                this.latitude = 37.542908
+                this.longitude = 127.072815
             }
 
             9 -> {
@@ -234,8 +226,8 @@ data class LandMark(
 
             35 -> {
                 this.name = "상허박사 동상"
-                this.latitude = 37.541365
-                this.longitude = 127.073457
+                this.latitude = 37.5413665
+                this.longitude = 127.0734648
             }
 
 /*            36 -> {

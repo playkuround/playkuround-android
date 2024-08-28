@@ -25,7 +25,7 @@ class PlaceInfoDialog(context : Context, private val landmarkId : Int) : Dialog(
         window!!.setDimAmount(0.6f)
         setCancelable(false)
 
-        val landmark = LandMark(landmarkId, 0.0, 0.0, "", 0.0, "")
+        val landmark = LandMark(landmarkId, 0.0, 0.0, "")
         binding.dialogPlaceInfoImg.setImageResource(landmark.getImageDrawable())
         binding.dialogPlaceInfoTitleTv.text = landmark.name
         binding.dialogPlaceInfoContextTv.text = landmark.getDescription()

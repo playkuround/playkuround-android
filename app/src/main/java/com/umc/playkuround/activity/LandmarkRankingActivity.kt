@@ -117,7 +117,7 @@ class LandmarkRankingActivity : AppCompatActivity() {
         val formatter = NumberFormat.getNumberInstance()
         binding.landmarkRankingTopScoreTv.text = "+ " + formatter.format(rankInfo[0].score)
 
-        val landmark = LandMark(landmarkId, 0.0,0.0,"",0.0,"")
+        val landmark = LandMark(landmarkId, 0.0,0.0,"")
         binding.landmarkRankingImgIv.setImageResource(landmark.getImageDrawable())
 
         val spannableString = SpannableString(landmark.name + "을")

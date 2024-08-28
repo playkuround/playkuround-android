@@ -51,6 +51,7 @@ import com.umc.playkuround.network.UserAPI
 import com.umc.playkuround.network.UserBadgeResponse
 import com.umc.playkuround.network.UserProfileResponse
 import com.umc.playkuround.util.GpsTracker
+import com.umc.playkuround.util.LandmarkUtil
 import com.umc.playkuround.util.PlayKuApplication.Companion.exploredLandmarks
 import com.umc.playkuround.util.PlayKuApplication.Companion.pref
 import com.umc.playkuround.util.PlayKuApplication.Companion.userTotalScore
@@ -165,6 +166,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         binding.mapNoticeBtn.setOnClickListener {
             SoundPlayer(this, R.raw.button_click_sound).play()
             // TODO: show notice dialog
+
+            val landmarkUtil = LandmarkUtil(this)
+            var str = landmarkUtil.getDescription(id) + "\n"
+            str += landmarkUtil.getInformation(id) + "\n"
+            str += landmarkUtil.getAmenity(id)
+            Log.d("isoo", str)
+            id++
         }
 
         binding.mapProfileIv.setOnClickListener {
@@ -176,6 +184,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             }
         }
     }
+
+    var id = 1
 
     private fun setUserData() {
         binding.mapNicknameTv.text = user.nickname
@@ -279,7 +289,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
     private fun startRandomGame(landmarkId : Int) {
         fun startGameActivity(intent : Intent) {
-            val landmark = LandMark(landmarkId, 0.0,0.0,"",0.0,"")
+            val landmark = LandMark(landmarkId, 0.0,0.0,"")
             intent.putExtra("landmarkId", landmarkId)
             intent.putExtra("latitude", nowLocation.latitude)
             intent.putExtra("longitude", nowLocation.longitude)
@@ -349,7 +359,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         if(idx == -1) {
             binding.mapExploreBtn.setOnClickListener {
                 val intent = Intent(applicationContext, MiniGameMoonActivity::class.java)
-                intent.putExtra("landmark", LandMark(1, 123.2131, 321.1234, "", 0.0, ""))
+                intent.putExtra("landmark", LandMark(1, 123.2131, 321.1234, ""))
                 startActivity(intent)
             }
         }
@@ -386,7 +396,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private fun setMarker() {
         for(i in 1..44) {
             if(i != 36)
-                visitedList.add(LandMark(i, 0.0, 0.0, "", 0.0, ""))
+                visitedList.add(LandMark(i, 0.0, 0.0, ""))
         }
 
         visitedList.forEach { l ->
@@ -471,7 +481,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
     private fun placeInfoDialog(id : Int) {
         if(id == -1) return
-        val landmark = LandMark(id, 0.0, 0.0, "", 0.0, "")
+        val landmark = LandMark(id, 0.0, 0.0, "")
 
         val loadingDialog = LoadingDialog(this)
         loadingDialog.show()
