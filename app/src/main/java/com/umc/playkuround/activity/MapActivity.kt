@@ -34,6 +34,7 @@ import com.umc.playkuround.dialog.BadgeInfoDialog
 import com.umc.playkuround.dialog.LoadingDialog
 import com.umc.playkuround.dialog.LogoutDialog
 import com.umc.playkuround.dialog.MapPlaceDialog
+import com.umc.playkuround.dialog.NoticeDialog
 import com.umc.playkuround.dialog.PlaceInfoDialog
 import com.umc.playkuround.dialog.ProfileDialog
 import com.umc.playkuround.dialog.RandomGameDialog
@@ -164,7 +165,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
         binding.mapNoticeBtn.setOnClickListener {
             SoundPlayer(this, R.raw.button_click_sound).play()
-            // TODO: show notice dialog
+            NoticeDialog(this).show()
         }
 
         binding.mapProfileIv.setOnClickListener {

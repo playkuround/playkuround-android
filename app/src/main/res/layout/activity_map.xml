@@ -122,7 +122,8 @@
             app:layout_constraintStart_toEndOf="@id/map_profile_iv"
             app:layout_constraintTop_toTopOf="@id/map_ranking_info_bg"
             app:layout_constraintBottom_toBottomOf="@id/map_ranking_info_bg"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp"
+            android:textAlignment="textStart"/>
 
         <View
             android:id="@+id/map_badge_info_bg"

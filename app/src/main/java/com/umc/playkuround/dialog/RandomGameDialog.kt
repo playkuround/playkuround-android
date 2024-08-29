@@ -46,7 +46,7 @@ class RandomGameDialog(context : Context, private val landmarkId : Int) : Dialog
             SoundPlayer(context, R.raw.button_click_sound).play()
             dismiss()
             //onStartListener?.onStart(lastIndex + 1)
-            onStartListener?.onStart(2)
+            onStartListener?.onStart(8)
         }
 
         val landmark = LandMark(landmarkId, 0.0, 0.0, "")
