@@ -30,7 +30,7 @@ class RandomGameDialog(context : Context, private val landmarkId : Int) : Dialog
     private val handler = Handler(Looper.getMainLooper())
     private var currentIndex = 0
     private var delayMillis : Long = 50
-    private var speedUpInterval: Long = 250
+    private var speedUpInterval: Long = 0
     private var isSpeedingUp = true
     private var lastIndex = -1
 
@@ -40,13 +40,13 @@ class RandomGameDialog(context : Context, private val landmarkId : Int) : Dialog
         setContentView(binding.root)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window!!.setDimAmount(0.6f)
-        setCancelable(false)
+        //setCancelable(false)
 
         binding.dialogRandomStartBtn.setOnClickListener {
             SoundPlayer(context, R.raw.button_click_sound).play()
             dismiss()
-            //onStartListener?.onStart(lastIndex + 1)
-            onStartListener?.onStart(8)
+            onStartListener?.onStart(lastIndex + 1)
+            //onStartListener?.onStart(8)
         }
 
         val landmark = LandMark(landmarkId, 0.0, 0.0, "")
@@ -60,7 +60,7 @@ class RandomGameDialog(context : Context, private val landmarkId : Int) : Dialog
     private fun blinkText() {
         val blinkAnimator = ObjectAnimator.ofFloat(binding.dialogRandomGameNameTv, "alpha", 0f, 1f)
         blinkAnimator.repeatCount = 1
-        blinkAnimator.duration = 1000
+        blinkAnimator.duration = 0
 
         blinkAnimator.addUpdateListener {
             val alpha = it.animatedValue as Float

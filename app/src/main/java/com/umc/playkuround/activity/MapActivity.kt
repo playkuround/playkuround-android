@@ -59,6 +59,7 @@ import com.umc.playkuround.util.SoundPlayer
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.HashSet
+import kotlin.random.Random
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -249,8 +250,12 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private fun updatingNowLocation(location: Location) {
 //        val lat = location.latitude
 //        val lon = location.longitude
-        val lat = 37.53965233067356
-        val lon = 127.07245526550366
+
+        val idx = Random.nextInt(1, 44)
+        val landmark = LandMark(idx,0.0,0.0,"")
+        val lat = landmark.latitude
+        val lon = landmark.longitude
+
         if(loadingDialog.isShowing) {
             Log.d("isoo127", "updatingNowLocation: $lat, $lon")
             loadingDialog.dismiss()
@@ -279,11 +284,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     }
 
     private fun startRandomGame(landmarkId : Int) {
-        fun startGameActivity(intent : Intent) {
+        fun startGameActivity(intent : Intent, lat : Double, long : Double) {
             val landmark = LandMark(landmarkId, 0.0,0.0,"")
             intent.putExtra("landmarkId", landmarkId)
-            intent.putExtra("latitude", nowLocation.latitude)
-            intent.putExtra("longitude", nowLocation.longitude)
+            intent.putExtra("latitude", landmark.latitude)
+            intent.putExtra("longitude", landmark.longitude)
 
             Log.d("isoo", "startGameActivity: $exploredLandmarks")
             if(exploredLandmarks.size < 6) {
@@ -304,6 +309,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             gameLauncher.launch(intent)
         }
 
+        val latitude = nowLocation.latitude
+        val longitude = nowLocation.longitude
         val randomGameDialog = RandomGameDialog(this, landmarkId)
         randomGameDialog.setOnStartListener(object : RandomGameDialog.OnStartListener {
             override fun onStart(selected: Int) {
@@ -318,7 +325,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                     8 -> Intent(applicationContext, MiniGameTimerActivity::class.java)
                     else -> Intent(applicationContext, MiniGameTypingActivity::class.java)
                 }
-                startGameActivity(intent)
+                startGameActivity(intent, latitude, longitude)
             }
         })
         randomGameDialog.show()
