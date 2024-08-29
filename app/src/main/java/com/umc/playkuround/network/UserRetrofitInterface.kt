@@ -18,6 +18,9 @@ interface UserRetrofitInterface {
     @POST("/api/users/logout")
     fun logout(@Header("Authorization") token : String) : Call<CommonResponse>
 
+    @DELETE("/api/users")
+    fun deleteAccount(@Header("Authorization") token : String) : Call<CommonResponse>
+
     @GET("/api/users")
     fun getUserInfo(@Header("Authorization") token : String) : Call<UserProfileResponse>
 

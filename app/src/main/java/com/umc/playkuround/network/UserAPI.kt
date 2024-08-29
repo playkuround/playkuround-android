@@ -124,6 +124,32 @@ class UserAPI {
         })
     }
 
+    fun deleteAccount(token : String) {
+        val userAPI = getRetrofit().create(UserRetrofitInterface::class.java)
+
+        userAPI.deleteAccount(token).enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(call: Call<CommonResponse>, response: Response<CommonResponse>) {
+                when(response.code()) {
+                    200 -> { // success
+                        user = User.getDefaultUser()
+                        pref.clearData()
+                        onResponseListener.getResponseBody(null, true, "")
+                    }
+                    else -> { // failed
+                        val err = JSONObject(response.errorBody()?.string()!!).getJSONObject("errorResponse").get("message").toString()
+                        onResponseListener.getResponseBody(null, false, err)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("api err", "onResponse: fail delete account $call")
+                t.printStackTrace()
+                onResponseListener.getResponseBody(null, false, "서버 연결에 실패하였습니다. 네트워크를 확인해주세요.")
+            }
+        })
+    }
+
     fun getUserInfo(token : String) {
         val userAPI = getRetrofit().create(UserRetrofitInterface::class.java)
 

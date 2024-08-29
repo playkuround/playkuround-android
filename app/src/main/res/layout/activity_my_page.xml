@@ -198,13 +198,24 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/my_page_story_btn"/>
 
+                <TextView
+                    android:id="@+id/my_page_exit_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textSize="15dp"
+                    android:textAlignment="textStart"
+                    android:text="@string/mypage_exit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_logout_btn"/>
+
                 <View
                     android:id="@+id/my_page_dividing_line2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/my_page_logout_btn"
+                    app:layout_constraintTop_toBottomOf="@id/my_page_exit_btn"
                     android:background="#CCE8F6"
                     android:layout_marginTop="10dp"/>
 

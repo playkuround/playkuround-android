@@ -47,6 +47,10 @@ class MyPageActivity : AppCompatActivity() {
             logout()
         }
 
+        binding.myPageExitBtn.setOnClickListener {
+            exit()
+        }
+
         binding.myPageInstagramBtn.setOnClickListener {
             val instagramUsername = "playkuround_"
             val uri = Uri.parse("http://instagram.com/_u/$instagramUsername")
@@ -118,6 +122,30 @@ class MyPageActivity : AppCompatActivity() {
             }
         })
         logoutDialog.show()
+    }
+
+    private fun exit() {
+        val logoutDialog = LogoutDialog(this)
+        logoutDialog.setOnSelectListener(object : LogoutDialog.OnSelectListener {
+            override fun yes() {
+                val userAPI = UserAPI()
+                userAPI.setOnResponseListener(object : UserAPI.OnResponseListener() {
+                    override fun <T> getResponseBody(body: T, isSuccess: Boolean, err: String) {
+                        if(isSuccess) {
+                            val intent = Intent(applicationContext, LoginActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(applicationContext, "탈퇴에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }).deleteAccount(user.getAccessToken())
+            }
+        })
+        logoutDialog.show()
+        logoutDialog.setContext("정말 탈퇴하시겠습니까?")
     }
 
     private fun backdoor() {

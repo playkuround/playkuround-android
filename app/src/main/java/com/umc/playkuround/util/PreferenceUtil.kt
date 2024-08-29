@@ -34,7 +34,7 @@ class PreferenceUtil(context : Context) {
     fun clearData() {
         val editor = prefs.edit()
         editor.clear()
-        editor.apply()
+        editor.commit()
     }
 
 }

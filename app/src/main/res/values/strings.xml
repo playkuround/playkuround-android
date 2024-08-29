@@ -50,6 +50,7 @@
     <string name="mypage_see_advertisement">플쿠팀 응원하기</string>
     <string name="mypage_instar">플레이쿠라운드 인스타그램</string>
     <string name="mypage_logout">로그아웃</string>
+    <string name="mypage_exit">탈퇴하기</string>
     <string name="mypage_app_version">앱 버전</string>
     <string name="mypage_privacy">개인정보 처리 방침</string>
     <string name="mypage_terms_of_service">이용약관</string>
