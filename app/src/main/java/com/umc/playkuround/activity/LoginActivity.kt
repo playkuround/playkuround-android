@@ -94,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
                                                         return
                                                     } else if(it.name == "system_check") {
                                                         Toast.makeText(applicationContext, "서버 점검 중입니다. 나중에 접속해주세요.", Toast.LENGTH_SHORT).show()
-                                                        //return
+                                                        return
                                                     }
                                                 }
                                                 val intent = Intent(applicationContext, MapActivity::class.java)
