@@ -105,6 +105,8 @@ class PlaceInfoDialog(context : Context, private val landmarkId : Int) : Dialog(
         }
 
         binding.dialogPlaceInfoContext2Tv.text = spannableStringBuilder
+        binding.dialogPlaceInfoContext2Tv.isLongClickable = true;
+        binding.dialogPlaceInfoContext2Tv.setTextIsSelectable(true);
     }
 
     private fun setAmenityTags() {
