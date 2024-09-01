@@ -179,8 +179,10 @@ class MiniGameQuizActivity : AppCompatActivity() {
                     binding.quizOption4Tv.setTextColor(Color.BLACK)
                 }
             }
+            SoundPlayer(applicationContext, R.raw.quiz_wrong).play()
             showGameOverDialog()
         } else {
+            SoundPlayer(applicationContext, R.raw.quiz_correct).play()
             when(quiz.answer) {
                 0 -> {
                     binding.quizOption1Cl.setBackgroundResource(R.drawable.quiz_option_correct)
@@ -267,85 +269,7 @@ class MiniGameQuizActivity : AppCompatActivity() {
 
     }
 
-    private fun startTimer(sec : Int) {
-        binding.quizTimerTv.visibility = View.VISIBLE
-        binding.quizTryAgainTv.visibility = View.VISIBLE
-
-        class TimerHandler : Handler(Looper.getMainLooper()) {
-            override fun handleMessage(msg: Message) {
-                if(msg.arg1 < 0) {
-                    postDelayed({
-                        binding.quizTimerTv.visibility = View.INVISIBLE
-                        binding.quizTryAgainTv.visibility = View.INVISIBLE
-
-                        binding.quizOption1Cl.isClickable = true
-                        binding.quizOption2Cl.isClickable = true
-                        binding.quizOption3Cl.isClickable = true
-                        binding.quizOption4Cl.isClickable = true
-
-                        binding.quizIndex1Iv.backgroundTintList = null
-                        binding.quizIndex1Iv.setTextColor(Color.WHITE)
-                        binding.quizIndex2Iv.backgroundTintList = null
-                        binding.quizIndex2Iv.setTextColor(Color.WHITE)
-                        binding.quizIndex3Iv.backgroundTintList = null
-                        binding.quizIndex3Iv.setTextColor(Color.WHITE)
-                        binding.quizIndex4Iv.backgroundTintList = null
-                        binding.quizIndex4Iv.setTextColor(Color.WHITE)
-
-                        binding.quizIndex1Iv.alpha = 1f
-                        binding.quizIndex2Iv.alpha = 1f
-                        binding.quizIndex3Iv.alpha = 1f
-                        binding.quizIndex4Iv.alpha = 1f
-
-                        binding.quizOption1Tv.alpha = 1f
-                        binding.quizOption2Tv.alpha = 1f
-                        binding.quizOption3Tv.alpha = 1f
-                        binding.quizOption4Tv.alpha = 1f
-
-                        binding.quizOption1Cl.background = ContextCompat.getDrawable(applicationContext, R.drawable.quiz_option)
-                        binding.quizOption2Cl.background = ContextCompat.getDrawable(applicationContext, R.drawable.quiz_option)
-                        binding.quizOption3Cl.background = ContextCompat.getDrawable(applicationContext, R.drawable.quiz_option)
-                        binding.quizOption4Cl.background = ContextCompat.getDrawable(applicationContext, R.drawable.quiz_option)
-                    }, 500)
-                    return
-                }
-
-                val s : Int = msg.arg1 / 1000
-                val ms : Int = (msg.arg1 % 1000) / 10
-
-                val result : String = String.format("%02d.%02d", s, ms)
-                binding.quizTimerTv.text = result
-            }
-        }
-
-        val timerHandler = TimerHandler()
-
-        class TimerThread : Runnable {
-
-            override fun run() {
-                var time = sec * 1000
-                while(time >= 0) {
-                    val msg = Message()
-                    msg.arg1 = time
-                    timerHandler.sendMessage(msg)
-
-                    Thread.sleep(10)
-                    time -= 10
-                }
-
-                val msg = Message()
-                msg.arg1 = -1
-                timerHandler.sendMessage(msg)
-            }
-        }
-
-        val timerThread = Thread(TimerThread())
-        timerThread.start()
-    }
-
     private fun showGameOverDialog() {
-        SoundPlayer(applicationContext, R.raw.quiz_correct).play()
-
         fun showGameOverDialog(result : Int) {
             val gameOverDialog = GameOverDialog(this@MiniGameQuizActivity)
             gameOverDialog.setOnDismissListener {

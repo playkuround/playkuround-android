@@ -114,6 +114,7 @@ class MyPageActivity : AppCompatActivity() {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                             startActivity(intent)
                             finish()
+                            Toast.makeText(applicationContext, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(applicationContext, "로그아웃에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                         }
@@ -137,6 +138,7 @@ class MyPageActivity : AppCompatActivity() {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                             startActivity(intent)
                             finish()
+                            Toast.makeText(applicationContext, "계정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(applicationContext, "탈퇴에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                         }
@@ -145,7 +147,7 @@ class MyPageActivity : AppCompatActivity() {
             }
         })
         logoutDialog.show()
-        logoutDialog.setContext("정말 탈퇴하시겠습니까?")
+        logoutDialog.setContext("정말 탈퇴하시겠습니까?\n모든 데이터가 삭제됩니다.")
     }
 
     private fun backdoor() {

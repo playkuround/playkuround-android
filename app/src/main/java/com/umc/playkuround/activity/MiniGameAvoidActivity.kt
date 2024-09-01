@@ -244,18 +244,25 @@ class MiniGameAvoidActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
+        timerFragment.pause()
         sensorManager.unregisterListener(accelerometerEventListener)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        accelerometerSensor?.let {
-            sensorManager.registerListener(
-                accelerometerEventListener,
-                it,
-                SensorManager.SENSOR_DELAY_GAME
-            )
-        }
+        val pauseDialog = PauseDialog(this)
+        pauseDialog.setOnSelectListener(object : PauseDialog.OnSelectListener {
+            override fun resume() {
+                accelerometerSensor?.let {
+                    sensorManager.registerListener(
+                        accelerometerEventListener,
+                        it,
+                        SensorManager.SENSOR_DELAY_GAME
+                    )
+                }
+                timerFragment.start()
+            }
+            override fun home() {
+                finish()
+            }
+        })
+        pauseDialog.show()
     }
 
 }

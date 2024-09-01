@@ -14,6 +14,7 @@
       <item>예술디자인대학</item>
       <item>사범대학</item>
       <item>상허교양대학</item>
+      <item>국제대학</item>
   </string-array>
 
     <string-array name="major">
@@ -121,6 +122,11 @@
 
     <string-array name="spinner_sanghuh">
         <item>국제학부</item>
+    </string-array>
+
+    <string-array name="spinner_international">
+        <item>국제통상학과</item>
+        <item>문화미디어학과</item>
     </string-array>
 
     <string-array name="empty">

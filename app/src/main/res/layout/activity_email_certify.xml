@@ -93,7 +93,7 @@
             android:id="@+id/email_request_code_btn"
             android:background="@drawable/button_blue"
             android:text="@string/request_code"
-            android:fontFamily="@font/pretendard_semi_bold"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
             android:textSize="15dp"
             android:textColor="@color/button_blue"
             android:enabled="false"/>
@@ -183,7 +183,7 @@
             android:id="@+id/email_certify_btn"
             android:background="@drawable/button_blue"
             android:text="@string/certify"
-            android:fontFamily="@font/pretendard_semi_bold"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
             android:textSize="15dp"
             android:textColor="@color/button_blue"
             android:enabled="false"

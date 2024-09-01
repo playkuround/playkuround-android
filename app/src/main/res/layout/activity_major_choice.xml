@@ -108,7 +108,7 @@
             app:layout_constraintDimensionRatio="343:50"
             android:background="@drawable/button_blue"
             android:text="다음"
-            android:fontFamily="@font/pretendard_semi_bold"
+            android:fontFamily="@font/neo_dunggeunmo_regular"
             android:textSize="15dp"
             android:textColor="@color/button_blue"
             android:enabled="false"

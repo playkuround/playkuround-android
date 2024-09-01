@@ -127,11 +127,11 @@ class NoticeDialog(context : Context) : Dialog(context) {
                                 noticeList.add(it)
                         }
                     }
-                    noticeList.add(NoticeInfo(3, "건국대 축제", "https://picsum.photos/200", "건국대 축제에 오신걸 환영해요!", "https://github.com/Renzzle/Renzzle_BE"))
-                    noticeList.add(NoticeInfo(6, "취업 설명회", null, "취업 설명회가 다음주 수요일에 열립니다.", null))
-                    noticeList.add(NoticeInfo(7, "플쿠 업데이트", "https://picsum.photos/200/300", null, "https://github.com/Renzzle/Renzzle_BE"))
-                    noticeList.add(NoticeInfo(5, "수강신청", null, "수강신청 기간은 다음주 월요일부터 수요일까지입니다. 잊지 말고 꼭 신청해주세요.", "https://www.google.com/"))
-                    noticeList.sortByDescending { it.id }
+                    //noticeList.add(NoticeInfo(3, "건국대 축제", "https://picsum.photos/200", "건국대 축제에 오신걸 환영해요!", "https://github.com/Renzzle/Renzzle_BE"))
+                    //noticeList.add(NoticeInfo(6, "취업 설명회", null, "취업 설명회가 다음주 수요일에 열립니다.", null))
+                    //noticeList.add(NoticeInfo(7, "플쿠 업데이트", "https://picsum.photos/200/300", null, "https://github.com/Renzzle/Renzzle_BE"))
+                    //noticeList.add(NoticeInfo(5, "수강신청", null, "수강신청 기간은 다음주 월요일부터 수요일까지입니다. 잊지 말고 꼭 신청해주세요.", "https://www.google.com/"))
+                    //noticeList.sortByDescending { it.id }
                     initView()
                 } else {
                     Toast.makeText(context, errorLog, Toast.LENGTH_SHORT).show()

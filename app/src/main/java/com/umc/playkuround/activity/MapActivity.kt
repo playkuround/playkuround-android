@@ -248,13 +248,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     }
 
     private fun updatingNowLocation(location: Location) {
-//        val lat = location.latitude
-//        val lon = location.longitude
+        val lat = location.latitude
+        val lon = location.longitude
 
-        val idx = Random.nextInt(1, 44)
-        val landmark = LandMark(idx,0.0,0.0,"")
-        val lat = landmark.latitude
-        val lon = landmark.longitude
+//        val idx = Random.nextInt(1, 44)
+//        val landmark = LandMark(idx,0.0,0.0,"")
+//        val lat = landmark.latitude
+//        val lon = landmark.longitude
 
         if(loadingDialog.isShowing) {
             Log.d("isoo127", "updatingNowLocation: $lat, $lon")
@@ -287,8 +287,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         fun startGameActivity(intent : Intent, lat : Double, long : Double) {
             val landmark = LandMark(landmarkId, 0.0,0.0,"")
             intent.putExtra("landmarkId", landmarkId)
-            intent.putExtra("latitude", landmark.latitude)
-            intent.putExtra("longitude", landmark.longitude)
+            intent.putExtra("latitude", lat)
+            intent.putExtra("longitude", long)
 
             Log.d("isoo", "startGameActivity: $exploredLandmarks")
             if(exploredLandmarks.size < 6) {

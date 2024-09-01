@@ -179,11 +179,17 @@ class MajorChoiceActivity : AppCompatActivity() {
                     }
 
                     14 -> {
+                        myAdapter.clear()
+                        myAdapter.addAll(resources.getStringArray(R.array.spinner_international).toMutableList())
+                        myAdapter.add("소속 학과를 선택해주세요.")
+                        binding.majorDbSpinner.adapter = myAdapter
+                        binding.majorDbSpinner.setSelection(myAdapter.count)
+                    }
+
+                    15 -> {
                         binding.majorDbSpinner.adapter = ArrayAdapter.createFromResource(this@MajorChoiceActivity,R.array.empty,R.layout.spinner_text)
                         binding.agreeNextBtn.isEnabled = false
                     }
-
-
                 }
 
             }
