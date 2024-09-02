@@ -87,7 +87,7 @@ class PlaceInfoDialog(context : Context, private val landmarkId : Int) : Dialog(
             resultText += it.title
             resultText += "\n"
             resultText += it.content
-            resultText += "\n"
+            resultText += "\n\n"
         }
 
         val spannableStringBuilder = SpannableStringBuilder(resultText)

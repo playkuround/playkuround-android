@@ -90,13 +90,13 @@ class MiniGameBridgeActivity : AppCompatActivity() {
                 "perfect" -> {
                     SoundPlayer(applicationContext, R.raw.bridge_good).play()
                     binding.bridgeResultIv.setImageResource(R.drawable.bridge_timing_perfect)
-                    score += 3
+                    score += 5
                     binding.bridgeScoreTv.text = score.toString()
                 }
                 "good" -> {
                     SoundPlayer(applicationContext, R.raw.bridge_good).play()
                     binding.bridgeResultIv.setImageResource(R.drawable.bridge_timing_good)
-                    score += 1
+                    score += 2
                     binding.bridgeScoreTv.text = score.toString()
                 }
                 "bad" -> {

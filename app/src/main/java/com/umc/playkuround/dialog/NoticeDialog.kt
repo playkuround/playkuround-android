@@ -22,6 +22,7 @@ import com.umc.playkuround.network.NoticeAPI
 import com.umc.playkuround.network.NoticeInfo
 import com.umc.playkuround.util.PlayKuApplication.Companion.pref
 import com.umc.playkuround.util.PlayKuApplication.Companion.user
+import com.umc.playkuround.util.SoundPlayer
 
 
 class NoticeDialog(context : Context) : Dialog(context) {
@@ -221,6 +222,7 @@ class NoticeDialog(context : Context) : Dialog(context) {
             binding.dialogNoticeTitleTvSmall.text = nowNotice.title
             binding.dialogNoticeContentTvSmall.text = nowNotice.description
             binding.dialogNoticeLinkBtnSmall.setOnClickListener {
+                SoundPlayer(context, R.raw.button_click_sound).play()
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(nowNotice.referenceUrl))
                 context.startActivity(intent)
             }
@@ -240,6 +242,7 @@ class NoticeDialog(context : Context) : Dialog(context) {
             // set info
             binding.dialogNoticeTitleTvBig.text = nowNotice.title
             binding.dialogNoticeLinkBtnBig.setOnClickListener {
+                SoundPlayer(context, R.raw.button_click_sound).play()
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(nowNotice.referenceUrl))
                 context.startActivity(intent)
             }
@@ -261,6 +264,7 @@ class NoticeDialog(context : Context) : Dialog(context) {
             binding.dialogNoticeTitleTvBig.text = nowNotice.title
             binding.dialogNoticeContentTvBig.text = nowNotice.description
             binding.dialogNoticeLinkBtnBig.setOnClickListener {
+                SoundPlayer(context, R.raw.button_click_sound).play()
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(nowNotice.referenceUrl))
                 context.startActivity(intent)
             }
