@@ -36,3 +36,11 @@ PlayKUround는 건국대학교 건물들을 돌아다니면서 미니게임을 �
   <img src="https://img.shields.io/badge/Retrofit2-499C42?style=for-the-badge&logo=square&logoColor=white">
   <img src="https://img.shields.io/badge/Glide-4A90E2?style=for-the-badge">
 </p>
+
+## 🎥 Gameplay Previews
+<p>
+  <img src="https://github.com/user-attachments/assets/ad109a8b-ec8a-49e9-9b33-ece82d88631e" width="24.5%">
+  <img src="https://github.com/user-attachments/assets/0fd8b9e0-91e1-41f6-8a32-bcf591aebd7a" width="24.5%">
+  <img src="https://github.com/user-attachments/assets/d4c2fed5-db62-4a88-a4d6-6dbf10e4e7cf" width="24.5%">
+  <img src="https://github.com/user-attachments/assets/8a448258-4df2-43ae-8e43-c371931f98ed" width="24.5%">
+</p>
