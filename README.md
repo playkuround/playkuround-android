@@ -13,7 +13,7 @@ PlayKUround는 건국대학교 건물들을 돌아다니면서 미니게임을 �
   <img src="https://github.com/user-attachments/assets/87e47920-7db8-4aa9-ac06-ecaca1815765" width="19.5%">
 </p>
 
-### Link
+## 🔗 Links
 <a href="https://play.google.com/store/apps/details?id=com.umc.playkuround"> 
   <img src="https://img.shields.io/badge/android-%2334A853.svg?style=for-the-badge&logo=Android&logoColor=white" alt="Android"/>
 </a>
@@ -27,7 +27,7 @@ PlayKUround는 건국대학교 건물들을 돌아다니면서 미니게임을 �
   <img src="https://img.shields.io/badge/Linktree-%2343E55E.svg?style=for-the-badge&logo=Linktree&logoColor=white" alt="Linktree"/>
 </a>
 
-## 💻 Tech Stack
+## 💻 Tech Stacks
 <p>
   <img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white"> 
   <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white">
