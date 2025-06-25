@@ -44,3 +44,9 @@ PlayKUround는 건국대학교 건물들을 돌아다니면서 미니게임을 �
   <img src="https://github.com/user-attachments/assets/d4c2fed5-db62-4a88-a4d6-6dbf10e4e7cf" width="24.5%">
   <img src="https://github.com/user-attachments/assets/8a448258-4df2-43ae-8e43-c371931f98ed" width="24.5%">
 </p>
+<p>
+  <img src="https://github.com/user-attachments/assets/bbd76b9e-2b23-4ffb-a7c7-e11282c56d0b" width="24.5%">
+  <img src="https://github.com/user-attachments/assets/18ecc069-5fb4-42c8-ad69-f4e28849ad6f" width="24.5%">
+  <img src="https://github.com/user-attachments/assets/7f5cf732-aee8-4b78-a4b1-20df2251511f" width="24.5%">
+  <img src="https://github.com/user-attachments/assets/30e0c779-7c52-47ef-9293-094164029117" width="24.5%">
+</p>
